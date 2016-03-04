@@ -115,7 +115,7 @@ z 				:	GREATER EQUAL
 					| DIFFERENT
 					| // empty
 					;
-term 			: 	factor aa
+term 			: 	factor aa;
 aa 				:	ab factor aa
 					| // empty
 					;
@@ -191,4 +191,4 @@ OBJECT				: [A-Z][a-zA-Z0-9]* ;
 CTESTRING			: '"' ~('\r' | '\n' | '"')* '"' ;
 CTEF 				: [0-9]+'.'[0-9]+ ;
 CTEI 				: [0-9]+ ;
-SKIP				: [ \r\t\n]+ -> skip
+SKIP				: [ \r\t\n]+ -> skip;
