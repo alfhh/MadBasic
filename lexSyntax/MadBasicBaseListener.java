@@ -76,13 +76,13 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClass(MadBasicParser.ClassContext ctx) { }
+	@Override public void enterClasse(MadBasicParser.ClasseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClass(MadBasicParser.ClassContext ctx) { }
+	@Override public void exitClasse(MadBasicParser.ClasseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -448,13 +448,13 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturn(MadBasicParser.ReturnContext ctx) { }
+	@Override public void enterRetorno(MadBasicParser.RetornoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturn(MadBasicParser.ReturnContext ctx) { }
+	@Override public void exitRetorno(MadBasicParser.RetornoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

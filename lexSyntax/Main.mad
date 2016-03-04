@@ -1,0 +1,86 @@
+program example;
+
+classe Aaa {
+	vars:
+		int c;
+		float d;
+
+	init(){
+	}
+
+	methods:
+		void save(int x, float y) {
+			c = x;
+			d = y;
+		}
+}
+
+classe Bbb parent Aaa {
+	vars:
+		int cc;
+		float dd;
+
+	init(int x){
+		cc = x;
+	}
+
+	methods:
+		bool isMultiple(int w, int z) {
+			returno (22);
+		}
+}
+
+
+vars:
+	int x, y;
+	float f;
+	string s;
+	bool b;
+	list<int> lint;
+
+methods:
+	int findx(int x, List<int> lx) {
+		vars:
+			int res;
+			int index;
+		res = -1;
+		index = 0;
+		while(index < lx.size()) {
+			if(x == lx[index]){
+				res = index;
+				index = lx.size();
+			}
+			else {
+				//Do-nothing
+			}
+			index = index + 1;
+		}
+		returno res;
+}
+
+void printline(string s) {
+	print(s + "\n");
+}
+
+main:
+vars:
+		int xi, yi;
+	float fl;
+	string str;
+	Bbb bbb;
+
+bbb.init(2);
+bbb.d = 5.4;
+xi = 2;
+yi = 3;
+fl = read;
+lint.init();
+lint.add(1);
+lint.add(3);
+lint.add(4);
+lint.add(5);
+lint[0] = 4;
+b = bbb.isMultiple(xi,yi);
+xi = findx(yi, lint);
+printline(str);
+end

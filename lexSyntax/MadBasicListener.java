@@ -58,15 +58,15 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitC(MadBasicParser.CContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#class}.
+	 * Enter a parse tree produced by {@link MadBasicParser#classe}.
 	 * @param ctx the parse tree
 	 */
-	void enterClass(MadBasicParser.ClassContext ctx);
+	void enterClasse(MadBasicParser.ClasseContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#class}.
+	 * Exit a parse tree produced by {@link MadBasicParser#classe}.
 	 * @param ctx the parse tree
 	 */
-	void exitClass(MadBasicParser.ClassContext ctx);
+	void exitClasse(MadBasicParser.ClasseContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#d}.
 	 * @param ctx the parse tree
@@ -368,15 +368,15 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitBlock(MadBasicParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#return}.
+	 * Enter a parse tree produced by {@link MadBasicParser#retorno}.
 	 * @param ctx the parse tree
 	 */
-	void enterReturn(MadBasicParser.ReturnContext ctx);
+	void enterRetorno(MadBasicParser.RetornoContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#return}.
+	 * Exit a parse tree produced by {@link MadBasicParser#retorno}.
 	 * @param ctx the parse tree
 	 */
-	void exitReturn(MadBasicParser.ReturnContext ctx);
+	void exitRetorno(MadBasicParser.RetornoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#identifier}.
 	 * @param ctx the parse tree

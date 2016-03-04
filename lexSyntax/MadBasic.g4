@@ -4,7 +4,7 @@ grammar MadBasic;
 // Rules
 madbasic		:	PROGRAM ID SEMICOLON program;
 program 		:	a b c MAIN;
-a 				:	class a
+a 				:	classe a
 					| // empty
 					;
 b 				:	vars	
@@ -13,7 +13,7 @@ b 				:	vars
 c 				:	methods
 					| // empty
 					;
-class 			:	CLASS OBJECT d OBRACE b init c CBRACE;
+classe 			:	CLASS OBJECT d OBRACE b init c CBRACE;
 d 				:	PARENT OBJECT
 					| // empty
 					;
@@ -61,7 +61,7 @@ statement 		:	assignment
 					| call
 					;
 procedure 		:	VOID ID OPARENTHESIS k CPARENTHESIS OBRACE block CBRACE;
-function 		:	type ID OPARENTHESIS k CPARENTHESIS OBRACE block return CBRACE;
+function 		:	type ID OPARENTHESIS k CPARENTHESIS OBRACE block retorno CBRACE;
 reference 		:	TILDE;
 assignment 		: 	identifier EQUAL o SEMICOLON;
 o 				: 	expression
@@ -81,9 +81,9 @@ r 				:	args
 					| // empty
 					;
 block 			:	b l;
-return 			: 	RETURN expression SEMICOLON;
+retorno 			: 	RETURN expression SEMICOLON;
 identifier 		: 	ID s;
-s 				:	DOT IT
+s 				:	DOT ID
 					| // empty
 					;
 expression 		: 	comparison t;
@@ -151,12 +151,12 @@ INT				:	'int';
 FLOAT			:	'float';
 STRING 				: 'string' ; 
 BOOL 				: 'bool' ; 
-CLASS 				: 'class' ; 
+CLASS 				: 'classe' ; 
 PARENT 				: 'parent' ;
 INIT 				: 'init' ; 
 METHODS				: 'methods' ; 
 VOID 				: 'void' ; 
-RETURN 				: 'return' ;
+RETURN 				: 'returno' ;
 OBRACE			:	'{';
 CBRACE			:	'}';
 OBRACKET		: '[';
@@ -176,6 +176,7 @@ DIVISION		:	'/';
 OPARENTHESIS	:	'(';
 CPARENTHESIS	:	')';
 IF				:	'if';
+LIST 			: 	'list';
 ELSE			:	'else';
 WHILE				: 'while' ;
 READ				: 'read' ;
