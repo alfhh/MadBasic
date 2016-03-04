@@ -2,88 +2,174 @@
 grammar MadBasic;
 
 // Rules
-programa		:	PROGRAM ID SEMICOLON a bloque;
-a 				:	vars
-					| //empty 
+madbasic		:	PROGRAM ID SEMICOLON program;
+program 		:	a b c MAIN;
+a 				:	class a
+					| // empty
 					;
-vars			:	VAR b;
-b 				:	ID c COLON tipo SEMICOLON d;
-c 				:	COMMA ID c
-					| //empty 
+b 				:	vars	
+					| // empty
 					;
-d 				:	b
-					| //empty 
+c 				:	methods
+					| // empty
 					;
-tipo 			:	INT
-					| FLOAT 
+class 			:	CLASS OBJECT d OBRACE b init c CBRACE;
+d 				:	PARENT OBJECT
+					| // empty
 					;
-bloque			: 	OBRACE e;
-e 	 			:	CBRACE
-					| estatuto e 
+vars 			:	VARS COLON e;
+e 				:	type ID f SEMICOLON g;
+f 				:	COMMA ID f
+					| // empty
 					;
-estatuto 		: 	asignacion
-					| condicion
-					| escritura
+g 				:	e
+					| // empty
 					;
-asignacion 		:	ID EQUAL expresion SEMICOLON;
-expresion 		:	exp g;
-g 				:	GREATER exp
-					| LESSER exp
-					| INEQUALITY exp
-					| //empty
+methods			:	METHODS COLON h;
+h 				:	method j;
+j 				:	method j
+					| // empty
 					;
-exp 			:	termino h;
-h 				:	PLUS termino h
-					| MINUS termino h
-					| //empty
+init 			: INIT OPARENTHESIS k CPARENTHESIS OBRACE CBRACE;
+k 				:	params
+					| // empty
 					;
-termino 		:	factor i;
-i 				:	MULTIPLICATION factor i
-					| DIVISION factor i
-					| //empty
+l 				:	statement l
+					| // empty
 					;
-factor 			:	OPARENTHESIS expresion CPARENTHESIS
-					| j
+type 			:	INT
+					| FLOAT
+					| STRING
+					| BOOL
+					| LIST LESSER type GREATER
+					| OBJECT
 					;
-j 				:	PLUS varcte
-					| MINUS varcte
-					| varcte
+method 			:	procedure
+					| function
 					;
-varcte 			: 	ID
-					| INTCONST
-					| FLOATCONST
+params 			: 	type m ID n;
+m 				:	reference
+					| // empty
 					;
-condicion 		:	IF OPARENTHESIS expresion CPARENTHESIS bloque k SEMICOLON;
-k 				:	ELSE bloque
-					| //empty 
+n 				:	type m ID n
+					| // empty
 					;
-escritura 		: 	PRINT OPARENTHESIS l;
-l 				: 	expresion m
-					| STRINGCONST m
+statement 		:	assignment
+					| condition
+					| loop
+					| write
+					| call
 					;
-m 				:	CPARENTHESIS SEMICOLON
-					| n CPARENTHESIS SEMICOLON
+procedure 		:	VOID ID OPARENTHESIS k CPARENTHESIS OBRACE block CBRACE;
+function 		:	type ID OPARENTHESIS k CPARENTHESIS OBRACE block return CBRACE;
+reference 		:	TILDE;
+assignment 		: 	identifier EQUAL o SEMICOLON;
+o 				: 	expression
+					| read
 					;
-n 				:	COMMA expresion n
-					| COMMA STRINGCONST n
-					| //empty
+condition 		: 	IF OPARENTHESIS expression CPARENTHESIS OBRACE l CBRACE p;
+p 				:	ELSE OBRACE l CBRACE
+					| // empty
 					;
+loop 			: 	WHILE OPARENTHESIS expression CPARENTHESIS OBRACE l CBRACE;
+write 			: 	PRINT OPARENTHESIS exp q CPARENTHESIS SEMICOLON;
+q 				:	CARET exp q
+					| // empty
+					;
+call 			:	identifier OPARENTHESIS r CPARENTHESIS SEMICOLON;
+r 				:	args
+					| // empty
+					;
+block 			:	b l;
+return 			: 	RETURN expression SEMICOLON;
+identifier 		: 	ID s;
+s 				:	DOT IT
+					| // empty
+					;
+expression 		: 	comparison t;
+t 				:	u comparison
+					| // empty
+					;
+u 				: AND
+				  | OR
+				  ;
+read 			: READ;
+exp 			: term v;
+v 				:	w term v
+					| // empty
+					;
+w 				: PLUS
+				  | MINUS
+				  ;
+args 			: m ID x;
+x 				:	COMMA m ID x
+					| // empty
+					;
+comparison		: exp y;
+y 				:	z exp
+					| // empty
+					;
+z 				:	GREATER EQUAL
+					| LESSER EQUAL
+					| EQUAL EQUAL
+					| DIFFERENT
+					| // empty
+					;
+term 			: 	factor aa
+aa 				:	ab factor aa
+					| // empty
+					;
+ab				: 	MULTIPLICATION
+					| DIVISION
+					;
+factor 			: OPARENTHESIS expression CPARENTHESIS
+				  | ac value
+				  ;
+ac 				:	PLUS
+					| MINUS
+					| // empty
+					;
+value 			: identifier
+				  | ID OBRACKET exp CBRACKET
+				  | CTEI
+				  | CTEF
+				  | CTESTRING
+				  | TRUE
+				  | FALSE
+				  | call
+				  ;
+main 			: MAIN COLON block END;
+
 
 // Tokens
 PROGRAM 		:	'program';
 SEMICOLON		: 	';';
-VAR				: 	'var';
+VARS			: 	'vars';
 COMMA			:	',';
 COLON			: 	':';
 INT				:	'int';
 FLOAT			:	'float';
+STRING 				: 'string' ; 
+BOOL 				: 'bool' ; 
+CLASS 				: 'class' ; 
+PARENT 				: 'parent' ;
+INIT 				: 'init' ; 
+METHODS				: 'methods' ; 
+VOID 				: 'void' ; 
+RETURN 				: 'return' ;
 OBRACE			:	'{';
 CBRACE			:	'}';
+OBRACKET		: '[';
+CBRACKET		: ']';
 EQUAL			:	'=';
 GREATER			:	'>';
 LESSER			:	'<';
 INEQUALITY		:	'<>';
 PLUS			:	'+';
+AND				: '&&';
+OR 				: '||';
+DIFFERENT 		: '!=';
+DOT 			: '.';
 MINUS			:	'-';
 MULTIPLICATION	:	'*';
 DIVISION		:	'/';
@@ -91,9 +177,18 @@ OPARENTHESIS	:	'(';
 CPARENTHESIS	:	')';
 IF				:	'if';
 ELSE			:	'else';
+WHILE				: 'while' ;
+READ				: 'read' ;
+TRUE 				: 'true' ; 
+FALSE 				: 'false' ;
+MAIN				: 'main' ;
+END 				: 'end' ;
+TILDE 			: '~';
+CARET 			: '^';
 PRINT			:	'print';
-STRINGCONST		: 	'"' ~('\r' | '\n' | '"')* '"' ;
-FLOATCONST 		:	[0-9]+'.'[0-9]+;
-INTCONST		:	[0-9]+;
-ID				:	[a-zA-Z0-9]+;
-WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+ID 					: [a-z][a-zA-Z0-9]* ;
+OBJECT				: [A-Z][a-zA-Z0-9]* ;
+CTESTRING			: '"' ~('\r' | '\n' | '"')* '"' ;
+CTEF 				: [0-9]+'.'[0-9]+ ;
+CTEI 				: [0-9]+ ;
+SKIP				: [ \r\t\n]+ -> skip
