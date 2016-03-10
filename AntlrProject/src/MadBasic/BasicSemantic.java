@@ -15,6 +15,12 @@ public class BasicSemantic {
         variables = new LinkedList<>();
         scopes = new LinkedList<>();
         scopeStack = new Stack<>();
+
+        // Add the global scope
+        Scope global = new Scope("global");
+        scopes.add(global);
+        scopeStack.push(global);
+
     }
 
     static public BasicSemantic getInstance(){
