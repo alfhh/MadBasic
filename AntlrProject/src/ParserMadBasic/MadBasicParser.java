@@ -1,4 +1,5 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+package ParserMadBasic;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -33,18 +34,19 @@ public class MadBasicParser extends Parser {
 		RULE_reference = 25, RULE_assignment = 26, RULE_o = 27, RULE_condition = 28, 
 		RULE_p = 29, RULE_loop = 30, RULE_write = 31, RULE_q = 32, RULE_call = 33, 
 		RULE_r = 34, RULE_block = 35, RULE_retorno = 36, RULE_identifier = 37, 
-		RULE_s = 38, RULE_expression = 39, RULE_t = 40, RULE_u = 41, RULE_read = 42, 
-		RULE_exp = 43, RULE_v = 44, RULE_w = 45, RULE_args = 46, RULE_x = 47, 
-		RULE_comparison = 48, RULE_y = 49, RULE_z = 50, RULE_term = 51, RULE_aa = 52, 
-		RULE_ab = 53, RULE_factor = 54, RULE_ac = 55, RULE_value = 56, RULE_main = 57;
+		RULE_s = 38, RULE_ss = 39, RULE_expression = 40, RULE_t = 41, RULE_u = 42, 
+		RULE_read = 43, RULE_exp = 44, RULE_v = 45, RULE_w = 46, RULE_args = 47, 
+		RULE_x = 48, RULE_comparison = 49, RULE_y = 50, RULE_z = 51, RULE_term = 52, 
+		RULE_aa = 53, RULE_ab = 54, RULE_factor = 55, RULE_ac = 56, RULE_value = 57, 
+		RULE_main = 58;
 	public static final String[] ruleNames = {
 		"madbasic", "program", "a", "b", "c", "classe", "d", "vars", "e", "f", 
 		"g", "methods", "h", "j", "init", "k", "l", "type", "method", "params", 
 		"m", "n", "statement", "procedure", "function", "reference", "assignment", 
 		"o", "condition", "p", "loop", "write", "q", "call", "r", "block", "retorno", 
-		"identifier", "s", "expression", "t", "u", "read", "exp", "v", "w", "args", 
-		"x", "comparison", "y", "z", "term", "aa", "ab", "factor", "ac", "value", 
-		"main"
+		"identifier", "s", "ss", "expression", "t", "u", "read", "exp", "v", "w", 
+		"args", "x", "comparison", "y", "z", "term", "aa", "ab", "factor", "ac", 
+		"value", "main"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -145,13 +147,13 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(116);
-			match(PROGRAM);
-			setState(117);
-			match(ID);
 			setState(118);
-			match(SEMICOLON);
+			match(PROGRAM);
 			setState(119);
+			match(ID);
+			setState(120);
+			match(SEMICOLON);
+			setState(121);
 			program();
 			}
 		}
@@ -176,7 +178,9 @@ public class MadBasicParser extends Parser {
 		public CContext c() {
 			return getRuleContext(CContext.class,0);
 		}
-		public TerminalNode MAIN() { return getToken(MadBasicParser.MAIN, 0); }
+		public MainContext main() {
+			return getRuleContext(MainContext.class,0);
+		}
 		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -202,14 +206,14 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(121);
-			a();
-			setState(122);
-			b();
 			setState(123);
-			c();
+			a();
 			setState(124);
-			match(MAIN);
+			b();
+			setState(125);
+			c();
+			setState(126);
+			main();
 			}
 		}
 		catch (RecognitionException re) {
@@ -253,14 +257,14 @@ public class MadBasicParser extends Parser {
 		AContext _localctx = new AContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_a);
 		try {
-			setState(130);
+			setState(132);
 			switch (_input.LA(1)) {
 			case CLASS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(126);
+				setState(128);
 				classe();
-				setState(127);
+				setState(129);
 				a();
 				}
 				break;
@@ -313,12 +317,12 @@ public class MadBasicParser extends Parser {
 		BContext _localctx = new BContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_b);
 		try {
-			setState(134);
+			setState(136);
 			switch (_input.LA(1)) {
 			case VARS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(132);
+				setState(134);
 				vars();
 				}
 				break;
@@ -378,12 +382,12 @@ public class MadBasicParser extends Parser {
 		CContext _localctx = new CContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_c);
 		try {
-			setState(138);
+			setState(140);
 			switch (_input.LA(1)) {
 			case METHODS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(136);
+				setState(138);
 				methods();
 				}
 				break;
@@ -450,21 +454,21 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(140);
-			match(CLASS);
-			setState(141);
-			match(OBJECT);
 			setState(142);
-			d();
+			match(CLASS);
 			setState(143);
-			match(OBRACE);
+			match(OBJECT);
 			setState(144);
-			b();
+			d();
 			setState(145);
-			init();
+			match(OBRACE);
 			setState(146);
-			c();
+			b();
 			setState(147);
+			init();
+			setState(148);
+			c();
+			setState(149);
 			match(CBRACE);
 			}
 		}
@@ -505,14 +509,14 @@ public class MadBasicParser extends Parser {
 		DContext _localctx = new DContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_d);
 		try {
-			setState(152);
+			setState(154);
 			switch (_input.LA(1)) {
 			case PARENT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(149);
+				setState(151);
 				match(PARENT);
-				setState(150);
+				setState(152);
 				match(OBJECT);
 				}
 				break;
@@ -567,11 +571,11 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(154);
-			match(VARS);
-			setState(155);
-			match(COLON);
 			setState(156);
+			match(VARS);
+			setState(157);
+			match(COLON);
+			setState(158);
 			e();
 			}
 		}
@@ -623,15 +627,15 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(158);
-			type();
-			setState(159);
-			match(ID);
 			setState(160);
-			f();
+			type();
 			setState(161);
-			match(SEMICOLON);
+			match(ID);
 			setState(162);
+			f();
+			setState(163);
+			match(SEMICOLON);
+			setState(164);
 			g();
 			}
 		}
@@ -675,16 +679,16 @@ public class MadBasicParser extends Parser {
 		FContext _localctx = new FContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_f);
 		try {
-			setState(168);
+			setState(170);
 			switch (_input.LA(1)) {
 			case COMMA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(164);
-				match(COMMA);
-				setState(165);
-				match(ID);
 				setState(166);
+				match(COMMA);
+				setState(167);
+				match(ID);
+				setState(168);
 				f();
 				}
 				break;
@@ -735,7 +739,7 @@ public class MadBasicParser extends Parser {
 		GContext _localctx = new GContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_g);
 		try {
-			setState(172);
+			setState(174);
 			switch (_input.LA(1)) {
 			case INT:
 			case FLOAT:
@@ -745,7 +749,7 @@ public class MadBasicParser extends Parser {
 			case OBJECT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(170);
+				setState(172);
 				e();
 				}
 				break;
@@ -809,11 +813,11 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(174);
-			match(METHODS);
-			setState(175);
-			match(COLON);
 			setState(176);
+			match(METHODS);
+			setState(177);
+			match(COLON);
+			setState(178);
 			h();
 			}
 		}
@@ -860,9 +864,9 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(178);
+			setState(180);
 			method();
-			setState(179);
+			setState(181);
 			j();
 			}
 		}
@@ -907,7 +911,7 @@ public class MadBasicParser extends Parser {
 		JContext _localctx = new JContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_j);
 		try {
-			setState(185);
+			setState(187);
 			switch (_input.LA(1)) {
 			case INT:
 			case FLOAT:
@@ -918,9 +922,9 @@ public class MadBasicParser extends Parser {
 			case OBJECT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(181);
+				setState(183);
 				method();
-				setState(182);
+				setState(184);
 				j();
 				}
 				break;
@@ -953,6 +957,9 @@ public class MadBasicParser extends Parser {
 		}
 		public TerminalNode CPARENTHESIS() { return getToken(MadBasicParser.CPARENTHESIS, 0); }
 		public TerminalNode OBRACE() { return getToken(MadBasicParser.OBRACE, 0); }
+		public LContext l() {
+			return getRuleContext(LContext.class,0);
+		}
 		public TerminalNode CBRACE() { return getToken(MadBasicParser.CBRACE, 0); }
 		public InitContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -979,17 +986,19 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(187);
-			match(INIT);
-			setState(188);
-			match(OPARENTHESIS);
 			setState(189);
-			k();
+			match(INIT);
 			setState(190);
-			match(CPARENTHESIS);
+			match(OPARENTHESIS);
 			setState(191);
-			match(OBRACE);
+			k();
 			setState(192);
+			match(CPARENTHESIS);
+			setState(193);
+			match(OBRACE);
+			setState(194);
+			l();
+			setState(195);
 			match(CBRACE);
 			}
 		}
@@ -1031,7 +1040,7 @@ public class MadBasicParser extends Parser {
 		KContext _localctx = new KContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_k);
 		try {
-			setState(196);
+			setState(199);
 			switch (_input.LA(1)) {
 			case INT:
 			case FLOAT:
@@ -1041,7 +1050,7 @@ public class MadBasicParser extends Parser {
 			case OBJECT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(194);
+				setState(197);
 				params();
 				}
 				break;
@@ -1095,7 +1104,7 @@ public class MadBasicParser extends Parser {
 		LContext _localctx = new LContext(_ctx, getState());
 		enterRule(_localctx, 32, RULE_l);
 		try {
-			setState(202);
+			setState(205);
 			switch (_input.LA(1)) {
 			case IF:
 			case WHILE:
@@ -1103,9 +1112,9 @@ public class MadBasicParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(198);
+				setState(201);
 				statement();
-				setState(199);
+				setState(202);
 				l();
 				}
 				break;
@@ -1166,53 +1175,53 @@ public class MadBasicParser extends Parser {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
 		enterRule(_localctx, 34, RULE_type);
 		try {
-			setState(214);
+			setState(217);
 			switch (_input.LA(1)) {
 			case INT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(204);
+				setState(207);
 				match(INT);
 				}
 				break;
 			case FLOAT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(205);
+				setState(208);
 				match(FLOAT);
 				}
 				break;
 			case STRING:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(206);
+				setState(209);
 				match(STRING);
 				}
 				break;
 			case BOOL:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(207);
+				setState(210);
 				match(BOOL);
 				}
 				break;
 			case LIST:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(208);
-				match(LIST);
-				setState(209);
-				match(LESSER);
-				setState(210);
-				type();
 				setState(211);
+				match(LIST);
+				setState(212);
+				match(LESSER);
+				setState(213);
+				type();
+				setState(214);
 				match(GREATER);
 				}
 				break;
 			case OBJECT:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(213);
+				setState(216);
 				match(OBJECT);
 				}
 				break;
@@ -1261,12 +1270,12 @@ public class MadBasicParser extends Parser {
 		MethodContext _localctx = new MethodContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_method);
 		try {
-			setState(218);
+			setState(221);
 			switch (_input.LA(1)) {
 			case VOID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(216);
+				setState(219);
 				procedure();
 				}
 				break;
@@ -1278,7 +1287,7 @@ public class MadBasicParser extends Parser {
 			case OBJECT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(217);
+				setState(220);
 				function();
 				}
 				break;
@@ -1333,13 +1342,13 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(220);
-			type();
-			setState(221);
-			m();
-			setState(222);
-			match(ID);
 			setState(223);
+			type();
+			setState(224);
+			m();
+			setState(225);
+			match(ID);
+			setState(226);
 			n();
 			}
 		}
@@ -1381,16 +1390,24 @@ public class MadBasicParser extends Parser {
 		MContext _localctx = new MContext(_ctx, getState());
 		enterRule(_localctx, 40, RULE_m);
 		try {
-			setState(227);
+			setState(230);
 			switch (_input.LA(1)) {
 			case TILDE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(225);
+				setState(228);
 				reference();
 				}
 				break;
+			case PLUS:
+			case MINUS:
+			case OPARENTHESIS:
+			case TRUE:
+			case FALSE:
 			case ID:
+			case CTESTRING:
+			case CTEF:
+			case CTEI:
 				enterOuterAlt(_localctx, 2);
 				{
 				}
@@ -1411,6 +1428,7 @@ public class MadBasicParser extends Parser {
 	}
 
 	public static class NContext extends ParserRuleContext {
+		public TerminalNode COMMA() { return getToken(MadBasicParser.COMMA, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
@@ -1444,23 +1462,20 @@ public class MadBasicParser extends Parser {
 		NContext _localctx = new NContext(_ctx, getState());
 		enterRule(_localctx, 42, RULE_n);
 		try {
-			setState(235);
+			setState(239);
 			switch (_input.LA(1)) {
-			case INT:
-			case FLOAT:
-			case STRING:
-			case BOOL:
-			case LIST:
-			case OBJECT:
+			case COMMA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(229);
-				type();
-				setState(230);
-				m();
-				setState(231);
-				match(ID);
 				setState(232);
+				match(COMMA);
+				setState(233);
+				type();
+				setState(234);
+				m();
+				setState(235);
+				match(ID);
+				setState(236);
 				n();
 				}
 				break;
@@ -1500,6 +1515,7 @@ public class MadBasicParser extends Parser {
 		public CallContext call() {
 			return getRuleContext(CallContext.class,0);
 		}
+		public TerminalNode SEMICOLON() { return getToken(MadBasicParser.SEMICOLON, 0); }
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1523,41 +1539,43 @@ public class MadBasicParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 44, RULE_statement);
 		try {
-			setState(242);
+			setState(248);
 			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(237);
+				setState(241);
 				assignment();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(238);
+				setState(242);
 				condition();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(239);
+				setState(243);
 				loop();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(240);
+				setState(244);
 				write();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(241);
+				setState(245);
 				call();
+				setState(246);
+				match(SEMICOLON);
 				}
 				break;
 			}
@@ -1611,21 +1629,21 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(244);
-			match(VOID);
-			setState(245);
-			match(ID);
-			setState(246);
-			match(OPARENTHESIS);
-			setState(247);
-			k();
-			setState(248);
-			match(CPARENTHESIS);
-			setState(249);
-			match(OBRACE);
 			setState(250);
-			block();
+			match(VOID);
 			setState(251);
+			match(ID);
+			setState(252);
+			match(OPARENTHESIS);
+			setState(253);
+			k();
+			setState(254);
+			match(CPARENTHESIS);
+			setState(255);
+			match(OBRACE);
+			setState(256);
+			block();
+			setState(257);
 			match(CBRACE);
 			}
 		}
@@ -1683,23 +1701,23 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(253);
-			type();
-			setState(254);
-			match(ID);
-			setState(255);
-			match(OPARENTHESIS);
-			setState(256);
-			k();
-			setState(257);
-			match(CPARENTHESIS);
-			setState(258);
-			match(OBRACE);
 			setState(259);
-			block();
+			type();
 			setState(260);
-			retorno();
+			match(ID);
 			setState(261);
+			match(OPARENTHESIS);
+			setState(262);
+			k();
+			setState(263);
+			match(CPARENTHESIS);
+			setState(264);
+			match(OBRACE);
+			setState(265);
+			block();
+			setState(266);
+			retorno();
+			setState(267);
 			match(CBRACE);
 			}
 		}
@@ -1741,7 +1759,7 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(263);
+			setState(269);
 			match(TILDE);
 			}
 		}
@@ -1790,13 +1808,13 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(265);
+			setState(271);
 			identifier();
-			setState(266);
+			setState(272);
 			match(EQUAL);
-			setState(267);
+			setState(273);
 			o();
-			setState(268);
+			setState(274);
 			match(SEMICOLON);
 			}
 		}
@@ -1841,7 +1859,7 @@ public class MadBasicParser extends Parser {
 		OContext _localctx = new OContext(_ctx, getState());
 		enterRule(_localctx, 54, RULE_o);
 		try {
-			setState(272);
+			setState(278);
 			switch (_input.LA(1)) {
 			case PLUS:
 			case MINUS:
@@ -1854,14 +1872,14 @@ public class MadBasicParser extends Parser {
 			case CTEI:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(270);
+				setState(276);
 				expression();
 				}
 				break;
 			case READ:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(271);
+				setState(277);
 				read();
 				}
 				break;
@@ -1920,21 +1938,21 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(274);
-			match(IF);
-			setState(275);
-			match(OPARENTHESIS);
-			setState(276);
-			expression();
-			setState(277);
-			match(CPARENTHESIS);
-			setState(278);
-			match(OBRACE);
-			setState(279);
-			l();
 			setState(280);
-			match(CBRACE);
+			match(IF);
 			setState(281);
+			match(OPARENTHESIS);
+			setState(282);
+			expression();
+			setState(283);
+			match(CPARENTHESIS);
+			setState(284);
+			match(OBRACE);
+			setState(285);
+			l();
+			setState(286);
+			match(CBRACE);
+			setState(287);
 			p();
 			}
 		}
@@ -1979,18 +1997,18 @@ public class MadBasicParser extends Parser {
 		PContext _localctx = new PContext(_ctx, getState());
 		enterRule(_localctx, 58, RULE_p);
 		try {
-			setState(289);
+			setState(295);
 			switch (_input.LA(1)) {
 			case ELSE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(283);
+				setState(289);
 				match(ELSE);
-				setState(284);
+				setState(290);
 				match(OBRACE);
-				setState(285);
+				setState(291);
 				l();
-				setState(286);
+				setState(292);
 				match(CBRACE);
 				}
 				break;
@@ -2057,19 +2075,19 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(291);
-			match(WHILE);
-			setState(292);
-			match(OPARENTHESIS);
-			setState(293);
-			expression();
-			setState(294);
-			match(CPARENTHESIS);
-			setState(295);
-			match(OBRACE);
-			setState(296);
-			l();
 			setState(297);
+			match(WHILE);
+			setState(298);
+			match(OPARENTHESIS);
+			setState(299);
+			expression();
+			setState(300);
+			match(CPARENTHESIS);
+			setState(301);
+			match(OBRACE);
+			setState(302);
+			l();
+			setState(303);
 			match(CBRACE);
 			}
 		}
@@ -2120,17 +2138,17 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(299);
+			setState(305);
 			match(PRINT);
-			setState(300);
+			setState(306);
 			match(OPARENTHESIS);
-			setState(301);
+			setState(307);
 			exp();
-			setState(302);
+			setState(308);
 			q();
-			setState(303);
+			setState(309);
 			match(CPARENTHESIS);
-			setState(304);
+			setState(310);
 			match(SEMICOLON);
 			}
 		}
@@ -2176,16 +2194,16 @@ public class MadBasicParser extends Parser {
 		QContext _localctx = new QContext(_ctx, getState());
 		enterRule(_localctx, 64, RULE_q);
 		try {
-			setState(311);
+			setState(317);
 			switch (_input.LA(1)) {
 			case CARET:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(306);
+				setState(312);
 				match(CARET);
-				setState(307);
+				setState(313);
 				exp();
-				setState(308);
+				setState(314);
 				q();
 				}
 				break;
@@ -2218,7 +2236,6 @@ public class MadBasicParser extends Parser {
 			return getRuleContext(RContext.class,0);
 		}
 		public TerminalNode CPARENTHESIS() { return getToken(MadBasicParser.CPARENTHESIS, 0); }
-		public TerminalNode SEMICOLON() { return getToken(MadBasicParser.SEMICOLON, 0); }
 		public CallContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2244,16 +2261,14 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(313);
+			setState(319);
 			identifier();
-			setState(314);
+			setState(320);
 			match(OPARENTHESIS);
-			setState(315);
+			setState(321);
 			r();
-			setState(316);
+			setState(322);
 			match(CPARENTHESIS);
-			setState(317);
-			match(SEMICOLON);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2294,13 +2309,21 @@ public class MadBasicParser extends Parser {
 		RContext _localctx = new RContext(_ctx, getState());
 		enterRule(_localctx, 68, RULE_r);
 		try {
-			setState(321);
+			setState(326);
 			switch (_input.LA(1)) {
+			case PLUS:
+			case MINUS:
+			case OPARENTHESIS:
+			case TRUE:
+			case FALSE:
 			case TILDE:
 			case ID:
+			case CTESTRING:
+			case CTEF:
+			case CTEI:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(319);
+				setState(324);
 				args();
 				}
 				break;
@@ -2356,9 +2379,9 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(323);
+			setState(328);
 			b();
-			setState(324);
+			setState(329);
 			l();
 			}
 		}
@@ -2404,11 +2427,11 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(326);
+			setState(331);
 			match(RETURN);
-			setState(327);
+			setState(332);
 			expression();
-			setState(328);
+			setState(333);
 			match(SEMICOLON);
 			}
 		}
@@ -2425,6 +2448,9 @@ public class MadBasicParser extends Parser {
 
 	public static class IdentifierContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(MadBasicParser.ID, 0); }
+		public SsContext ss() {
+			return getRuleContext(SsContext.class,0);
+		}
 		public SContext s() {
 			return getRuleContext(SContext.class,0);
 		}
@@ -2453,9 +2479,11 @@ public class MadBasicParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(330);
+			setState(335);
 			match(ID);
-			setState(331);
+			setState(336);
+			ss();
+			setState(337);
 			s();
 			}
 		}
@@ -2473,6 +2501,10 @@ public class MadBasicParser extends Parser {
 	public static class SContext extends ParserRuleContext {
 		public TerminalNode DOT() { return getToken(MadBasicParser.DOT, 0); }
 		public TerminalNode ID() { return getToken(MadBasicParser.ID, 0); }
+		public SsContext ss() {
+			return getRuleContext(SsContext.class,0);
+		}
+		public TerminalNode INIT() { return getToken(MadBasicParser.INIT, 0); }
 		public SContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2496,18 +2528,90 @@ public class MadBasicParser extends Parser {
 		SContext _localctx = new SContext(_ctx, getState());
 		enterRule(_localctx, 76, RULE_s);
 		try {
-			setState(336);
-			switch (_input.LA(1)) {
-			case DOT:
+			setState(345);
+			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
+			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(333);
+				setState(339);
 				match(DOT);
-				setState(334);
+				setState(340);
 				match(ID);
+				setState(341);
+				ss();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(342);
+				match(DOT);
+				setState(343);
+				match(INIT);
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class SsContext extends ParserRuleContext {
+		public TerminalNode OBRACKET() { return getToken(MadBasicParser.OBRACKET, 0); }
+		public ExpContext exp() {
+			return getRuleContext(ExpContext.class,0);
+		}
+		public TerminalNode CBRACKET() { return getToken(MadBasicParser.CBRACKET, 0); }
+		public SsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_ss; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterSs(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitSs(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitSs(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final SsContext ss() throws RecognitionException {
+		SsContext _localctx = new SsContext(_ctx, getState());
+		enterRule(_localctx, 78, RULE_ss);
+		try {
+			setState(352);
+			switch (_input.LA(1)) {
+			case OBRACKET:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(347);
+				match(OBRACKET);
+				setState(348);
+				exp();
+				setState(349);
+				match(CBRACKET);
 				}
 				break;
 			case SEMICOLON:
+			case COMMA:
 			case CBRACKET:
 			case EQUAL:
 			case GREATER:
@@ -2516,6 +2620,7 @@ public class MadBasicParser extends Parser {
 			case AND:
 			case OR:
 			case DIFFERENT:
+			case DOT:
 			case MINUS:
 			case MULTIPLICATION:
 			case DIVISION:
@@ -2575,13 +2680,13 @@ public class MadBasicParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 78, RULE_expression);
+		enterRule(_localctx, 80, RULE_expression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(338);
+			setState(354);
 			comparison();
-			setState(339);
+			setState(355);
 			t();
 			}
 		}
@@ -2624,17 +2729,17 @@ public class MadBasicParser extends Parser {
 
 	public final TContext t() throws RecognitionException {
 		TContext _localctx = new TContext(_ctx, getState());
-		enterRule(_localctx, 80, RULE_t);
+		enterRule(_localctx, 82, RULE_t);
 		try {
-			setState(345);
+			setState(361);
 			switch (_input.LA(1)) {
 			case AND:
 			case OR:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(341);
+				setState(357);
 				u();
-				setState(342);
+				setState(358);
 				comparison();
 				}
 				break;
@@ -2683,12 +2788,12 @@ public class MadBasicParser extends Parser {
 
 	public final UContext u() throws RecognitionException {
 		UContext _localctx = new UContext(_ctx, getState());
-		enterRule(_localctx, 82, RULE_u);
+		enterRule(_localctx, 84, RULE_u);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(347);
+			setState(363);
 			_la = _input.LA(1);
 			if ( !(_la==AND || _la==OR) ) {
 			_errHandler.recoverInline(this);
@@ -2731,11 +2836,11 @@ public class MadBasicParser extends Parser {
 
 	public final ReadContext read() throws RecognitionException {
 		ReadContext _localctx = new ReadContext(_ctx, getState());
-		enterRule(_localctx, 84, RULE_read);
+		enterRule(_localctx, 86, RULE_read);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(349);
+			setState(365);
 			match(READ);
 			}
 		}
@@ -2778,13 +2883,13 @@ public class MadBasicParser extends Parser {
 
 	public final ExpContext exp() throws RecognitionException {
 		ExpContext _localctx = new ExpContext(_ctx, getState());
-		enterRule(_localctx, 86, RULE_exp);
+		enterRule(_localctx, 88, RULE_exp);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(351);
+			setState(367);
 			term();
-			setState(352);
+			setState(368);
 			v();
 			}
 		}
@@ -2830,18 +2935,18 @@ public class MadBasicParser extends Parser {
 
 	public final VContext v() throws RecognitionException {
 		VContext _localctx = new VContext(_ctx, getState());
-		enterRule(_localctx, 88, RULE_v);
+		enterRule(_localctx, 90, RULE_v);
 		try {
-			setState(359);
-			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
+			setState(375);
+			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(354);
+				setState(370);
 				w();
-				setState(355);
+				setState(371);
 				term();
-				setState(356);
+				setState(372);
 				v();
 				}
 				break;
@@ -2887,12 +2992,12 @@ public class MadBasicParser extends Parser {
 
 	public final WContext w() throws RecognitionException {
 		WContext _localctx = new WContext(_ctx, getState());
-		enterRule(_localctx, 90, RULE_w);
+		enterRule(_localctx, 92, RULE_w);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(361);
+			setState(377);
 			_la = _input.LA(1);
 			if ( !(_la==PLUS || _la==MINUS) ) {
 			_errHandler.recoverInline(this);
@@ -2916,7 +3021,9 @@ public class MadBasicParser extends Parser {
 		public MContext m() {
 			return getRuleContext(MContext.class,0);
 		}
-		public TerminalNode ID() { return getToken(MadBasicParser.ID, 0); }
+		public ExpContext exp() {
+			return getRuleContext(ExpContext.class,0);
+		}
 		public XContext x() {
 			return getRuleContext(XContext.class,0);
 		}
@@ -2941,15 +3048,15 @@ public class MadBasicParser extends Parser {
 
 	public final ArgsContext args() throws RecognitionException {
 		ArgsContext _localctx = new ArgsContext(_ctx, getState());
-		enterRule(_localctx, 92, RULE_args);
+		enterRule(_localctx, 94, RULE_args);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(363);
+			setState(379);
 			m();
-			setState(364);
-			match(ID);
-			setState(365);
+			setState(380);
+			exp();
+			setState(381);
 			x();
 			}
 		}
@@ -2969,7 +3076,9 @@ public class MadBasicParser extends Parser {
 		public MContext m() {
 			return getRuleContext(MContext.class,0);
 		}
-		public TerminalNode ID() { return getToken(MadBasicParser.ID, 0); }
+		public ExpContext exp() {
+			return getRuleContext(ExpContext.class,0);
+		}
 		public XContext x() {
 			return getRuleContext(XContext.class,0);
 		}
@@ -2994,20 +3103,20 @@ public class MadBasicParser extends Parser {
 
 	public final XContext x() throws RecognitionException {
 		XContext _localctx = new XContext(_ctx, getState());
-		enterRule(_localctx, 94, RULE_x);
+		enterRule(_localctx, 96, RULE_x);
 		try {
-			setState(373);
+			setState(389);
 			switch (_input.LA(1)) {
 			case COMMA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(367);
+				setState(383);
 				match(COMMA);
-				setState(368);
+				setState(384);
 				m();
-				setState(369);
-				match(ID);
-				setState(370);
+				setState(385);
+				exp();
+				setState(386);
 				x();
 				}
 				break;
@@ -3059,13 +3168,13 @@ public class MadBasicParser extends Parser {
 
 	public final ComparisonContext comparison() throws RecognitionException {
 		ComparisonContext _localctx = new ComparisonContext(_ctx, getState());
-		enterRule(_localctx, 96, RULE_comparison);
+		enterRule(_localctx, 98, RULE_comparison);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(375);
+			setState(391);
 			exp();
-			setState(376);
+			setState(392);
 			y();
 			}
 		}
@@ -3108,9 +3217,9 @@ public class MadBasicParser extends Parser {
 
 	public final YContext y() throws RecognitionException {
 		YContext _localctx = new YContext(_ctx, getState());
-		enterRule(_localctx, 98, RULE_y);
+		enterRule(_localctx, 100, RULE_y);
 		try {
-			setState(382);
+			setState(398);
 			switch (_input.LA(1)) {
 			case EQUAL:
 			case GREATER:
@@ -3127,9 +3236,9 @@ public class MadBasicParser extends Parser {
 			case CTEI:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(378);
+				setState(394);
 				z();
-				setState(379);
+				setState(395);
 				exp();
 				}
 				break;
@@ -3185,41 +3294,41 @@ public class MadBasicParser extends Parser {
 
 	public final ZContext z() throws RecognitionException {
 		ZContext _localctx = new ZContext(_ctx, getState());
-		enterRule(_localctx, 100, RULE_z);
+		enterRule(_localctx, 102, RULE_z);
 		try {
-			setState(392);
+			setState(408);
 			switch (_input.LA(1)) {
 			case GREATER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(384);
+				setState(400);
 				match(GREATER);
-				setState(385);
+				setState(401);
 				match(EQUAL);
 				}
 				break;
 			case LESSER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(386);
+				setState(402);
 				match(LESSER);
-				setState(387);
+				setState(403);
 				match(EQUAL);
 				}
 				break;
 			case EQUAL:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(388);
+				setState(404);
 				match(EQUAL);
-				setState(389);
+				setState(405);
 				match(EQUAL);
 				}
 				break;
 			case DIFFERENT:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(390);
+				setState(406);
 				match(DIFFERENT);
 				}
 				break;
@@ -3279,13 +3388,13 @@ public class MadBasicParser extends Parser {
 
 	public final TermContext term() throws RecognitionException {
 		TermContext _localctx = new TermContext(_ctx, getState());
-		enterRule(_localctx, 102, RULE_term);
+		enterRule(_localctx, 104, RULE_term);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(394);
+			setState(410);
 			factor();
-			setState(395);
+			setState(411);
 			aa();
 			}
 		}
@@ -3331,23 +3440,24 @@ public class MadBasicParser extends Parser {
 
 	public final AaContext aa() throws RecognitionException {
 		AaContext _localctx = new AaContext(_ctx, getState());
-		enterRule(_localctx, 104, RULE_aa);
+		enterRule(_localctx, 106, RULE_aa);
 		try {
-			setState(402);
+			setState(418);
 			switch (_input.LA(1)) {
 			case MULTIPLICATION:
 			case DIVISION:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(397);
+				setState(413);
 				ab();
-				setState(398);
+				setState(414);
 				factor();
-				setState(399);
+				setState(415);
 				aa();
 				}
 				break;
 			case SEMICOLON:
+			case COMMA:
 			case CBRACKET:
 			case EQUAL:
 			case GREATER:
@@ -3409,12 +3519,12 @@ public class MadBasicParser extends Parser {
 
 	public final AbContext ab() throws RecognitionException {
 		AbContext _localctx = new AbContext(_ctx, getState());
-		enterRule(_localctx, 106, RULE_ab);
+		enterRule(_localctx, 108, RULE_ab);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(404);
+			setState(420);
 			_la = _input.LA(1);
 			if ( !(_la==MULTIPLICATION || _la==DIVISION) ) {
 			_errHandler.recoverInline(this);
@@ -3467,18 +3577,18 @@ public class MadBasicParser extends Parser {
 
 	public final FactorContext factor() throws RecognitionException {
 		FactorContext _localctx = new FactorContext(_ctx, getState());
-		enterRule(_localctx, 108, RULE_factor);
+		enterRule(_localctx, 110, RULE_factor);
 		try {
-			setState(413);
+			setState(429);
 			switch (_input.LA(1)) {
 			case OPARENTHESIS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(406);
+				setState(422);
 				match(OPARENTHESIS);
-				setState(407);
+				setState(423);
 				expression();
-				setState(408);
+				setState(424);
 				match(CPARENTHESIS);
 				}
 				break;
@@ -3492,9 +3602,9 @@ public class MadBasicParser extends Parser {
 			case CTEI:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(410);
+				setState(426);
 				ac();
-				setState(411);
+				setState(427);
 				value();
 				}
 				break;
@@ -3537,21 +3647,21 @@ public class MadBasicParser extends Parser {
 
 	public final AcContext ac() throws RecognitionException {
 		AcContext _localctx = new AcContext(_ctx, getState());
-		enterRule(_localctx, 110, RULE_ac);
+		enterRule(_localctx, 112, RULE_ac);
 		try {
-			setState(418);
+			setState(434);
 			switch (_input.LA(1)) {
 			case PLUS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(415);
+				setState(431);
 				match(PLUS);
 				}
 				break;
 			case MINUS:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(416);
+				setState(432);
 				match(MINUS);
 				}
 				break;
@@ -3584,12 +3694,6 @@ public class MadBasicParser extends Parser {
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
-		public TerminalNode ID() { return getToken(MadBasicParser.ID, 0); }
-		public TerminalNode OBRACKET() { return getToken(MadBasicParser.OBRACKET, 0); }
-		public ExpContext exp() {
-			return getRuleContext(ExpContext.class,0);
-		}
-		public TerminalNode CBRACKET() { return getToken(MadBasicParser.CBRACKET, 0); }
 		public TerminalNode CTEI() { return getToken(MadBasicParser.CTEI, 0); }
 		public TerminalNode CTEF() { return getToken(MadBasicParser.CTEF, 0); }
 		public TerminalNode CTESTRING() { return getToken(MadBasicParser.CTESTRING, 0); }
@@ -3619,69 +3723,56 @@ public class MadBasicParser extends Parser {
 
 	public final ValueContext value() throws RecognitionException {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
-		enterRule(_localctx, 112, RULE_value);
+		enterRule(_localctx, 114, RULE_value);
 		try {
-			setState(432);
-			switch ( getInterpreter().adaptivePredict(_input,27,_ctx) ) {
+			setState(443);
+			switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(420);
+				setState(436);
 				identifier();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(421);
-				match(ID);
-				setState(422);
-				match(OBRACKET);
-				setState(423);
-				exp();
-				setState(424);
-				match(CBRACKET);
+				setState(437);
+				match(CTEI);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(426);
-				match(CTEI);
+				setState(438);
+				match(CTEF);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(427);
-				match(CTEF);
+				setState(439);
+				match(CTESTRING);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(428);
-				match(CTESTRING);
+				setState(440);
+				match(TRUE);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(429);
-				match(TRUE);
+				setState(441);
+				match(FALSE);
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(430);
-				match(FALSE);
-				}
-				break;
-			case 8:
-				enterOuterAlt(_localctx, 8);
-				{
-				setState(431);
+				setState(442);
 				call();
 				}
 				break;
@@ -3726,17 +3817,17 @@ public class MadBasicParser extends Parser {
 
 	public final MainContext main() throws RecognitionException {
 		MainContext _localctx = new MainContext(_ctx, getState());
-		enterRule(_localctx, 114, RULE_main);
+		enterRule(_localctx, 116, RULE_main);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(434);
+			setState(445);
 			match(MAIN);
-			setState(435);
+			setState(446);
 			match(COLON);
-			setState(436);
+			setState(447);
 			block();
-			setState(437);
+			setState(448);
 			match(END);
 			}
 		}
@@ -3752,152 +3843,156 @@ public class MadBasicParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\65\u01ba\4\2\t\2"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\65\u01c5\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
 		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \4!"+
 		"\t!\4\"\t\"\4#\t#\4$\t$\4%\t%\4&\t&\4\'\t\'\4(\t(\4)\t)\4*\t*\4+\t+\4"+
 		",\t,\4-\t-\4.\t.\4/\t/\4\60\t\60\4\61\t\61\4\62\t\62\4\63\t\63\4\64\t"+
-		"\64\4\65\t\65\4\66\t\66\4\67\t\67\48\t8\49\t9\4:\t:\4;\t;\3\2\3\2\3\2"+
-		"\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\5\4\u0085\n\4\3\5\3\5\5\5"+
-		"\u0089\n\5\3\6\3\6\5\6\u008d\n\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3"+
-		"\b\3\b\3\b\5\b\u009b\n\b\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\3\13"+
-		"\3\13\3\13\3\13\5\13\u00ab\n\13\3\f\3\f\5\f\u00af\n\f\3\r\3\r\3\r\3\r"+
-		"\3\16\3\16\3\16\3\17\3\17\3\17\3\17\5\17\u00bc\n\17\3\20\3\20\3\20\3\20"+
-		"\3\20\3\20\3\20\3\21\3\21\5\21\u00c7\n\21\3\22\3\22\3\22\3\22\5\22\u00cd"+
-		"\n\22\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\5\23\u00d9\n\23"+
-		"\3\24\3\24\5\24\u00dd\n\24\3\25\3\25\3\25\3\25\3\25\3\26\3\26\5\26\u00e6"+
-		"\n\26\3\27\3\27\3\27\3\27\3\27\3\27\5\27\u00ee\n\27\3\30\3\30\3\30\3\30"+
-		"\3\30\5\30\u00f5\n\30\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\3\32"+
-		"\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\33\3\33\3\34\3\34\3\34"+
-		"\3\34\3\34\3\35\3\35\5\35\u0113\n\35\3\36\3\36\3\36\3\36\3\36\3\36\3\36"+
-		"\3\36\3\36\3\37\3\37\3\37\3\37\3\37\3\37\5\37\u0124\n\37\3 \3 \3 \3 \3"+
-		" \3 \3 \3 \3!\3!\3!\3!\3!\3!\3!\3\"\3\"\3\"\3\"\3\"\5\"\u013a\n\"\3#\3"+
-		"#\3#\3#\3#\3#\3$\3$\5$\u0144\n$\3%\3%\3%\3&\3&\3&\3&\3\'\3\'\3\'\3(\3"+
-		"(\3(\5(\u0153\n(\3)\3)\3)\3*\3*\3*\3*\5*\u015c\n*\3+\3+\3,\3,\3-\3-\3"+
-		"-\3.\3.\3.\3.\3.\5.\u016a\n.\3/\3/\3\60\3\60\3\60\3\60\3\61\3\61\3\61"+
-		"\3\61\3\61\3\61\5\61\u0178\n\61\3\62\3\62\3\62\3\63\3\63\3\63\3\63\5\63"+
-		"\u0181\n\63\3\64\3\64\3\64\3\64\3\64\3\64\3\64\3\64\5\64\u018b\n\64\3"+
-		"\65\3\65\3\65\3\66\3\66\3\66\3\66\3\66\5\66\u0195\n\66\3\67\3\67\38\3"+
-		"8\38\38\38\38\38\58\u01a0\n8\39\39\39\59\u01a5\n9\3:\3:\3:\3:\3:\3:\3"+
-		":\3:\3:\3:\3:\3:\5:\u01b3\n:\3;\3;\3;\3;\3;\3;\2\2<\2\4\6\b\n\f\16\20"+
-		"\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bdfhj"+
-		"lnprt\2\5\3\2\33\34\4\2\32\32\37\37\3\2 !\u01ac\2v\3\2\2\2\4{\3\2\2\2"+
-		"\6\u0084\3\2\2\2\b\u0088\3\2\2\2\n\u008c\3\2\2\2\f\u008e\3\2\2\2\16\u009a"+
-		"\3\2\2\2\20\u009c\3\2\2\2\22\u00a0\3\2\2\2\24\u00aa\3\2\2\2\26\u00ae\3"+
-		"\2\2\2\30\u00b0\3\2\2\2\32\u00b4\3\2\2\2\34\u00bb\3\2\2\2\36\u00bd\3\2"+
-		"\2\2 \u00c6\3\2\2\2\"\u00cc\3\2\2\2$\u00d8\3\2\2\2&\u00dc\3\2\2\2(\u00de"+
-		"\3\2\2\2*\u00e5\3\2\2\2,\u00ed\3\2\2\2.\u00f4\3\2\2\2\60\u00f6\3\2\2\2"+
-		"\62\u00ff\3\2\2\2\64\u0109\3\2\2\2\66\u010b\3\2\2\28\u0112\3\2\2\2:\u0114"+
-		"\3\2\2\2<\u0123\3\2\2\2>\u0125\3\2\2\2@\u012d\3\2\2\2B\u0139\3\2\2\2D"+
-		"\u013b\3\2\2\2F\u0143\3\2\2\2H\u0145\3\2\2\2J\u0148\3\2\2\2L\u014c\3\2"+
-		"\2\2N\u0152\3\2\2\2P\u0154\3\2\2\2R\u015b\3\2\2\2T\u015d\3\2\2\2V\u015f"+
-		"\3\2\2\2X\u0161\3\2\2\2Z\u0169\3\2\2\2\\\u016b\3\2\2\2^\u016d\3\2\2\2"+
-		"`\u0177\3\2\2\2b\u0179\3\2\2\2d\u0180\3\2\2\2f\u018a\3\2\2\2h\u018c\3"+
-		"\2\2\2j\u0194\3\2\2\2l\u0196\3\2\2\2n\u019f\3\2\2\2p\u01a4\3\2\2\2r\u01b2"+
-		"\3\2\2\2t\u01b4\3\2\2\2vw\7\3\2\2wx\7\60\2\2xy\7\4\2\2yz\5\4\3\2z\3\3"+
-		"\2\2\2{|\5\6\4\2|}\5\b\5\2}~\5\n\6\2~\177\7+\2\2\177\5\3\2\2\2\u0080\u0081"+
-		"\5\f\7\2\u0081\u0082\5\6\4\2\u0082\u0085\3\2\2\2\u0083\u0085\3\2\2\2\u0084"+
-		"\u0080\3\2\2\2\u0084\u0083\3\2\2\2\u0085\7\3\2\2\2\u0086\u0089\5\20\t"+
-		"\2\u0087\u0089\3\2\2\2\u0088\u0086\3\2\2\2\u0088\u0087\3\2\2\2\u0089\t"+
-		"\3\2\2\2\u008a\u008d\5\30\r\2\u008b\u008d\3\2\2\2\u008c\u008a\3\2\2\2"+
-		"\u008c\u008b\3\2\2\2\u008d\13\3\2\2\2\u008e\u008f\7\f\2\2\u008f\u0090"+
-		"\7\61\2\2\u0090\u0091\5\16\b\2\u0091\u0092\7\22\2\2\u0092\u0093\5\b\5"+
-		"\2\u0093\u0094\5\36\20\2\u0094\u0095\5\n\6\2\u0095\u0096\7\23\2\2\u0096"+
-		"\r\3\2\2\2\u0097\u0098\7\r\2\2\u0098\u009b\7\61\2\2\u0099\u009b\3\2\2"+
-		"\2\u009a\u0097\3\2\2\2\u009a\u0099\3\2\2\2\u009b\17\3\2\2\2\u009c\u009d"+
-		"\7\5\2\2\u009d\u009e\7\7\2\2\u009e\u009f\5\22\n\2\u009f\21\3\2\2\2\u00a0"+
-		"\u00a1\5$\23\2\u00a1\u00a2\7\60\2\2\u00a2\u00a3\5\24\13\2\u00a3\u00a4"+
-		"\7\4\2\2\u00a4\u00a5\5\26\f\2\u00a5\23\3\2\2\2\u00a6\u00a7\7\6\2\2\u00a7"+
-		"\u00a8\7\60\2\2\u00a8\u00ab\5\24\13\2\u00a9\u00ab\3\2\2\2\u00aa\u00a6"+
-		"\3\2\2\2\u00aa\u00a9\3\2\2\2\u00ab\25\3\2\2\2\u00ac\u00af\5\22\n\2\u00ad"+
-		"\u00af\3\2\2\2\u00ae\u00ac\3\2\2\2\u00ae\u00ad\3\2\2\2\u00af\27\3\2\2"+
-		"\2\u00b0\u00b1\7\17\2\2\u00b1\u00b2\7\7\2\2\u00b2\u00b3\5\32\16\2\u00b3"+
-		"\31\3\2\2\2\u00b4\u00b5\5&\24\2\u00b5\u00b6\5\34\17\2\u00b6\33\3\2\2\2"+
-		"\u00b7\u00b8\5&\24\2\u00b8\u00b9\5\34\17\2\u00b9\u00bc\3\2\2\2\u00ba\u00bc"+
-		"\3\2\2\2\u00bb\u00b7\3\2\2\2\u00bb\u00ba\3\2\2\2\u00bc\35\3\2\2\2\u00bd"+
-		"\u00be\7\16\2\2\u00be\u00bf\7\"\2\2\u00bf\u00c0\5 \21\2\u00c0\u00c1\7"+
-		"#\2\2\u00c1\u00c2\7\22\2\2\u00c2\u00c3\7\23\2\2\u00c3\37\3\2\2\2\u00c4"+
-		"\u00c7\5(\25\2\u00c5\u00c7\3\2\2\2\u00c6\u00c4\3\2\2\2\u00c6\u00c5\3\2"+
-		"\2\2\u00c7!\3\2\2\2\u00c8\u00c9\5.\30\2\u00c9\u00ca\5\"\22\2\u00ca\u00cd"+
-		"\3\2\2\2\u00cb\u00cd\3\2\2\2\u00cc\u00c8\3\2\2\2\u00cc\u00cb\3\2\2\2\u00cd"+
-		"#\3\2\2\2\u00ce\u00d9\7\b\2\2\u00cf\u00d9\7\t\2\2\u00d0\u00d9\7\n\2\2"+
-		"\u00d1\u00d9\7\13\2\2\u00d2\u00d3\7%\2\2\u00d3\u00d4\7\30\2\2\u00d4\u00d5"+
-		"\5$\23\2\u00d5\u00d6\7\27\2\2\u00d6\u00d9\3\2\2\2\u00d7\u00d9\7\61\2\2"+
-		"\u00d8\u00ce\3\2\2\2\u00d8\u00cf\3\2\2\2\u00d8\u00d0\3\2\2\2\u00d8\u00d1"+
-		"\3\2\2\2\u00d8\u00d2\3\2\2\2\u00d8\u00d7\3\2\2\2\u00d9%\3\2\2\2\u00da"+
-		"\u00dd\5\60\31\2\u00db\u00dd\5\62\32\2\u00dc\u00da\3\2\2\2\u00dc\u00db"+
-		"\3\2\2\2\u00dd\'\3\2\2\2\u00de\u00df\5$\23\2\u00df\u00e0\5*\26\2\u00e0"+
-		"\u00e1\7\60\2\2\u00e1\u00e2\5,\27\2\u00e2)\3\2\2\2\u00e3\u00e6\5\64\33"+
-		"\2\u00e4\u00e6\3\2\2\2\u00e5\u00e3\3\2\2\2\u00e5\u00e4\3\2\2\2\u00e6+"+
-		"\3\2\2\2\u00e7\u00e8\5$\23\2\u00e8\u00e9\5*\26\2\u00e9\u00ea\7\60\2\2"+
-		"\u00ea\u00eb\5,\27\2\u00eb\u00ee\3\2\2\2\u00ec\u00ee\3\2\2\2\u00ed\u00e7"+
-		"\3\2\2\2\u00ed\u00ec\3\2\2\2\u00ee-\3\2\2\2\u00ef\u00f5\5\66\34\2\u00f0"+
-		"\u00f5\5:\36\2\u00f1\u00f5\5> \2\u00f2\u00f5\5@!\2\u00f3\u00f5\5D#\2\u00f4"+
-		"\u00ef\3\2\2\2\u00f4\u00f0\3\2\2\2\u00f4\u00f1\3\2\2\2\u00f4\u00f2\3\2"+
-		"\2\2\u00f4\u00f3\3\2\2\2\u00f5/\3\2\2\2\u00f6\u00f7\7\20\2\2\u00f7\u00f8"+
-		"\7\60\2\2\u00f8\u00f9\7\"\2\2\u00f9\u00fa\5 \21\2\u00fa\u00fb\7#\2\2\u00fb"+
-		"\u00fc\7\22\2\2\u00fc\u00fd\5H%\2\u00fd\u00fe\7\23\2\2\u00fe\61\3\2\2"+
-		"\2\u00ff\u0100\5$\23\2\u0100\u0101\7\60\2\2\u0101\u0102\7\"\2\2\u0102"+
-		"\u0103\5 \21\2\u0103\u0104\7#\2\2\u0104\u0105\7\22\2\2\u0105\u0106\5H"+
-		"%\2\u0106\u0107\5J&\2\u0107\u0108\7\23\2\2\u0108\63\3\2\2\2\u0109\u010a"+
-		"\7-\2\2\u010a\65\3\2\2\2\u010b\u010c\5L\'\2\u010c\u010d\7\26\2\2\u010d"+
-		"\u010e\58\35\2\u010e\u010f\7\4\2\2\u010f\67\3\2\2\2\u0110\u0113\5P)\2"+
-		"\u0111\u0113\5V,\2\u0112\u0110\3\2\2\2\u0112\u0111\3\2\2\2\u01139\3\2"+
-		"\2\2\u0114\u0115\7$\2\2\u0115\u0116\7\"\2\2\u0116\u0117\5P)\2\u0117\u0118"+
-		"\7#\2\2\u0118\u0119\7\22\2\2\u0119\u011a\5\"\22\2\u011a\u011b\7\23\2\2"+
-		"\u011b\u011c\5<\37\2\u011c;\3\2\2\2\u011d\u011e\7&\2\2\u011e\u011f\7\22"+
-		"\2\2\u011f\u0120\5\"\22\2\u0120\u0121\7\23\2\2\u0121\u0124\3\2\2\2\u0122"+
-		"\u0124\3\2\2\2\u0123\u011d\3\2\2\2\u0123\u0122\3\2\2\2\u0124=\3\2\2\2"+
-		"\u0125\u0126\7\'\2\2\u0126\u0127\7\"\2\2\u0127\u0128\5P)\2\u0128\u0129"+
-		"\7#\2\2\u0129\u012a\7\22\2\2\u012a\u012b\5\"\22\2\u012b\u012c\7\23\2\2"+
-		"\u012c?\3\2\2\2\u012d\u012e\7/\2\2\u012e\u012f\7\"\2\2\u012f\u0130\5X"+
-		"-\2\u0130\u0131\5B\"\2\u0131\u0132\7#\2\2\u0132\u0133\7\4\2\2\u0133A\3"+
-		"\2\2\2\u0134\u0135\7.\2\2\u0135\u0136\5X-\2\u0136\u0137\5B\"\2\u0137\u013a"+
-		"\3\2\2\2\u0138\u013a\3\2\2\2\u0139\u0134\3\2\2\2\u0139\u0138\3\2\2\2\u013a"+
-		"C\3\2\2\2\u013b\u013c\5L\'\2\u013c\u013d\7\"\2\2\u013d\u013e\5F$\2\u013e"+
-		"\u013f\7#\2\2\u013f\u0140\7\4\2\2\u0140E\3\2\2\2\u0141\u0144\5^\60\2\u0142"+
-		"\u0144\3\2\2\2\u0143\u0141\3\2\2\2\u0143\u0142\3\2\2\2\u0144G\3\2\2\2"+
-		"\u0145\u0146\5\b\5\2\u0146\u0147\5\"\22\2\u0147I\3\2\2\2\u0148\u0149\7"+
-		"\21\2\2\u0149\u014a\5P)\2\u014a\u014b\7\4\2\2\u014bK\3\2\2\2\u014c\u014d"+
-		"\7\60\2\2\u014d\u014e\5N(\2\u014eM\3\2\2\2\u014f\u0150\7\36\2\2\u0150"+
-		"\u0153\7\60\2\2\u0151\u0153\3\2\2\2\u0152\u014f\3\2\2\2\u0152\u0151\3"+
-		"\2\2\2\u0153O\3\2\2\2\u0154\u0155\5b\62\2\u0155\u0156\5R*\2\u0156Q\3\2"+
-		"\2\2\u0157\u0158\5T+\2\u0158\u0159\5b\62\2\u0159\u015c\3\2\2\2\u015a\u015c"+
-		"\3\2\2\2\u015b\u0157\3\2\2\2\u015b\u015a\3\2\2\2\u015cS\3\2\2\2\u015d"+
-		"\u015e\t\2\2\2\u015eU\3\2\2\2\u015f\u0160\7(\2\2\u0160W\3\2\2\2\u0161"+
-		"\u0162\5h\65\2\u0162\u0163\5Z.\2\u0163Y\3\2\2\2\u0164\u0165\5\\/\2\u0165"+
-		"\u0166\5h\65\2\u0166\u0167\5Z.\2\u0167\u016a\3\2\2\2\u0168\u016a\3\2\2"+
-		"\2\u0169\u0164\3\2\2\2\u0169\u0168\3\2\2\2\u016a[\3\2\2\2\u016b\u016c"+
-		"\t\3\2\2\u016c]\3\2\2\2\u016d\u016e\5*\26\2\u016e\u016f\7\60\2\2\u016f"+
-		"\u0170\5`\61\2\u0170_\3\2\2\2\u0171\u0172\7\6\2\2\u0172\u0173\5*\26\2"+
-		"\u0173\u0174\7\60\2\2\u0174\u0175\5`\61\2\u0175\u0178\3\2\2\2\u0176\u0178"+
-		"\3\2\2\2\u0177\u0171\3\2\2\2\u0177\u0176\3\2\2\2\u0178a\3\2\2\2\u0179"+
-		"\u017a\5X-\2\u017a\u017b\5d\63\2\u017bc\3\2\2\2\u017c\u017d\5f\64\2\u017d"+
-		"\u017e\5X-\2\u017e\u0181\3\2\2\2\u017f\u0181\3\2\2\2\u0180\u017c\3\2\2"+
-		"\2\u0180\u017f\3\2\2\2\u0181e\3\2\2\2\u0182\u0183\7\27\2\2\u0183\u018b"+
-		"\7\26\2\2\u0184\u0185\7\30\2\2\u0185\u018b\7\26\2\2\u0186\u0187\7\26\2"+
-		"\2\u0187\u018b\7\26\2\2\u0188\u018b\7\35\2\2\u0189\u018b\3\2\2\2\u018a"+
-		"\u0182\3\2\2\2\u018a\u0184\3\2\2\2\u018a\u0186\3\2\2\2\u018a\u0188\3\2"+
-		"\2\2\u018a\u0189\3\2\2\2\u018bg\3\2\2\2\u018c\u018d\5n8\2\u018d\u018e"+
-		"\5j\66\2\u018ei\3\2\2\2\u018f\u0190\5l\67\2\u0190\u0191\5n8\2\u0191\u0192"+
-		"\5j\66\2\u0192\u0195\3\2\2\2\u0193\u0195\3\2\2\2\u0194\u018f\3\2\2\2\u0194"+
-		"\u0193\3\2\2\2\u0195k\3\2\2\2\u0196\u0197\t\4\2\2\u0197m\3\2\2\2\u0198"+
-		"\u0199\7\"\2\2\u0199\u019a\5P)\2\u019a\u019b\7#\2\2\u019b\u01a0\3\2\2"+
-		"\2\u019c\u019d\5p9\2\u019d\u019e\5r:\2\u019e\u01a0\3\2\2\2\u019f\u0198"+
-		"\3\2\2\2\u019f\u019c\3\2\2\2\u01a0o\3\2\2\2\u01a1\u01a5\7\32\2\2\u01a2"+
-		"\u01a5\7\37\2\2\u01a3\u01a5\3\2\2\2\u01a4\u01a1\3\2\2\2\u01a4\u01a2\3"+
-		"\2\2\2\u01a4\u01a3\3\2\2\2\u01a5q\3\2\2\2\u01a6\u01b3\5L\'\2\u01a7\u01a8"+
-		"\7\60\2\2\u01a8\u01a9\7\24\2\2\u01a9\u01aa\5X-\2\u01aa\u01ab\7\25\2\2"+
-		"\u01ab\u01b3\3\2\2\2\u01ac\u01b3\7\64\2\2\u01ad\u01b3\7\63\2\2\u01ae\u01b3"+
-		"\7\62\2\2\u01af\u01b3\7)\2\2\u01b0\u01b3\7*\2\2\u01b1\u01b3\5D#\2\u01b2"+
-		"\u01a6\3\2\2\2\u01b2\u01a7\3\2\2\2\u01b2\u01ac\3\2\2\2\u01b2\u01ad\3\2"+
-		"\2\2\u01b2\u01ae\3\2\2\2\u01b2\u01af\3\2\2\2\u01b2\u01b0\3\2\2\2\u01b2"+
-		"\u01b1\3\2\2\2\u01b3s\3\2\2\2\u01b4\u01b5\7+\2\2\u01b5\u01b6\7\7\2\2\u01b6"+
-		"\u01b7\5H%\2\u01b7\u01b8\7,\2\2\u01b8u\3\2\2\2\36\u0084\u0088\u008c\u009a"+
-		"\u00aa\u00ae\u00bb\u00c6\u00cc\u00d8\u00dc\u00e5\u00ed\u00f4\u0112\u0123"+
-		"\u0139\u0143\u0152\u015b\u0169\u0177\u0180\u018a\u0194\u019f\u01a4\u01b2";
+		"\64\4\65\t\65\4\66\t\66\4\67\t\67\48\t8\49\t9\4:\t:\4;\t;\4<\t<\3\2\3"+
+		"\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\5\4\u0087\n\4\3\5\3"+
+		"\5\5\5\u008b\n\5\3\6\3\6\5\6\u008f\n\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7"+
+		"\3\7\3\b\3\b\3\b\5\b\u009d\n\b\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n"+
+		"\3\13\3\13\3\13\3\13\5\13\u00ad\n\13\3\f\3\f\5\f\u00b1\n\f\3\r\3\r\3\r"+
+		"\3\r\3\16\3\16\3\16\3\17\3\17\3\17\3\17\5\17\u00be\n\17\3\20\3\20\3\20"+
+		"\3\20\3\20\3\20\3\20\3\20\3\21\3\21\5\21\u00ca\n\21\3\22\3\22\3\22\3\22"+
+		"\5\22\u00d0\n\22\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\5\23"+
+		"\u00dc\n\23\3\24\3\24\5\24\u00e0\n\24\3\25\3\25\3\25\3\25\3\25\3\26\3"+
+		"\26\5\26\u00e9\n\26\3\27\3\27\3\27\3\27\3\27\3\27\3\27\5\27\u00f2\n\27"+
+		"\3\30\3\30\3\30\3\30\3\30\3\30\3\30\5\30\u00fb\n\30\3\31\3\31\3\31\3\31"+
+		"\3\31\3\31\3\31\3\31\3\31\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\32"+
+		"\3\32\3\33\3\33\3\34\3\34\3\34\3\34\3\34\3\35\3\35\5\35\u0119\n\35\3\36"+
+		"\3\36\3\36\3\36\3\36\3\36\3\36\3\36\3\36\3\37\3\37\3\37\3\37\3\37\3\37"+
+		"\5\37\u012a\n\37\3 \3 \3 \3 \3 \3 \3 \3 \3!\3!\3!\3!\3!\3!\3!\3\"\3\""+
+		"\3\"\3\"\3\"\5\"\u0140\n\"\3#\3#\3#\3#\3#\3$\3$\5$\u0149\n$\3%\3%\3%\3"+
+		"&\3&\3&\3&\3\'\3\'\3\'\3\'\3(\3(\3(\3(\3(\3(\5(\u015c\n(\3)\3)\3)\3)\3"+
+		")\5)\u0163\n)\3*\3*\3*\3+\3+\3+\3+\5+\u016c\n+\3,\3,\3-\3-\3.\3.\3.\3"+
+		"/\3/\3/\3/\3/\5/\u017a\n/\3\60\3\60\3\61\3\61\3\61\3\61\3\62\3\62\3\62"+
+		"\3\62\3\62\3\62\5\62\u0188\n\62\3\63\3\63\3\63\3\64\3\64\3\64\3\64\5\64"+
+		"\u0191\n\64\3\65\3\65\3\65\3\65\3\65\3\65\3\65\3\65\5\65\u019b\n\65\3"+
+		"\66\3\66\3\66\3\67\3\67\3\67\3\67\3\67\5\67\u01a5\n\67\38\38\39\39\39"+
+		"\39\39\39\39\59\u01b0\n9\3:\3:\3:\5:\u01b5\n:\3;\3;\3;\3;\3;\3;\3;\5;"+
+		"\u01be\n;\3<\3<\3<\3<\3<\3<\2\2=\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36"+
+		" \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bdfhjlnprtv\2\5\3\2\33\34\4"+
+		"\2\32\32\37\37\3\2 !\u01b7\2x\3\2\2\2\4}\3\2\2\2\6\u0086\3\2\2\2\b\u008a"+
+		"\3\2\2\2\n\u008e\3\2\2\2\f\u0090\3\2\2\2\16\u009c\3\2\2\2\20\u009e\3\2"+
+		"\2\2\22\u00a2\3\2\2\2\24\u00ac\3\2\2\2\26\u00b0\3\2\2\2\30\u00b2\3\2\2"+
+		"\2\32\u00b6\3\2\2\2\34\u00bd\3\2\2\2\36\u00bf\3\2\2\2 \u00c9\3\2\2\2\""+
+		"\u00cf\3\2\2\2$\u00db\3\2\2\2&\u00df\3\2\2\2(\u00e1\3\2\2\2*\u00e8\3\2"+
+		"\2\2,\u00f1\3\2\2\2.\u00fa\3\2\2\2\60\u00fc\3\2\2\2\62\u0105\3\2\2\2\64"+
+		"\u010f\3\2\2\2\66\u0111\3\2\2\28\u0118\3\2\2\2:\u011a\3\2\2\2<\u0129\3"+
+		"\2\2\2>\u012b\3\2\2\2@\u0133\3\2\2\2B\u013f\3\2\2\2D\u0141\3\2\2\2F\u0148"+
+		"\3\2\2\2H\u014a\3\2\2\2J\u014d\3\2\2\2L\u0151\3\2\2\2N\u015b\3\2\2\2P"+
+		"\u0162\3\2\2\2R\u0164\3\2\2\2T\u016b\3\2\2\2V\u016d\3\2\2\2X\u016f\3\2"+
+		"\2\2Z\u0171\3\2\2\2\\\u0179\3\2\2\2^\u017b\3\2\2\2`\u017d\3\2\2\2b\u0187"+
+		"\3\2\2\2d\u0189\3\2\2\2f\u0190\3\2\2\2h\u019a\3\2\2\2j\u019c\3\2\2\2l"+
+		"\u01a4\3\2\2\2n\u01a6\3\2\2\2p\u01af\3\2\2\2r\u01b4\3\2\2\2t\u01bd\3\2"+
+		"\2\2v\u01bf\3\2\2\2xy\7\3\2\2yz\7\60\2\2z{\7\4\2\2{|\5\4\3\2|\3\3\2\2"+
+		"\2}~\5\6\4\2~\177\5\b\5\2\177\u0080\5\n\6\2\u0080\u0081\5v<\2\u0081\5"+
+		"\3\2\2\2\u0082\u0083\5\f\7\2\u0083\u0084\5\6\4\2\u0084\u0087\3\2\2\2\u0085"+
+		"\u0087\3\2\2\2\u0086\u0082\3\2\2\2\u0086\u0085\3\2\2\2\u0087\7\3\2\2\2"+
+		"\u0088\u008b\5\20\t\2\u0089\u008b\3\2\2\2\u008a\u0088\3\2\2\2\u008a\u0089"+
+		"\3\2\2\2\u008b\t\3\2\2\2\u008c\u008f\5\30\r\2\u008d\u008f\3\2\2\2\u008e"+
+		"\u008c\3\2\2\2\u008e\u008d\3\2\2\2\u008f\13\3\2\2\2\u0090\u0091\7\f\2"+
+		"\2\u0091\u0092\7\61\2\2\u0092\u0093\5\16\b\2\u0093\u0094\7\22\2\2\u0094"+
+		"\u0095\5\b\5\2\u0095\u0096\5\36\20\2\u0096\u0097\5\n\6\2\u0097\u0098\7"+
+		"\23\2\2\u0098\r\3\2\2\2\u0099\u009a\7\r\2\2\u009a\u009d\7\61\2\2\u009b"+
+		"\u009d\3\2\2\2\u009c\u0099\3\2\2\2\u009c\u009b\3\2\2\2\u009d\17\3\2\2"+
+		"\2\u009e\u009f\7\5\2\2\u009f\u00a0\7\7\2\2\u00a0\u00a1\5\22\n\2\u00a1"+
+		"\21\3\2\2\2\u00a2\u00a3\5$\23\2\u00a3\u00a4\7\60\2\2\u00a4\u00a5\5\24"+
+		"\13\2\u00a5\u00a6\7\4\2\2\u00a6\u00a7\5\26\f\2\u00a7\23\3\2\2\2\u00a8"+
+		"\u00a9\7\6\2\2\u00a9\u00aa\7\60\2\2\u00aa\u00ad\5\24\13\2\u00ab\u00ad"+
+		"\3\2\2\2\u00ac\u00a8\3\2\2\2\u00ac\u00ab\3\2\2\2\u00ad\25\3\2\2\2\u00ae"+
+		"\u00b1\5\22\n\2\u00af\u00b1\3\2\2\2\u00b0\u00ae\3\2\2\2\u00b0\u00af\3"+
+		"\2\2\2\u00b1\27\3\2\2\2\u00b2\u00b3\7\17\2\2\u00b3\u00b4\7\7\2\2\u00b4"+
+		"\u00b5\5\32\16\2\u00b5\31\3\2\2\2\u00b6\u00b7\5&\24\2\u00b7\u00b8\5\34"+
+		"\17\2\u00b8\33\3\2\2\2\u00b9\u00ba\5&\24\2\u00ba\u00bb\5\34\17\2\u00bb"+
+		"\u00be\3\2\2\2\u00bc\u00be\3\2\2\2\u00bd\u00b9\3\2\2\2\u00bd\u00bc\3\2"+
+		"\2\2\u00be\35\3\2\2\2\u00bf\u00c0\7\16\2\2\u00c0\u00c1\7\"\2\2\u00c1\u00c2"+
+		"\5 \21\2\u00c2\u00c3\7#\2\2\u00c3\u00c4\7\22\2\2\u00c4\u00c5\5\"\22\2"+
+		"\u00c5\u00c6\7\23\2\2\u00c6\37\3\2\2\2\u00c7\u00ca\5(\25\2\u00c8\u00ca"+
+		"\3\2\2\2\u00c9\u00c7\3\2\2\2\u00c9\u00c8\3\2\2\2\u00ca!\3\2\2\2\u00cb"+
+		"\u00cc\5.\30\2\u00cc\u00cd\5\"\22\2\u00cd\u00d0\3\2\2\2\u00ce\u00d0\3"+
+		"\2\2\2\u00cf\u00cb\3\2\2\2\u00cf\u00ce\3\2\2\2\u00d0#\3\2\2\2\u00d1\u00dc"+
+		"\7\b\2\2\u00d2\u00dc\7\t\2\2\u00d3\u00dc\7\n\2\2\u00d4\u00dc\7\13\2\2"+
+		"\u00d5\u00d6\7%\2\2\u00d6\u00d7\7\30\2\2\u00d7\u00d8\5$\23\2\u00d8\u00d9"+
+		"\7\27\2\2\u00d9\u00dc\3\2\2\2\u00da\u00dc\7\61\2\2\u00db\u00d1\3\2\2\2"+
+		"\u00db\u00d2\3\2\2\2\u00db\u00d3\3\2\2\2\u00db\u00d4\3\2\2\2\u00db\u00d5"+
+		"\3\2\2\2\u00db\u00da\3\2\2\2\u00dc%\3\2\2\2\u00dd\u00e0\5\60\31\2\u00de"+
+		"\u00e0\5\62\32\2\u00df\u00dd\3\2\2\2\u00df\u00de\3\2\2\2\u00e0\'\3\2\2"+
+		"\2\u00e1\u00e2\5$\23\2\u00e2\u00e3\5*\26\2\u00e3\u00e4\7\60\2\2\u00e4"+
+		"\u00e5\5,\27\2\u00e5)\3\2\2\2\u00e6\u00e9\5\64\33\2\u00e7\u00e9\3\2\2"+
+		"\2\u00e8\u00e6\3\2\2\2\u00e8\u00e7\3\2\2\2\u00e9+\3\2\2\2\u00ea\u00eb"+
+		"\7\6\2\2\u00eb\u00ec\5$\23\2\u00ec\u00ed\5*\26\2\u00ed\u00ee\7\60\2\2"+
+		"\u00ee\u00ef\5,\27\2\u00ef\u00f2\3\2\2\2\u00f0\u00f2\3\2\2\2\u00f1\u00ea"+
+		"\3\2\2\2\u00f1\u00f0\3\2\2\2\u00f2-\3\2\2\2\u00f3\u00fb\5\66\34\2\u00f4"+
+		"\u00fb\5:\36\2\u00f5\u00fb\5> \2\u00f6\u00fb\5@!\2\u00f7\u00f8\5D#\2\u00f8"+
+		"\u00f9\7\4\2\2\u00f9\u00fb\3\2\2\2\u00fa\u00f3\3\2\2\2\u00fa\u00f4\3\2"+
+		"\2\2\u00fa\u00f5\3\2\2\2\u00fa\u00f6\3\2\2\2\u00fa\u00f7\3\2\2\2\u00fb"+
+		"/\3\2\2\2\u00fc\u00fd\7\20\2\2\u00fd\u00fe\7\60\2\2\u00fe\u00ff\7\"\2"+
+		"\2\u00ff\u0100\5 \21\2\u0100\u0101\7#\2\2\u0101\u0102\7\22\2\2\u0102\u0103"+
+		"\5H%\2\u0103\u0104\7\23\2\2\u0104\61\3\2\2\2\u0105\u0106\5$\23\2\u0106"+
+		"\u0107\7\60\2\2\u0107\u0108\7\"\2\2\u0108\u0109\5 \21\2\u0109\u010a\7"+
+		"#\2\2\u010a\u010b\7\22\2\2\u010b\u010c\5H%\2\u010c\u010d\5J&\2\u010d\u010e"+
+		"\7\23\2\2\u010e\63\3\2\2\2\u010f\u0110\7-\2\2\u0110\65\3\2\2\2\u0111\u0112"+
+		"\5L\'\2\u0112\u0113\7\26\2\2\u0113\u0114\58\35\2\u0114\u0115\7\4\2\2\u0115"+
+		"\67\3\2\2\2\u0116\u0119\5R*\2\u0117\u0119\5X-\2\u0118\u0116\3\2\2\2\u0118"+
+		"\u0117\3\2\2\2\u01199\3\2\2\2\u011a\u011b\7$\2\2\u011b\u011c\7\"\2\2\u011c"+
+		"\u011d\5R*\2\u011d\u011e\7#\2\2\u011e\u011f\7\22\2\2\u011f\u0120\5\"\22"+
+		"\2\u0120\u0121\7\23\2\2\u0121\u0122\5<\37\2\u0122;\3\2\2\2\u0123\u0124"+
+		"\7&\2\2\u0124\u0125\7\22\2\2\u0125\u0126\5\"\22\2\u0126\u0127\7\23\2\2"+
+		"\u0127\u012a\3\2\2\2\u0128\u012a\3\2\2\2\u0129\u0123\3\2\2\2\u0129\u0128"+
+		"\3\2\2\2\u012a=\3\2\2\2\u012b\u012c\7\'\2\2\u012c\u012d\7\"\2\2\u012d"+
+		"\u012e\5R*\2\u012e\u012f\7#\2\2\u012f\u0130\7\22\2\2\u0130\u0131\5\"\22"+
+		"\2\u0131\u0132\7\23\2\2\u0132?\3\2\2\2\u0133\u0134\7/\2\2\u0134\u0135"+
+		"\7\"\2\2\u0135\u0136\5Z.\2\u0136\u0137\5B\"\2\u0137\u0138\7#\2\2\u0138"+
+		"\u0139\7\4\2\2\u0139A\3\2\2\2\u013a\u013b\7.\2\2\u013b\u013c\5Z.\2\u013c"+
+		"\u013d\5B\"\2\u013d\u0140\3\2\2\2\u013e\u0140\3\2\2\2\u013f\u013a\3\2"+
+		"\2\2\u013f\u013e\3\2\2\2\u0140C\3\2\2\2\u0141\u0142\5L\'\2\u0142\u0143"+
+		"\7\"\2\2\u0143\u0144\5F$\2\u0144\u0145\7#\2\2\u0145E\3\2\2\2\u0146\u0149"+
+		"\5`\61\2\u0147\u0149\3\2\2\2\u0148\u0146\3\2\2\2\u0148\u0147\3\2\2\2\u0149"+
+		"G\3\2\2\2\u014a\u014b\5\b\5\2\u014b\u014c\5\"\22\2\u014cI\3\2\2\2\u014d"+
+		"\u014e\7\21\2\2\u014e\u014f\5R*\2\u014f\u0150\7\4\2\2\u0150K\3\2\2\2\u0151"+
+		"\u0152\7\60\2\2\u0152\u0153\5P)\2\u0153\u0154\5N(\2\u0154M\3\2\2\2\u0155"+
+		"\u0156\7\36\2\2\u0156\u0157\7\60\2\2\u0157\u015c\5P)\2\u0158\u0159\7\36"+
+		"\2\2\u0159\u015c\7\16\2\2\u015a\u015c\3\2\2\2\u015b\u0155\3\2\2\2\u015b"+
+		"\u0158\3\2\2\2\u015b\u015a\3\2\2\2\u015cO\3\2\2\2\u015d\u015e\7\24\2\2"+
+		"\u015e\u015f\5Z.\2\u015f\u0160\7\25\2\2\u0160\u0163\3\2\2\2\u0161\u0163"+
+		"\3\2\2\2\u0162\u015d\3\2\2\2\u0162\u0161\3\2\2\2\u0163Q\3\2\2\2\u0164"+
+		"\u0165\5d\63\2\u0165\u0166\5T+\2\u0166S\3\2\2\2\u0167\u0168\5V,\2\u0168"+
+		"\u0169\5d\63\2\u0169\u016c\3\2\2\2\u016a\u016c\3\2\2\2\u016b\u0167\3\2"+
+		"\2\2\u016b\u016a\3\2\2\2\u016cU\3\2\2\2\u016d\u016e\t\2\2\2\u016eW\3\2"+
+		"\2\2\u016f\u0170\7(\2\2\u0170Y\3\2\2\2\u0171\u0172\5j\66\2\u0172\u0173"+
+		"\5\\/\2\u0173[\3\2\2\2\u0174\u0175\5^\60\2\u0175\u0176\5j\66\2\u0176\u0177"+
+		"\5\\/\2\u0177\u017a\3\2\2\2\u0178\u017a\3\2\2\2\u0179\u0174\3\2\2\2\u0179"+
+		"\u0178\3\2\2\2\u017a]\3\2\2\2\u017b\u017c\t\3\2\2\u017c_\3\2\2\2\u017d"+
+		"\u017e\5*\26\2\u017e\u017f\5Z.\2\u017f\u0180\5b\62\2\u0180a\3\2\2\2\u0181"+
+		"\u0182\7\6\2\2\u0182\u0183\5*\26\2\u0183\u0184\5Z.\2\u0184\u0185\5b\62"+
+		"\2\u0185\u0188\3\2\2\2\u0186\u0188\3\2\2\2\u0187\u0181\3\2\2\2\u0187\u0186"+
+		"\3\2\2\2\u0188c\3\2\2\2\u0189\u018a\5Z.\2\u018a\u018b\5f\64\2\u018be\3"+
+		"\2\2\2\u018c\u018d\5h\65\2\u018d\u018e\5Z.\2\u018e\u0191\3\2\2\2\u018f"+
+		"\u0191\3\2\2\2\u0190\u018c\3\2\2\2\u0190\u018f\3\2\2\2\u0191g\3\2\2\2"+
+		"\u0192\u0193\7\27\2\2\u0193\u019b\7\26\2\2\u0194\u0195\7\30\2\2\u0195"+
+		"\u019b\7\26\2\2\u0196\u0197\7\26\2\2\u0197\u019b\7\26\2\2\u0198\u019b"+
+		"\7\35\2\2\u0199\u019b\3\2\2\2\u019a\u0192\3\2\2\2\u019a\u0194\3\2\2\2"+
+		"\u019a\u0196\3\2\2\2\u019a\u0198\3\2\2\2\u019a\u0199\3\2\2\2\u019bi\3"+
+		"\2\2\2\u019c\u019d\5p9\2\u019d\u019e\5l\67\2\u019ek\3\2\2\2\u019f\u01a0"+
+		"\5n8\2\u01a0\u01a1\5p9\2\u01a1\u01a2\5l\67\2\u01a2\u01a5\3\2\2\2\u01a3"+
+		"\u01a5\3\2\2\2\u01a4\u019f\3\2\2\2\u01a4\u01a3\3\2\2\2\u01a5m\3\2\2\2"+
+		"\u01a6\u01a7\t\4\2\2\u01a7o\3\2\2\2\u01a8\u01a9\7\"\2\2\u01a9\u01aa\5"+
+		"R*\2\u01aa\u01ab\7#\2\2\u01ab\u01b0\3\2\2\2\u01ac\u01ad\5r:\2\u01ad\u01ae"+
+		"\5t;\2\u01ae\u01b0\3\2\2\2\u01af\u01a8\3\2\2\2\u01af\u01ac\3\2\2\2\u01b0"+
+		"q\3\2\2\2\u01b1\u01b5\7\32\2\2\u01b2\u01b5\7\37\2\2\u01b3\u01b5\3\2\2"+
+		"\2\u01b4\u01b1\3\2\2\2\u01b4\u01b2\3\2\2\2\u01b4\u01b3\3\2\2\2\u01b5s"+
+		"\3\2\2\2\u01b6\u01be\5L\'\2\u01b7\u01be\7\64\2\2\u01b8\u01be\7\63\2\2"+
+		"\u01b9\u01be\7\62\2\2\u01ba\u01be\7)\2\2\u01bb\u01be\7*\2\2\u01bc\u01be"+
+		"\5D#\2\u01bd\u01b6\3\2\2\2\u01bd\u01b7\3\2\2\2\u01bd\u01b8\3\2\2\2\u01bd"+
+		"\u01b9\3\2\2\2\u01bd\u01ba\3\2\2\2\u01bd\u01bb\3\2\2\2\u01bd\u01bc\3\2"+
+		"\2\2\u01beu\3\2\2\2\u01bf\u01c0\7+\2\2\u01c0\u01c1\7\7\2\2\u01c1\u01c2"+
+		"\5H%\2\u01c2\u01c3\7,\2\2\u01c3w\3\2\2\2\37\u0086\u008a\u008e\u009c\u00ac"+
+		"\u00b0\u00bd\u00c9\u00cf\u00db\u00df\u00e8\u00f1\u00fa\u0118\u0129\u013f"+
+		"\u0148\u015b\u0162\u016b\u0179\u0187\u0190\u019a\u01a4\u01af\u01b4\u01bd";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

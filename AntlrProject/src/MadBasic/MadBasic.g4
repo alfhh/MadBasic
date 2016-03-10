@@ -1,9 +1,10 @@
 // Alfredo Hinojosa Huerta & Luis Juan Sanchez Padilla
 grammar MadBasic;
 
+
 // Rules
-madbasic		:	PROGRAM ID SEMICOLON program;
-program 		:	a b c MAIN;
+madbasic        :	PROGRAM ID SEMICOLON program;
+program 		:	a b c main;
 a 				:	classe a
 					| // empty
 					;
@@ -58,7 +59,7 @@ statement 		:	assignment
 					| condition
 					| loop
 					| write
-					| call
+					| call SEMICOLON
 					;
 procedure 		:	VOID ID OPARENTHESIS k CPARENTHESIS OBRACE block CBRACE;
 function 		:	type ID OPARENTHESIS k CPARENTHESIS OBRACE block retorno CBRACE;
@@ -76,16 +77,20 @@ write 			: 	PRINT OPARENTHESIS exp q CPARENTHESIS SEMICOLON;
 q 				:	CARET exp q
 					| // empty
 					;
-call 			:	identifier OPARENTHESIS r CPARENTHESIS SEMICOLON;
+call 			:	identifier OPARENTHESIS r CPARENTHESIS;
 r 				:	args
 					| // empty
 					;
 block 			:	b l;
 retorno 			: 	RETURN expression SEMICOLON;
-identifier 		: 	ID s;
-s 				:	DOT ID
+identifier 		: 	ID ss s;
+s 				:	DOT ID ss
+                    | DOT INIT
 					| // empty
 					;
+ss              :   OBRACKET exp CBRACKET
+                    | //empty
+                    ;
 expression 		: 	comparison t;
 t 				:	u comparison
 					| // empty
@@ -101,8 +106,8 @@ v 				:	w term v
 w 				: PLUS
 				  | MINUS
 				  ;
-args 			: m ID x;
-x 				:	COMMA m ID x
+args 			: m exp x;
+x 				:	COMMA m exp x
 					| // empty
 					;
 comparison		: exp y;
@@ -130,7 +135,6 @@ ac 				:	PLUS
 					| // empty
 					;
 value 			: identifier
-				  | ID OBRACKET exp CBRACKET
 				  | CTEI
 				  | CTEF
 				  | CTESTRING

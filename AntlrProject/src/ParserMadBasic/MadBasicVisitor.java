@@ -1,4 +1,5 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+package ParserMadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -243,6 +244,12 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitS(MadBasicParser.SContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MadBasicParser#ss}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSs(MadBasicParser.SsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#expression}.
 	 * @param ctx the parse tree

@@ -2,7 +2,7 @@ program example;
 
 classe Aaa {
 	vars:
-		int c;
+		int c,e;
 		float d;
 
 	init(){
@@ -15,11 +15,9 @@ classe Aaa {
 		}
 }
 
-
-
 main:
 vars:
-		int xi, yi;
+	int xi, yi;
 	float fl;
 	string str;
 	Bbb bbb;
