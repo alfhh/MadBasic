@@ -114,12 +114,15 @@ comparison		: exp y;
 y 				:	z exp
 					| // empty
 					;
-z 				:	GREATER EQUAL
-					| LESSER EQUAL
+z 				:	GREATER zz
+					| LESSER zz
 					| EQUAL EQUAL
 					| DIFFERENT
 					| // empty
 					;
+zz              : EQUAL
+                    | //empty
+                    ;
 term 			: 	factor aa;
 aa 				:	ab factor aa
 					| // empty

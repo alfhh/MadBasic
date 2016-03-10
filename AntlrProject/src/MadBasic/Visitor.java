@@ -38,9 +38,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitFunction(MadBasicParser.FunctionContext ctx) {
         String id = ctx.getChild(1).getText();
+        String type = ctx.getChild(0).getText();
         Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(scp);
         basicSemantic.getScopeStack().push(scp);
+        basicSemantic.getProcedures().add(new Procedure(id, type, scp));
         visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
         return null;
@@ -53,10 +55,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(scp);
         basicSemantic.getScopeStack().push(scp);
+        basicSemantic.getProcedures().add(new Procedure(id, "void", scp));
         visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
         return null;
     }
+
 
     //Main
 
