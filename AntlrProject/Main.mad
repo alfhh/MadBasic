@@ -51,7 +51,7 @@ methods:
 				index = lx.size();
 			}
 			else {
-				//Do-nothing
+				res = 10;
 			}
 			index = index + 1;
 		}

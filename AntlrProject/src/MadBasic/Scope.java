@@ -35,6 +35,6 @@ public class Scope {
 
     @Override
     public String toString() {
-        return "SCOPE{name:" + name + ", parent:" + parent + "}";
+        return "SCOPE: {name:" + name + ", parent:" + parent + "}";
     }
 }

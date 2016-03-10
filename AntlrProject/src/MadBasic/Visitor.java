@@ -58,11 +58,17 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return null;
     }
 
-    //Vars
+    //Main
 
 
     @Override
-    public String visitVars(MadBasicParser.VarsContext ctx) {
+    public String visitMain(MadBasicParser.MainContext ctx) {
+        String name = "main";
+        Scope scp = new Scope(name, basicSemantic.getScopeStack().peek());
+        basicSemantic.getScopes().add(scp);
+        basicSemantic.getScopeStack().push(scp);
+        visitChildren(ctx);
+        basicSemantic.getScopeStack().pop();
         return null;
     }
 

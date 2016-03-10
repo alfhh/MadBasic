@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String [] args){
         try {
-            ParseTree tree = Parser.parse("Ex1.mad", "MadBasic", "madbasic");
+            ParseTree tree = Parser.parse("Main.mad", "MadBasic", "madbasic");
             new Visitor().visit(tree);
         } catch (IOException e) {
             e.printStackTrace();
