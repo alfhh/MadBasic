@@ -10,6 +10,8 @@ classe Aaa {
 
 	methods:
 		void save(int x, float y) {
+		    vars:
+                list<list<bool>> c;
 			c = x;
 			d = y;
 		}

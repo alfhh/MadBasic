@@ -37,4 +37,9 @@ public class Variable {
     public void setScope(Scope scope) {
         this.scope = scope;
     }
+
+    @Override
+    public String toString() {
+        return "VARIABLE:{ID:" + ID + ", type:" + type + ", scope:" + scope.getName() + "}";
+    }
 }

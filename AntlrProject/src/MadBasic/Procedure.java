@@ -37,4 +37,9 @@ public class Procedure {
     public void setScope(Scope scope) {
         this.scope = scope;
     }
+
+    @Override
+    public String toString() {
+        return "PROCEDURE{ID:" + ID + ", type: " + type + ", scope:" + scope.getName() + "}";
+    }
 }
