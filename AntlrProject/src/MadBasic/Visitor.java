@@ -37,18 +37,32 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     // Functions
     @Override
     public String visitFunction(MadBasicParser.FunctionContext ctx) {
-        String type = ctx.getChild(0).getText();
         String id = ctx.getChild(1).getText();
-        System.out.println(type + " " + id);
+        Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
+        basicSemantic.getScopes().add(scp);
+        basicSemantic.getScopeStack().push(scp);
+        visitChildren(ctx);
+        basicSemantic.getScopeStack().pop();
         return null;
     }
 
     // Procedure
     @Override
     public String visitProcedure(MadBasicParser.ProcedureContext ctx) {
-        String type = "void";
         String id = ctx.getChild(1).getText();
-        System.out.println(type + " " + id);
+        Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
+        basicSemantic.getScopes().add(scp);
+        basicSemantic.getScopeStack().push(scp);
+        visitChildren(ctx);
+        basicSemantic.getScopeStack().pop();
+        return null;
+    }
+
+    //Vars
+
+
+    @Override
+    public String visitVars(MadBasicParser.VarsContext ctx) {
         return null;
     }
 
