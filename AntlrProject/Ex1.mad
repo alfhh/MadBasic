@@ -1,0 +1,41 @@
+program example;
+
+classe Aaa {
+	vars:
+		int c;
+		float d;
+
+	init(){
+	}
+
+	methods:
+		void save(int x, float y) {
+			c = x;
+			d = y;
+		}
+}
+
+
+
+main:
+vars:
+		int xi, yi;
+	float fl;
+	string str;
+	Bbb bbb;
+
+bbb.init(2);
+bbb.d = 5.4;
+xi = 2;
+yi = 3;
+fl = read;
+lint.init();
+lint.add(1);
+lint.add(3);
+lint.add(4);
+lint.add(5);
+lint[0] = 4;
+b = bbb.isMultiple(xi,yi);
+xi = findx(yi, lint);
+printline(str);
+end
