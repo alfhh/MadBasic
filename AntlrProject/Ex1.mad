@@ -2,7 +2,7 @@ program example;
 
 classe Aaa {
 	vars:
-		int c;
+		int c,e;
 		float d;
 
 	init(){
@@ -10,16 +10,16 @@ classe Aaa {
 
 	methods:
 		void save(int x, float y) {
+		    vars:
+                list<list<bool>> c;
 			c = x;
 			d = y;
 		}
 }
 
-
-
 main:
 vars:
-		int xi, yi;
+	int xi, yi;
 	float fl;
 	string str;
 	Bbb bbb;

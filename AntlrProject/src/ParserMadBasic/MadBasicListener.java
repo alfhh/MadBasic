@@ -1,4 +1,5 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+package ParserMadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -397,6 +398,16 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitS(MadBasicParser.SContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MadBasicParser#ss}.
+	 * @param ctx the parse tree
+	 */
+	void enterSs(MadBasicParser.SsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MadBasicParser#ss}.
+	 * @param ctx the parse tree
+	 */
+	void exitSs(MadBasicParser.SsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#expression}.
 	 * @param ctx the parse tree
 	 */
@@ -516,6 +527,16 @@ public interface MadBasicListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitZ(MadBasicParser.ZContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MadBasicParser#zz}.
+	 * @param ctx the parse tree
+	 */
+	void enterZz(MadBasicParser.ZzContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MadBasicParser#zz}.
+	 * @param ctx the parse tree
+	 */
+	void exitZz(MadBasicParser.ZzContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#term}.
 	 * @param ctx the parse tree

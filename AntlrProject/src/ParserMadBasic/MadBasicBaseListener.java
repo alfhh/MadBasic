@@ -1,4 +1,5 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+package ParserMadBasic;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -483,6 +484,18 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSs(MadBasicParser.SsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSs(MadBasicParser.SsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpression(MadBasicParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -622,6 +635,18 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitZ(MadBasicParser.ZContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterZz(MadBasicParser.ZzContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitZz(MadBasicParser.ZzContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
