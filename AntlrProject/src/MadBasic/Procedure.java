@@ -8,10 +8,10 @@ public class Procedure {
     String type;
     Scope scope;
 
-    public Procedure(String ID, String type, Scope scope) {
+    public Procedure(String ID, String type, Scope parent) {
         this.ID = ID;
         this.type = type;
-        this.scope = new Scope("scope" + ID, scope);
+        this.scope = new Scope("scope" + ID, parent);
     }
 
     public String getID() {

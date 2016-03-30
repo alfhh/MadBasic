@@ -27,7 +27,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         ids.addAll(Arrays.asList(ctx.getChild(2).getText().trim().split(",")));
         for (String id : ids) {
             if (id.trim().length() > 0) {
-                basicSemantic.getVariables().add(new Variable(id, type, basicSemantic.getScopeStack().peek()));
+                Variable var = new Variable(id, type, basicSemantic.getScopeStack().peek());
+                basicSemantic.getVariables().add(var);
+                basicSemantic.getScopeStack().peek().getVariables().add(var);
             }
         }
         return super.visitE(ctx);
@@ -40,9 +42,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         String id = ctx.getChild(1).getText();
         String type = ctx.getChild(0).getText();
         Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
-        basicSemantic.getScopes().add(scp);
-        basicSemantic.getScopeStack().push(scp);
-        basicSemantic.getProcedures().add(new Procedure(id, type, scp));
+        Procedure proc = new Procedure(id, type, scp);
+        basicSemantic.getProcedures().add(proc);
+        basicSemantic.getScopes().add(proc.getScope());
+        basicSemantic.getScopeStack().push(proc.getScope());
         visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
         return null;
@@ -53,9 +56,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitProcedure(MadBasicParser.ProcedureContext ctx) {
         String id = ctx.getChild(1).getText();
         Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
-        basicSemantic.getScopes().add(scp);
-        basicSemantic.getScopeStack().push(scp);
-        basicSemantic.getProcedures().add(new Procedure(id, "void", scp));
+        Procedure proc = new Procedure(id, "void", scp);
+        basicSemantic.getProcedures().add(proc);
+        basicSemantic.getScopes().add(proc.getScope());
+        basicSemantic.getScopeStack().push(proc.getScope());
         visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
         return null;
