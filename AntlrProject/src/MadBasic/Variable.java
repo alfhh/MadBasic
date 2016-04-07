@@ -5,10 +5,9 @@ package MadBasic;
  */
 public class Variable extends Operand{
     String ID;
-    String type;
     Scope scope;
 
-    public Variable(String ID, String type, Scope scope) {
+    public Variable(String ID, Type type, Scope scope) {
         this.ID = ID;
         this.type = type;
         this.scope = scope;
@@ -20,14 +19,6 @@ public class Variable extends Operand{
 
     public void setID(String ID) {
         this.ID = ID;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Scope getScope() {
