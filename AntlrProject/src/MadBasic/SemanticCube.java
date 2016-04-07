@@ -5,63 +5,59 @@ package MadBasic;
  */
 public class SemanticCube {
 
-   public  Type[][][] cube =
+    static public Type[][][] cube =
             {
                     {
-                            { Type.BOOL, Type.BOOL, Type.INT, Type.INT, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.BOOL, Type.FLOAT, Type.FLOAT, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            {Type.BOOL, Type.BOOL, Type.INT, Type.INT, Type.FALSE, Type.FALSE},
+                            {Type.BOOL, Type.BOOL, Type.FLOAT, Type.FLOAT, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE}
                     }, // Index: 0
                     {
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.BOOL, Type.FLOAT, Type.FLOAT, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.BOOL, Type.BOOL, Type.FLOAT, Type.FLOAT, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE}
                     }, // Index: 1
                     {
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.BOOL, Type.FALSE, Type.FALSE, Type.STRING, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.BOOL, Type.BOOL, Type.FALSE, Type.FALSE, Type.STRING, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE}
                     }, // Index: 2
                     {
-                            { Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            {Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE}
                     }, // Index: 3
                     {
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE}
                     }, // Index: 4
                     {
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE},
+                            {Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE}
                     } // Index: 5
             };
 
-        SemanticCube(){
-
-        }
-
-    public Type getCubeType(int i, int j, int k){
-        return this.cube[i][j][k];
+    static public Type getCubeType(int i, int j, int k) {
+        return cube[i][j][k];
     }
 }

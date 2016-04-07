@@ -5,9 +5,8 @@ package MadBasic;
  */
 public class Temporal extends Operand {
     int ID;
-    String type;
 
-    public Temporal(int ID, String type) {
+    public Temporal(int ID, Type type) {
         this.ID = ID;
         this.type = type;
     }
@@ -20,11 +19,11 @@ public class Temporal extends Operand {
         this.ID = ID;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 }

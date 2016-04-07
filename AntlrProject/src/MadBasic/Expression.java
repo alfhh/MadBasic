@@ -5,14 +5,15 @@ package MadBasic;
  */
 public class Expression extends Quadruple {
     Operator oper;
-    Variable operand1;
-    Variable operand2;
+    Operand operand1;
+    Operand operand2;
+    Temporal result;
 
-
-    public Expression(Operator oper, Variable operand1, Variable operand2) {
+    public Expression(Operator oper, Operand operand1, Operand operand2, Temporal result) {
         this.oper = oper;
         this.operand1 = operand1;
         this.operand2 = operand2;
+        this.result = result;
     }
 
     public Operator getOper() {
@@ -23,19 +24,27 @@ public class Expression extends Quadruple {
         this.oper = oper;
     }
 
-    public Variable getOperand1() {
+    public Operand getOperand1() {
         return operand1;
     }
 
-    public void setOperand1(Variable operand1) {
+    public void setOperand1(Operand operand1) {
         this.operand1 = operand1;
     }
 
-    public Variable getOperand2() {
+    public Operand getOperand2() {
         return operand2;
     }
 
-    public void setOperand2(Variable operand2) {
+    public void setOperand2(Operand operand2) {
         this.operand2 = operand2;
+    }
+
+    public Temporal getResult() {
+        return result;
+    }
+
+    public void setResult(Temporal result) {
+        this.result = result;
     }
 }
