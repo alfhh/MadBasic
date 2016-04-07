@@ -16,25 +16,12 @@ public class Main {
             e.printStackTrace();
         }
 
-        BasicSemantic basicSemantic =  BasicSemantic.getInstance();
+        TestingGround tester = new TestingGround();
+        //int[] selectedTests = {0}; // ALL
+        int[] selectedTests = {4}; // Just semantic cube;
+        tester.testManager(selectedTests);
 
-        System.out.println("Tabla de variables");
-        for (Variable variable: basicSemantic.getVariables()) {
-            System.out.println(variable);
-        }
+        //BasicSemantic basicSemantic =  BasicSemantic.getInstance();
 
-        System.out.println();
-
-        System.out.println("Tabla de Scopes");
-        for (Scope scope: basicSemantic.getScopes()) {
-            System.out.println(scope);
-        }
-
-        System.out.println();
-
-        System.out.println("Tabla de procedimientos");
-        for (Procedure procedure: basicSemantic.getProcedures()) {
-            System.out.println(procedure);
-        }
     }
 }

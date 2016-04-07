@@ -8,8 +8,6 @@ public class Expression extends Quadruple {
     Variable operand1;
     Variable operand2;
 
-    public Expression() {
-    }
 
     public Expression(Operator oper, Variable operand1, Variable operand2) {
         this.oper = oper;
