@@ -69,6 +69,7 @@ vars:
 	string str;
 	Bbb bbb;
 
+xd = a+b*c-d>-a+b;
 bbb.init(2);
 bbb.d = 5.4;
 xi = 2;
