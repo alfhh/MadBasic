@@ -3,7 +3,7 @@ package MadBasic;
 /**
  * Created by lsanchez on 3/10/16.
  */
-public class Variable {
+public class Variable extends Operand{
     String ID;
     String type;
     Scope scope;

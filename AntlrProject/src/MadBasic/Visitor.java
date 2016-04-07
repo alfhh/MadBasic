@@ -13,9 +13,11 @@ import java.util.LinkedList;
 public class Visitor extends MadBasicBaseVisitor<String> {
 
     BasicSemantic basicSemantic;
+    QuadrupleSemantic quadrupleSemantic;
 
     public Visitor() {
         basicSemantic = BasicSemantic.getInstance();
+        quadrupleSemantic = QuadrupleSemantic.getInstance();
     }
 
 
@@ -46,9 +48,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         basicSemantic.getProcedures().add(proc);
         basicSemantic.getScopes().add(proc.getScope());
         basicSemantic.getScopeStack().push(proc.getScope());
-        visitChildren(ctx);
+        String res = visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
-        return null;
+        return res;
     }
 
     // Procedure
@@ -60,9 +62,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         basicSemantic.getProcedures().add(proc);
         basicSemantic.getScopes().add(proc.getScope());
         basicSemantic.getScopeStack().push(proc.getScope());
-        visitChildren(ctx);
+        String res = visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
-        return null;
+        return res;
     }
 
 
@@ -75,9 +77,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         Scope scp = new Scope(name, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(scp);
         basicSemantic.getScopeStack().push(scp);
-        visitChildren(ctx);
+        String res = visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
-        return null;
+        return res;
     }
 
     @Override
@@ -86,9 +88,88 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         Scope scp = new Scope(name, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(scp);
         basicSemantic.getScopeStack().push(scp);
-        visitChildren(ctx);
+        String res = visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
+        return res;
+    }
 
-        return null;
+    //QUADRUPLES
+
+    //EXPRESSION
+
+    @Override
+    public String visitT(MadBasicParser.TContext ctx) {
+        String res = visitChildren(ctx);
+        if(ctx.getChildCount() > 0){
+            Operand temp1 = quadrupleSemantic.operandStack.peek();
+            Operand temp2 = quadrupleSemantic.operandStack.peek();
+            String operand = ctx.getChild(1).getText();
+
+            //cubo semantico
+
+            //agregar cuadruplo
+        }
+        return res;
+    }
+
+    @Override
+    public String visitY(MadBasicParser.YContext ctx) {
+        String res = visitChildren(ctx);
+        if(ctx.getChildCount() > 0){
+            Operand temp1 = quadrupleSemantic.operandStack.peek();
+            Operand temp2 = quadrupleSemantic.operandStack.peek();
+            String operand = ctx.getChild(1).getText();
+
+            //cubo semantico
+
+            //agregar cuadruplo
+        }
+        return res;
+    }
+
+    @Override
+    public String visitV(MadBasicParser.VContext ctx) {
+        String res = visitChildren(ctx);
+        if(ctx.getChildCount() > 0){
+            Operand temp1 = quadrupleSemantic.operandStack.peek();
+            Operand temp2 = quadrupleSemantic.operandStack.peek();
+            String operand = ctx.getChild(1).getText();
+
+            //cubo semantico
+
+            //agregar cuadruplo
+        }
+        return res;
+    }
+
+    @Override
+    public String visitAa(MadBasicParser.AaContext ctx) {
+        String res = visitChildren(ctx);
+        if(ctx.getChildCount() > 0){
+            Operand temp1 = quadrupleSemantic.operandStack.peek();
+            Operand temp2 = quadrupleSemantic.operandStack.peek();
+            String operand = ctx.getChild(1).getText();
+
+            //cubo semantico
+
+            //agregar cuadruplo
+        }
+        return res;
+    }
+
+    @Override
+    public String visitFactor(MadBasicParser.FactorContext ctx) {
+        String res = visitChildren(ctx);
+        if(ctx.getChildCount() == 2){
+
+            //checar si hay un - y  todo el pedo
+
+            //revisar si el valor se agrega aqui o en otro lado todo
+
+
+        } else { //ctx.getChildCount() == 3
+            //agregar el valor de la lista? checar si es necesario todo
+        }
+        return res;
     }
 }
