@@ -2,7 +2,7 @@ program example;
 
 classe Aaa {
 	vars:
-		int c;
+		int c, a, b;
 		float d;
 
 	init(){
@@ -10,18 +10,18 @@ classe Aaa {
 
 	methods:
 		void save(int x, float y) {
-			c = x;
-			d = y;
+			c = a;
+			d = b;
 		}
 }
 
 classe Bbb parent Aaa {
 	vars:
-		int cc;
+		int cc, d;
 		float dd;
 
 	init(int x){
-		cc = x;
+		cc = d;
 	}
 
 	methods:
@@ -46,7 +46,7 @@ methods:
 		res = -1;
 		index = 0;
 		while(index < lx.size()) {
-			if(x == lx[index]){
+			if(x == y){
 				res = index;
 				index = lx.size();
 			}
@@ -64,7 +64,7 @@ void printline(string s) {
 
 main:
 vars:
-		int xi, yi;
+	int xi, yi, a, c, d;
 	float fl;
 	string str;
 	Bbb bbb;

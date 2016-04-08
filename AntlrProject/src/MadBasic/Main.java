@@ -18,7 +18,7 @@ public class Main {
 
         TestingGround tester = new TestingGround();
         //int[] selectedTests = {0}; // ALL
-        int[] selectedTests = {4}; // Just semantic cube;
+        int[] selectedTests = {1}; // Just semantic cube;
         tester.testManager(selectedTests);
 
         //BasicSemantic basicSemantic =  BasicSemantic.getInstance();

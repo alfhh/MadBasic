@@ -21,6 +21,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         temporalCount = 0;
     }
 
+
+
+
     @Override
     public String visitE(MadBasicParser.EContext ctx) {
         String t = ctx.getChild(0).getText();
@@ -146,8 +149,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
-
-    @Override
+    /*
+    @Override TODO FIX THIS: EMPTY STACK EXCEPTION
     public String visitY(MadBasicParser.YContext ctx) {
         String res = visitChildren(ctx);
         if (ctx.getChildCount() > 0) {
@@ -188,7 +191,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
+    */
 
+
+    /* TODO FIX THIS: EMPTY STACK EXCEPTION
     @Override
     public String visitV(MadBasicParser.VContext ctx) {
         String res = visitChildren(ctx);
@@ -222,7 +228,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
-
+    */
+    /* TODO FIX THIS
     @Override
     public String visitAa(MadBasicParser.AaContext ctx) {
         String res = visitChildren(ctx);
@@ -256,8 +263,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
+    */
 
-    @Override
+    /*
+    @Override TODO FIX THIS: EMPTY STACK EXCEPTION
     public String visitFactor(MadBasicParser.FactorContext ctx) {
         String res = visitChildren(ctx);
         if (ctx.getChildCount() == 2) {
@@ -281,45 +290,77 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
+    */
 
     @Override
-    public String visitValue(MadBasicParser.ValueContext ctx) {
-        String res = visitChildren(ctx);
-        String text = ctx.getChild(0).getText();
-        System.out.println("here : " + text); // // TODO: 4/7/16 saber que fucking caso de la regla es o hacer unestra funcion que encuentre el tipe
-        switch (ctx.getRuleIndex()) {
-            case 0:
-                System.out.println("var: " + text);
-                Scope scope = basicSemantic.getScopeStack().peek();
-                boolean found = false;
-                for (Variable v : scope.getVariables()) {
-                    System.out.print(v.getID() + " ");
-                    if (v.getID() == text) {
-                        quadrupleSemantic.operandStack.push(v);
-                        found = true;
-                    }
+    public String visitValueIdentifier(MadBasicParser.ValueIdentifierContext ctx) {
+        String text =  ctx.getChild(0).getText();
+        boolean found = false;
+
+        Scope scope = basicSemantic.getScopeStack().peek();
+        //System.out.println("Start: " + scope.toString());
+        //System.out.println("THE NAME + " + scope.getName());
+        while(scope != null && !found){
+            for(Variable var : scope.getVariables()){
+                //System.out.println("In scope: " + scope.getName() + " Var: " + var.getID());
+                if(var.getID().equals(text)){
+                    quadrupleSemantic.operandStack.push(var);
+                    found = true;
+                    break;
                 }
-                System.out.println();
-                break;
-            case 1:
-                quadrupleSemantic.operandStack.push(new Constant<Integer>(new Integer(text), Type.INT));
-                break;
-            case 2:
-                quadrupleSemantic.operandStack.push(new Constant<Float>(new Float(text), Type.FLOAT));
-                break;
-            case 3:
-                quadrupleSemantic.operandStack.push(new Constant<String>(text, Type.INT));
-                break;
-            case 4:
-                quadrupleSemantic.operandStack.push(new Constant<Boolean>(new Boolean(text), Type.INT));
-                break;
-            case 6:
-                quadrupleSemantic.operandStack.push(new Constant<Boolean>(new Boolean(text), Type.INT));
-                break;
-            case 7:
-                //todo manejamos el push aqui o en call?
-                break;
+            }
+            if(!found){
+                scope = scope.getParent();
+            }
         }
-        return res;
+
+        if(!found) {
+            System.out.println("Error, Identifier: " + text + " not found!");
+        }
+
+        return super.visitValueIdentifier(ctx);
     }
+
+    //    @Override
+//    public String visitValue(MadBasicParser.ValueContext ctx) {
+//        String res = visitChildren(ctx);
+//        String text = ctx.getChild(0).getText();
+//        System.out.println("Readed : " + text); // // TODO: 4/7/16 saber que fucking caso de la regla es o hacer unestra funcion que encuentre el tipe
+//        switch (ctx.getRuleIndex()) {
+//            case 0:
+//                System.out.println("var: " + text);
+//                Scope scope = basicSemantic.getScopeStack().peek();
+//                boolean found = false;
+//                for (Variable v : scope.getVariables()) {
+//                    System.out.print(v.getID() + " ");
+//                    if (v.getID() == text) {
+//                        quadrupleSemantic.operandStack.push(v);
+//                        found = true;
+//                    }
+//                }
+//                System.out.println();
+//                break;
+//            case 1:
+//                System.out.println("CTEI " + text);
+//                quadrupleSemantic.operandStack.push(new Constant<Integer>(new Integer(text), Type.INT));
+//                break;
+//            case 2:
+//                quadrupleSemantic.operandStack.push(new Constant<Float>(new Float(text), Type.FLOAT));
+//                break;
+//            case 3:
+//                quadrupleSemantic.operandStack.push(new Constant<String>(text, Type.INT));
+//                break;
+//            case 4:
+//                quadrupleSemantic.operandStack.push(new Constant<Boolean>(new Boolean(text), Type.INT));
+//                break;
+//            case 6:
+//                quadrupleSemantic.operandStack.push(new Constant<Boolean>(new Boolean(text), Type.INT));
+//                break;
+//            case 7:
+//                //todo manejamos el push aqui o en call?
+//                break;
+//        }
+//        return res;
+//    }
+
 }

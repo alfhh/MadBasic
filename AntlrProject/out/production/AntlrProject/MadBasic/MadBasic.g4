@@ -137,13 +137,13 @@ ac 				:	PLUS
 					| MINUS
 					| // empty
 					;
-value 			: identifier
-				  | CTEI
-				  | CTEF
-				  | CTESTRING
-				  | TRUE
-				  | FALSE
-				  | call
+value 			: identifier # valueIdentifier
+				  | CTEI # valueInt
+				  | CTEF # valueFloat
+				  | CTESTRING # valueString
+				  | TRUE # valueBool
+				  | FALSE # valueBool
+				  | call # valueCall
 				  ;
 main 			: MAIN COLON block END;
 
