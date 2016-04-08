@@ -72,9 +72,9 @@ vars:
 xd = a+b*c-d>-a+b;
 bbb.init(2);
 bbb.d = 5.4;
-xi = 2;
-yi = 3;
-fl = read;
+xi = 2.3;
+yi = true;
+fl = false;
 lint.init();
 lint.add(1);
 lint.add(3);

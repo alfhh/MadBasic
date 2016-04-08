@@ -292,18 +292,23 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
     */
 
+    /**
+     * This function adds the founded variables to the operandStack, if they were not
+     * found in any scope and error will be displayed at console.
+     * This functions searches the variable in a bottom-top search
+     * @param ctx
+     * @return
+     */
     @Override
     public String visitValueIdentifier(MadBasicParser.ValueIdentifierContext ctx) {
         String text =  ctx.getChild(0).getText();
         boolean found = false;
 
         Scope scope = basicSemantic.getScopeStack().peek();
-        //System.out.println("Start: " + scope.toString());
-        //System.out.println("THE NAME + " + scope.getName());
         while(scope != null && !found){
             for(Variable var : scope.getVariables()){
-                //System.out.println("In scope: " + scope.getName() + " Var: " + var.getID());
                 if(var.getID().equals(text)){
+                    System.out.println("Variable added to the operandStack: " + text);
                     quadrupleSemantic.operandStack.push(var);
                     found = true;
                     break;
@@ -320,6 +325,59 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         return super.visitValueIdentifier(ctx);
     }
+
+    /**
+     * Function that adds a constant integer value to the operandStack
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitValueInt(MadBasicParser.ValueIntContext ctx) {
+        String text = ctx.getChild(0).getText();
+        quadrupleSemantic.operandStack.push(new Constant<Integer>(new Integer(text), Type.INT));
+        System.out.println("Integer added to operandStack: " + text);
+        return super.visitValueInt(ctx);
+    }
+
+    /**
+     * Function that adds a constant float value to the operandStack
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitValueFloat(MadBasicParser.ValueFloatContext ctx) {
+        String text = ctx.getChild(0).getText();
+        quadrupleSemantic.operandStack.push(new Constant<Float>(new Float(text), Type.FLOAT));
+        System.out.println("Float added to operandStack: " + text);
+        return super.visitValueFloat(ctx);
+    }
+
+    /**
+     * Function that adds a string to the operandStack
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitValueString(MadBasicParser.ValueStringContext ctx) {
+        String text = ctx.getChild(0).getText();
+        quadrupleSemantic.operandStack.push(new Constant<String>(new String(text), Type.STRING));
+        System.out.println("String added to operandStack: " + text);
+        return super.visitValueString(ctx);
+    }
+
+    /**
+     * Function that adds a boolean value to the operandStack
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitValueBool(MadBasicParser.ValueBoolContext ctx) {
+        String text = ctx.getChild(0).getText();
+        quadrupleSemantic.operandStack.push(new Constant<Boolean>(new Boolean(text), Type.BOOL));
+        System.out.println("Boolean added to operandStack: " + text);
+        return super.visitValueBool(ctx);
+    }
+
 
     //    @Override
 //    public String visitValue(MadBasicParser.ValueContext ctx) {
