@@ -149,8 +149,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
-    /*
-    @Override TODO FIX THIS: EMPTY STACK EXCEPTION
+    ///* TODO FIX THIS: EMPTY STACK EXCEPTION
+    @Override
     public String visitY(MadBasicParser.YContext ctx) {
         String res = visitChildren(ctx);
         if (ctx.getChildCount() > 0) {
@@ -191,10 +191,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
-    */
+    //*/
 
 
-    /* TODO FIX THIS: EMPTY STACK EXCEPTION
+    ///* TODO FIX THIS: EMPTY STACK EXCEPTION
     @Override
     public String visitV(MadBasicParser.VContext ctx) {
         String res = visitChildren(ctx);
@@ -228,8 +228,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
-    */
-    /* TODO FIX THIS
+    //*/
+
+    ///* TODO FIX THIS
     @Override
     public String visitAa(MadBasicParser.AaContext ctx) {
         String res = visitChildren(ctx);
@@ -263,10 +264,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
-    */
+   // */
 
-    /*
-    @Override TODO FIX THIS: EMPTY STACK EXCEPTION
+    ///* TODO FIX THIS: EMPTY STACK EXCEPTION
+    @Override
     public String visitFactor(MadBasicParser.FactorContext ctx) {
         String res = visitChildren(ctx);
         if (ctx.getChildCount() == 2) {
@@ -290,7 +291,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         return res;
     }
-    */
+    //*/
 
     /**
      * This function adds the founded variables to the operandStack, if they were not
@@ -308,7 +309,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         while(scope != null && !found){
             for(Variable var : scope.getVariables()){
                 if(var.getID().equals(text)){
-                    System.out.println("Variable added to the operandStack: " + text);
+                    //System.out.println("Variable added to the operandStack: " + text);
                     quadrupleSemantic.operandStack.push(var);
                     found = true;
                     break;
@@ -335,7 +336,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitValueInt(MadBasicParser.ValueIntContext ctx) {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.operandStack.push(new Constant<Integer>(new Integer(text), Type.INT));
-        System.out.println("Integer added to operandStack: " + text);
+        //System.out.println("Integer added to operandStack: " + text);
         return super.visitValueInt(ctx);
     }
 
@@ -348,7 +349,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitValueFloat(MadBasicParser.ValueFloatContext ctx) {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.operandStack.push(new Constant<Float>(new Float(text), Type.FLOAT));
-        System.out.println("Float added to operandStack: " + text);
+        //System.out.println("Float added to operandStack: " + text);
         return super.visitValueFloat(ctx);
     }
 
@@ -361,7 +362,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitValueString(MadBasicParser.ValueStringContext ctx) {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.operandStack.push(new Constant<String>(new String(text), Type.STRING));
-        System.out.println("String added to operandStack: " + text);
+        //System.out.println("String added to operandStack: " + text);
         return super.visitValueString(ctx);
     }
 
@@ -374,51 +375,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitValueBool(MadBasicParser.ValueBoolContext ctx) {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.operandStack.push(new Constant<Boolean>(new Boolean(text), Type.BOOL));
-        System.out.println("Boolean added to operandStack: " + text);
+        //System.out.println("Boolean added to operandStack: " + text);
         return super.visitValueBool(ctx);
     }
-
-
-    //    @Override
-//    public String visitValue(MadBasicParser.ValueContext ctx) {
-//        String res = visitChildren(ctx);
-//        String text = ctx.getChild(0).getText();
-//        System.out.println("Readed : " + text); // // TODO: 4/7/16 saber que fucking caso de la regla es o hacer unestra funcion que encuentre el tipe
-//        switch (ctx.getRuleIndex()) {
-//            case 0:
-//                System.out.println("var: " + text);
-//                Scope scope = basicSemantic.getScopeStack().peek();
-//                boolean found = false;
-//                for (Variable v : scope.getVariables()) {
-//                    System.out.print(v.getID() + " ");
-//                    if (v.getID() == text) {
-//                        quadrupleSemantic.operandStack.push(v);
-//                        found = true;
-//                    }
-//                }
-//                System.out.println();
-//                break;
-//            case 1:
-//                System.out.println("CTEI " + text);
-//                quadrupleSemantic.operandStack.push(new Constant<Integer>(new Integer(text), Type.INT));
-//                break;
-//            case 2:
-//                quadrupleSemantic.operandStack.push(new Constant<Float>(new Float(text), Type.FLOAT));
-//                break;
-//            case 3:
-//                quadrupleSemantic.operandStack.push(new Constant<String>(text, Type.INT));
-//                break;
-//            case 4:
-//                quadrupleSemantic.operandStack.push(new Constant<Boolean>(new Boolean(text), Type.INT));
-//                break;
-//            case 6:
-//                quadrupleSemantic.operandStack.push(new Constant<Boolean>(new Boolean(text), Type.INT));
-//                break;
-//            case 7:
-//                //todo manejamos el push aqui o en call?
-//                break;
-//        }
-//        return res;
-//    }
 
 }

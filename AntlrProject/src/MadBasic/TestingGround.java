@@ -9,10 +9,12 @@ public class TestingGround {
 
     SemanticCube cube;
     BasicSemantic basicSemantic;
+    QuadrupleSemantic quadrupleSemantic;
 
     public TestingGround() {
         this.cube = new SemanticCube();
         this.basicSemantic = BasicSemantic.getInstance();
+        this.quadrupleSemantic = QuadrupleSemantic.getInstance();
     }
 
     /**
@@ -84,6 +86,19 @@ public class TestingGround {
     }
 
     /**
+     * ID: 5
+     * Function that prints the operand stack of the QuadrupleSemantic class
+     */
+    public void printOperandStack(){
+        System.out.println("------------------------------------------------");
+        System.out.println("Operand Stack: ");
+        for(Operand op : quadrupleSemantic.getOperandStack()){
+            System.out.println(op.toString());
+        }
+        System.out.println("------------------------------------------------");
+    }
+
+    /**
      * This method run the specified tests, selected on the integer array.
      * @param tests each test on this class has a id number, to run that test
      *              send its number in the array. If index 0 is sent in the array
@@ -98,6 +113,7 @@ public class TestingGround {
                     printScopeTable();
                     printProcTable();
                     testSemanticCube();
+                    printOperandStack();
                     break;
                 case 1:
                     printVariableTable();
@@ -110,6 +126,9 @@ public class TestingGround {
                     break;
                 case 4:
                     testSemanticCube();
+                    break;
+                case 5:
+                    printOperandStack();
                     break;
             }
         }

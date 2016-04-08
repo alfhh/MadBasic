@@ -27,4 +27,36 @@ public class QuadrupleSemantic {
         }
         return instance;
     }
+
+    public Stack<Operator> getOperatorStack() {
+        return operatorStack;
+    }
+
+    public void setOperatorStack(Stack<Operator> operatorStack) {
+        this.operatorStack = operatorStack;
+    }
+
+    public Stack<Operand> getOperandStack() {
+        return operandStack;
+    }
+
+    public void setOperandStack(Stack<Operand> operandStack) {
+        this.operandStack = operandStack;
+    }
+
+    public LinkedList<Quadruple> getQuadrupleList() {
+        return quadrupleList;
+    }
+
+    public void setQuadrupleList(LinkedList<Quadruple> quadrupleList) {
+        this.quadrupleList = quadrupleList;
+    }
+
+    public int getTemporalCount() {
+        return temporalCount;
+    }
+
+    public void setTemporalCount(int temporalCount) {
+        this.temporalCount = temporalCount;
+    }
 }

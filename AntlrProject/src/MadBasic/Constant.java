@@ -10,4 +10,8 @@ public class Constant<T> extends Operand {
         this.value = value;
         this.type = type;
     }
+
+    public String toString(){
+        return "Constant: " + this.value + " of Type: " + this.type.getTypeValue();
+    }
 }

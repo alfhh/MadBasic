@@ -13,4 +13,8 @@ public class Operand {
     public void setType(Type type) {
         this.type = type;
     }
+
+    public String toString(){
+        return  "Type: " + this.type.getTypeValue();
+    }
 }
