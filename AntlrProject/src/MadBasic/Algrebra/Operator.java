@@ -4,7 +4,7 @@ package MadBasic.Algrebra;
  * Created by lsanchez on 3/29/16.
  */
 public enum Operator {
-    AND(0, 0), OR(0, 1), GREATER(1, 2), LESSER(1, 3), GREATEREQUAL(1, 4), LESSEREQUAL(1, 5), EQUAL(1, 6),
+    AND(0, 0), OR(0, 1), GREATER(1, 2), LESSER(1, 3), GREATEREQUAL(1, 4), LESSEREQUAL(1, 5), EQUALEQUAL(1, 6),
     NOTEQUAL(1, 7), PLUS(2, 8), MINUS(2, 9), MULTIPLICATION(3, 10), DIVISION(3, 11), CARET(4, 12), MINUSSOLO(5, 13),
     FALSE(-1, -1);
 
