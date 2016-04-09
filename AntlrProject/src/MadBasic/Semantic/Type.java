@@ -18,8 +18,25 @@ public enum Type {
 
     @Override
     public String toString() {
-        return "Type{" +
-                "value=" + value +
-                '}';
+//        return "Type{" +
+//                "value=" + value +
+//                '}';
+        switch(this.value){
+            case 0:
+                return "Type.INT";
+            case 1:
+                return "Type.FLOAT";
+            case 2:
+                return "Type.STRING";
+            case 3:
+                return "Type.BOOL";
+            case 4:
+                return "Type.LIST";
+            case 5:
+                return "Type.OBJECT";
+            default:
+                return "Type.FALSE";
+
+        }
     }
 }

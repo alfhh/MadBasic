@@ -72,25 +72,25 @@ public class TestingGround {
     public void testSemanticCube(){
         System.out.println("------------------------------------------------");
         System.out.println("Basic semantic cube test");
-        System.out.println(cube.getCubeType(0, 0, 0).getTypeValue());
-        System.out.println(cube.getCubeType(0, 0, 1).getTypeValue());
-        System.out.println(cube.getCubeType(0, 0, 2).getTypeValue());
-        System.out.println(cube.getCubeType(0, 0, 3).getTypeValue());
-        System.out.println(cube.getCubeType(0, 1, 0).getTypeValue());
-        System.out.println(cube.getCubeType(0, 1, 1).getTypeValue());
-        System.out.println(cube.getCubeType(0, 1, 2).getTypeValue());
-        System.out.println(cube.getCubeType(0, 1, 3).getTypeValue());
-        System.out.println(cube.getCubeType(1, 1, 0).getTypeValue());
-        System.out.println(cube.getCubeType(1, 1, 1).getTypeValue());
-        System.out.println(cube.getCubeType(1, 1, 2).getTypeValue());
-        System.out.println(cube.getCubeType(1, 1, 3).getTypeValue());
-        System.out.println(cube.getCubeType(2, 2, 0).getTypeValue());
-        System.out.println(cube.getCubeType(2, 2, 1).getTypeValue());
-        System.out.println(cube.getCubeType(2, 2, 4).getTypeValue());
-        System.out.println(cube.getCubeType(3, 0, 0).getTypeValue());
-        System.out.println(cube.getCubeType(3, 1, 0).getTypeValue());
-        System.out.println(cube.getCubeType(3, 2, 0).getTypeValue());
-        System.out.println(cube.getCubeType(3, 3, 0).getTypeValue());
+        System.out.println(cube.getCubeType(0, 0, 0).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(0, 0, 1).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(0, 0, 2).getTypeValue() + " should be: " + 0);
+        System.out.println(cube.getCubeType(0, 0, 3).getTypeValue() + " should be: " + 0);
+        System.out.println(cube.getCubeType(0, 1, 0).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(0, 1, 1).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(0, 1, 2).getTypeValue() + " should be: " + 1);
+        System.out.println(cube.getCubeType(0, 1, 3).getTypeValue() + " should be: " + 1);
+        System.out.println(cube.getCubeType(1, 1, 0).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(1, 1, 1).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(1, 1, 2).getTypeValue() + " should be: " + 1);
+        System.out.println(cube.getCubeType(1, 1, 3).getTypeValue() + " should be: " + 1);
+        System.out.println(cube.getCubeType(2, 2, 0).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(2, 2, 1).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(2, 2, 4).getTypeValue() + " should be: " + 2);
+        System.out.println(cube.getCubeType(3, 0, 0).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(3, 1, 0).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(3, 2, 0).getTypeValue() + " should be: " + 3);
+        System.out.println(cube.getCubeType(3, 3, 0).getTypeValue() + " should be: " + 3);
         System.out.println("------------------------------------------------");
     }
 
@@ -121,6 +121,16 @@ public class TestingGround {
     }
 
     /**
+     * ID: 7
+     */
+    public void printTheSemanticCube(){
+        System.out.println("------------------------------------------------");
+        System.out.println("Semantic Cube: ");
+        cube.printCube();
+        System.out.println("------------------------------------------------");
+    }
+
+    /**
      * This method run the specified tests, selected on the integer array.
      * @param tests each test on this class has a id number, to run that test
      *              send its number in the array. If index 0 is sent in the array
@@ -136,6 +146,7 @@ public class TestingGround {
                     printProcTable();
                     testSemanticCube();
                     printOperandStack();
+                    printTheSemanticCube();
                     break;
                 case 1:
                     printVariableTable();
@@ -154,6 +165,9 @@ public class TestingGround {
                     break;
                 case 6:
                     printQuadruplelist();
+                    break;
+                case 7:
+                    printTheSemanticCube();
                     break;
             }
         }
