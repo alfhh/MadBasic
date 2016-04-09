@@ -168,7 +168,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
     @Override
     public String visitZEqualEqual(MadBasicParser.ZEqualEqualContext ctx) {
-        quadrupleSemantic.getOperatorStack().push(Operator.EQUAL);
+        quadrupleSemantic.getOperatorStack().push(Operator.EQUALEQUAL);
         return super.visitZEqualEqual(ctx);
     }
 
@@ -458,4 +458,19 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return super.visitValueBool(ctx);
     }
 
+    //Assignment
+
+    /**
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitAssignment(MadBasicParser.AssignmentContext ctx) {
+        String res = visitChildren(ctx);
+
+
+
+        return res;
+    }
 }
