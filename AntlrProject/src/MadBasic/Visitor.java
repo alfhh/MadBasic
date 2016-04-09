@@ -143,8 +143,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
                                 oper, operand1, operand2, temp));
-                quadrupleSemantic.getOperandStack().pop();
+//                quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
+                quadrupleSemantic.getOperandSList().add(temp);
             } else {
                 System.out.println("visitT" + resT.getTypeValue());
                 System.out.println(operand1.toString() + oper.getOperator() + operand2);
@@ -210,8 +211,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
                                 oper, operand1, operand2, temp));
-                quadrupleSemantic.getOperandStack().pop();
+//                quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
+                quadrupleSemantic.getOperandSList().add(temp);
             } else {
                 System.out.println("visitY" + resT.getTypeValue());
                 String operator = ctx.getChild(0).getText();
@@ -257,8 +259,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
                                 oper, operand1, operand2, temp));
-                quadrupleSemantic.getOperandStack().pop();
+//                quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
+                quadrupleSemantic.getOperandSList().add(temp);
             } else {
                 System.out.println("visitV" + resT.getTypeValue());
 //                System.out.println(operand1.toString() + oper.getOperator() + operand2);
@@ -306,8 +309,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
                                 oper, operand1, operand2, temp));
-                quadrupleSemantic.getOperandStack().pop();
+//                quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
+                quadrupleSemantic.getOperandSList().add(temp);
             } else {
                 System.out.println("visitAa " + resT.getTypeValue());
 //                System.out.println(operand1.toString() + oper.getOperator() + operand2);
@@ -344,6 +348,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                                 Operator.MINUS, new Constant<Integer>(0, Type.INT), oper, temp));
                 quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
+                quadrupleSemantic.getOperandSList().add(temp);
             } else {
                 System.out.println("visitFactorValue " + resT.getTypeValue());
 //                System.out.println(operand1.toString() + oper.getOperator() + operand2);
@@ -376,6 +381,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 if (var.getID().equals(text)) {
                     //System.out.println("Variable added to the getOperandStack(): " + text);
                     quadrupleSemantic.getOperandStack().push(var);
+                    quadrupleSemantic.getOperandSList().add(var);
                     found = true;
                     break;
                 }
@@ -402,6 +408,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitValueInt(MadBasicParser.ValueIntContext ctx) {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Integer>(new Integer(text), Type.INT));
+        quadrupleSemantic.getOperandSList().add(new Constant<Integer>(new Integer(text), Type.INT));
         //System.out.println("Integer added to getOperandStack(): " + text);
         return super.visitValueInt(ctx);
     }
@@ -416,6 +423,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitValueFloat(MadBasicParser.ValueFloatContext ctx) {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Float>(new Float(text), Type.FLOAT));
+        quadrupleSemantic.getOperandSList().add(new Constant<Float>(new Float(text), Type.FLOAT));
         //System.out.println("Float added to getOperandStack(): " + text);
         return super.visitValueFloat(ctx);
     }
@@ -429,7 +437,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueString(MadBasicParser.ValueStringContext ctx) {
         String text = ctx.getChild(0).getText();
-//        quadrupleSemantic.getOperandStack().push(new Constant<String>(new String(text), Type.STRING));
+        quadrupleSemantic.getOperandStack().push(new Constant<String>(new String(text), Type.STRING));
+        quadrupleSemantic.getOperandSList().add(new Constant<String>(new String(text), Type.STRING));
         //System.out.println("String added to getOperandStack(): " + text); todo aun no tenemos nada de strings y crea ruido
         return super.visitValueString(ctx);
     }
@@ -444,6 +453,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitValueBool(MadBasicParser.ValueBoolContext ctx) {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Boolean>(new Boolean(text), Type.BOOL));
+        quadrupleSemantic.getOperandSList().add(new Constant<Boolean>(new Boolean(text), Type.BOOL));
         //System.out.println("Boolean added to getOperandStack(): " + text);
         return super.visitValueBool(ctx);
     }

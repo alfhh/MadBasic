@@ -11,7 +11,9 @@ import java.util.Stack;
  */
 public class QuadrupleSemantic {
     Stack<Operator> operatorStack;
+    LinkedList<Operator> operatorList;
     Stack<Operand> operandStack;
+    LinkedList<Operand> operandSList;
     LinkedList<Quadruple> quadrupleList;
     int temporalCount;
 
@@ -21,6 +23,8 @@ public class QuadrupleSemantic {
         operandStack = new Stack<>();
         operatorStack = new Stack<>();
         quadrupleList = new LinkedList<>();
+        operatorList = new LinkedList<>();
+        operandSList = new LinkedList<>();
         temporalCount = 0;
     }
 
@@ -61,5 +65,21 @@ public class QuadrupleSemantic {
 
     public void setTemporalCount(int temporalCount) {
         this.temporalCount = temporalCount;
+    }
+
+    public LinkedList<Operator> getOperatorList() {
+        return operatorList;
+    }
+
+    public void setOperatorList(LinkedList<Operator> operatorList) {
+        this.operatorList = operatorList;
+    }
+
+    public LinkedList<Operand> getOperandSList() {
+        return operandSList;
+    }
+
+    public void setOperandSList(LinkedList<Operand> operandSList) {
+        this.operandSList = operandSList;
     }
 }

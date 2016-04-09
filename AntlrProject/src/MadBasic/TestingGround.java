@@ -121,6 +121,19 @@ public class TestingGround {
     }
 
     /**
+     * ID: 7
+     * Function that prints the quadruple list of the QuadrupleSemantic class
+     */
+    public void printOperandlist(){
+        System.out.println("------------------------------------------------");
+        System.out.println("Operand List: ");
+        for(Operand op : quadrupleSemantic.getOperandSList()){
+            System.out.println(op.toString());
+        }
+        System.out.println("------------------------------------------------");
+    }
+
+    /**
      * This method run the specified tests, selected on the integer array.
      * @param tests each test on this class has a id number, to run that test
      *              send its number in the array. If index 0 is sent in the array
@@ -154,6 +167,9 @@ public class TestingGround {
                     break;
                 case 6:
                     printQuadruplelist();
+                    break;
+                case 7:
+                    printOperandlist();
                     break;
             }
         }
