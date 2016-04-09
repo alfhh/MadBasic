@@ -103,8 +103,8 @@ exp 			: term v;
 v 				:	w term v
 					| // empty
 					;
-w 				: PLUS
-				  | MINUS
+w 				: PLUS #wPlus
+				  | MINUS #wMinus
 				  ;
 args 			: m exp x;
 x 				:	COMMA m exp x
@@ -114,28 +114,28 @@ comparison		: exp y;
 y 				:	z exp
 					| // empty
 					;
-z 				:	GREATER zz
-					| LESSER zz
-					| EQUAL EQUAL
-					| DIFFERENT
-					| // empty todo empty aqui?
+z 				:	GREATER zz #zGreater
+					| LESSER zz #zLesser
+					| EQUAL EQUAL #zEqualEqual
+					| DIFFERENT #zDifferent
+					| #zwtf// empty todo empty aqui?
 					;
-zz              : EQUAL
-                    | //empty
+zz              : EQUAL #zzEqual
+                    | #zzEmpty//empty
                     ;
 term 			: 	factor aa;
 aa 				:	ab factor aa
 					| // empty
 					;
-ab				: 	MULTIPLICATION
-					| DIVISION
+ab				: 	MULTIPLICATION #abMultiplication
+					| DIVISION #abDivision
 					;
-factor 			: OPARENTHESIS expression CPARENTHESIS
-				  | ac value
+factor 			: OPARENTHESIS expression CPARENTHESIS #factorExpression
+				  | ac value #factorValue
 				  ;
-ac 				:	PLUS
-					| MINUS
-					| // empty
+ac 				:	PLUS #acPlus
+					| MINUS #acMinus
+					| #acEmpty// empty
 					;
 value 			: identifier # valueIdentifier
 				  | CTEI # valueInt

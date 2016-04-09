@@ -1,4 +1,4 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -568,13 +568,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterW(MadBasicParser.WContext ctx) { }
+	@Override public void enterWPlus(MadBasicParser.WPlusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitW(MadBasicParser.WContext ctx) { }
+	@Override public void exitWPlus(MadBasicParser.WPlusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWMinus(MadBasicParser.WMinusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWMinus(MadBasicParser.WMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -628,25 +640,85 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterZ(MadBasicParser.ZContext ctx) { }
+	@Override public void enterZGreater(MadBasicParser.ZGreaterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitZ(MadBasicParser.ZContext ctx) { }
+	@Override public void exitZGreater(MadBasicParser.ZGreaterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterZz(MadBasicParser.ZzContext ctx) { }
+	@Override public void enterZLesser(MadBasicParser.ZLesserContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitZz(MadBasicParser.ZzContext ctx) { }
+	@Override public void exitZLesser(MadBasicParser.ZLesserContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterZEqualEqual(MadBasicParser.ZEqualEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitZEqualEqual(MadBasicParser.ZEqualEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterZDifferent(MadBasicParser.ZDifferentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitZDifferent(MadBasicParser.ZDifferentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterZwtf(MadBasicParser.ZwtfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitZwtf(MadBasicParser.ZwtfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterZzEqual(MadBasicParser.ZzEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitZzEqual(MadBasicParser.ZzEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterZzEmpty(MadBasicParser.ZzEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitZzEmpty(MadBasicParser.ZzEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -676,37 +748,85 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAb(MadBasicParser.AbContext ctx) { }
+	@Override public void enterAbMultiplication(MadBasicParser.AbMultiplicationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAb(MadBasicParser.AbContext ctx) { }
+	@Override public void exitAbMultiplication(MadBasicParser.AbMultiplicationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor(MadBasicParser.FactorContext ctx) { }
+	@Override public void enterAbDivision(MadBasicParser.AbDivisionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(MadBasicParser.FactorContext ctx) { }
+	@Override public void exitAbDivision(MadBasicParser.AbDivisionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAc(MadBasicParser.AcContext ctx) { }
+	@Override public void enterFactorExpression(MadBasicParser.FactorExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAc(MadBasicParser.AcContext ctx) { }
+	@Override public void exitFactorExpression(MadBasicParser.FactorExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorValue(MadBasicParser.FactorValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorValue(MadBasicParser.FactorValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAcPlus(MadBasicParser.AcPlusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAcPlus(MadBasicParser.AcPlusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAcMinus(MadBasicParser.AcMinusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAcMinus(MadBasicParser.AcMinusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAcEmpty(MadBasicParser.AcEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAcEmpty(MadBasicParser.AcEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

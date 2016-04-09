@@ -1,5 +1,14 @@
 package MadBasic;
 
+import MadBasic.Algrebra.Operand;
+import MadBasic.Algrebra.Variable;
+import MadBasic.Quadruples.Quadruple;
+import MadBasic.Quadruples.QuadrupleSemantic;
+import MadBasic.Semantic.BasicSemantic;
+import MadBasic.Semantic.Procedure;
+import MadBasic.Semantic.Scope;
+import MadBasic.Semantic.SemanticCube;
+
 /**
  * Created by ahinojosa on 7/04/16.
  *
@@ -99,6 +108,19 @@ public class TestingGround {
     }
 
     /**
+     * ID: 6
+     * Function that prints the quadruple list of the QuadrupleSemantic class
+     */
+    public void printQuadruplelist(){
+        System.out.println("------------------------------------------------");
+        System.out.println("Quadruple List: ");
+        for(Quadruple quadruple : quadrupleSemantic.getQuadrupleList()){
+            System.out.println(quadruple.toString());
+        }
+        System.out.println("------------------------------------------------");
+    }
+
+    /**
      * This method run the specified tests, selected on the integer array.
      * @param tests each test on this class has a id number, to run that test
      *              send its number in the array. If index 0 is sent in the array
@@ -129,6 +151,9 @@ public class TestingGround {
                     break;
                 case 5:
                     printOperandStack();
+                    break;
+                case 6:
+                    printQuadruplelist();
                     break;
             }
         }

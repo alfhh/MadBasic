@@ -59,7 +59,7 @@ methods:
 }
 
 void printline(string s) {
-	print(s + "\n");
+	print(s ^ "\n");
 }
 
 main:
@@ -69,7 +69,7 @@ vars:
 	string str;
 	Bbb bbb;
 
-xd = a+b*c-d>-a+b;
+xd = a+xi*c-d>-a/yi;
 bbb.init(2);
 bbb.d = 5.4;
 xi = 2.3;

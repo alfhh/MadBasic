@@ -1,4 +1,4 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -468,15 +468,29 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitV(MadBasicParser.VContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#w}.
+	 * Enter a parse tree produced by the {@code wPlus}
+	 * labeled alternative in {@link MadBasicParser#w}.
 	 * @param ctx the parse tree
 	 */
-	void enterW(MadBasicParser.WContext ctx);
+	void enterWPlus(MadBasicParser.WPlusContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#w}.
+	 * Exit a parse tree produced by the {@code wPlus}
+	 * labeled alternative in {@link MadBasicParser#w}.
 	 * @param ctx the parse tree
 	 */
-	void exitW(MadBasicParser.WContext ctx);
+	void exitWPlus(MadBasicParser.WPlusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code wMinus}
+	 * labeled alternative in {@link MadBasicParser#w}.
+	 * @param ctx the parse tree
+	 */
+	void enterWMinus(MadBasicParser.WMinusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code wMinus}
+	 * labeled alternative in {@link MadBasicParser#w}.
+	 * @param ctx the parse tree
+	 */
+	void exitWMinus(MadBasicParser.WMinusContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#args}.
 	 * @param ctx the parse tree
@@ -518,25 +532,89 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitY(MadBasicParser.YContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#z}.
+	 * Enter a parse tree produced by the {@code zGreater}
+	 * labeled alternative in {@link MadBasicParser#z}.
 	 * @param ctx the parse tree
 	 */
-	void enterZ(MadBasicParser.ZContext ctx);
+	void enterZGreater(MadBasicParser.ZGreaterContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#z}.
+	 * Exit a parse tree produced by the {@code zGreater}
+	 * labeled alternative in {@link MadBasicParser#z}.
 	 * @param ctx the parse tree
 	 */
-	void exitZ(MadBasicParser.ZContext ctx);
+	void exitZGreater(MadBasicParser.ZGreaterContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#zz}.
+	 * Enter a parse tree produced by the {@code zLesser}
+	 * labeled alternative in {@link MadBasicParser#z}.
 	 * @param ctx the parse tree
 	 */
-	void enterZz(MadBasicParser.ZzContext ctx);
+	void enterZLesser(MadBasicParser.ZLesserContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#zz}.
+	 * Exit a parse tree produced by the {@code zLesser}
+	 * labeled alternative in {@link MadBasicParser#z}.
 	 * @param ctx the parse tree
 	 */
-	void exitZz(MadBasicParser.ZzContext ctx);
+	void exitZLesser(MadBasicParser.ZLesserContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code zEqualEqual}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 */
+	void enterZEqualEqual(MadBasicParser.ZEqualEqualContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code zEqualEqual}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 */
+	void exitZEqualEqual(MadBasicParser.ZEqualEqualContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code zDifferent}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 */
+	void enterZDifferent(MadBasicParser.ZDifferentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code zDifferent}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 */
+	void exitZDifferent(MadBasicParser.ZDifferentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code zwtf}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 */
+	void enterZwtf(MadBasicParser.ZwtfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code zwtf}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 */
+	void exitZwtf(MadBasicParser.ZwtfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code zzEqual}
+	 * labeled alternative in {@link MadBasicParser#zz}.
+	 * @param ctx the parse tree
+	 */
+	void enterZzEqual(MadBasicParser.ZzEqualContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code zzEqual}
+	 * labeled alternative in {@link MadBasicParser#zz}.
+	 * @param ctx the parse tree
+	 */
+	void exitZzEqual(MadBasicParser.ZzEqualContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code zzEmpty}
+	 * labeled alternative in {@link MadBasicParser#zz}.
+	 * @param ctx the parse tree
+	 */
+	void enterZzEmpty(MadBasicParser.ZzEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code zzEmpty}
+	 * labeled alternative in {@link MadBasicParser#zz}.
+	 * @param ctx the parse tree
+	 */
+	void exitZzEmpty(MadBasicParser.ZzEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#term}.
 	 * @param ctx the parse tree
@@ -558,35 +636,89 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitAa(MadBasicParser.AaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#ab}.
+	 * Enter a parse tree produced by the {@code abMultiplication}
+	 * labeled alternative in {@link MadBasicParser#ab}.
 	 * @param ctx the parse tree
 	 */
-	void enterAb(MadBasicParser.AbContext ctx);
+	void enterAbMultiplication(MadBasicParser.AbMultiplicationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#ab}.
+	 * Exit a parse tree produced by the {@code abMultiplication}
+	 * labeled alternative in {@link MadBasicParser#ab}.
 	 * @param ctx the parse tree
 	 */
-	void exitAb(MadBasicParser.AbContext ctx);
+	void exitAbMultiplication(MadBasicParser.AbMultiplicationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#factor}.
+	 * Enter a parse tree produced by the {@code abDivision}
+	 * labeled alternative in {@link MadBasicParser#ab}.
 	 * @param ctx the parse tree
 	 */
-	void enterFactor(MadBasicParser.FactorContext ctx);
+	void enterAbDivision(MadBasicParser.AbDivisionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#factor}.
+	 * Exit a parse tree produced by the {@code abDivision}
+	 * labeled alternative in {@link MadBasicParser#ab}.
 	 * @param ctx the parse tree
 	 */
-	void exitFactor(MadBasicParser.FactorContext ctx);
+	void exitAbDivision(MadBasicParser.AbDivisionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#ac}.
+	 * Enter a parse tree produced by the {@code factorExpression}
+	 * labeled alternative in {@link MadBasicParser#factor}.
 	 * @param ctx the parse tree
 	 */
-	void enterAc(MadBasicParser.AcContext ctx);
+	void enterFactorExpression(MadBasicParser.FactorExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#ac}.
+	 * Exit a parse tree produced by the {@code factorExpression}
+	 * labeled alternative in {@link MadBasicParser#factor}.
 	 * @param ctx the parse tree
 	 */
-	void exitAc(MadBasicParser.AcContext ctx);
+	void exitFactorExpression(MadBasicParser.FactorExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code factorValue}
+	 * labeled alternative in {@link MadBasicParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactorValue(MadBasicParser.FactorValueContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code factorValue}
+	 * labeled alternative in {@link MadBasicParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactorValue(MadBasicParser.FactorValueContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code acPlus}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcPlus(MadBasicParser.AcPlusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code acPlus}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcPlus(MadBasicParser.AcPlusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code acMinus}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcMinus(MadBasicParser.AcMinusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code acMinus}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcMinus(MadBasicParser.AcMinusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code acEmpty}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcEmpty(MadBasicParser.AcEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code acEmpty}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcEmpty(MadBasicParser.AcEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code valueIdentifier}
 	 * labeled alternative in {@link MadBasicParser#value}.

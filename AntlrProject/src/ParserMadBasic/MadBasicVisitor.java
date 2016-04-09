@@ -1,4 +1,4 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -287,11 +287,19 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitV(MadBasicParser.VContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#w}.
+	 * Visit a parse tree produced by the {@code wPlus}
+	 * labeled alternative in {@link MadBasicParser#w}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitW(MadBasicParser.WContext ctx);
+	T visitWPlus(MadBasicParser.WPlusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code wMinus}
+	 * labeled alternative in {@link MadBasicParser#w}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWMinus(MadBasicParser.WMinusContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#args}.
 	 * @param ctx the parse tree
@@ -317,17 +325,54 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitY(MadBasicParser.YContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#z}.
+	 * Visit a parse tree produced by the {@code zGreater}
+	 * labeled alternative in {@link MadBasicParser#z}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitZ(MadBasicParser.ZContext ctx);
+	T visitZGreater(MadBasicParser.ZGreaterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#zz}.
+	 * Visit a parse tree produced by the {@code zLesser}
+	 * labeled alternative in {@link MadBasicParser#z}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitZz(MadBasicParser.ZzContext ctx);
+	T visitZLesser(MadBasicParser.ZLesserContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code zEqualEqual}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitZEqualEqual(MadBasicParser.ZEqualEqualContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code zDifferent}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitZDifferent(MadBasicParser.ZDifferentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code zwtf}
+	 * labeled alternative in {@link MadBasicParser#z}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitZwtf(MadBasicParser.ZwtfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code zzEqual}
+	 * labeled alternative in {@link MadBasicParser#zz}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitZzEqual(MadBasicParser.ZzEqualContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code zzEmpty}
+	 * labeled alternative in {@link MadBasicParser#zz}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitZzEmpty(MadBasicParser.ZzEmptyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#term}.
 	 * @param ctx the parse tree
@@ -341,23 +386,54 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAa(MadBasicParser.AaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#ab}.
+	 * Visit a parse tree produced by the {@code abMultiplication}
+	 * labeled alternative in {@link MadBasicParser#ab}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAb(MadBasicParser.AbContext ctx);
+	T visitAbMultiplication(MadBasicParser.AbMultiplicationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#factor}.
+	 * Visit a parse tree produced by the {@code abDivision}
+	 * labeled alternative in {@link MadBasicParser#ab}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFactor(MadBasicParser.FactorContext ctx);
+	T visitAbDivision(MadBasicParser.AbDivisionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#ac}.
+	 * Visit a parse tree produced by the {@code factorExpression}
+	 * labeled alternative in {@link MadBasicParser#factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAc(MadBasicParser.AcContext ctx);
+	T visitFactorExpression(MadBasicParser.FactorExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code factorValue}
+	 * labeled alternative in {@link MadBasicParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactorValue(MadBasicParser.FactorValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code acPlus}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAcPlus(MadBasicParser.AcPlusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code acMinus}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAcMinus(MadBasicParser.AcMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code acEmpty}
+	 * labeled alternative in {@link MadBasicParser#ac}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAcEmpty(MadBasicParser.AcEmptyContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code valueIdentifier}
 	 * labeled alternative in {@link MadBasicParser#value}.
