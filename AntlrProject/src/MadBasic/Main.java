@@ -18,7 +18,7 @@ public class Main {
 
         TestingGround tester = new TestingGround();
         //int[] selectedTests = {0}; // ALL
-        int[] selectedTests = {5, 6}; // Variables, Operands and Quadruples;
+        int[] selectedTests = {1, 5, 6, 7, 4}; // Variables, Operands and Quadruples;
         tester.testManager(selectedTests);
         //BasicSemantic basicSemantic =  BasicSemantic.getInstance();
 
