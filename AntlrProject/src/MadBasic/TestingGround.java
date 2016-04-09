@@ -120,10 +120,23 @@ public class TestingGround {
         System.out.println("------------------------------------------------");
     }
 
+
     /**
      * ID: 7
+     * Function that prints the quadruple list of the QuadrupleSemantic class
      */
-    public void printTheSemanticCube(){
+    public void printOperandlist(){
+        System.out.println("------------------------------------------------");
+        System.out.println("Operand List: ");
+        for(Operand op : quadrupleSemantic.getOperandSList()){
+            System.out.println(op.toString());
+        }
+    }
+
+    /**
+     * ID: 8
+     */
+    public void printTheSemanticCube() {
         System.out.println("------------------------------------------------");
         System.out.println("Semantic Cube: ");
         cube.printCube();
@@ -146,6 +159,7 @@ public class TestingGround {
                     printProcTable();
                     testSemanticCube();
                     printOperandStack();
+                    printOperandlist();
                     printTheSemanticCube();
                     break;
                 case 1:
@@ -167,6 +181,9 @@ public class TestingGround {
                     printQuadruplelist();
                     break;
                 case 7:
+                    printOperandlist();
+                    break;
+                case 8:
                     printTheSemanticCube();
                     break;
             }

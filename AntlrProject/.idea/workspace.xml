@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cb62e3a2-34f8-472c-bae0-8e489754e408" name="Default" comment="" />
+    <list default="true" id="cb62e3a2-34f8-472c-bae0-8e489754e408" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Quadruples/QuadrupleSemantic.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Quadruples/QuadrupleSemantic.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/TestingGround.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/TestingGround.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Visitor.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Visitor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/Main.java" afterPath="$PROJECT_DIR$/src/MadBasic/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/Quadruples/QuadrupleSemantic.java" afterPath="$PROJECT_DIR$/src/MadBasic/Quadruples/QuadrupleSemantic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/TestingGround.java" afterPath="$PROJECT_DIR$/src/MadBasic/TestingGround.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/Visitor.java" afterPath="$PROJECT_DIR$/src/MadBasic/Visitor.java" />
+    </list>
     <ignored path="AntlrProject.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,6 +30,7 @@
     <favorites_list name="AntlrProject" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Main.mad" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main.mad">
@@ -124,6 +134,60 @@
         </entry>
       </file>
     </leaf>
+=======
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/MadBasic/Main.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Visitor.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/MadBasic/Visitor.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.16420361">
+                  <caret line="91" column="10" selection-start-line="91" selection-start-column="10" selection-end-line="91" selection-end-column="10" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="Main.mad" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Main.mad">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="73" column="11" selection-start-line="73" selection-start-column="11" selection-end-line="73" selection-end-column="11" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MadBasic.g4" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/MadBasic/MadBasic.g4">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.1588785">
+                  <caret line="66" column="49" selection-start-line="66" selection-start-column="49" selection-end-line="66" selection-end-column="49" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -131,6 +195,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -145,18 +212,35 @@
         <option value="$PROJECT_DIR$/src/MadBasic/Operand.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/Quadruples/Assignment.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/Algrebra/Variable.java" />
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/src/MadBasic/Semantic/Type.java" />
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
         <option value="$PROJECT_DIR$/src/MadBasic/Algrebra/Temporal.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/Algrebra/Operator.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/MadBasic.g4" />
         <option value="$PROJECT_DIR$/src/MadBasic/Algrebra/Constant.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/Quadruples/Expression.java" />
+        <option value="$PROJECT_DIR$/src/MadBasic/Quadruples/QuadrupleSemantic.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/Visitor.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/Main.mad" />
         <option value="$PROJECT_DIR$/src/MadBasic/TestingGround.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/Main.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/Semantic/Type.java" />
         <option value="$PROJECT_DIR$/src/MadBasic/Semantic/SemanticCube.java" />
+=======
+        <option value="$PROJECT_DIR$/src/MadBasic/TestingGround.java" />
+        <option value="$PROJECT_DIR$/src/MadBasic/Main.java" />
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
       </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
     </option>
   </component>
   <component name="ProjectFrameBounds">
@@ -190,7 +274,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -311,24 +396,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AntlrProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AntlrProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -338,6 +408,9 @@
     <property name="$PROJECT_DIR$/src/MadBasic/MadBasic.g4::/package" value="ParserMadBasic" />
     <property name="$PROJECT_DIR$/src/MadBasic/MadBasic.g4::/gen-listener" value="true" />
     <property name="$PROJECT_DIR$/src/MadBasic/MadBasic.g4::/gen-visitor" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="font&#9;ACTION&#9;EditorIncreaseFontSize" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -646,7 +719,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="65" y="-4" width="1855" height="979" extended-state="6" />
+=======
+    <frame x="0" y="28" width="1920" height="1052" extended-state="0" />
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -657,7 +734,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32801822" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28068304" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15256065" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
@@ -688,7 +769,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="22" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -912,13 +993,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Ex1.mad">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MadBasic/Quadruples/Write.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -972,14 +1046,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MadBasic/Quadruples/QuadrupleSemantic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6532663">
-          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MadBasic/Algrebra/Variable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1014,6 +1080,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/MadBasic/Algrebra/Operator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.4321609">
@@ -1023,6 +1090,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MadBasic/Algrebra/Temporal.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/Semantic/SemanticCube.java">
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.67839193">
           <caret line="35" column="32" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
@@ -1030,6 +1100,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/MadBasic/Algrebra/Constant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.37688443">
@@ -1066,6 +1137,12 @@
             <element signature="e#1007#1008#0" expanded="false" />
             <element signature="e#1043#1044#0" expanded="false" />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/src/ParserMadBasic/MadBasicParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.26968175">
+          <caret line="3365" column="29" selection-start-line="3365" selection-start-column="29" selection-end-line="3365" selection-end-column="29" />
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
         </state>
       </provider>
     </entry>
@@ -1085,6 +1162,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Main.mad">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1094,6 +1172,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MadBasic/Main.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/Algrebra/Constant.java">
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
@@ -1103,6 +1184,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/MadBasic/TestingGround.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1117,14 +1199,88 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Ex1.mad">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4915254">
+          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/TestingGround.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main.mad">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="73" column="11" selection-start-line="73" selection-start-column="11" selection-end-line="73" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/MadBasic.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1588785">
+          <caret line="66" column="49" selection-start-line="66" selection-start-column="49" selection-end-line="66" selection-end-column="49" />
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/MadBasic/Semantic/Type.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5187166">
           <caret line="25" column="24" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/Quadruples/Expression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8130841">
+          <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/Quadruples/QuadrupleSemantic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.60903424">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <folding>
+            <element signature="e#1772#1773#0" expanded="true" />
+            <element signature="e#1807#1808#0" expanded="true" />
+            <element signature="e#1877#1878#0" expanded="true" />
+            <element signature="e#1925#1926#0" expanded="true" />
+            <element signature="e#1977#1978#0" expanded="true" />
+            <element signature="e#2012#2013#0" expanded="true" />
+            <element signature="e#2081#2082#0" expanded="true" />
+            <element signature="e#2129#2130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/Visitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16420361">
+          <caret line="91" column="10" selection-start-line="91" selection-start-column="10" selection-end-line="91" selection-end-column="10" />
+>>>>>>> 38ed49fd5afe024a0933992de30b4aba39f3b76d
           <folding />
         </state>
       </provider>

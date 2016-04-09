@@ -61,6 +61,7 @@ public class SemanticCube {
         return cube[i][j][k];
     }
 
+
     static public void printCube(){
 
         String output = "{\n";
