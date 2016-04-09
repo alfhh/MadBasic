@@ -83,5 +83,6 @@ lint.add(5);
 lint[0] = 4;
 b = bbb.isMultiple(xi,yi);
 xi = findx(yi, lint);
+str = read;
 printline(str);
 end

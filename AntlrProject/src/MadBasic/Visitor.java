@@ -1,8 +1,10 @@
 package MadBasic;
 
 import MadBasic.Algrebra.*;
+import MadBasic.Quadruples.Assignment;
 import MadBasic.Quadruples.Expression;
 import MadBasic.Quadruples.QuadrupleSemantic;
+import MadBasic.Quadruples.Read;
 import MadBasic.Semantic.*;
 import ParserMadBasic.MadBasicBaseVisitor;
 import ParserMadBasic.MadBasicParser;
@@ -458,6 +460,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return super.visitValueBool(ctx);
     }
 
+    //Read
+
+    @Override
+    public String visitRead(MadBasicParser.ReadContext ctx) {
+        Type type = quadrupleSemantic.getOperandStack().peek().getType();
+        Temporal temp = new Temporal(temporalCount++, type);
+        quadrupleSemantic.getQuadrupleList().add(new Read(temp));
+        quadrupleSemantic.getOperandStack().push(temp);
+        return super.visitRead(ctx);
+    }
+
+
     //Assignment
 
     /**
@@ -467,10 +481,31 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      */
     @Override
     public String visitAssignment(MadBasicParser.AssignmentContext ctx) {
-        String res = visitChildren(ctx);
+        String res = null;
+        String text = ctx.getChild(0).getText();
+        boolean found = false;
+        Scope scope = basicSemantic.getScopeStack().peek();
+        while (scope != null && !found) {
+            for (Variable var : scope.getVariables()) {
+                if (var.getID().equals(text)) {
+                    quadrupleSemantic.getOperandStack().push(var);
+                    res = visitChildren(ctx);
+                    Operand oper = quadrupleSemantic.getOperandStack().peek();
+                    quadrupleSemantic.getOperandStack().pop();
+                    quadrupleSemantic.getOperandStack().pop();
+                    quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, var));
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                scope = scope.getParent();
+            }
+        }
 
-
-
+        if (!found) {
+            System.out.println("Error, Identifier: " + text + " not found!");
+        }
         return res;
     }
 }

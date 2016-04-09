@@ -1,33 +1,44 @@
 package MadBasic.Quadruples;
 
+import MadBasic.Algrebra.Operand;
+import MadBasic.Algrebra.Operator;
+import MadBasic.Algrebra.Variable;
+
 /**
  * Created by lsanchez on 3/29/16.
  */
-public class Assignment<T> extends Quadruple {
-    T value;
-    T result;
+public class Assignment extends Quadruple {
+    Operand value;
+    Variable result;
 
-    public Assignment() {
-    }
-
-    public Assignment(T value, T result) {
+    public Assignment(Operand value, Variable result) {
         this.value = value;
         this.result = result;
     }
 
-    public T getValue() {
+    public Operand getValue() {
         return value;
     }
 
-    public void setValue(T value) {
+    public void setValue(Operand value) {
         this.value = value;
     }
 
-    public T getResult() {
+    public Variable getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public void setResult(Variable result) {
         this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return "Assignment{" +
+                "=" +
+                ",\t" + Operator.getIdString(value) +
+                ",\t" +
+                ",\t" + Operator.getIdString(result) +
+                "}";
     }
 }

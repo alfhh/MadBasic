@@ -50,25 +50,13 @@ public class Expression extends Quadruple {
         this.result = result;
     }
 
-    private String getIdString(Operand o){
-        String res;
-        if(o instanceof Variable){
-            res = ((Variable) o).getID();
-        } else if(o instanceof Constant){
-            res = ((Constant) o).getValue().toString();
-        } else {
-            res = "t" + ((Temporal) o).getID();
-        }
-        return res;
-    }
-
     @Override
     public String toString() {
         return "Expression{ " +
                 oper.getOperator() +
-                ", " + getIdString(operand1) +
-                ", " + getIdString(operand2) +
-                ", t" + result.getID() +
+                ",\t" + Operator.getIdString(operand1) +
+                ",\t" + Operator.getIdString(operand2) +
+                ",\t" + Operator.getIdString(result) +
                 "}";
     }
 }
