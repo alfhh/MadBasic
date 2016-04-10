@@ -1,13 +1,12 @@
 package MadBasic;
 
 import MadBasic.Algrebra.*;
-import MadBasic.Quadruples.Assignment;
-import MadBasic.Quadruples.Expression;
-import MadBasic.Quadruples.QuadrupleSemantic;
-import MadBasic.Quadruples.Read;
+import MadBasic.Quadruples.*;
+import MadBasic.Quadruples.Gotos.*;
 import MadBasic.Semantic.*;
 import ParserMadBasic.MadBasicBaseVisitor;
 import ParserMadBasic.MadBasicParser;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -118,6 +117,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
     //QUADRUPLES
 
+    @Override
+    public String visitUAnd(MadBasicParser.UAndContext ctx) {
+        quadrupleSemantic.getOperatorStack().push(Operator.AND);
+        return super.visitUAnd(ctx);
+    }
+
+    @Override
+    public String visitUOr(MadBasicParser.UOrContext ctx) {
+        quadrupleSemantic.getOperatorStack().push(Operator.OR);
+        return super.visitUOr(ctx);
+    }
+
     //EXPRESSION
 
     @Override
@@ -128,16 +139,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             quadrupleSemantic.getOperandStack().pop();
             Operand operand2 = quadrupleSemantic.getOperandStack().peek();
             quadrupleSemantic.getOperandStack().pop();
-            String operator = ctx.getChild(0).getText();
-            Operator oper;
-            if (operator == "&&") {
-                oper = Operator.AND;
-            } else {
-                oper = Operator.OR;
-            }
+            Operator oper = quadrupleSemantic.getOperatorStack().peek();
+            quadrupleSemantic.getOperatorStack().pop();
             //cubo semantico
             Type resT = SemanticCube.getCubeType(
-                    oper.getValue(), operand1.getType().getTypeValue(), operand2.getType().getTypeValue());
+                    operand1.getType().getTypeValue(), operand2.getType().getTypeValue(), oper.getValue());
 
             //agregar cuadruplo
             if (resT != Type.FALSE) {
@@ -475,7 +481,6 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //Assignment
 
     /**
-     *
      * @param ctx
      * @return
      */
@@ -507,5 +512,99 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             System.out.println("Error, Identifier: " + text + " not found!");
         }
         return res;
+    }
+
+    //IF Statement
+
+    @Override
+    public String visitCondition(MadBasicParser.ConditionContext ctx) {
+        String result = this.defaultResult();
+        int n = ctx.getChildCount();
+
+        for (int i = 0; i < 4 && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        Operand condition = quadrupleSemantic.getOperandStack().peek();
+        quadrupleSemantic.getOperandStack().pop();
+        if (condition.getType() == Type.BOOL) {
+            GotoFalse gotoFalse = new GotoFalse(condition);
+            quadrupleSemantic.getJumpStack().add(quadrupleSemantic.getQuadrupleList().size());
+            quadrupleSemantic.getQuadrupleList().add(gotoFalse);
+        } else {
+            System.out.println("Error, Identifier: " + ctx.getChild(2).getText() + " not bool!");
+        }
+
+        for (int i = 4; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        Integer fin = quadrupleSemantic.getJumpStack().peek();
+        quadrupleSemantic.getJumpStack().pop();
+        ((Goto) quadrupleSemantic.getQuadrupleList().get(fin)).setJump(quadrupleSemantic.getQuadrupleList().size());
+
+        return result;
+    }
+
+    //ELSE Statement
+
+    @Override
+    public String visitPElse(MadBasicParser.PElseContext ctx) {
+        Goto go = new Goto();
+        Integer falso = quadrupleSemantic.getJumpStack().peek();
+        quadrupleSemantic.getJumpStack().pop();
+        quadrupleSemantic.getJumpStack().add(quadrupleSemantic.getQuadrupleList().size());
+        quadrupleSemantic.getQuadrupleList().add(go);
+        ((Goto) quadrupleSemantic.getQuadrupleList().get(falso)).setJump(quadrupleSemantic.getQuadrupleList().size());
+        return super.visitPElse(ctx);
+    }
+
+    //LOOP Statement
+
+    @Override
+    public String visitLoop(MadBasicParser.LoopContext ctx) {
+        String result = this.defaultResult();
+        int n = ctx.getChildCount();
+
+        quadrupleSemantic.getJumpStack().add(quadrupleSemantic.getQuadrupleList().size());
+
+        for (int i = 0; i < 4 && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        Operand condition = quadrupleSemantic.getOperandStack().peek();
+        quadrupleSemantic.getOperandStack().pop();
+        if (condition.getType() == Type.BOOL) {
+            GotoFalse gotoFalse = new GotoFalse(condition);
+            quadrupleSemantic.getJumpStack().add(quadrupleSemantic.getQuadrupleList().size());
+            quadrupleSemantic.getQuadrupleList().add(gotoFalse);
+        } else {
+            System.out.println("Error, Identifier: " + ctx.getChild(2).getText() + " not bool!");
+        }
+
+        for (int i = 4; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        Integer fin = quadrupleSemantic.getJumpStack().peek();
+        quadrupleSemantic.getJumpStack().pop();
+        Integer retorno = quadrupleSemantic.getJumpStack().peek();
+        quadrupleSemantic.getJumpStack().pop();
+        quadrupleSemantic.getQuadrupleList().add(new Goto(retorno));
+        ((Goto) quadrupleSemantic.getQuadrupleList().get(fin)).setJump(quadrupleSemantic.getQuadrupleList().size());
+
+        return result;
     }
 }

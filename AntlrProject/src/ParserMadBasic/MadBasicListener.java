@@ -298,15 +298,29 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitCondition(MadBasicParser.ConditionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#p}.
+	 * Enter a parse tree produced by the {@code pElse}
+	 * labeled alternative in {@link MadBasicParser#p}.
 	 * @param ctx the parse tree
 	 */
-	void enterP(MadBasicParser.PContext ctx);
+	void enterPElse(MadBasicParser.PElseContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#p}.
+	 * Exit a parse tree produced by the {@code pElse}
+	 * labeled alternative in {@link MadBasicParser#p}.
 	 * @param ctx the parse tree
 	 */
-	void exitP(MadBasicParser.PContext ctx);
+	void exitPElse(MadBasicParser.PElseContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code pEmpty}
+	 * labeled alternative in {@link MadBasicParser#p}.
+	 * @param ctx the parse tree
+	 */
+	void enterPEmpty(MadBasicParser.PEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code pEmpty}
+	 * labeled alternative in {@link MadBasicParser#p}.
+	 * @param ctx the parse tree
+	 */
+	void exitPEmpty(MadBasicParser.PEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#loop}.
 	 * @param ctx the parse tree
@@ -428,15 +442,29 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitT(MadBasicParser.TContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#u}.
+	 * Enter a parse tree produced by the {@code uAnd}
+	 * labeled alternative in {@link MadBasicParser#u}.
 	 * @param ctx the parse tree
 	 */
-	void enterU(MadBasicParser.UContext ctx);
+	void enterUAnd(MadBasicParser.UAndContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#u}.
+	 * Exit a parse tree produced by the {@code uAnd}
+	 * labeled alternative in {@link MadBasicParser#u}.
 	 * @param ctx the parse tree
 	 */
-	void exitU(MadBasicParser.UContext ctx);
+	void exitUAnd(MadBasicParser.UAndContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code uOr}
+	 * labeled alternative in {@link MadBasicParser#u}.
+	 * @param ctx the parse tree
+	 */
+	void enterUOr(MadBasicParser.UOrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code uOr}
+	 * labeled alternative in {@link MadBasicParser#u}.
+	 * @param ctx the parse tree
+	 */
+	void exitUOr(MadBasicParser.UOrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#read}.
 	 * @param ctx the parse tree
