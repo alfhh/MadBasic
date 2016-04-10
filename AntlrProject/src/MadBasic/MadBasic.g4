@@ -38,12 +38,12 @@ k 				:	params
 l 				:	statement l
 					| // empty
 					;
-type 			:	INT
-					| FLOAT
-					| STRING
-					| BOOL
-					| LIST LESSER type GREATER
-					| OBJECT
+type 			:	INT #typeInt
+					| FLOAT #typeFloat
+					| STRING #typeString
+					| BOOL #typeBool
+					| LIST LESSER type GREATER #typeList
+					| OBJECT #typeObject
 					;
 method 			:	procedure
 					| function

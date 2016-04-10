@@ -1,6 +1,7 @@
 package MadBasic.Quadruples;
 
 import MadBasic.Algrebra.Operand;
+import MadBasic.Algrebra.Operator;
 
 /**
  * Created by lsanchez on 3/29/16.
@@ -22,6 +23,6 @@ public class Write extends Quadruple {
     }
 
     public String toString(){
-        return "PRINT {print, "+ this.output +", , }";
+        return "PRINT {print, "+ Operator.getIdString(output) +", , }";
     }
 }

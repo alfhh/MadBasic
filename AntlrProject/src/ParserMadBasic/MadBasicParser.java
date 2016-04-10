@@ -1,4 +1,4 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -1141,32 +1141,120 @@ public class MadBasicParser extends Parser {
 	}
 
 	public static class TypeContext extends ParserRuleContext {
+		public TypeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_type; }
+	 
+		public TypeContext() { }
+		public void copyFrom(TypeContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class TypeIntContext extends TypeContext {
 		public TerminalNode INT() { return getToken(MadBasicParser.INT, 0); }
+		public TypeIntContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterTypeInt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitTypeInt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitTypeInt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeFloatContext extends TypeContext {
 		public TerminalNode FLOAT() { return getToken(MadBasicParser.FLOAT, 0); }
-		public TerminalNode STRING() { return getToken(MadBasicParser.STRING, 0); }
-		public TerminalNode BOOL() { return getToken(MadBasicParser.BOOL, 0); }
+		public TypeFloatContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterTypeFloat(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitTypeFloat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitTypeFloat(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeListContext extends TypeContext {
 		public TerminalNode LIST() { return getToken(MadBasicParser.LIST, 0); }
 		public TerminalNode LESSER() { return getToken(MadBasicParser.LESSER, 0); }
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
 		public TerminalNode GREATER() { return getToken(MadBasicParser.GREATER, 0); }
-		public TerminalNode OBJECT() { return getToken(MadBasicParser.OBJECT, 0); }
-		public TypeContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_type; }
+		public TypeListContext(TypeContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterType(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterTypeList(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitType(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitTypeList(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitType(this);
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitTypeList(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeObjectContext extends TypeContext {
+		public TerminalNode OBJECT() { return getToken(MadBasicParser.OBJECT, 0); }
+		public TypeObjectContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterTypeObject(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitTypeObject(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitTypeObject(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeStringContext extends TypeContext {
+		public TerminalNode STRING() { return getToken(MadBasicParser.STRING, 0); }
+		public TypeStringContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterTypeString(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitTypeString(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitTypeString(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeBoolContext extends TypeContext {
+		public TerminalNode BOOL() { return getToken(MadBasicParser.BOOL, 0); }
+		public TypeBoolContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterTypeBool(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitTypeBool(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitTypeBool(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1178,6 +1266,7 @@ public class MadBasicParser extends Parser {
 			setState(219);
 			switch (_input.LA(1)) {
 			case INT:
+				_localctx = new TypeIntContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(209);
@@ -1185,6 +1274,7 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case FLOAT:
+				_localctx = new TypeFloatContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(210);
@@ -1192,6 +1282,7 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case STRING:
+				_localctx = new TypeStringContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(211);
@@ -1199,6 +1290,7 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case BOOL:
+				_localctx = new TypeBoolContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(212);
@@ -1206,6 +1298,7 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case LIST:
+				_localctx = new TypeListContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(213);
@@ -1219,6 +1312,7 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case OBJECT:
+				_localctx = new TypeObjectContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(218);

@@ -7,9 +7,15 @@ public enum Type {
     INT(0), FLOAT(1), STRING(2), BOOL(3), LIST(4), OBJECT(5), FALSE(-1);
 
     private int value;
+    private Type type;
+
+    private void setTypeNull() {
+        type = Type.FALSE;
+    }
 
     Type(int x) {
         value = x;
+        setTypeNull();
     }
 
     public int getTypeValue() {
@@ -21,7 +27,7 @@ public enum Type {
 //        return "Type{" +
 //                "value=" + value +
 //                '}';
-        switch(this.value){
+        switch (this.value) {
             case 0:
                 return "Type.INT";
             case 1:
@@ -31,12 +37,27 @@ public enum Type {
             case 3:
                 return "Type.BOOL";
             case 4:
-                return "Type.LIST";
+                return "Type.LIST<" + type + ">";
             case 5:
                 return "Type.OBJECT";
             default:
                 return "Type.FALSE";
 
+        }
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        if(this == this.LIST) {
+            if (this.type != null) {
+//            System.out.println(type);
+                this.type.setType(type);
+            } else {
+                this.type = type;
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * Created by lsanchez on 3/10/16.
@@ -22,11 +23,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     BasicSemantic basicSemantic;
     QuadrupleSemantic quadrupleSemantic;
     int temporalCount;
+    Stack<Type> typeStack;
 
     public Visitor() {
         basicSemantic = BasicSemantic.getInstance();
         quadrupleSemantic = QuadrupleSemantic.getInstance();
         temporalCount = 0;
+        typeStack = new Stack<>();
     }
 
 
@@ -74,24 +77,77 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     @Override
+    public String visitTypeInt(MadBasicParser.TypeIntContext ctx) {
+        String res = visitChildren(ctx);
+        typeStack.push(Type.INT);
+//        System.out.println("Type.INT");
+        return res;
+    }
+
+    @Override
+    public String visitTypeFloat(MadBasicParser.TypeFloatContext ctx) {
+        String res = visitChildren(ctx);
+        typeStack.push(Type.FLOAT);
+//        System.out.println("Type.FLOAT");
+        return res;
+    }
+
+    @Override
+    public String visitTypeString(MadBasicParser.TypeStringContext ctx) {
+        String res = visitChildren(ctx);
+        typeStack.push(Type.STRING);
+//        System.out.println("Type.STRING");
+        return res;
+    }
+
+    @Override
+    public String visitTypeBool(MadBasicParser.TypeBoolContext ctx) {
+        String res = visitChildren(ctx);
+        typeStack.push(Type.BOOL);
+//        System.out.println("Type.BOOL");
+        return res;
+    }
+
+    @Override
+    public String visitTypeList(MadBasicParser.TypeListContext ctx) {
+        String res = visitChildren(ctx);
+        typeStack.push(Type.LIST);
+//        System.out.println("Type.LIST");
+        return res;
+    }
+
+    @Override
+    public String visitTypeObject(MadBasicParser.TypeObjectContext ctx) {
+        String res = visitChildren(ctx);
+        typeStack.push(Type.OBJECT);
+//        System.out.println("Type.OBJECT");
+        return res;
+    }
+
+    @Override
     public String visitE(MadBasicParser.EContext ctx) {
-        String t = ctx.getChild(0).getText();
-        Type type = Type.FALSE;
-        if (t.equals("int")) {
-            type = Type.INT;
-        } else if (t.equals("float")) {
-            type = Type.FLOAT;
-        } else if (t.equals("string")) {
-            type = Type.STRING;
-        } else if (t.equals("bool")) {
-            type = Type.BOOL;
-        } else if (t.startsWith("list")) {
-            type = Type.LIST;
-        } else if (t.equals("int")) { // todo checar si es una clase
-            type = Type.OBJECT;
-        } else {
-            //todo error
+        String result = "";
+
+        ParseTree c = ctx.getChild(0);
+        String childResult = c.accept(this);
+        result = this.aggregateResult(result, childResult);
+
+//        System.out.println(typeStack + ctx.getChild(1).getText() + ctx.getChild(2).getText());
+        Type type = typeStack.pop();
+        while (!typeStack.empty()){
+            type.setType(typeStack.pop());
         }
+//        System.out.println(type);
+
+        int n = ctx.getChildCount();
+
+        for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+            c = ctx.getChild(i);
+            childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
         LinkedList<String> ids = new LinkedList<>();
         ids.add(ctx.getChild(1).getText());
         ids.addAll(Arrays.asList(ctx.getChild(2).getText().trim().split(",")));
@@ -102,31 +158,114 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 basicSemantic.getScopeStack().peek().getVariables().add(var);
             }
         }
-        return super.visitE(ctx);
+        return result;
     }
 
 
     // Functions
     @Override
     public String visitFunction(MadBasicParser.FunctionContext ctx) {
+        String result = "";
+        ParseTree c = ctx.getChild(0);
+        String childResult = c.accept(this);
+        result = this.aggregateResult(result, childResult);
+
+//        System.out.println(typeStack + ctx.getChild(1).getText());
+        Type type = typeStack.pop();
+        while (!typeStack.empty()){
+            type.setType(typeStack.pop());
+        }
+//        System.out.println(type);
+
+        int n = ctx.getChildCount();
+
+        for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+            c = ctx.getChild(i);
+            childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
         String id = ctx.getChild(1).getText();
-        String type = ctx.getChild(0).getText();
         Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
         Procedure proc = new Procedure(id, type, scp);
         basicSemantic.getProcedures().add(proc);
         basicSemantic.getScopes().add(proc.getScope());
         basicSemantic.getScopeStack().push(proc.getScope());
-        String res = visitChildren(ctx);
+//        String res = visitChildren(ctx);
         basicSemantic.getScopeStack().pop();
-        return res;
+        return result;
+    }
+
+    @Override
+    public String visitParams(MadBasicParser.ParamsContext ctx) {
+        String result = this.defaultResult();
+        int n = ctx.getChildCount();
+
+        for (int i = 0; i < 3 && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+//        System.out.println(typeStack + ctx.getChild(2).getText());
+        Type type = typeStack.pop();
+        while (!typeStack.empty()){
+            type.setType(typeStack.pop());
+        }
+//        System.out.println(type);
+
+        Variable variable= new Variable(ctx.getChild(2).getText(), type, null);
+
+        for (int i = 3; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        return result;
+    }
+
+    @Override
+    public String visitN(MadBasicParser.NContext ctx) {
+        String result = this.defaultResult();
+        int n = ctx.getChildCount();
+        if (n > 0) {
+            for (int i = 0; i < 4 && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+                ParseTree c = ctx.getChild(i);
+                String childResult = c.accept(this);
+                result = this.aggregateResult(result, childResult);
+            }
+
+//            System.out.println(typeStack + ctx.getChild(3).getText());
+            Type type = typeStack.pop();
+            while (!typeStack.empty()) {
+                type.setType(typeStack.pop());
+            }
+//            System.out.println(type);
+
+            Variable variable = new Variable(ctx.getChild(2).getText(), type, null);
+
+            for (int i = 4; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+//            System.out.println(ctx.getChild(i).getText() + " " + i);
+                ParseTree c = ctx.getChild(i);
+                String childResult = c.accept(this);
+                result = this.aggregateResult(result, childResult);
+            }
+        }
+
+        return result;
     }
 
     // Procedure
     @Override
     public String visitProcedure(MadBasicParser.ProcedureContext ctx) {
+//        System.out.println("proc");
         String id = ctx.getChild(1).getText();
         Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
-        Procedure proc = new Procedure(id, "void", scp);
+        Procedure proc = new Procedure(id, null, scp);
         basicSemantic.getProcedures().add(proc);
         basicSemantic.getScopes().add(proc.getScope());
         basicSemantic.getScopeStack().push(proc.getScope());

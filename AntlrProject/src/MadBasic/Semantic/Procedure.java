@@ -5,10 +5,10 @@ package MadBasic.Semantic;
  */
 public class Procedure {
     String ID;
-    String type;
+    Type type;
     Scope scope;
 
-    public Procedure(String ID, String type, Scope parent) {
+    public Procedure(String ID, Type type, Scope parent) {
         this.ID = ID;
         this.type = type;
         this.scope = new Scope("scope" + ID, parent);
@@ -22,11 +22,11 @@ public class Procedure {
         this.ID = ID;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

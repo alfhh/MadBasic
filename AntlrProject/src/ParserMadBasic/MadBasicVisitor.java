@@ -1,4 +1,4 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -113,11 +113,47 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitL(MadBasicParser.LContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#type}.
+	 * Visit a parse tree produced by the {@code typeInt}
+	 * labeled alternative in {@link MadBasicParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType(MadBasicParser.TypeContext ctx);
+	T visitTypeInt(MadBasicParser.TypeIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code typeFloat}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeFloat(MadBasicParser.TypeFloatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code typeString}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeString(MadBasicParser.TypeStringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code typeBool}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeBool(MadBasicParser.TypeBoolContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code typeList}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeList(MadBasicParser.TypeListContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code typeObject}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeObject(MadBasicParser.TypeObjectContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#method}.
 	 * @param ctx the parse tree

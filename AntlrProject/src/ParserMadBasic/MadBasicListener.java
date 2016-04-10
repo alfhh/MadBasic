@@ -1,4 +1,4 @@
-// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -178,15 +178,77 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitL(MadBasicParser.LContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#type}.
+	 * Enter a parse tree produced by the {@code typeInt}
+	 * labeled alternative in {@link MadBasicParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void enterType(MadBasicParser.TypeContext ctx);
+	void enterTypeInt(MadBasicParser.TypeIntContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#type}.
+	 * Exit a parse tree produced by the {@code typeInt}
+	 * labeled alternative in {@link MadBasicParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void exitType(MadBasicParser.TypeContext ctx);
+	void exitTypeInt(MadBasicParser.TypeIntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code typeFloat}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeFloat(MadBasicParser.TypeFloatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code typeFloat}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeFloat(MadBasicParser.TypeFloatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code typeString}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeString(MadBasicParser.TypeStringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code typeString}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeString(MadBasicParser.TypeStringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code typeBool}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeBool(MadBasicParser.TypeBoolContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code typeBool}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeBool(MadBasicParser.TypeBoolContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code typeList}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeList(MadBasicParser.TypeListContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code typeList}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeList(MadBasicParser.TypeListContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code typeObject}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeObject(MadBasicParser.TypeObjectContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code typeObject}
+	 * labeled alternative in {@link MadBasicParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeObject(MadBasicParser.TypeObjectContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#method}.
 	 * @param ctx the parse tree
