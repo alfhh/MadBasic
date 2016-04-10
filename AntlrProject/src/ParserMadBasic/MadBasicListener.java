@@ -1,4 +1,4 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -342,15 +342,29 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitWrite(MadBasicParser.WriteContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#q}.
+	 * Enter a parse tree produced by the {@code qWrite}
+	 * labeled alternative in {@link MadBasicParser#q}.
 	 * @param ctx the parse tree
 	 */
-	void enterQ(MadBasicParser.QContext ctx);
+	void enterQWrite(MadBasicParser.QWriteContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#q}.
+	 * Exit a parse tree produced by the {@code qWrite}
+	 * labeled alternative in {@link MadBasicParser#q}.
 	 * @param ctx the parse tree
 	 */
-	void exitQ(MadBasicParser.QContext ctx);
+	void exitQWrite(MadBasicParser.QWriteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code qEmpty}
+	 * labeled alternative in {@link MadBasicParser#q}.
+	 * @param ctx the parse tree
+	 */
+	void enterQEmpty(MadBasicParser.QEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code qEmpty}
+	 * labeled alternative in {@link MadBasicParser#q}.
+	 * @param ctx the parse tree
+	 */
+	void exitQEmpty(MadBasicParser.QEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#call}.
 	 * @param ctx the parse tree

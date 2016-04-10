@@ -1,4 +1,4 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -2190,6 +2190,17 @@ public class MadBasicParser extends Parser {
 	}
 
 	public static class QContext extends ParserRuleContext {
+		public QContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_q; }
+	 
+		public QContext() { }
+		public void copyFrom(QContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class QWriteContext extends QContext {
 		public TerminalNode CARET() { return getToken(MadBasicParser.CARET, 0); }
 		public ExpContext exp() {
 			return getRuleContext(ExpContext.class,0);
@@ -2197,21 +2208,34 @@ public class MadBasicParser extends Parser {
 		public QContext q() {
 			return getRuleContext(QContext.class,0);
 		}
-		public QContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_q; }
+		public QWriteContext(QContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterQ(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterQWrite(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitQ(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitQWrite(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitQ(this);
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitQWrite(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class QEmptyContext extends QContext {
+		public QEmptyContext(QContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterQEmpty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitQEmpty(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitQEmpty(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2223,6 +2247,7 @@ public class MadBasicParser extends Parser {
 			setState(319);
 			switch (_input.LA(1)) {
 			case CARET:
+				_localctx = new QWriteContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(314);
@@ -2234,6 +2259,7 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case CPARENTHESIS:
+				_localctx = new QEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				}

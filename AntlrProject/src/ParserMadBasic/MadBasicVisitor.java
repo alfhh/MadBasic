@@ -1,4 +1,4 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -211,11 +211,19 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWrite(MadBasicParser.WriteContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#q}.
+	 * Visit a parse tree produced by the {@code qWrite}
+	 * labeled alternative in {@link MadBasicParser#q}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitQ(MadBasicParser.QContext ctx);
+	T visitQWrite(MadBasicParser.QWriteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code qEmpty}
+	 * labeled alternative in {@link MadBasicParser#q}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQEmpty(MadBasicParser.QEmptyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#call}.
 	 * @param ctx the parse tree

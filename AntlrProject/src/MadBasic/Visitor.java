@@ -1,6 +1,9 @@
 package MadBasic;
 
 import MadBasic.Algrebra.*;
+import MadBasic.Quadruples.Expression;
+import MadBasic.Quadruples.QuadrupleSemantic;
+import MadBasic.Quadruples.Write;
 import MadBasic.Quadruples.*;
 import MadBasic.Quadruples.Gotos.*;
 import MadBasic.Semantic.*;
@@ -26,6 +29,49 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         temporalCount = 0;
     }
 
+
+
+    /**
+     * This function creates a quadruple (write) with the value of the top of the
+     * operandStack
+     */
+    public String visitWrite(MadBasicParser.WriteContext ctx) {
+        String res = visitChildren(ctx);
+
+        // Get the top element of the stack
+        Operand output = quadrupleSemantic.getOperandStack().pop();
+
+        // Add to the quadruple
+        quadrupleSemantic.getQuadrupleList().add(new Write(output));
+        return res;
+    }
+
+    /**
+     *
+     */
+    public String visitQWrite(MadBasicParser.QWriteContext ctx) {
+        String res = visitChildren(ctx);
+        Operand op1 = quadrupleSemantic.getOperandStack().pop();
+        Operand op2 = quadrupleSemantic.getOperandStack().pop();
+
+
+        //Check the semantic cube
+        Type resT = SemanticCube.getCubeType(op1.getType().getTypeValue(), op2.getType().getTypeValue(),Operator.CARET.getValue());
+
+        //agregar cuadruplo
+        if (resT != Type.FALSE) {
+            Temporal temp = new Temporal(temporalCount++, resT);
+            quadrupleSemantic.getQuadrupleList().add(
+                    new Expression(
+                            Operator.CARET, op1, op2, temp));
+            quadrupleSemantic.getOperandStack().push(temp);
+            quadrupleSemantic.getOperandSList().add(temp);
+        } else {
+            System.out.println("Errro: Printing in rule qWrite with " + op1 + " and " + op2);
+        }
+
+        return res;
+    }
 
     @Override
     public String visitE(MadBasicParser.EContext ctx) {

@@ -65,7 +65,7 @@ methods:
 }
 
 void printline(string s) {
-	print(s ^ "\n");
+	print(s ^ "\n" ^ "test");
 }
 
 main:

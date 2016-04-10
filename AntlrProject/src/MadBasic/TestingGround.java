@@ -124,7 +124,7 @@ public class TestingGround {
 
     /**
      * ID: 7
-     * Function that prints the quadruple list of the QuadrupleSemantic class
+     * Function that prints the Operand list of the QuadrupleSemantic class
      */
     public void printOperandlist(){
         System.out.println("------------------------------------------------");
