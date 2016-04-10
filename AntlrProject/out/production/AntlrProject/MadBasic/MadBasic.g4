@@ -74,8 +74,8 @@ p 				:	ELSE OBRACE l CBRACE
 					;
 loop 			: 	WHILE OPARENTHESIS expression CPARENTHESIS OBRACE l CBRACE;
 write 			: 	PRINT OPARENTHESIS exp q CPARENTHESIS SEMICOLON;
-q 				:	CARET exp q
-					| // empty
+q 				:	CARET exp q #qWrite
+					| #qEmpty // empty
 					;
 call 			:	identifier OPARENTHESIS r CPARENTHESIS;
 r 				:	args

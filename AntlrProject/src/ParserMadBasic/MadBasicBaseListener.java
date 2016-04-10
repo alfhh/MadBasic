@@ -1,4 +1,4 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -400,13 +400,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQ(MadBasicParser.QContext ctx) { }
+	@Override public void enterQWrite(MadBasicParser.QWriteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQ(MadBasicParser.QContext ctx) { }
+	@Override public void exitQWrite(MadBasicParser.QWriteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterQEmpty(MadBasicParser.QEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQEmpty(MadBasicParser.QEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
