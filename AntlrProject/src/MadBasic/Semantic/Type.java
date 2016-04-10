@@ -24,9 +24,6 @@ public enum Type {
 
     @Override
     public String toString() {
-//        return "Type{" +
-//                "value=" + value +
-//                '}';
         switch (this.value) {
             case 0:
                 return "Type.INT";
@@ -52,11 +49,10 @@ public enum Type {
 
     public void setType(Type type) {
         if(this == this.LIST) {
-            if (this.type != null) {
-//            System.out.println(type);
-                this.type.setType(type);
-            } else {
+            if (this.type == null) {
                 this.type = type;
+            } else {
+                this.type.setType(type);
             }
         }
     }

@@ -85,7 +85,7 @@ block 			:	b l;
 retorno 			: 	RETURN expression SEMICOLON;
 identifier 		: 	ID ss s;
 s 				:	DOT ID ss
-                    | DOT INIT //todo esto no debe estar aqui, mas como en call?
+                    | DOT INIT
 					| // empty
 					;
 ss              :   OBRACKET exp CBRACKET

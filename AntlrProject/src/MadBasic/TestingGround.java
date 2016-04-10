@@ -150,10 +150,10 @@ public class TestingGround {
      *              send its number in the array. If index 0 is sent in the array
      *              then all tests will be executed.
      */
-    public void testManager(int[] tests){
+    public void testManager(TestNum[] tests){
 
         for(int i = 0; i < tests.length; i++){
-            switch (tests[i]){
+            switch (tests[i].getNum()){
                 case 0:
                     printVariableTable();
                     printScopeTable();
@@ -190,4 +190,19 @@ public class TestingGround {
             }
         }
     }
+
+    public enum TestNum {
+        ALL(0), VARIABLE_TABLE(1), SCOPETABLE(2), PROC_TABLE(3), SEMANTIC_CUBE_TEST(4), OPERANDSTACK(5),
+        QUADRUPLELIST(6), OPERAND_LIST(7), SEMANTIC_CUBE_PRINT(8);
+        private int num;
+
+        TestNum(int num) {
+            this.num = num;
+        }
+
+        public int getNum() {
+            return num;
+        }
+    }
+
 }

@@ -17,10 +17,20 @@ public class Main {
         }
 
         TestingGround tester = new TestingGround();
-        //int[] selectedTests = {0}; // ALL
-        int[] selectedTests = {3, 5, 6}; // Variables, Operands and Quadruples;
+
+        TestingGround.TestNum[] selectedTests = {
+//                TestingGround.TestNum.ALL,
+                TestingGround.TestNum.VARIABLE_TABLE,
+                TestingGround.TestNum.SCOPETABLE,
+                TestingGround.TestNum.PROC_TABLE,
+//                TestingGround.TestNum.SEMANTIC_CUBE_TEST,
+                TestingGround.TestNum.OPERANDSTACK,
+                TestingGround.TestNum.QUADRUPLELIST,
+//                TestingGround.TestNum.OPERAND_LIST,
+//                TestingGround.TestNum.SEMANTIC_CUBE_PRINT
+        };
+
         tester.testManager(selectedTests);
-        //BasicSemantic basicSemantic =  BasicSemantic.getInstance();
 
     }
 }
