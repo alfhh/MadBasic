@@ -15,6 +15,7 @@ public class QuadrupleSemantic {
     Stack<Operand> operandStack;
     LinkedList<Operand> operandSList;
     LinkedList<Quadruple> quadrupleList;
+    Stack<Integer> jumpStack;
     int temporalCount;
 
     static private QuadrupleSemantic instance;
@@ -25,6 +26,7 @@ public class QuadrupleSemantic {
         quadrupleList = new LinkedList<>();
         operatorList = new LinkedList<>();
         operandSList = new LinkedList<>();
+        jumpStack = new Stack<>();
         temporalCount = 0;
     }
 
@@ -81,5 +83,17 @@ public class QuadrupleSemantic {
 
     public void setOperandSList(LinkedList<Operand> operandSList) {
         this.operandSList = operandSList;
+    }
+
+    public Stack<Integer> getJumpStack() {
+        return jumpStack;
+    }
+
+    public void setJumpStack(Stack<Integer> jumpStack) {
+        this.jumpStack = jumpStack;
+    }
+
+    public static void setInstance(QuadrupleSemantic instance) {
+        QuadrupleSemantic.instance = instance;
     }
 }

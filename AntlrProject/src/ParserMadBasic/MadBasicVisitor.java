@@ -185,11 +185,19 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCondition(MadBasicParser.ConditionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#p}.
+	 * Visit a parse tree produced by the {@code pElse}
+	 * labeled alternative in {@link MadBasicParser#p}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitP(MadBasicParser.PContext ctx);
+	T visitPElse(MadBasicParser.PElseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code pEmpty}
+	 * labeled alternative in {@link MadBasicParser#p}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPEmpty(MadBasicParser.PEmptyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#loop}.
 	 * @param ctx the parse tree
@@ -271,11 +279,19 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitT(MadBasicParser.TContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#u}.
+	 * Visit a parse tree produced by the {@code uAnd}
+	 * labeled alternative in {@link MadBasicParser#u}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitU(MadBasicParser.UContext ctx);
+	T visitUAnd(MadBasicParser.UAndContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code uOr}
+	 * labeled alternative in {@link MadBasicParser#u}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUOr(MadBasicParser.UOrContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#read}.
 	 * @param ctx the parse tree

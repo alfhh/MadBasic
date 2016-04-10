@@ -114,12 +114,13 @@ public class TestingGround {
     public void printQuadruplelist(){
         System.out.println("------------------------------------------------");
         System.out.println("Quadruple List: ");
+        int count = 0;
         for(Quadruple quadruple : quadrupleSemantic.getQuadrupleList()){
-            System.out.println(quadruple.toString());
+            System.out.println(count + "\tnice" + quadruple.toString());
+            count++;
         }
         System.out.println("------------------------------------------------");
     }
-
 
     /**
      * ID: 7

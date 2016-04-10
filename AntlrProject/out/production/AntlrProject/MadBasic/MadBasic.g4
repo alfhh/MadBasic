@@ -69,8 +69,8 @@ o 				: 	expression
 					| read
 					;
 condition 		: 	IF OPARENTHESIS expression CPARENTHESIS OBRACE l CBRACE p;
-p 				:	ELSE OBRACE l CBRACE
-					| // empty
+p 				:	ELSE OBRACE l CBRACE #pElse
+					| #pEmpty// empty
 					;
 loop 			: 	WHILE OPARENTHESIS expression CPARENTHESIS OBRACE l CBRACE;
 write 			: 	PRINT OPARENTHESIS exp q CPARENTHESIS SEMICOLON;
@@ -95,8 +95,8 @@ expression 		: 	comparison t;
 t 				:	u comparison
 					| // empty
 					;
-u 				: AND
-				  | OR
+u 				: AND #uAnd
+				  | OR #uOr
 				  ;
 read 			: READ;
 exp 			: term v;

@@ -45,10 +45,16 @@ methods:
 			int index;
 		res = -1;
 		index = 0;
-		while(index < lx.size()) {
+		while(index < x && true)) {
 			if(x == y){
 				res = index;
 				index = lx.size();
+				if(x == y){
+                    res = index;
+                } else{
+                    while(b){
+                    }
+                }
 			}
 			else {
 				res = 10;
@@ -65,16 +71,20 @@ void printline(string s) {
 main:
 vars:
 	int xi, yi, a, c, d;
-	float fl;
+	float fl, xd;
+	bool bo;
 	string str;
 	Bbb bbb;
 
 xd = a+xi*c-d>-a/yi;
 bbb.init(2);
 bbb.d = 5.4;
-xi = 2.3;
-yi = true;
-fl = false;
+fl = 2.3;
+b = true;
+b = false;
+if(bo){
+    b = false;
+}
 lint.init();
 lint.add(1);
 lint.add(3);
@@ -83,5 +93,6 @@ lint.add(5);
 lint[0] = 4;
 b = bbb.isMultiple(xi,yi);
 xi = findx(yi, lint);
+str = read;
 printline(str);
 end
