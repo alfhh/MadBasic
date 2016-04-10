@@ -116,7 +116,7 @@ public class TestingGround {
         System.out.println("Quadruple List: ");
         int count = 0;
         for(Quadruple quadruple : quadrupleSemantic.getQuadrupleList()){
-            System.out.println(count + "\tnice" + quadruple.toString());
+            System.out.println(count + "\t" + quadruple.toString());
             count++;
         }
         System.out.println("------------------------------------------------");

@@ -2,88 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb62e3a2-34f8-472c-bae0-8e489754e408" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Main.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Quadruples/QuadrupleSemantic.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Quadruples/QuadrupleSemantic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/TestingGround.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/TestingGround.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Visitor.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/Visitor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicBaseListener.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicBaseListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicBaseVisitor.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicBaseVisitor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicLexer.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicLexer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicListener.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AaContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AaContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AbContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AbContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AbDivisionContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AbDivisionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AbMultiplicationContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AbMultiplicationContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AcContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AcContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AcEmptyContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AcEmptyContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AcMinusContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AcMinusContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AcPlusContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$AcPlusContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ArgsContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ArgsContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$BlockContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$BlockContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$CallContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$CallContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ComparisonContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ComparisonContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ExpContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ExpContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ExpressionContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ExpressionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$FactorContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$FactorContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$FactorExpressionContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$FactorExpressionContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$FactorValueContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$FactorValueContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$IdentifierContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$IdentifierContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$LoopContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$LoopContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$MainContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$MainContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$PContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$PContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$QContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$QContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$RContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$RContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ReadContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ReadContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$RetornoContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$RetornoContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$SContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$SContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$SsContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$SsContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$TContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$TContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$TermContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$TermContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$UContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$UContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$VContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$VContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueBoolContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueBoolContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueCallContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueCallContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueFloatContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueFloatContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueIdentifierContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueIdentifierContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueIntContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueIntContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueStringContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ValueStringContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$WContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$WContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$WMinusContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$WMinusContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$WPlusContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$WPlusContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$WriteContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$WriteContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$XContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$XContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$YContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$YContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZDifferentContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZDifferentContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZEqualEqualContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZEqualEqualContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZGreaterContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZGreaterContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZLesserContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZLesserContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZwtfContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZwtfContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZzContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZzContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZzEmptyContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZzEmptyContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZzEqualContext.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser$ZzEqualContext.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicVisitor.class" afterPath="$PROJECT_DIR$/out/production/AntlrProject/ParserMadBasic/MadBasicVisitor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.mad" afterPath="$PROJECT_DIR$/Main.mad" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/MadBasic/MadBasicBaseListener.java" afterPath="$PROJECT_DIR$/gen/MadBasic/MadBasicBaseListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/MadBasic/MadBasicBaseVisitor.java" afterPath="$PROJECT_DIR$/gen/MadBasic/MadBasicBaseVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/MadBasic/MadBasicLexer.java" afterPath="$PROJECT_DIR$/gen/MadBasic/MadBasicLexer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/MadBasic/MadBasicListener.java" afterPath="$PROJECT_DIR$/gen/MadBasic/MadBasicListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/MadBasic/MadBasicParser.java" afterPath="$PROJECT_DIR$/gen/MadBasic/MadBasicParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/MadBasic/MadBasicVisitor.java" afterPath="$PROJECT_DIR$/gen/MadBasic/MadBasicVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/MadBasic.g4" afterPath="$PROJECT_DIR$/out/production/AntlrProject/MadBasic/MadBasic.g4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/MadBasic.g4" afterPath="$PROJECT_DIR$/src/MadBasic/MadBasic.g4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/Main.java" afterPath="$PROJECT_DIR$/src/MadBasic/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/Quadruples/QuadrupleSemantic.java" afterPath="$PROJECT_DIR$/src/MadBasic/Quadruples/QuadrupleSemantic.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/TestingGround.java" afterPath="$PROJECT_DIR$/src/MadBasic/TestingGround.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MadBasic/Visitor.java" afterPath="$PROJECT_DIR$/src/MadBasic/Visitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicBaseListener.java" afterPath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicBaseListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicBaseVisitor.java" afterPath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicBaseVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicListener.java" afterPath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicParser.java" afterPath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicVisitor.java" afterPath="$PROJECT_DIR$/src/ParserMadBasic/MadBasicVisitor.java" />
     </list>
     <ignored path="AntlrProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -134,8 +56,8 @@
           <file leaf-file-name="TestingGround.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/MadBasic/TestingGround.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.9518459">
-                  <caret line="118" column="46" selection-start-line="118" selection-start-column="46" selection-end-line="118" selection-end-column="46" />
+                <state vertical-scroll-proportion="0.3739968">
+                  <caret line="118" column="42" selection-start-line="118" selection-start-column="42" selection-end-line="118" selection-end-column="42" />
                   <folding />
                 </state>
               </provider>
@@ -153,51 +75,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Goto.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/MadBasic/Quadruples/Gotos/Goto.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-                  <folding>
-                    <element signature="e#223#224#0" expanded="true" />
-                    <element signature="e#255#256#0" expanded="true" />
-                    <element signature="e#283#284#0" expanded="true" />
-                    <element signature="e#310#311#0" expanded="true" />
-                    <element signature="e#347#348#0" expanded="true" />
-                    <element signature="e#379#380#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="GotoTrue.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/MadBasic/Quadruples/Gotos/GotoTrue.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#248#249#0" expanded="true" />
-                    <element signature="e#290#291#0" expanded="true" />
-                    <element signature="e#442#443#0" expanded="true" />
-                    <element signature="e#474#475#0" expanded="true" />
-                    <element signature="e#525#526#0" expanded="true" />
-                    <element signature="e#567#568#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="GotoFalse.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/MadBasic/Quadruples/Gotos/GotoFalse.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-first>
       <split-second>
@@ -205,8 +82,8 @@
           <file leaf-file-name="Main.mad" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Main.mad">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4574639">
-                  <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+                <state vertical-scroll-proportion="0.26484752">
+                  <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
@@ -216,7 +93,7 @@
             <entry file="file://$PROJECT_DIR$/src/MadBasic/MadBasic.g4">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="94" column="32" selection-start-line="94" selection-start-column="32" selection-end-line="94" selection-end-column="32" />
+                  <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
                   <folding />
                 </state>
               </provider>
@@ -1222,14 +1099,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MadBasic/MadBasic.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="32" selection-start-line="94" selection-start-column="32" selection-end-line="94" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MadBasic/Visitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1240,18 +1109,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/MadBasic/MadBasic.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Main.mad">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4574639">
-          <caret line="55" column="21" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.26484752">
+          <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MadBasic/TestingGround.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9518459">
-          <caret line="118" column="46" selection-start-line="118" selection-start-column="46" selection-end-line="118" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.3739968">
+          <caret line="118" column="42" selection-start-line="118" selection-start-column="42" selection-end-line="118" selection-end-column="42" />
           <folding />
         </state>
       </provider>

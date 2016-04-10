@@ -45,7 +45,7 @@ methods:
 			int index;
 		res = -1;
 		index = 0;
-		while(index < x && true)) {
+		while(index < x && true) {
 			if(x == y){
 				res = index;
 				index = lx.size();
