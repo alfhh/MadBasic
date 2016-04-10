@@ -163,6 +163,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
 
     // Functions
+    // TODO UPDATE THE TYPE THAT IS SENT, NOW IS ONLY TEXT
     @Override
     public String visitFunction(MadBasicParser.FunctionContext ctx) {
         String result = "";
@@ -274,6 +275,27 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return res;
     }
 
+    //---------------------STUFF NEEDED TO GET THE PROCEDURE WORKING RIGHT -> TESTING
+
+//    @Override
+//    public String visitParams(MadBasicParser.ParamsContext ctx) {
+//        String res = visitChildren(ctx);
+//        System.out.println("IN PARAMS: " + ctx.getChild(2).getText() +
+//        " IN SCOPE: " + basicSemantic.getScopeStack().peek());
+//
+//        return res;
+//    }
+
+//    @Override
+//    public String visitN(MadBasicParser.NContext ctx) {
+//        String res = visitChildren(ctx);
+//        System.out.println("IN PARAMS: " + ctx.getChild(3).getText() +
+//                " IN SCOPE: " + basicSemantic.getScopeStack().peek());
+//
+//        return res;
+//    }
+
+    //---------------------STUFF NEEDED TO GET THE PROCEDURE WORKING RIGHT -> TESTING
 
     //Main
 
@@ -553,7 +575,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return res;
     }
 
-    //*/
+    @Override
+    public String visitCall(MadBasicParser.CallContext ctx) {
+        String res = visitChildren(ctx);
+        return res;
+    }
 
     /**
      * This function adds the founded variables to the getOperandStack(), if they were not
