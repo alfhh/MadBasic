@@ -30,7 +30,7 @@ public class GotoTrue extends Goto {
     public String toString() {
         return "GotoTrue{" +
                 "gotoTrue" +
-                ",\t" + Operator.getIdString(condition) +
+                ",\t" + Operand.getIdString(condition) +
                 ",\t" +
                 ",\t" + jump +
                 '}';

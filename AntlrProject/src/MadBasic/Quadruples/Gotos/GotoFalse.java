@@ -30,7 +30,7 @@ public class GotoFalse extends Goto {
     public String toString() {
         return "GotoFalse{" +
                 "gotoFalse" +
-                ",\t" + Operator.getIdString(condition) +
+                ",\t" + Operand.getIdString(condition) +
                 ",\t" +
                 ",\t" + jump +
                 '}';

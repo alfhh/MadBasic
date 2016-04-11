@@ -1,6 +1,6 @@
 package MadBasic.Algrebra;
 
-import MadBasic.Semantic.Type;
+import MadBasic.Semantic.Types.Type;
 
 /**
  * Created by lsanchez on 4/6/16.

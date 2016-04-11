@@ -30,7 +30,7 @@ public class Read extends Quadruple {
                 "read" +
                 ",\t" +
                 ",\t" +
-                ",\t" + Operator.getIdString(value) +
+                ",\t" + Operand.getIdString(value) +
                 '}';
     }
 }

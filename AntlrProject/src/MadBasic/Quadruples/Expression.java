@@ -54,9 +54,9 @@ public class Expression extends Quadruple {
     public String toString() {
         return "Expression{ " +
                 oper.getOperator() +
-                ",\t" + Operator.getIdString(operand1) +
-                ",\t" + Operator.getIdString(operand2) +
-                ",\t" + Operator.getIdString(result) +
+                ",\t" + Operand.getIdString(operand1) +
+                ",\t" + Operand.getIdString(operand2) +
+                ",\t" + Operand.getIdString(result) +
                 "}";
     }
 }

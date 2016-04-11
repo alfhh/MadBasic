@@ -51,15 +51,22 @@ public class Scope {
 
     @Override
     public String toString() {
-        String var = "{";
+        String var = "{\t";
         for (Variable variable : variables) {
             var += variable.toString();
             if (variable != variables.getLast()) {
-                var += ", ";
+                var += ",\n\t";
             }
         }
         var += "}";
 
-        return "SCOPE: {name:" + name + ", parent:" + parent + ", variables:" + var + "}";
+        String parentName = "";
+        if (parent != null){
+            parentName = parent.getName();
+        } else {
+            parentName = "null";
+        }
+
+        return "SCOPE: {name:" + name + ", \nparent:" + parentName + ",\nvariables:\n" + var + "}\n";
     }
 }

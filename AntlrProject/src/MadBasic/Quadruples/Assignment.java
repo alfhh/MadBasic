@@ -36,9 +36,9 @@ public class Assignment extends Quadruple {
     public String toString() {
         return "Assignment{" +
                 "=" +
-                ",\t" + Operator.getIdString(value) +
+                ",\t" + Operand.getIdString(value) +
                 ",\t" +
-                ",\t" + Operator.getIdString(result) +
+                ",\t" + Operand.getIdString(result) +
                 "}";
     }
 }

@@ -3286,6 +3286,33 @@ public class MadBasicParser extends Parser {
 	}
 
 	public static class XContext extends ParserRuleContext {
+		public XContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_x; }
+	 
+		public XContext() { }
+		public void copyFrom(XContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class XEmptyContext extends XContext {
+		public XEmptyContext(XContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterXEmpty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitXEmpty(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitXEmpty(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class XArgsContext extends XContext {
 		public TerminalNode COMMA() { return getToken(MadBasicParser.COMMA, 0); }
 		public MContext m() {
 			return getRuleContext(MContext.class,0);
@@ -3296,21 +3323,18 @@ public class MadBasicParser extends Parser {
 		public XContext x() {
 			return getRuleContext(XContext.class,0);
 		}
-		public XContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_x; }
+		public XArgsContext(XContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterX(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterXArgs(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitX(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitXArgs(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitX(this);
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitXArgs(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3322,6 +3346,7 @@ public class MadBasicParser extends Parser {
 			setState(395);
 			switch (_input.LA(1)) {
 			case COMMA:
+				_localctx = new XArgsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(389);
@@ -3335,6 +3360,7 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case CPARENTHESIS:
+				_localctx = new XEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				}

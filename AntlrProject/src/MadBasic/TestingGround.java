@@ -5,7 +5,7 @@ import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Quadruple;
 import MadBasic.Quadruples.QuadrupleSemantic;
 import MadBasic.Semantic.BasicSemantic;
-import MadBasic.Semantic.Procedure;
+import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.SemanticCube;
 

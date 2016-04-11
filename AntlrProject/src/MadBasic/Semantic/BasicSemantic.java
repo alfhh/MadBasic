@@ -1,6 +1,7 @@
 package MadBasic.Semantic;
 
 import MadBasic.Algrebra.Variable;
+import MadBasic.Semantic.Methods.Procedure;
 
 import java.util.LinkedList;
 import java.util.Stack;

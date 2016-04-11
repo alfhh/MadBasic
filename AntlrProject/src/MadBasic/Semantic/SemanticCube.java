@@ -1,5 +1,7 @@
 package MadBasic.Semantic;
 
+import MadBasic.Semantic.Types.*;
+
 /**
  * Created by ahinojosa on 6/04/16.
  */
@@ -8,52 +10,52 @@ public class SemanticCube {
     static public Type[][][] cube =
             {
                     {
-                            { Type.BOOL, Type.BOOL, Type.INT, Type.INT, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.BOOL, Type.FLOAT, Type.FLOAT, Type.FALSE, Type.FALSE },
-                            { Type.INT, Type.FLOAT, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.INT, Type.FLOAT, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            { new TypeBool(), new TypeBool(), new TypeInt(), new TypeInt(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeBool(), new TypeFloat(), new TypeFloat(), new TypeFalse(), new TypeFalse() },
+                            { new TypeInt(), new TypeFloat(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeInt(), new TypeFloat(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
                     }, // Index: 0
                     {
-                            { Type.FALSE, Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.BOOL, Type.FLOAT, Type.FLOAT, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FLOAT, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FLOAT, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            { new TypeFalse(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeBool(), new TypeFloat(), new TypeFloat(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFloat(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFloat(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
                     }, // Index: 1
                     {
-                            { Type.FALSE, Type.FALSE, Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.BOOL, Type.FALSE, Type.FALSE, Type.STRING, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.STRING, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            { new TypeFalse(), new TypeFalse(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeString(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeString(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
                     }, // Index: 2
                     {
-                            { Type.BOOL, Type.BOOL, Type.BOOL, Type.BOOL, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.BOOL, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            { new TypeBool(), new TypeBool(), new TypeBool(), new TypeBool(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
                     }, // Index: 3
                     {
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
                     }, // Index: 4
                     {
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE },
-                            { Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE, Type.FALSE }
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
                     } // Index: 5
             };
 

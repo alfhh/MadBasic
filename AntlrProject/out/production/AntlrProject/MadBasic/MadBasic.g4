@@ -107,8 +107,8 @@ w 				: PLUS #wPlus
 				  | MINUS #wMinus
 				  ;
 args 			: m exp x;
-x 				:	COMMA m exp x
-					| // empty
+x 				:	COMMA m exp x #xArgs
+					| #xEmpty// empty
 					;
 comparison		: exp y;
 y 				:	z exp
@@ -143,7 +143,7 @@ value 			: identifier # valueIdentifier
 				  | CTESTRING # valueString
 				  | TRUE # valueBool
 				  | FALSE # valueBool
-				  | call # valueCall
+				  | call # valueCall //todo ambiguedad con identifier
 				  ;
 main 			: MAIN COLON block END;
 

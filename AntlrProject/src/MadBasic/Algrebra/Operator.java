@@ -85,16 +85,4 @@ public enum Operator {
                 ", operator='" + operator + '\'' +
                 '}';
     }
-
-    static public String getIdString(Operand o){
-        String res;
-        if(o instanceof Variable){
-            res = ((Variable) o).getID();
-        } else if(o instanceof Constant){
-            res = ((Constant) o).getValue().toString();
-        } else {
-            res = "t" + ((Temporal) o).getID();
-        }
-        return res;
-    }
 }

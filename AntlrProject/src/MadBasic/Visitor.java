@@ -2,8 +2,15 @@ package MadBasic;
 
 import MadBasic.Algrebra.*;
 import MadBasic.Quadruples.*;
-import MadBasic.Quadruples.Gotos.*;
-import MadBasic.Semantic.*;
+import MadBasic.Quadruples.Gotos.Gosub;
+import MadBasic.Quadruples.Gotos.Goto;
+import MadBasic.Quadruples.Gotos.GotoFalse;
+import MadBasic.Semantic.BasicSemantic;
+import MadBasic.Semantic.Methods.Function;
+import MadBasic.Semantic.Methods.Procedure;
+import MadBasic.Semantic.Scope;
+import MadBasic.Semantic.SemanticCube;
+import MadBasic.Semantic.Types.*;
 import ParserMadBasic.MadBasicBaseVisitor;
 import ParserMadBasic.MadBasicParser;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -22,6 +29,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     QuadrupleSemantic quadrupleSemantic;
     int temporalCount;
     Stack<Type> typeStack;
+    LinkedList<Variable> paramList;
+    Stack<Operand> argsStack;
 
     public Visitor() {
         basicSemantic = BasicSemantic.getInstance();
@@ -42,7 +51,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitTypeInt(MadBasicParser.TypeIntContext ctx) {
         String res = visitChildren(ctx);
-        typeStack.push(Type.INT);
+        typeStack.push(new TypeInt());
         return res;
     }
 
@@ -53,7 +62,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitTypeFloat(MadBasicParser.TypeFloatContext ctx) {
         String res = visitChildren(ctx);
-        typeStack.push(Type.FLOAT);
+        typeStack.push(new TypeFloat());
         return res;
     }
 
@@ -64,7 +73,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitTypeString(MadBasicParser.TypeStringContext ctx) {
         String res = visitChildren(ctx);
-        typeStack.push(Type.STRING);
+        typeStack.push(new TypeString());
         return res;
     }
 
@@ -76,7 +85,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitTypeBool(MadBasicParser.TypeBoolContext ctx) {
         String res = visitChildren(ctx);
-        typeStack.push(Type.BOOL);
+        typeStack.push(new TypeBool());
         return res;
     }
 
@@ -88,7 +97,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitTypeList(MadBasicParser.TypeListContext ctx) {
         String res = visitChildren(ctx);
-        typeStack.push(Type.LIST);
+        typeStack.push(new TypeList());
         return res;
     }
 
@@ -100,7 +109,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitTypeObject(MadBasicParser.TypeObjectContext ctx) {
         String res = visitChildren(ctx);
-        typeStack.push(Type.OBJECT);
+        typeStack.push(new TypeObject());
         return res;
     }
 
@@ -123,7 +132,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         Type type = typeStack.pop();
         while (!typeStack.empty()) {
-            type.setType(typeStack.pop());
+            ((TypeList)type).setType(typeStack.pop());
         }
 
         int n = ctx.getChildCount();
@@ -138,6 +147,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         ids.addAll(Arrays.asList(ctx.getChild(2).getText().trim().split(",")));
         for (String id : ids) {
             if (id.trim().length() > 0) {
+                // TODO: 4/10/16 modificar para hashtable
                 Variable var = new Variable(id, type, basicSemantic.getScopeStack().peek());
                 basicSemantic.getVariables().add(var);
                 basicSemantic.getScopeStack().peek().getVariables().add(var);
@@ -168,10 +178,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         Type type = typeStack.pop();
         while (!typeStack.empty()) {
-            type.setType(typeStack.pop());
+            ((TypeList)type).setType(typeStack.pop());
         }
 
-        Variable variable = new Variable(ctx.getChild(2).getText(), type, null);
+        paramList = new LinkedList<>();
+        Variable variable = new Variable(ctx.getChild(2).getText(), type, basicSemantic.getScopeStack().peek());
+        paramList.add(variable);
+
 
         for (int i = 3; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
             ParseTree c = ctx.getChild(i);
@@ -200,10 +213,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
             Type type = typeStack.pop();
             while (!typeStack.empty()) {
-                type.setType(typeStack.pop());
+                ((TypeList)type).setType(typeStack.pop());
             }
 
-            Variable variable = new Variable(ctx.getChild(2).getText(), type, null);
+            Variable variable = new Variable(ctx.getChild(3).getText(), type, basicSemantic.getScopeStack().peek());
+            paramList.add(variable);
 
             for (int i = 4; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
                 ParseTree c = ctx.getChild(i);
@@ -228,23 +242,38 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         Type type = typeStack.pop();
         while (!typeStack.empty()) {
-            type.setType(typeStack.pop());
+            ((TypeList)type).setType(typeStack.pop());
         }
 
-        int n = ctx.getChildCount();
-        for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+        // TODO: 4/10/16 modificar para hashtable
+        String id = ctx.getChild(1).getText();
+        Function func = new Function(id, type, basicSemantic.getScopeStack().peek());
+        basicSemantic.getScopes().add(func.getScope());
+        basicSemantic.getScopeStack().push(func.getScope());
+
+        int cParentesisIndex = 5;
+        for (int i = 1; i < cParentesisIndex && this.shouldVisitNextChild(ctx, null); ++i) {
             c = ctx.getChild(i);
             childResult = c.accept(this);
             result = this.aggregateResult(result, childResult);
         }
 
-        String id = ctx.getChild(1).getText();
-        Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
-        Procedure proc = new Procedure(id, type, scp);
-        basicSemantic.getProcedures().add(proc);
-        basicSemantic.getScopes().add(proc.getScope());
-        basicSemantic.getScopeStack().push(proc.getScope());
+        func.setParams(paramList);
+        func.getScope().getVariables().addAll(paramList);
+        func.setQuadrupleStart(quadrupleSemantic.getQuadrupleList().size());
+        basicSemantic.getProcedures().add(func);
+
+
+        int n = ctx.getChildCount();
+        for (int i = cParentesisIndex; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+            c = ctx.getChild(i);
+            childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        quadrupleSemantic.getQuadrupleList().add(new Retorno());
         basicSemantic.getScopeStack().pop();
+
         return result;
     }
 
@@ -255,15 +284,37 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      */
     @Override
     public String visitProcedure(MadBasicParser.ProcedureContext ctx) {
+        String result = "";
+
+        // TODO: 4/10/16 modificar para hashtable
         String id = ctx.getChild(1).getText();
-        Scope scp = new Scope(id, basicSemantic.getScopeStack().peek());
-        Procedure proc = new Procedure(id, null, scp);
-        basicSemantic.getProcedures().add(proc);
+        Procedure proc = new Procedure(id, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(proc.getScope());
         basicSemantic.getScopeStack().push(proc.getScope());
-        String res = visitChildren(ctx);
+
+        int cParentesisIndex = 5;
+        for (int i = 0; i < cParentesisIndex && this.shouldVisitNextChild(ctx, null); ++i) {
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        proc.setParams(paramList);
+        proc.getScope().getVariables().addAll(paramList);
+        proc.setQuadrupleStart(quadrupleSemantic.getQuadrupleList().size());
+        basicSemantic.getProcedures().add(proc);
+
+        int n = ctx.getChildCount();
+        for (int i = cParentesisIndex; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        quadrupleSemantic.getQuadrupleList().add(new Retorno());
         basicSemantic.getScopeStack().pop();
-        return res;
+
+        return result;
     }
 
     //------------------------------------------------------------END METHODS
@@ -393,7 +444,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         Type resT = SemanticCube.getCubeType(op1.getType().getTypeValue(), op2.getType().getTypeValue(), Operator.CARET.getValue());
 
         //agregar cuadruplo
-        if (resT != Type.FALSE) {
+        if (!(resT instanceof TypeFalse)) {
             Temporal temp = new Temporal(temporalCount++, resT);
             quadrupleSemantic.getQuadrupleList().add(
                     new Expression(
@@ -455,12 +506,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     operand1.getType().getTypeValue(), operand2.getType().getTypeValue(), oper.getValue());
 
             //agregar cuadruplo
-            if (resT != Type.FALSE) {
+            if (!(resT instanceof TypeFalse)) {
                 Temporal temp = new Temporal(temporalCount++, resT);
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
                                 oper, operand1, operand2, temp));
-//                quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
                 quadrupleSemantic.getOperandSList().add(temp);
             } else {
@@ -556,7 +606,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     operand1.getType().getTypeValue(), operand2.getType().getTypeValue(), oper.getValue());
 
             //agregar cuadruplo
-            if (resT != Type.FALSE) {
+            if (!(resT instanceof TypeFalse)) {
                 Temporal temp = new Temporal(temporalCount++, resT);
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
@@ -619,7 +669,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     operand1.getType().getTypeValue(), operand2.getType().getTypeValue(), oper.getValue());
 
             //agregar cuadruplo
-            if (resT != Type.FALSE) {
+            if (!(resT instanceof TypeFalse)) {
                 Temporal temp = new Temporal(temporalCount++, resT);
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
@@ -683,7 +733,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     operand1.getType().getTypeValue(), operand2.getType().getTypeValue(), oper.getValue());
 
             //agregar cuadruplo
-            if (resT != Type.FALSE) {
+            if (!(resT instanceof TypeFalse)) {
                 Temporal temp = new Temporal(temporalCount++, resT);
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
@@ -729,11 +779,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             Operand oper = quadrupleSemantic.getOperandStack().peek();
             Type resT = SemanticCube.getCubeType(
                     oper.getType().getTypeValue(), oper.getType().getTypeValue(), Operator.MINUS.getValue());
-            if (resT != Type.FALSE) {
+            if (!(resT instanceof TypeFalse)) {
                 Temporal temp = new Temporal(temporalCount++, resT);
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
-                                Operator.MINUS, new Constant<Integer>(0, Type.INT), oper, temp));
+                                Operator.MINUS, new Constant<Integer>(0, new TypeInt()), oper, temp));
                 quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
                 quadrupleSemantic.getOperandSList().add(temp);
@@ -795,8 +845,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueInt(MadBasicParser.ValueIntContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<Integer>(new Integer(text), Type.INT));
-        quadrupleSemantic.getOperandSList().add(new Constant<Integer>(new Integer(text), Type.INT));
+        quadrupleSemantic.getOperandStack().push(new Constant<Integer>(new Integer(text), new TypeInt()));
+        quadrupleSemantic.getOperandSList().add(new Constant<Integer>(new Integer(text), new TypeInt()));
         return super.visitValueInt(ctx);
     }
 
@@ -809,8 +859,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueFloat(MadBasicParser.ValueFloatContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<Float>(new Float(text), Type.FLOAT));
-        quadrupleSemantic.getOperandSList().add(new Constant<Float>(new Float(text), Type.FLOAT));
+        quadrupleSemantic.getOperandStack().push(new Constant<Float>(new Float(text), new TypeFloat()));
+        quadrupleSemantic.getOperandSList().add(new Constant<Float>(new Float(text), new TypeFloat()));
         return super.visitValueFloat(ctx);
     }
 
@@ -823,8 +873,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueString(MadBasicParser.ValueStringContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<String>(new String(text), Type.STRING));
-        quadrupleSemantic.getOperandSList().add(new Constant<String>(new String(text), Type.STRING));
+        quadrupleSemantic.getOperandStack().push(new Constant<String>(new String(text), new TypeString()));
+        quadrupleSemantic.getOperandSList().add(new Constant<String>(new String(text), new TypeString()));
         return super.visitValueString(ctx);
     }
 
@@ -837,12 +887,35 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueBool(MadBasicParser.ValueBoolContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<Boolean>(new Boolean(text), Type.BOOL));
-        quadrupleSemantic.getOperandSList().add(new Constant<Boolean>(new Boolean(text), Type.BOOL));
+        quadrupleSemantic.getOperandStack().push(new Constant<Boolean>(new Boolean(text), new TypeBool()));
+        quadrupleSemantic.getOperandSList().add(new Constant<Boolean>(new Boolean(text), new TypeBool()));
         return super.visitValueBool(ctx);
     }
 
-    // TODO: 4/10/16 ver donde entra call
+    //------------------------------END VALUE
+    /**/
+    //------------------------------BEGIN CALL
+
+
+    @Override
+    public String visitArgs(MadBasicParser.ArgsContext ctx) {
+        String result = visitChildren(ctx);
+        argsStack.push(quadrupleSemantic.getOperandStack().pop());
+        return result;
+    }
+
+    /**
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitXArgs(MadBasicParser.XArgsContext ctx) {
+        String result = visitChildren(ctx);
+        argsStack.push(quadrupleSemantic.getOperandStack().pop());
+        return result;
+    }
+
     /**
      *
      * @param ctx
@@ -850,11 +923,51 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      */
     @Override
     public String visitCall(MadBasicParser.CallContext ctx) {
-        String res = visitChildren(ctx);
-        return res;
+        String result = "";
+        argsStack = new Stack<>();
+        // TODO: 4/10/16 modificar si hashtable y para funciones dentro de clases
+        Procedure method = null;
+        String methodName = ctx.getChild(0).getText();
+        for (int i = 0; i < basicSemantic.getProcedures().size(); i++){
+            if(methodName.equals(basicSemantic.getProcedures().get(i).getID())){
+                method = basicSemantic.getProcedures().get(i);
+                break;
+            }
+        }
+
+        if (method != null) {
+
+            // TODO: 4/11/16 ERA
+
+            result = visitChildren(ctx);
+            if(argsStack.size() == method.getParams().size()) {
+                for (int i = 0; i < method.getParams().size(); i++) {
+                    Variable var = method.getParams().get(i);
+                    Operand oper = argsStack.pop();
+                    if (oper.getType().equals(var.getType())) {
+                        quadrupleSemantic.getQuadrupleList().add(new Parameter(oper, i));
+                    } else {
+                        // TODO: 4/11/16 error
+                        System.out.println("Error on call " + ctx.getChild(0).getText());
+                    }
+                }
+
+                int jumpback = quadrupleSemantic.getQuadrupleList().size();
+                quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, method));
+            }
+            else {
+                // TODO: 4/10/16 error
+                System.out.println("Error on call " + ctx.getChild(0).getText() + " paramsize");
+            }
+        }else {
+            // TODO: 4/10/16 error
+            System.out.println("Error on call \"" + ctx.getChild(0).getText() + "\" non existent");
+        }
+
+        return result;
     }
 
-    //------------------------------END VALUE
+    //------------------------------END CALL
     /**/
     //------------------------------------------------------------END EXPRESSION
     /**/
@@ -878,7 +991,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         Operand condition = quadrupleSemantic.getOperandStack().peek();
         quadrupleSemantic.getOperandStack().pop();
-        if (condition.getType() == Type.BOOL) {
+        if (condition.getType() instanceof TypeBool) {
             GotoFalse gotoFalse = new GotoFalse(condition);
             quadrupleSemantic.getJumpStack().add(quadrupleSemantic.getQuadrupleList().size());
             quadrupleSemantic.getQuadrupleList().add(gotoFalse);
@@ -939,7 +1052,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         Operand condition = quadrupleSemantic.getOperandStack().peek();
         quadrupleSemantic.getOperandStack().pop();
-        if (condition.getType() == Type.BOOL) {
+        if (condition.getType() instanceof TypeBool) {
             GotoFalse gotoFalse = new GotoFalse(condition);
             quadrupleSemantic.getJumpStack().add(quadrupleSemantic.getQuadrupleList().size());
             quadrupleSemantic.getQuadrupleList().add(gotoFalse);

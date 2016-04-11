@@ -700,13 +700,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterX(MadBasicParser.XContext ctx) { }
+	@Override public void enterXArgs(MadBasicParser.XArgsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitX(MadBasicParser.XContext ctx) { }
+	@Override public void exitXArgs(MadBasicParser.XArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterXEmpty(MadBasicParser.XEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitXEmpty(MadBasicParser.XEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
