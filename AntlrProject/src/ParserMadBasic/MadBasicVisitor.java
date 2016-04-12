@@ -155,6 +155,27 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTypeObject(MadBasicParser.TypeObjectContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code arrayDeclare}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayDeclare(MadBasicParser.ArrayDeclareContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayVoid}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayVoid(MadBasicParser.ArrayVoidContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayEmpty}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayEmpty(MadBasicParser.ArrayEmptyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#method}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -502,6 +523,12 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAcEmpty(MadBasicParser.AcEmptyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MadBasicParser#ad}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAd(MadBasicParser.AdContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code valueIdentifier}
 	 * labeled alternative in {@link MadBasicParser#value}.

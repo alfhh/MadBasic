@@ -38,13 +38,18 @@ k 				:	params
 l 				:	statement l
 					| // empty
 					;
-type 			:	INT #typeInt
-					| FLOAT #typeFloat
-					| STRING #typeString
-					| BOOL #typeBool
+type 			:	INT array #typeInt
+					| FLOAT array #typeFloat
+					| STRING array #typeString
+					| BOOL array #typeBool
 					| LIST LESSER type GREATER #typeList
-					| OBJECT #typeObject
+					| OBJECT array #typeObject
 					;
+array           :   OBRACKET ad CTEI COMMA ad CTEI CBRACKET array #arrayDeclare
+                    | OBRACKET CBRACKET array #arrayVoid
+                    | #arrayEmpty
+                    ;
+
 method 			:	procedure
 					| function
 					;
@@ -137,6 +142,10 @@ ac 				:	PLUS #acPlus
 					| MINUS #acMinus
 					| #acEmpty// empty
 					;
+ad 				:	MINUS
+					| // empty
+					;
+
 value 			: identifier # valueIdentifier
 				  | CTEI # valueInt
 				  | CTEF # valueFloat

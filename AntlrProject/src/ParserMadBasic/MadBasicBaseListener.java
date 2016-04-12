@@ -292,6 +292,42 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArrayDeclare(MadBasicParser.ArrayDeclareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayDeclare(MadBasicParser.ArrayDeclareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayVoid(MadBasicParser.ArrayVoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayVoid(MadBasicParser.ArrayVoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayEmpty(MadBasicParser.ArrayEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayEmpty(MadBasicParser.ArrayEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMethod(MadBasicParser.MethodContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -935,6 +971,18 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAcEmpty(MadBasicParser.AcEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAd(MadBasicParser.AdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAd(MadBasicParser.AdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

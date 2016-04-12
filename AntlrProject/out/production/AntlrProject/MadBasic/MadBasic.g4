@@ -38,13 +38,18 @@ k 				:	params
 l 				:	statement l
 					| // empty
 					;
-type 			:	INT #typeInt
-					| FLOAT #typeFloat
-					| STRING #typeString
-					| BOOL #typeBool
+type 			:	INT array #typeInt
+					| FLOAT array #typeFloat
+					| STRING array #typeString
+					| BOOL array #typeBool
 					| LIST LESSER type GREATER #typeList
-					| OBJECT #typeObject
+					| OBJECT array #typeObject
 					;
+array           :   OBRACKET ad CTEI COMMA ad CTEI CBRACKET array #arrayDeclare
+                    | OBRACKET CBRACKET array #arrayVoid
+                    | #arrayEmpty
+                    ;
+
 method 			:	procedure
 					| function
 					;
@@ -118,7 +123,6 @@ z 				:	GREATER zz #zGreater
 					| LESSER zz #zLesser
 					| EQUAL EQUAL #zEqualEqual
 					| DIFFERENT #zDifferent
-					| #zwtf// empty todo empty aqui?
 					;
 zz              : EQUAL #zzEqual
                     | #zzEmpty//empty
@@ -137,13 +141,17 @@ ac 				:	PLUS #acPlus
 					| MINUS #acMinus
 					| #acEmpty// empty
 					;
+ad 				:	MINUS
+					| // empty
+					;
+
 value 			: identifier # valueIdentifier
 				  | CTEI # valueInt
 				  | CTEF # valueFloat
 				  | CTESTRING # valueString
 				  | TRUE # valueBool
 				  | FALSE # valueBool
-				  | call # valueCall //todo ambiguedad con identifier
+				  | call # valueCall
 				  ;
 main 			: MAIN COLON block END;
 

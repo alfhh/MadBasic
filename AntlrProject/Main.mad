@@ -36,10 +36,10 @@ vars:
 	float f;
 	string s;
 	bool b;
-	list<int> lint;
+	int[0,5][-1,1][0,3] lint;
 
 methods:
-	int findx(int x, list<int> lx) {
+	int findx(int x, int[][][] lx) {
 		vars:
 			int res;
 			int index;

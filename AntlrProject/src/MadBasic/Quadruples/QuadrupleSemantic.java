@@ -17,6 +17,7 @@ public class QuadrupleSemantic {
     LinkedList<Quadruple> quadrupleList;
     Stack<Integer> jumpStack;
     int temporalCount;
+    Stack<Operand> argsStack;
 
     static private QuadrupleSemantic instance;
 
@@ -65,6 +66,10 @@ public class QuadrupleSemantic {
         return temporalCount;
     }
 
+    public int getTemporalCountAndStep() {
+        return temporalCount++;
+    }
+
     public void setTemporalCount(int temporalCount) {
         this.temporalCount = temporalCount;
     }
@@ -95,5 +100,13 @@ public class QuadrupleSemantic {
 
     public static void setInstance(QuadrupleSemantic instance) {
         QuadrupleSemantic.instance = instance;
+    }
+
+    public Stack<Operand> getArgsStack() {
+        return argsStack;
+    }
+
+    public void setArgsStack(Stack<Operand> argsStack) {
+        this.argsStack = argsStack;
     }
 }

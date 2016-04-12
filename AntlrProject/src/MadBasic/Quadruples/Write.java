@@ -23,7 +23,7 @@ public class Write extends Quadruple {
     }
 
     public String toString(){
-        return "PRINT {" +
+        return "Print{" +
                 "print" +
                 ",\t" + Operand.getIdString(output) +
                 ",\t" +

@@ -250,6 +250,42 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitTypeObject(MadBasicParser.TypeObjectContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code arrayDeclare}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayDeclare(MadBasicParser.ArrayDeclareContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayDeclare}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayDeclare(MadBasicParser.ArrayDeclareContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arrayVoid}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayVoid(MadBasicParser.ArrayVoidContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayVoid}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayVoid(MadBasicParser.ArrayVoidContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arrayEmpty}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayEmpty(MadBasicParser.ArrayEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayEmpty}
+	 * labeled alternative in {@link MadBasicParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayEmpty(MadBasicParser.ArrayEmptyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#method}.
 	 * @param ctx the parse tree
 	 */
@@ -837,6 +873,16 @@ public interface MadBasicListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAcEmpty(MadBasicParser.AcEmptyContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MadBasicParser#ad}.
+	 * @param ctx the parse tree
+	 */
+	void enterAd(MadBasicParser.AdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MadBasicParser#ad}.
+	 * @param ctx the parse tree
+	 */
+	void exitAd(MadBasicParser.AdContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code valueIdentifier}
 	 * labeled alternative in {@link MadBasicParser#value}.

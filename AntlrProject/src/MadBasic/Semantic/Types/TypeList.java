@@ -23,7 +23,6 @@ public class TypeList extends Type {
             ((TypeList)this.type).setType(type);
         }
         else {
-            // TODO: 4/10/16 error
         }
     }
 
