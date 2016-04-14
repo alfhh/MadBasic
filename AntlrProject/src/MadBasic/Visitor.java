@@ -972,8 +972,14 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             ((TypeList) type).setType(basicSemantic.getTypeStack().pop());
         }
 
-        // TODO: 4/10/16 modificar para hashtable
         String id = ctx.getChild(1).getText();
+
+        for (Scope scope : basicSemantic.getScopeStack()) {
+            if (scope.getProcedureHashMap().containsKey(id) || scope.getVariableHashMap().containsKey(id)) {
+                System.out.println("Error on func " + id);
+            }
+        }
+
         Function func = new Function(id, type, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(func.getScope());
         basicSemantic.getScopeStack().push(func.getScope());
@@ -989,7 +995,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         func.getScope().getVariables().addAll(basicSemantic.getParamList());
         func.setQuadrupleStart(quadrupleSemantic.getQuadrupleList().size());
         basicSemantic.getProcedures().add(func);
-
+        basicSemantic.getScopeStack().peek().getParent().getProcedureHashMap().put(id, func);
+        basicSemantic.getScopeStack().peek().getParent().getVariableHashMap().put(id,
+                new Variable(func.getID(), func.getType(), func.getScope()));
 
         int n = ctx.getChildCount();
         for (int i = cParentesisIndex; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
@@ -1012,8 +1020,14 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitProcedure(MadBasicParser.ProcedureContext ctx) {
         String result = "";
 
-        // TODO: 4/10/16 modificar para hashtable
         String id = ctx.getChild(1).getText();
+
+        for (Scope scope : basicSemantic.getScopeStack()) {
+            if (scope.getProcedureHashMap().containsKey(id) || scope.getVariableHashMap().containsKey(id)) {
+                System.out.println("Error on func " + id);
+            }
+        }
+
         Procedure proc = new Procedure(id, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(proc.getScope());
         basicSemantic.getScopeStack().push(proc.getScope());
@@ -1029,6 +1043,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         proc.getScope().getVariables().addAll(basicSemantic.getParamList());
         proc.setQuadrupleStart(quadrupleSemantic.getQuadrupleList().size());
         basicSemantic.getProcedures().add(proc);
+        basicSemantic.getScopeStack().peek().getParent().getProcedureHashMap().put(id, proc);
+        basicSemantic.getScopeStack().peek().getParent().getVariableHashMap().put(id,
+                new Variable(proc.getID(), new TypeFalse(), proc.getScope()));
 
         int n = ctx.getChildCount();
         for (int i = cParentesisIndex; i < n && this.shouldVisitNextChild(ctx, null); ++i) {

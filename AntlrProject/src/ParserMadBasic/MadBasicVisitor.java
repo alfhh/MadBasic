@@ -442,13 +442,6 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitZDifferent(MadBasicParser.ZDifferentContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code zwtf}
-	 * labeled alternative in {@link MadBasicParser#z}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitZwtf(MadBasicParser.ZwtfContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code zzEqual}
 	 * labeled alternative in {@link MadBasicParser#zz}.
 	 * @param ctx the parse tree

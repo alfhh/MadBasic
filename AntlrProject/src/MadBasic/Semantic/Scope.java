@@ -1,6 +1,7 @@
 package MadBasic.Semantic;
 
 import MadBasic.Algrebra.Variable;
+import MadBasic.Semantic.Methods.Procedure;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,19 +14,23 @@ public class Scope {
     Scope parent;
     LinkedList<Variable> variables;
     HashMap<String, Variable> variableHashMap;
+    HashMap<String, Procedure> procedureHashMap;
+
 
     public Scope(String name) {
         this.name = name;
         this.parent = null;
         variables = new LinkedList<>();
         variableHashMap = new HashMap<>();
+        procedureHashMap = new HashMap<>();
     }
-
 
     public Scope(String name, Scope parent) {
         this.name = name;
         this.parent = parent;
         variables = new LinkedList<>();
+        variableHashMap = new HashMap<>();
+        procedureHashMap = new HashMap<>();
     }
 
     public String getName() {
@@ -60,8 +65,16 @@ public class Scope {
         this.variableHashMap = variableHashMap;
     }
 
-    public Variable addVariable(Variable variable){
+    public Variable addVariable(Variable variable) {
         return variableHashMap.putIfAbsent(variable.getID(), variable);
+    }
+
+    public HashMap<String, Procedure> getProcedureHashMap() {
+        return procedureHashMap;
+    }
+
+    public void setProcedureHashMap(HashMap<String, Procedure> procedureHashMap) {
+        this.procedureHashMap = procedureHashMap;
     }
 
     @Override
@@ -75,13 +88,23 @@ public class Scope {
         }
         var += "}";
 
+        String proc = "";
+        if (!procedureHashMap.isEmpty()) {
+            proc = "methods: {";
+            for (Procedure procedure : procedureHashMap.values()) {
+                proc += ",\n\t" + procedure.toString();
+            }
+            proc += "}";
+        }
+
         String parentName = "";
-        if (parent != null){
+        if (parent != null) {
             parentName = parent.getName();
         } else {
             parentName = "null";
         }
 
-        return "SCOPE: {name:" + name + ", \nparent:" + parentName + ",\nvariables:\n" + var + "}\n";
+        return "SCOPE: {name:" + name + ", \nparent:" + parentName + ",\nvariables:\n" + var +
+                ",\n" + proc + "}\n";
     }
 }

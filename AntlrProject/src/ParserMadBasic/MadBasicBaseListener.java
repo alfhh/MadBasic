@@ -832,18 +832,6 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterZwtf(MadBasicParser.ZwtfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitZwtf(MadBasicParser.ZwtfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterZzEqual(MadBasicParser.ZzEqualContext ctx) { }
 	/**
 	 * {@inheritDoc}

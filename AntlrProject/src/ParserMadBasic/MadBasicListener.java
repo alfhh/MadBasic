@@ -734,18 +734,6 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitZDifferent(MadBasicParser.ZDifferentContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code zwtf}
-	 * labeled alternative in {@link MadBasicParser#z}.
-	 * @param ctx the parse tree
-	 */
-	void enterZwtf(MadBasicParser.ZwtfContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code zwtf}
-	 * labeled alternative in {@link MadBasicParser#z}.
-	 * @param ctx the parse tree
-	 */
-	void exitZwtf(MadBasicParser.ZwtfContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code zzEqual}
 	 * labeled alternative in {@link MadBasicParser#zz}.
 	 * @param ctx the parse tree

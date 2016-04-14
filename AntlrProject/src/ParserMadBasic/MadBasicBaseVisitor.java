@@ -493,13 +493,6 @@ public class MadBasicBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitZwtf(MadBasicParser.ZwtfContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitZzEqual(MadBasicParser.ZzEqualContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

@@ -4,7 +4,7 @@ grammar MadBasic;
 
 // Rules
 madbasic        :	PROGRAM ID SEMICOLON program;
-program 		:	a b c main;
+program 		:	b c a b c main;
 a 				:	classe a
 					| // empty
 					;
@@ -123,7 +123,6 @@ z 				:	GREATER zz #zGreater
 					| LESSER zz #zLesser
 					| EQUAL EQUAL #zEqualEqual
 					| DIFFERENT #zDifferent
-					| #zwtf// empty todo empty aqui?
 					;
 zz              : EQUAL #zzEqual
                     | #zzEmpty//empty
@@ -152,7 +151,7 @@ value 			: identifier # valueIdentifier
 				  | CTESTRING # valueString
 				  | TRUE # valueBool
 				  | FALSE # valueBool
-				  | call # valueCall //todo ambiguedad con identifier
+				  | call # valueCall
 				  ;
 main 			: MAIN COLON block END;
 

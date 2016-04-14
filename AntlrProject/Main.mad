@@ -1,5 +1,9 @@
 program example;
 
+
+vars:
+    int z;
+
 classe Aaa {
 	vars:
 		int c, a, b;

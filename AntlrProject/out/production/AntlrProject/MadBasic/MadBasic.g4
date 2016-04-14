@@ -4,7 +4,7 @@ grammar MadBasic;
 
 // Rules
 madbasic        :	PROGRAM ID SEMICOLON program;
-program 		:	a b c main;
+program 		:	b c a b c main;
 a 				:	classe a
 					| // empty
 					;
