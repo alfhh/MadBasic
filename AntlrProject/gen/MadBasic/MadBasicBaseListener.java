@@ -1,4 +1,4 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package MadBasic;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -220,13 +220,109 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(MadBasicParser.TypeContext ctx) { }
+	@Override public void enterTypeInt(MadBasicParser.TypeIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(MadBasicParser.TypeContext ctx) { }
+	@Override public void exitTypeInt(MadBasicParser.TypeIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTypeFloat(MadBasicParser.TypeFloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypeFloat(MadBasicParser.TypeFloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTypeString(MadBasicParser.TypeStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypeString(MadBasicParser.TypeStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTypeBool(MadBasicParser.TypeBoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypeBool(MadBasicParser.TypeBoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTypeList(MadBasicParser.TypeListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypeList(MadBasicParser.TypeListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTypeObject(MadBasicParser.TypeObjectContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypeObject(MadBasicParser.TypeObjectContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayDeclare(MadBasicParser.ArrayDeclareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayDeclare(MadBasicParser.ArrayDeclareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayVoid(MadBasicParser.ArrayVoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayVoid(MadBasicParser.ArrayVoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayEmpty(MadBasicParser.ArrayEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayEmpty(MadBasicParser.ArrayEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -412,13 +508,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQ(MadBasicParser.QContext ctx) { }
+	@Override public void enterQWrite(MadBasicParser.QWriteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQ(MadBasicParser.QContext ctx) { }
+	@Override public void exitQWrite(MadBasicParser.QWriteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterQEmpty(MadBasicParser.QEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQEmpty(MadBasicParser.QEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -532,13 +640,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterU(MadBasicParser.UContext ctx) { }
+	@Override public void enterUAnd(MadBasicParser.UAndContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitU(MadBasicParser.UContext ctx) { }
+	@Override public void exitUAnd(MadBasicParser.UAndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUOr(MadBasicParser.UOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUOr(MadBasicParser.UOrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -616,13 +736,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterX(MadBasicParser.XContext ctx) { }
+	@Override public void enterXArgs(MadBasicParser.XArgsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitX(MadBasicParser.XContext ctx) { }
+	@Override public void exitXArgs(MadBasicParser.XArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterXEmpty(MadBasicParser.XEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitXEmpty(MadBasicParser.XEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -695,18 +827,6 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitZDifferent(MadBasicParser.ZDifferentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterZwtf(MadBasicParser.ZwtfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitZwtf(MadBasicParser.ZwtfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -839,6 +959,18 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAcEmpty(MadBasicParser.AcEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAd(MadBasicParser.AdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAd(MadBasicParser.AdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

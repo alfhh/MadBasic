@@ -33,7 +33,7 @@ public class Temporal extends Operand {
     public String toString() {
         return "Temporal{" +
                 "ID=" + ID +
-                "Type=" + type +
+                ", Type=" + type +
                 '}';
     }
 }

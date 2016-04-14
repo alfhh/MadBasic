@@ -17,7 +17,7 @@ public class Procedure {
 
     public Procedure(String ID, Scope parent) {
         this.ID = ID;
-        this.scope = new Scope("scope" + ID, parent);
+        this.scope = new Scope(ID, parent);
         params = new LinkedList<>();
     }
 

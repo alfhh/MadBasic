@@ -1087,6 +1087,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
 
         Function func = new Function(id, type, basicSemantic.getScopeStack().peek());
+        basicSemantic.setActualType(type); // Set the actual time
         basicSemantic.getScopes().add(func.getScope());
         basicSemantic.getScopeStack().push(func.getScope());
 
@@ -1118,6 +1119,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
 
         quadrupleSemantic.getQuadrupleList().add(new Retorno());
+        basicSemantic.resetActualType(); // Reset the actual type
         basicSemantic.getScopeStack().pop();
 
         return result;
@@ -1177,6 +1179,36 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     //------------------------------------------------------------END METHODS
+
+    //------------------------------------------------------------START RETURN
+
+    @Override
+    public String visitRetorno(MadBasicParser.RetornoContext ctx) {
+        String result =  visitChildren(ctx);
+        
+        if(basicSemantic.getActualType().equals(quadrupleSemantic.getOperandStack().peek().getType())){
+
+            Scope actualScope = basicSemantic.getScopeStack().peek();
+            System.out.println("TEST SCOPE NAME: " + actualScope.getName());
+
+//            System.out.println("Value: " + quadrupleSemantic.getOperandStack().peek() + " -> " +  actualScope.getParent().getVariableHashMap().get(actualScope.getName()));
+            quadrupleSemantic.getQuadrupleList().add(
+                    new Assignment(quadrupleSemantic.getOperandStack().pop(),
+                            actualScope.getParent().getVariableHashMap().get(actualScope.getName()))
+            );
+
+        } else {
+            //TODO FORMAT THIS ERROR LOG
+            System.out.println("ERROR IN RETURN: WRONG TYPE");
+        }
+
+        return result;
+    }
+
+
+    //------------------------------------------------------------END RETURN
+
+
     /**/
     //------------------------------------------------------------------------------------------END QUADRUPLES
 
