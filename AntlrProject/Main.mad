@@ -30,7 +30,7 @@ classe Bbb parent Aaa {
 
 	methods:
 		bool isMultiple(int w, int z) {
-			returno (22);
+			return (w == ((w / z) * z));
 		}
 }
 
@@ -65,7 +65,7 @@ methods:
 			}
 			index = index + 1;
 		}
-		returno res;
+		return res;
     }
 
     void printline(string s) {
@@ -90,6 +90,5 @@ if(bo){
 }
 xi = findx(yi, lint);
 str = read;
-test(34);
 printline(str);
 end

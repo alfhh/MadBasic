@@ -1,4 +1,4 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
 package ParserMadBasic;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -52,10 +52,10 @@ public class MadBasicParser extends Parser {
 	private static final String[] _LITERAL_NAMES = {
 		null, "'program'", "';'", "'vars'", "','", "':'", "'int'", "'float'", 
 		"'string'", "'bool'", "'classe'", "'parent'", "'init'", "'methods'", "'void'", 
-		"'returno'", "'{'", "'}'", "'['", "']'", "'='", "'>'", "'<'", "'<>'", 
-		"'+'", "'&&'", "'||'", "'!='", "'.'", "'-'", "'*'", "'/'", "'('", "')'", 
-		"'if'", "'list'", "'else'", "'while'", "'read'", "'true'", "'false'", 
-		"'main'", "'end'", "'~'", "'^'", "'print'"
+		"'return'", "'{'", "'}'", "'['", "']'", "'='", "'>'", "'<'", "'<>'", "'+'", 
+		"'&&'", "'||'", "'!='", "'.'", "'-'", "'*'", "'/'", "'('", "')'", "'if'", 
+		"'list'", "'else'", "'while'", "'read'", "'true'", "'false'", "'main'", 
+		"'end'", "'~'", "'^'", "'print'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "PROGRAM", "SEMICOLON", "VARS", "COMMA", "COLON", "INT", "FLOAT", 

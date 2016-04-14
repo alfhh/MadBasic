@@ -3,6 +3,7 @@ package MadBasic.Semantic;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Types.Type;
+import MadBasic.Semantic.Types.TypeFalse;
 
 import java.util.LinkedList;
 import java.util.Stack;
@@ -22,6 +23,7 @@ public class BasicSemantic {
     Stack<Type> typeStack;
     LinkedList<Variable> paramList;
     boolean params;
+    Type quickTypeSearch;
 
     private BasicSemantic() {
         procedures = new LinkedList<>();
@@ -35,6 +37,8 @@ public class BasicSemantic {
         Scope global = new Scope("global");
         scopes.add(global);
         scopeStack.push(global);
+
+        quickTypeSearch = new TypeFalse();
 
     }
 
@@ -99,5 +103,17 @@ public class BasicSemantic {
 
     public void setParams(boolean params) {
         this.params = params;
+    }
+
+    public Type getActualType(){
+        return this.quickTypeSearch;
+    }
+
+    public void setActualType(Type t){
+        this.quickTypeSearch = t;
+    }
+
+    public void resetActualType(){
+        this.quickTypeSearch = new TypeFalse();
     }
 }

@@ -171,7 +171,7 @@ PARENT 				: 'parent' ;
 INIT 				: 'init' ;
 METHODS				: 'methods' ;
 VOID 				: 'void' ;
-RETURN 				: 'returno' ;
+RETURN 				: 'return' ;
 OBRACE			:	'{';
 CBRACE			:	'}';
 OBRACKET		: '[';
