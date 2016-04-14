@@ -9,4 +9,9 @@ public class TypeFalse extends Type{
     public TypeFalse() {
         value = -1;
     }
+
+    @Override
+    public String toString() {
+        return "Void";
+    }
 }

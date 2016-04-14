@@ -65,8 +65,8 @@ public class Scope {
         this.variableHashMap = variableHashMap;
     }
 
-    public Variable addVariable(Variable variable) {
-        return variableHashMap.putIfAbsent(variable.getID(), variable);
+    public Variable addVariable(Variable variable){
+        return this.variableHashMap.putIfAbsent(variable.getID(), variable);
     }
 
     public HashMap<String, Procedure> getProcedureHashMap() {
@@ -80,9 +80,11 @@ public class Scope {
     @Override
     public String toString() {
         String var = "{\t";
-        for (Variable variable : variables) {
+        int limit = 0;
+        for (Variable variable : variableHashMap.values()) {
             var += variable.toString();
-            if (variable != variables.getLast()) {
+            limit++;
+            if (limit != variableHashMap.size()) {
                 var += ",\n\t";
             }
         }

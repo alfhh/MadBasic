@@ -123,6 +123,7 @@ z 				:	GREATER zz #zGreater
 					| LESSER zz #zLesser
 					| EQUAL EQUAL #zEqualEqual
 					| DIFFERENT #zDifferent
+					| #zwtf// empty todo empty aqui?
 					;
 zz              : EQUAL #zzEqual
                     | #zzEmpty//empty
@@ -151,7 +152,7 @@ value 			: identifier # valueIdentifier
 				  | CTESTRING # valueString
 				  | TRUE # valueBool
 				  | FALSE # valueBool
-				  | call # valueCall
+				  | call # valueCall //todo ambiguedad con identifier
 				  ;
 main 			: MAIN COLON block END;
 
