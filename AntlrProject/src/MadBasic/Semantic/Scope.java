@@ -26,6 +26,7 @@ public class Scope {
         this.name = name;
         this.parent = parent;
         variables = new LinkedList<>();
+        variableHashMap = new HashMap<>();
     }
 
     public String getName() {
@@ -61,15 +62,17 @@ public class Scope {
     }
 
     public Variable addVariable(Variable variable){
-        return variableHashMap.putIfAbsent(variable.getID(), variable);
+        return this.variableHashMap.putIfAbsent(variable.getID(), variable);
     }
 
     @Override
     public String toString() {
         String var = "{\t";
-        for (Variable variable : variables) {
+        int limit = 0;
+        for (Variable variable : variableHashMap.values()) {
             var += variable.toString();
-            if (variable != variables.getLast()) {
+            limit++;
+            if (limit != variableHashMap.size()) {
                 var += ",\n\t";
             }
         }

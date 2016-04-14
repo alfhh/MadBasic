@@ -196,7 +196,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 // TODO: 4/10/16 modificar para hashtable
                 Variable var = new Variable(id, type, basicSemantic.getScopeStack().peek());
                 basicSemantic.getVariables().add(var);
-                basicSemantic.getScopeStack().peek().getVariables().add(var);
+                //basicSemantic.getScopeStack().peek().getVariables().add(var);
+                basicSemantic.getScopeStack().peek().addVariable(var);
             }
         }
         return result;
@@ -255,18 +256,16 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         boolean found = false;
         Scope scope = basicSemantic.getScopeStack().peek();
         while (scope != null && !found) {
-            // TODO: 4/11/16 hashtable of vars in scope 
-            for (Variable var : scope.getVariables()) {
-                if (var.getID().equals(text)) {
-                    quadrupleSemantic.getOperandStack().push(var);
+            // TODO: 4/11/16 hashtable of vars in scope
+                if (scope.getVariableHashMap().containsKey(text)) {
+                    quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
                     res = visitChildren(ctx);
                     Operand oper = quadrupleSemantic.getOperandStack().pop();
                     quadrupleSemantic.getOperandStack().pop();
-                    quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, var));
+                    quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, scope.getVariableHashMap().get(text)));
                     found = true;
                     break;
                 }
-            }
             if (!found) {
                 scope = scope.getParent();
             }
@@ -618,13 +617,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         Scope scope = basicSemantic.getScopeStack().peek();
         while (scope != null && !found) {
             // TODO: 4/11/16 hashtable scopes
-            for (Variable var : scope.getVariables()) {
-                if (var.getID().equals(text)) {
-                    quadrupleSemantic.getOperandStack().push(var);
-                    quadrupleSemantic.getOperandSList().add(var);
+                if (scope.getVariableHashMap().containsKey(text)) {
+                    quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
+                    quadrupleSemantic.getOperandSList().add(scope.getVariableHashMap().get(text));
                     found = true;
-                    break;
-                }
             }
             if (!found) {
                 scope = scope.getParent();
@@ -986,7 +982,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
 
         func.setParams(basicSemantic.getParamList());
-        func.getScope().getVariables().addAll(basicSemantic.getParamList());
+        //func.getScope().getVariables().addAll(basicSemantic.getParamList());
+
+        for (Variable var: basicSemantic.getParamList()) {
+            func.getScope().getVariableHashMap().put(var.getID(), var);
+        }
+
         func.setQuadrupleStart(quadrupleSemantic.getQuadrupleList().size());
         basicSemantic.getProcedures().add(func);
 
@@ -1026,7 +1027,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
 
         proc.setParams(basicSemantic.getParamList());
-        proc.getScope().getVariables().addAll(basicSemantic.getParamList());
+        //proc.getScope().getVariables().addAll(basicSemantic.getParamList());
+
+        for (Variable var: basicSemantic.getParamList()) {
+            proc.getScope().getVariableHashMap().put(var.getID(), var);
+        }
+
         proc.setQuadrupleStart(quadrupleSemantic.getQuadrupleList().size());
         basicSemantic.getProcedures().add(proc);
 
