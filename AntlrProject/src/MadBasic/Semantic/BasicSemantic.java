@@ -4,6 +4,7 @@ import MadBasic.Algrebra.Variable;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Types.Type;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -21,7 +22,11 @@ public class BasicSemantic {
     Stack<Scope> scopeStack;
     Stack<Type> typeStack;
     LinkedList<Variable> paramList;
+    HashMap<String, Class> classHashMap;
     boolean params;
+    boolean hasParent;
+    String parent;
+    boolean dot;
 
     private BasicSemantic() {
         procedures = new LinkedList<>();
@@ -29,7 +34,11 @@ public class BasicSemantic {
         scopes = new LinkedList<>();
         scopeStack = new Stack<>();
         typeStack = new Stack<>();
+        classHashMap = new HashMap<>();
         params = false;
+        hasParent = false;
+        parent = "";
+        dot = false;
 
         // Add the global scope
         Scope global = new Scope("global");
@@ -99,5 +108,37 @@ public class BasicSemantic {
 
     public void setParams(boolean params) {
         this.params = params;
+    }
+
+    public boolean isHasParent() {
+        return hasParent;
+    }
+
+    public void setHasParent(boolean hasParent) {
+        this.hasParent = hasParent;
+    }
+
+    public String getParent() {
+        return parent;
+    }
+
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
+
+    public HashMap<String, Class> getClassHashMap() {
+        return classHashMap;
+    }
+
+    public void setClassHashMap(HashMap<String, Class> classHashMap) {
+        this.classHashMap = classHashMap;
+    }
+
+    public boolean isDot() {
+        return dot;
+    }
+
+    public void setDot(boolean dot) {
+        this.dot = dot;
     }
 }

@@ -88,13 +88,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterD(MadBasicParser.DContext ctx) { }
+	@Override public void enterDParent(MadBasicParser.DParentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitD(MadBasicParser.DContext ctx) { }
+	@Override public void exitDParent(MadBasicParser.DParentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDEmpty(MadBasicParser.DEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDEmpty(MadBasicParser.DEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -592,13 +604,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterS(MadBasicParser.SContext ctx) { }
+	@Override public void enterSDot(MadBasicParser.SDotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitS(MadBasicParser.SContext ctx) { }
+	@Override public void exitSDot(MadBasicParser.SDotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSEmpty(MadBasicParser.SEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSEmpty(MadBasicParser.SEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

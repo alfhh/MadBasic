@@ -15,8 +15,8 @@ c 				:	methods
 					| // empty
 					;
 classe 			:	CLASS OBJECT d OBRACE b init c CBRACE;
-d 				:	PARENT OBJECT
-					| // empty
+d 				:	PARENT OBJECT #dParent
+					| #dEmpty // empty
 					;
 vars 			:	VARS COLON e;
 e 				:	type ID f SEMICOLON g;
@@ -89,9 +89,9 @@ r 				:	args
 block 			:	b l;
 retorno 			: 	RETURN expression SEMICOLON;
 identifier 		: 	ID ss s;
-s 				:	DOT ID ss
-                    | DOT INIT
-					| // empty
+s 				:	DOT ID ss #sDot
+                    | DOT INIT #sDot
+					| #sEmpty// empty
 					;
 ss              :   OBRACKET exp CBRACKET
                     | //empty
@@ -123,7 +123,6 @@ z 				:	GREATER zz #zGreater
 					| LESSER zz #zLesser
 					| EQUAL EQUAL #zEqualEqual
 					| DIFFERENT #zDifferent
-					| #zwtf// empty todo empty aqui?
 					;
 zz              : EQUAL #zzEqual
                     | #zzEmpty//empty
@@ -152,7 +151,7 @@ value 			: identifier # valueIdentifier
 				  | CTESTRING # valueString
 				  | TRUE # valueBool
 				  | FALSE # valueBool
-				  | call # valueCall //todo ambiguedad con identifier
+				  | call # valueCall
 				  ;
 main 			: MAIN COLON block END;
 
@@ -167,12 +166,12 @@ INT				:	'int';
 FLOAT			:	'float';
 STRING 				: 'string' ;
 BOOL 				: 'bool' ;
-CLASS 				: 'classe' ;
+CLASS 				: 'class' ;
 PARENT 				: 'parent' ;
 INIT 				: 'init' ;
 METHODS				: 'methods' ;
 VOID 				: 'void' ;
-RETURN 				: 'returno' ;
+RETURN 				: 'return' ;
 OBRACE			:	'{';
 CBRACE			:	'}';
 OBRACKET		: '[';

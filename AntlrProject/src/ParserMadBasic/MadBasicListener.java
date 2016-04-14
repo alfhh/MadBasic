@@ -68,15 +68,29 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitClasse(MadBasicParser.ClasseContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#d}.
+	 * Enter a parse tree produced by the {@code dParent}
+	 * labeled alternative in {@link MadBasicParser#d}.
 	 * @param ctx the parse tree
 	 */
-	void enterD(MadBasicParser.DContext ctx);
+	void enterDParent(MadBasicParser.DParentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#d}.
+	 * Exit a parse tree produced by the {@code dParent}
+	 * labeled alternative in {@link MadBasicParser#d}.
 	 * @param ctx the parse tree
 	 */
-	void exitD(MadBasicParser.DContext ctx);
+	void exitDParent(MadBasicParser.DParentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code dEmpty}
+	 * labeled alternative in {@link MadBasicParser#d}.
+	 * @param ctx the parse tree
+	 */
+	void enterDEmpty(MadBasicParser.DEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code dEmpty}
+	 * labeled alternative in {@link MadBasicParser#d}.
+	 * @param ctx the parse tree
+	 */
+	void exitDEmpty(MadBasicParser.DEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#vars}.
 	 * @param ctx the parse tree
@@ -514,15 +528,29 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitIdentifier(MadBasicParser.IdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#s}.
+	 * Enter a parse tree produced by the {@code sDot}
+	 * labeled alternative in {@link MadBasicParser#s}.
 	 * @param ctx the parse tree
 	 */
-	void enterS(MadBasicParser.SContext ctx);
+	void enterSDot(MadBasicParser.SDotContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#s}.
+	 * Exit a parse tree produced by the {@code sDot}
+	 * labeled alternative in {@link MadBasicParser#s}.
 	 * @param ctx the parse tree
 	 */
-	void exitS(MadBasicParser.SContext ctx);
+	void exitSDot(MadBasicParser.SDotContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code sEmpty}
+	 * labeled alternative in {@link MadBasicParser#s}.
+	 * @param ctx the parse tree
+	 */
+	void enterSEmpty(MadBasicParser.SEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code sEmpty}
+	 * labeled alternative in {@link MadBasicParser#s}.
+	 * @param ctx the parse tree
+	 */
+	void exitSEmpty(MadBasicParser.SEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#ss}.
 	 * @param ctx the parse tree

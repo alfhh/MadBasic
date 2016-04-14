@@ -6,6 +6,7 @@ import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.Goto;
 import MadBasic.Quadruples.Gotos.GotoFalse;
 import MadBasic.Semantic.BasicSemantic;
+import MadBasic.Semantic.Class;
 import MadBasic.Semantic.Methods.Function;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Scope;
@@ -15,6 +16,7 @@ import ParserMadBasic.MadBasicBaseVisitor;
 import ParserMadBasic.MadBasicParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -100,7 +102,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitTypeObject(MadBasicParser.TypeObjectContext ctx) {
         String res = visitChildren(ctx);
-        basicSemantic.getTypeStack().push(new TypeObject());
+
+        basicSemantic.getTypeStack().push(
+                new TypeObject(basicSemantic.getClassHashMap().get(ctx.getChild(0).getText())));
         return res;
     }
 
@@ -193,7 +197,6 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         ids.addAll(Arrays.asList(ctx.getChild(2).getText().trim().split(",")));
         for (String id : ids) {
             if (id.trim().length() > 0) {
-                // TODO: 4/10/16 modificar para hashtable
                 Variable var = new Variable(id, type, basicSemantic.getScopeStack().peek());
                 basicSemantic.getVariables().add(var);
                 //basicSemantic.getScopeStack().peek().getVariables().add(var);
@@ -212,14 +215,58 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      * @return
      */
     @Override
+    public String visitDParent(MadBasicParser.DParentContext ctx) {
+        basicSemantic.setHasParent(true);
+        basicSemantic.setParent(ctx.getChild(1).getText());
+        return super.visitDParent(ctx);
+    }
+
+    /**
+     * @param ctx
+     * @return
+     */
+    @Override
     public String visitClasse(MadBasicParser.ClasseContext ctx) {
+        String result = "";
+
+        int parentRule = 3;
+        for (int i = 0; i < parentRule && this.shouldVisitNextChild(ctx, null); ++i) {
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
         String name = ctx.getChild(1).getText();
+
         Scope scp = new Scope(name, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(scp);
         basicSemantic.getScopeStack().push(scp);
-        String res = visitChildren(ctx);
+
+        if (!basicSemantic.getClassHashMap().containsKey(name)) {
+            Class classe = new Class(name, scp);
+            if (basicSemantic.isHasParent()) {
+                if (basicSemantic.getClassHashMap().containsKey(basicSemantic.getParent())) {
+                    classe.setParent(basicSemantic.getClassHashMap().get(basicSemantic.getParent()));
+                } else {
+                    System.out.println("Error in " + name);
+                }
+                basicSemantic.setHasParent(false);
+            }
+            basicSemantic.getClassHashMap().put(name, classe);
+        } else {
+            System.out.println("Error in " + name);
+        }
+
+
+        int n = ctx.getChildCount();
+        for (int i = parentRule; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
         basicSemantic.getScopeStack().pop();
-        return res;
+        return result;
     }
 
     /**
@@ -256,16 +303,15 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         boolean found = false;
         Scope scope = basicSemantic.getScopeStack().peek();
         while (scope != null && !found) {
-            // TODO: 4/11/16 hashtable of vars in scope
-                if (scope.getVariableHashMap().containsKey(text)) {
-                    quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
-                    res = visitChildren(ctx);
-                    Operand oper = quadrupleSemantic.getOperandStack().pop();
-                    quadrupleSemantic.getOperandStack().pop();
-                    quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, scope.getVariableHashMap().get(text)));
-                    found = true;
-                    break;
-                }
+            if (scope.getVariableHashMap().containsKey(text)) {
+                quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
+                res = visitChildren(ctx);
+                Operand oper = quadrupleSemantic.getOperandStack().pop();
+                quadrupleSemantic.getOperandStack().pop();
+                quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, scope.getVariableHashMap().get(text)));
+                found = true;
+                break;
+            }
             if (!found) {
                 scope = scope.getParent();
             }
@@ -602,6 +648,16 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------BEGIN VALUE
 
     /**
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitSDot(MadBasicParser.SDotContext ctx) {
+        basicSemantic.setDot(true);
+        return super.visitSDot(ctx);
+    }
+
+    /**
      * This function adds the founded variables to the getOperandStack(), if they were not
      * found in any scope and error will be displayed at console.
      * This functions searches the variable in a bottom-top search
@@ -611,27 +667,51 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      */
     @Override
     public String visitValueIdentifier(MadBasicParser.ValueIdentifierContext ctx) {
-        String text = ctx.getChild(0).getText();
+        String result = visitChildren(ctx);
         boolean found = false;
 
-        Scope scope = basicSemantic.getScopeStack().peek();
-        while (scope != null && !found) {
-            // TODO: 4/11/16 hashtable scopes
+        if (basicSemantic.isDot()) {
+            String text = ctx.getChild(0).getText();
+            String[] names = text.split("\\.");
+
+            Scope scope = basicSemantic.getScopeStack().peek();
+            while (scope != null && !found) {
+                if (scope.getVariableHashMap().containsKey(names[0])) {
+                    if (scope.getVariableHashMap().get(names[0]).getScope().getVariableHashMap().containsKey(names[1])) {
+                        Variable var =
+                                scope.getVariableHashMap().get(names[0]).getScope().getVariableHashMap().get(names[1]);
+                        quadrupleSemantic.getOperandStack().push(var);
+                        quadrupleSemantic.getOperandSList().add(var);
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    scope = scope.getParent();
+                }
+            }
+            if (!found) {
+                System.out.println("Error, Identifier: " + text + " not found!");
+            }
+
+        } else {
+            String text = ctx.getChild(0).getText();
+
+            Scope scope = basicSemantic.getScopeStack().peek();
+            while (scope != null && !found) {
                 if (scope.getVariableHashMap().containsKey(text)) {
                     quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
                     quadrupleSemantic.getOperandSList().add(scope.getVariableHashMap().get(text));
                     found = true;
+                }
+                if (!found) {
+                    scope = scope.getParent();
+                }
             }
             if (!found) {
-                scope = scope.getParent();
+                System.out.println("Error, Identifier: " + text + " not found!");
             }
         }
-
-        if (!found) {
-            System.out.println("Error, Identifier: " + text + " not found!");
-        }
-
-        return super.visitValueIdentifier(ctx);
+        return result;
     }
 
     /**
@@ -725,12 +805,30 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         String result = "";
         quadrupleSemantic.setArgsStack(new Stack<>());
         // TODO: 4/10/16 modificar si hashtable y para funciones dentro de clases
+
+        ParseTree c = ctx.getChild(0);
+        String childResult = c.accept(this);
+        result = this.aggregateResult(result, childResult);
+
         Procedure method = null;
         String methodName = ctx.getChild(0).getText();
-        for (int i = 0; i < basicSemantic.getProcedures().size(); i++) {
-            if (methodName.equals(basicSemantic.getProcedures().get(i).getID())) {
-                method = basicSemantic.getProcedures().get(i);
-                break;
+
+        if (basicSemantic.isDot()) {
+            String[] names = methodName.split("\\.");
+
+            Scope scope = basicSemantic.getScopeStack().peek();
+            while (scope != null) {
+                if (scope.getVariableHashMap().containsKey(names[0])) {
+                    if (scope.getVariableHashMap().get(names[0]).getScope().getProcedureHashMap().containsKey(names[1])) {
+                        method = scope.getVariableHashMap().get(names[0]).getScope().getProcedureHashMap().get(names[1]);
+                    }
+                }
+            }
+        } else {
+            for (Scope scope : basicSemantic.getScopeStack()) {
+                if (scope.getProcedureHashMap().containsKey(methodName)) {
+                    method = scope.getProcedureHashMap().get(methodName);
+                }
             }
         }
 
@@ -738,7 +836,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
             quadrupleSemantic.getQuadrupleList().add(new Era(method));
 
-            result = visitChildren(ctx);
+            int n = ctx.getChildCount();
+            for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                c = ctx.getChild(i);
+                childResult = c.accept(this);
+                result = this.aggregateResult(result, childResult);
+            }
+
             if (quadrupleSemantic.getArgsStack().size() == method.getParams().size()) {
                 for (int i = 0; i < method.getParams().size(); i++) {
                     Variable var = method.getParams().get(i);
@@ -753,6 +857,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
                 int jumpback = quadrupleSemantic.getQuadrupleList().size();
                 quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, method));
+                if(method instanceof Function){
+                    quadrupleSemantic.getOperandSList().add(
+                            new Variable(method.getID(), ((Function) method).getType(), method.getScope()));
+                    quadrupleSemantic.getOperandStack().push(
+                            new Variable(method.getID(), ((Function) method).getType(), method.getScope()));
+                }
             } else {
                 // TODO: 4/10/16 error
                 System.out.println("Error on call " + ctx.getChild(0).getText() + " paramsize");
@@ -990,7 +1100,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         func.setParams(basicSemantic.getParamList());
         //func.getScope().getVariables().addAll(basicSemantic.getParamList());
 
-        for (Variable var: basicSemantic.getParamList()) {
+        for (Variable var : basicSemantic.getParamList()) {
             func.getScope().getVariableHashMap().put(var.getID(), var);
         }
 
@@ -1043,7 +1153,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         proc.setParams(basicSemantic.getParamList());
         //proc.getScope().getVariables().addAll(basicSemantic.getParamList());
 
-        for (Variable var: basicSemantic.getParamList()) {
+        for (Variable var : basicSemantic.getParamList()) {
             proc.getScope().getVariableHashMap().put(var.getID(), var);
         }
 
