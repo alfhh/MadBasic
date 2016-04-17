@@ -16,7 +16,6 @@ import ParserMadBasic.MadBasicBaseVisitor;
 import ParserMadBasic.MadBasicParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
