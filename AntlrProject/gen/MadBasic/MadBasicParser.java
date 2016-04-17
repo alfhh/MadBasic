@@ -1,5 +1,5 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
-package ParserMadBasic;
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+package MadBasic;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -51,7 +51,7 @@ public class MadBasicParser extends Parser {
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'program'", "';'", "'vars'", "','", "':'", "'int'", "'float'", 
-		"'string'", "'bool'", "'class'", "'parent'", "'init'", "'methods'", "'void'", 
+		"'string'", "'bool'", "'classe'", "'parent'", "'init'", "'methods'", "'void'", 
 		"'return'", "'{'", "'}'", "'['", "']'", "'='", "'>'", "'<'", "'<>'", "'+'", 
 		"'&&'", "'||'", "'!='", "'.'", "'-'", "'*'", "'/'", "'('", "')'", "'if'", 
 		"'list'", "'else'", "'while'", "'read'", "'true'", "'false'", "'main'", 
@@ -480,47 +480,23 @@ public class MadBasicParser extends Parser {
 	}
 
 	public static class DContext extends ParserRuleContext {
+		public TerminalNode PARENT() { return getToken(MadBasicParser.PARENT, 0); }
+		public TerminalNode OBJECT() { return getToken(MadBasicParser.OBJECT, 0); }
 		public DContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_d; }
-	 
-		public DContext() { }
-		public void copyFrom(DContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class DParentContext extends DContext {
-		public TerminalNode PARENT() { return getToken(MadBasicParser.PARENT, 0); }
-		public TerminalNode OBJECT() { return getToken(MadBasicParser.OBJECT, 0); }
-		public DParentContext(DContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterDParent(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterD(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitDParent(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitD(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitDParent(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class DEmptyContext extends DContext {
-		public DEmptyContext(DContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterDEmpty(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitDEmpty(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitDEmpty(this);
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitD(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -532,7 +508,6 @@ public class MadBasicParser extends Parser {
 			setState(162);
 			switch (_input.LA(1)) {
 			case PARENT:
-				_localctx = new DParentContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(159);
@@ -542,7 +517,6 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case OBRACE:
-				_localctx = new DEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				}
@@ -2836,51 +2810,27 @@ public class MadBasicParser extends Parser {
 	}
 
 	public static class SContext extends ParserRuleContext {
-		public SContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_s; }
-	 
-		public SContext() { }
-		public void copyFrom(SContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class SDotContext extends SContext {
 		public TerminalNode DOT() { return getToken(MadBasicParser.DOT, 0); }
 		public TerminalNode ID() { return getToken(MadBasicParser.ID, 0); }
 		public SsContext ss() {
 			return getRuleContext(SsContext.class,0);
 		}
 		public TerminalNode INIT() { return getToken(MadBasicParser.INIT, 0); }
-		public SDotContext(SContext ctx) { copyFrom(ctx); }
+		public SContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_s; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterSDot(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterS(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitSDot(this);
+			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitS(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitSDot(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class SEmptyContext extends SContext {
-		public SEmptyContext(SContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).enterSEmpty(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MadBasicListener ) ((MadBasicListener)listener).exitSEmpty(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitSEmpty(this);
+			if ( visitor instanceof MadBasicVisitor ) return ((MadBasicVisitor<? extends T>)visitor).visitS(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2892,7 +2842,6 @@ public class MadBasicParser extends Parser {
 			setState(373);
 			switch ( getInterpreter().adaptivePredict(_input,19,_ctx) ) {
 			case 1:
-				_localctx = new SDotContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(367);
@@ -2904,7 +2853,6 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new SDotContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(370);
@@ -2914,7 +2862,6 @@ public class MadBasicParser extends Parser {
 				}
 				break;
 			case 3:
-				_localctx = new SEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				}

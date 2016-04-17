@@ -1,5 +1,5 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
-package ParserMadBasic;
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+package MadBasic;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -88,25 +88,13 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDParent(MadBasicParser.DParentContext ctx) { }
+	@Override public void enterD(MadBasicParser.DContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDParent(MadBasicParser.DParentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDEmpty(MadBasicParser.DEmptyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDEmpty(MadBasicParser.DEmptyContext ctx) { }
+	@Override public void exitD(MadBasicParser.DContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -604,25 +592,13 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSDot(MadBasicParser.SDotContext ctx) { }
+	@Override public void enterS(MadBasicParser.SContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSDot(MadBasicParser.SDotContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSEmpty(MadBasicParser.SEmptyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSEmpty(MadBasicParser.SEmptyContext ctx) { }
+	@Override public void exitS(MadBasicParser.SContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

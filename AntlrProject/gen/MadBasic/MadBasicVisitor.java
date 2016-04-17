@@ -1,5 +1,5 @@
-// Generated from /home/lsanchez/Documents/Compiladores/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
-package ParserMadBasic;
+// Generated from /home/ahinojosa/workspace/MadBasic/AntlrProject/src/MadBasic/MadBasic.g4 by ANTLR 4.5.1
+package MadBasic;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -47,19 +47,11 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClasse(MadBasicParser.ClasseContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code dParent}
-	 * labeled alternative in {@link MadBasicParser#d}.
+	 * Visit a parse tree produced by {@link MadBasicParser#d}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDParent(MadBasicParser.DParentContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code dEmpty}
-	 * labeled alternative in {@link MadBasicParser#d}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDEmpty(MadBasicParser.DEmptyContext ctx);
+	T visitD(MadBasicParser.DContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#vars}.
 	 * @param ctx the parse tree
@@ -320,19 +312,11 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdentifier(MadBasicParser.IdentifierContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code sDot}
-	 * labeled alternative in {@link MadBasicParser#s}.
+	 * Visit a parse tree produced by {@link MadBasicParser#s}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSDot(MadBasicParser.SDotContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code sEmpty}
-	 * labeled alternative in {@link MadBasicParser#s}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSEmpty(MadBasicParser.SEmptyContext ctx);
+	T visitS(MadBasicParser.SContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#ss}.
 	 * @param ctx the parse tree

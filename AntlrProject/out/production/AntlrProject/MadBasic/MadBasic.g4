@@ -4,7 +4,7 @@ grammar MadBasic;
 
 // Rules
 madbasic        :	PROGRAM ID SEMICOLON program;
-program 		:	a b c main;
+program 		:	b c a b c main;
 a 				:	classe a
 					| // empty
 					;
@@ -15,8 +15,8 @@ c 				:	methods
 					| // empty
 					;
 classe 			:	CLASS OBJECT d OBRACE b init c CBRACE;
-d 				:	PARENT OBJECT
-					| // empty
+d 				:	PARENT OBJECT #dParent
+					| #dEmpty // empty
 					;
 vars 			:	VARS COLON e;
 e 				:	type ID f SEMICOLON g;
@@ -38,13 +38,18 @@ k 				:	params
 l 				:	statement l
 					| // empty
 					;
-type 			:	INT
-					| FLOAT
-					| STRING
-					| BOOL
-					| LIST LESSER type GREATER
-					| OBJECT
+type 			:	INT array #typeInt
+					| FLOAT array #typeFloat
+					| STRING array #typeString
+					| BOOL array #typeBool
+					| LIST LESSER type GREATER #typeList
+					| OBJECT array #typeObject
 					;
+array           :   OBRACKET ad CTEI COMMA ad CTEI CBRACKET array #arrayDeclare
+                    | OBRACKET CBRACKET array #arrayVoid
+                    | #arrayEmpty
+                    ;
+
 method 			:	procedure
 					| function
 					;
@@ -69,13 +74,13 @@ o 				: 	expression
 					| read
 					;
 condition 		: 	IF OPARENTHESIS expression CPARENTHESIS OBRACE l CBRACE p;
-p 				:	ELSE OBRACE l CBRACE
-					| // empty
+p 				:	ELSE OBRACE l CBRACE #pElse
+					| #pEmpty// empty
 					;
 loop 			: 	WHILE OPARENTHESIS expression CPARENTHESIS OBRACE l CBRACE;
 write 			: 	PRINT OPARENTHESIS exp q CPARENTHESIS SEMICOLON;
-q 				:	CARET exp q
-					| // empty
+q 				:	CARET exp q #qWrite
+					| #qEmpty // empty
 					;
 call 			:	identifier OPARENTHESIS r CPARENTHESIS;
 r 				:	args
@@ -84,9 +89,9 @@ r 				:	args
 block 			:	b l;
 retorno 			: 	RETURN expression SEMICOLON;
 identifier 		: 	ID ss s;
-s 				:	DOT ID ss
-                    | DOT INIT
-					| // empty
+s 				:	DOT ID ss #sDot
+                    | DOT INIT #sDot
+					| #sEmpty// empty
 					;
 ss              :   OBRACKET exp CBRACKET
                     | //empty
@@ -95,55 +100,58 @@ expression 		: 	comparison t;
 t 				:	u comparison
 					| // empty
 					;
-u 				: AND
-				  | OR
+u 				: AND #uAnd
+				  | OR #uOr
 				  ;
 read 			: READ;
 exp 			: term v;
 v 				:	w term v
 					| // empty
 					;
-w 				: PLUS
-				  | MINUS
+w 				: PLUS #wPlus
+				  | MINUS #wMinus
 				  ;
 args 			: m exp x;
-x 				:	COMMA m exp x
-					| // empty
+x 				:	COMMA m exp x #xArgs
+					| #xEmpty// empty
 					;
 comparison		: exp y;
 y 				:	z exp
 					| // empty
 					;
-z 				:	GREATER zz
-					| LESSER zz
-					| EQUAL EQUAL
-					| DIFFERENT
-					| // empty
+z 				:	GREATER zz #zGreater
+					| LESSER zz #zLesser
+					| EQUAL EQUAL #zEqualEqual
+					| DIFFERENT #zDifferent
 					;
-zz              : EQUAL
-                    | //empty
+zz              : EQUAL #zzEqual
+                    | #zzEmpty//empty
                     ;
 term 			: 	factor aa;
 aa 				:	ab factor aa
 					| // empty
 					;
-ab				: 	MULTIPLICATION
-					| DIVISION
+ab				: 	MULTIPLICATION #abMultiplication
+					| DIVISION #abDivision
 					;
-factor 			: OPARENTHESIS expression CPARENTHESIS
-				  | ac value
+factor 			: OPARENTHESIS expression CPARENTHESIS #factorExpression
+				  | ac value #factorValue
 				  ;
-ac 				:	PLUS
-					| MINUS
+ac 				:	PLUS #acPlus
+					| MINUS #acMinus
+					| #acEmpty// empty
+					;
+ad 				:	MINUS
 					| // empty
 					;
-value 			: identifier
-				  | CTEI
-				  | CTEF
-				  | CTESTRING
-				  | TRUE
-				  | FALSE
-				  | call
+
+value 			: identifier # valueIdentifier
+				  | CTEI # valueInt
+				  | CTEF # valueFloat
+				  | CTESTRING # valueString
+				  | TRUE # valueBool
+				  | FALSE # valueBool
+				  | call # valueCall
 				  ;
 main 			: MAIN COLON block END;
 
@@ -158,12 +166,12 @@ INT				:	'int';
 FLOAT			:	'float';
 STRING 				: 'string' ;
 BOOL 				: 'bool' ;
-CLASS 				: 'classe' ;
+CLASS 				: 'class' ;
 PARENT 				: 'parent' ;
 INIT 				: 'init' ;
 METHODS				: 'methods' ;
 VOID 				: 'void' ;
-RETURN 				: 'returno' ;
+RETURN 				: 'return' ;
 OBRACE			:	'{';
 CBRACE			:	'}';
 OBRACKET		: '[';
