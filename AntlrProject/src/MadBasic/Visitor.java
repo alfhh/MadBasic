@@ -818,6 +818,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Integer>(new Integer(text), new TypeInt()));
         quadrupleSemantic.getOperandSList().add(new Constant<Integer>(new Integer(text), new TypeInt()));
+        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstIntCount()) == null) {
+            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstIntCount(), new Integer(text));
+            virtualMemory.addConstIntCount();
+        }
         return super.visitValueInt(ctx);
     }
 
@@ -832,6 +836,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Float>(new Float(text), new TypeFloat()));
         quadrupleSemantic.getOperandSList().add(new Constant<Float>(new Float(text), new TypeFloat()));
+        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstFloatCount()) == null) {
+            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstFloatCount(), new Float(text));
+            virtualMemory.addConstFloatCount();
+        }
         return super.visitValueFloat(ctx);
     }
 
@@ -844,8 +852,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueString(MadBasicParser.ValueStringContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<String>(new String(text), new TypeString()));
-        quadrupleSemantic.getOperandSList().add(new Constant<String>(new String(text), new TypeString()));
+        quadrupleSemantic.getOperandStack().push(new Constant<String>(text, new TypeString()));
+        quadrupleSemantic.getOperandSList().add(new Constant<String>(text, new TypeString()));
+        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstStringCount()) == null) {
+            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstStringCount(), text);
+            virtualMemory.addConstStringCount();
+        }
         return super.visitValueString(ctx);
     }
 
@@ -860,6 +872,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Boolean>(new Boolean(text), new TypeBool()));
         quadrupleSemantic.getOperandSList().add(new Constant<Boolean>(new Boolean(text), new TypeBool()));
+        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstBoolCount()) == null) {
+            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstBoolCount(), new Boolean(text));
+            virtualMemory.addConstBoolCount();
+        }
         return super.visitValueBool(ctx);
     }
 
@@ -1285,7 +1301,6 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------------------------------------START RETURN
 
     /**
-     *
      * @param ctx
      * @return
      */

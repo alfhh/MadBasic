@@ -21,6 +21,10 @@ public class VirtualMemory {
     Integer tempFloatCount;
     Integer tempStringCount;
     Integer tempBoolCount;
+    Integer constIntCount;
+    Integer constFloatCount;
+    Integer constStringCount;
+    Integer constBoolCount;
 
     static VirtualMemory instance;
     
@@ -37,6 +41,10 @@ public class VirtualMemory {
         tempFloatCount = 3500;
         tempStringCount = 4000;
         tempBoolCount = 4500;
+        constIntCount = 5000;
+        constFloatCount = 5250;
+        constStringCount = 5500;
+        constBoolCount = 5750;
     }
     
     public static VirtualMemory getInstance(){
@@ -106,6 +114,22 @@ public class VirtualMemory {
         return tempBoolCount;
     }
 
+    public Integer getConstIntCount() {
+        return constIntCount;
+    }
+
+    public Integer getConstFloatCount() {
+        return constFloatCount;
+    }
+
+    public Integer getConstStringCount() {
+        return constStringCount;
+    }
+
+    public Integer getConstBoolCount() {
+        return constBoolCount;
+    }
+
     public void setInstanceCount(Integer instanceCount) {
         this.instanceCount = instanceCount;
     }
@@ -142,6 +166,22 @@ public class VirtualMemory {
         this.tempBoolCount = tempBoolCount;
     }
 
+    public void setConstIntCount(Integer constIntCount) {
+        this.constIntCount = constIntCount;
+    }
+
+    public void setConstFloatCount(Integer constFloatCount) {
+        this.constFloatCount = constFloatCount;
+    }
+
+    public void setConstStringCount(Integer constStringCount) {
+        this.constStringCount = constStringCount;
+    }
+
+    public void setConstBoolCount(Integer constBoolCount) {
+        this.constBoolCount = constBoolCount;
+    }
+
     public void addInstanceCount() {
         this.instanceCount++;
     }
@@ -176,6 +216,22 @@ public class VirtualMemory {
 
     public void addTempBoolCount() {
         this.tempBoolCount++;
+    }
+
+    public void addConstIntCount() {
+        this.constIntCount++;
+    }
+
+    public void addConstFloatCount() {
+        this.constFloatCount++;
+    }
+
+    public void addConstStringCount() {
+        this.constStringCount++;
+    }
+
+    public void addConstBoolCount() {
+        this.constBoolCount++;
     }
 
     @Override

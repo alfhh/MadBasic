@@ -86,7 +86,7 @@ vars:
 	string str;
 	Bbb bbb;
 	Aaa aaa;
-
+xi = 44;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
 b = true;
