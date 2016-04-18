@@ -8,10 +8,15 @@ import MadBasic.Semantic.BasicSemantic;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.SemanticCube;
+import MadBasic.VM.Instance;
+import MadBasic.VM.VirtualMemory;
+
+import java.util.Arrays;
+import java.util.Set;
 
 /**
  * Created by ahinojosa on 7/04/16.
- *
+ * <p>
  * The purpose of this class is to help the testing process
  */
 public class TestingGround {
@@ -19,22 +24,44 @@ public class TestingGround {
     SemanticCube cube;
     BasicSemantic basicSemantic;
     QuadrupleSemantic quadrupleSemantic;
+    VirtualMemory virtualMemory;
 
     public TestingGround() {
         this.cube = new SemanticCube();
         this.basicSemantic = BasicSemantic.getInstance();
         this.quadrupleSemantic = QuadrupleSemantic.getInstance();
+        this.virtualMemory = VirtualMemory.getInstance();
     }
 
     /**
      * ID: 1
      * Function that prints the table of variables..
      */
-    public void printVariableTable(){
+    public void printVariableTable() {
         System.out.println("------------------------------------------------");
         System.out.println("Tabla de variables");
-        for (Variable variable: basicSemantic.getVariables()) {
+        for (Variable variable : basicSemantic.getVariables()) {
             System.out.println(variable);
+        }
+        System.out.println();
+        System.out.println("Directorio de variables");
+        for (String key : virtualMemory.getvDirectory().keySet()) {
+            Integer value = virtualMemory.getvDirectory().get(key);
+            System.out.println(key + ": " + value);
+            if (value < 1000) {
+                for (String k : ((Instance) virtualMemory.getvMemory().get(value)).getvDirectory().keySet()) {
+                    Integer v = ((Instance) virtualMemory.getvMemory().get(value)).getvDirectory().get(k);
+                    System.out.println(k + ": " + v);
+                }
+            }
+        }
+        System.out.println();
+        System.out.println("Memoria Virtual");
+        Set<Integer> keys = virtualMemory.getvMemory().keySet();
+        Object ks[] = keys.toArray();
+        Arrays.sort(ks);
+        for (Object key: ks){
+            System.out.println(key + ": " + virtualMemory.getvMemory().get(key));
         }
         System.out.println("------------------------------------------------");
     }
@@ -43,10 +70,10 @@ public class TestingGround {
      * ID: 2
      * Function that prints the table of scopes
      */
-    public void printScopeTable(){
+    public void printScopeTable() {
         System.out.println("------------------------------------------------");
         System.out.println("Tabla de Scopes");
-        for (Scope scope: basicSemantic.getScopes()) {
+        for (Scope scope : basicSemantic.getScopes()) {
             System.out.println(scope);
         }
         System.out.println("------------------------------------------------");
@@ -56,10 +83,10 @@ public class TestingGround {
      * ID: 3
      * Function that prints the table of processes
      */
-    public void printProcTable(){
+    public void printProcTable() {
         System.out.println("------------------------------------------------");
         System.out.println("Tabla de procedimientos");
-        for (Procedure procedure: basicSemantic.getProcedures()) {
+        for (Procedure procedure : basicSemantic.getProcedures()) {
             System.out.println(procedure);
         }
         System.out.println("------------------------------------------------");
@@ -69,7 +96,7 @@ public class TestingGround {
      * ID: 4
      * Run the basic tests on the Semantic Cube
      */
-    public void testSemanticCube(){
+    public void testSemanticCube() {
         System.out.println("------------------------------------------------");
         System.out.println("Basic semantic cube test");
         System.out.println(cube.getCubeType(0, 0, 0).getTypeValue() + " should be: " + 3);
@@ -98,10 +125,10 @@ public class TestingGround {
      * ID: 5
      * Function that prints the operand stack of the QuadrupleSemantic class
      */
-    public void printOperandStack(){
+    public void printOperandStack() {
         System.out.println("------------------------------------------------");
         System.out.println("Operand Stack: ");
-        for(Operand op : quadrupleSemantic.getOperandStack()){
+        for (Operand op : quadrupleSemantic.getOperandStack()) {
             System.out.println(op.toString());
         }
         System.out.println("------------------------------------------------");
@@ -111,11 +138,11 @@ public class TestingGround {
      * ID: 6
      * Function that prints the quadruple list of the QuadrupleSemantic class
      */
-    public void printQuadruplelist(){
+    public void printQuadruplelist() {
         System.out.println("------------------------------------------------");
         System.out.println("Quadruple List: ");
         int count = 0;
-        for(Quadruple quadruple : quadrupleSemantic.getQuadrupleList()){
+        for (Quadruple quadruple : quadrupleSemantic.getQuadrupleList()) {
             System.out.println(count + "\t" + quadruple.toString());
             count++;
         }
@@ -126,10 +153,10 @@ public class TestingGround {
      * ID: 7
      * Function that prints the Operand list of the QuadrupleSemantic class
      */
-    public void printOperandlist(){
+    public void printOperandlist() {
         System.out.println("------------------------------------------------");
         System.out.println("Operand List: ");
-        for(Operand op : quadrupleSemantic.getOperandSList()){
+        for (Operand op : quadrupleSemantic.getOperandSList()) {
             System.out.println(op.toString());
         }
     }
@@ -146,14 +173,15 @@ public class TestingGround {
 
     /**
      * This method run the specified tests, selected on the integer array.
+     *
      * @param tests each test on this class has a id number, to run that test
      *              send its number in the array. If index 0 is sent in the array
      *              then all tests will be executed.
      */
-    public void testManager(TestNum[] tests){
+    public void testManager(TestNum[] tests) {
 
-        for(int i = 0; i < tests.length; i++){
-            switch (tests[i].getNum()){
+        for (int i = 0; i < tests.length; i++) {
+            switch (tests[i].getNum()) {
                 case 0:
                     printVariableTable();
                     printScopeTable();

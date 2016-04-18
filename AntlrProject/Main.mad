@@ -32,6 +32,12 @@ class Bbb parent Aaa {
 		bool isMultiple(int w, int z) {
 			return (w == ((w / z) * z));
 		}
+
+		void test(){
+            vars:
+                int a;
+                a = 0;
+		}
 }
 
 

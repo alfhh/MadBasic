@@ -29,6 +29,7 @@ public class BasicSemantic {
     String parent;
     boolean dot;
     Type quickTypeSearch;
+    boolean inMethod;
 
     private BasicSemantic() {
         procedures = new LinkedList<>();
@@ -41,6 +42,7 @@ public class BasicSemantic {
         hasParent = false;
         parent = "";
         dot = false;
+        inMethod = false;
 
         // Add the global scope
         Scope global = new Scope("global");
@@ -156,5 +158,13 @@ public class BasicSemantic {
 
     public void resetActualType(){
         this.quickTypeSearch = new TypeFalse();
+    }
+
+    public boolean isInMethod() {
+        return inMethod;
+    }
+
+    public void setInMethod(boolean inMethod) {
+        this.inMethod = inMethod;
     }
 }
