@@ -253,6 +253,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitReference(MadBasicParser.ReferenceContext ctx) {
+        String result = visitChildren(ctx);
+        basicSemantic.setFoundAReference(true);
+        return result;
+    }
+
+    /**
      * @param ctx
      * @return
      */
@@ -890,7 +902,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitArgs(MadBasicParser.ArgsContext ctx) {
         String result = visitChildren(ctx);
-        quadrupleSemantic.getArgsStack().push(quadrupleSemantic.getOperandStack().pop());
+        if(basicSemantic.isFoundAReference()){
+            try{
+                Variable var = (Variable) quadrupleSemantic.getOperandStack().pop();
+                var.setByReference(true);
+                basicSemantic.setFoundAReference(false);
+                quadrupleSemantic.getArgsStack().push(var);
+            }catch(ClassCastException e){
+                System.out.println("You can't send constants by reference");
+            }
+        } else {
+            quadrupleSemantic.getArgsStack().push(quadrupleSemantic.getOperandStack().pop());
+        }
         return result;
     }
 
@@ -926,7 +949,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             String[] names = methodName.split("\\.");
 
             Scope scope = basicSemantic.getScopeStack().peek();
-            while (scope != null) {
+            while (scope != null) { // TODO check for deadlock
                 if (scope.getVariableHashMap().containsKey(names[0])) {
                     if (scope.getVariableHashMap().get(names[0]).getScope().getProcedureHashMap().containsKey(names[1])) {
                         method = scope.getVariableHashMap().get(names[0]).getScope().getProcedureHashMap().get(names[1]);
@@ -956,10 +979,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 for (int i = 0; i < method.getParams().size(); i++) {
                     Variable var = method.getParams().get(i);
                     Operand oper = quadrupleSemantic.getArgsStack().pop();
-                    if (oper.getType().equals(var.getType())) {
+                    if (oper.getType().equals(var.getType()) && ((Variable) oper).isByReference() == var.isByReference() ) {
                         quadrupleSemantic.getQuadrupleList().add(new Parameter(oper, i));
                     } else {
-                        // TODO: 4/11/16 error
+                        // TODO: 4/11/16 error, explain the actual error
                         System.out.println("Error on call " + ctx.getChild(0).getText());
                     }
                 }
@@ -1127,7 +1150,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
 
         basicSemantic.setParamList(new LinkedList<>());
-        Variable variable = new Variable(ctx.getChild(2).getText(), type, basicSemantic.getScopeStack().peek());
+        Variable variable = new Variable(ctx.getChild(2).getText(), type, basicSemantic.getScopeStack().peek(), basicSemantic.isFoundAReference());
+        basicSemantic.setFoundAReference(false);
         basicSemantic.getParamList().add(variable);
 
 

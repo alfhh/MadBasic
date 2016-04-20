@@ -74,6 +74,10 @@ methods:
 		return res;
     }
 
+    void testReference(int ~x, int y){
+        x = y * 2;
+    }
+
     void printline(string s) {
         print(s ^ "\n" ^ "test");
     }
@@ -97,5 +101,7 @@ if(bo){
 xi = findx(yi, lint);
 str = read;
 printline(str);
-x = aaa.c;
+a = 7;
+d = 3;
+testReference(~a, d);
 end

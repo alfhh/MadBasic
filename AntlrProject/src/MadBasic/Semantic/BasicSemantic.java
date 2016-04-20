@@ -27,9 +27,10 @@ public class BasicSemantic {
     boolean params;
     boolean hasParent;
     String parent;
-    boolean dot;
+    boolean dot; // Flag used to know if the reading is in the middle of a concatenation of an object
     Type quickTypeSearch;
     boolean inMethod;
+    boolean foundAReference;
 
     private BasicSemantic() {
         procedures = new LinkedList<>();
@@ -43,6 +44,7 @@ public class BasicSemantic {
         parent = "";
         dot = false;
         inMethod = false;
+        foundAReference = false;
 
         // Add the global scope
         Scope global = new Scope("global");
@@ -166,5 +168,13 @@ public class BasicSemantic {
 
     public void setInMethod(boolean inMethod) {
         this.inMethod = inMethod;
+    }
+
+    public boolean isFoundAReference() {
+        return foundAReference;
+    }
+
+    public void setFoundAReference(boolean foundAReference) {
+        this.foundAReference = foundAReference;
     }
 }
