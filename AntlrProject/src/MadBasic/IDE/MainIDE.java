@@ -1,7 +1,7 @@
 package MadBasic.IDE;
 
 import MadBasic.Quadruples.QuadrupleSemantic;
-import MadBasic.VM.VirtualMemory;
+import MadBasic.VMemory.VirtualMemory;
 import MadBasic.Visitor;
 import MadBasic.Parser;
 import MadBasic.TestingGround;

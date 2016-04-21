@@ -139,8 +139,9 @@ public class Machine {
     }
 
     public boolean proccessQuadruple(Write w){
+        ideConnection = MainIDE.getInstance();
         int dir = vDirectory.get(Operand.getIdString(w.getOutput()));
-        ideConnection.print((String) vMemory.get(dir));
+        ideConnection.print(String.valueOf(vMemory.get(dir)));
         return true;
     }
 

@@ -4,8 +4,8 @@ main:
 vars:
 	int a, b, c, x;
 
-a = 5;
-b = 10;
+a = 999;
+b = 999;
 x = a * b;
 print(x);
 end

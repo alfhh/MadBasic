@@ -29,7 +29,7 @@ public class Operand {
                 res = "t" + ((Temporal) o).getID();
             }
         }
-        return res + " " + o.getType();
+        return res;
     }
 
     public String toString(){
