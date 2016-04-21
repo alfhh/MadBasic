@@ -12,6 +12,8 @@ import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.SemanticCube;
 import MadBasic.Semantic.Types.*;
+import MadBasic.VM.Instance;
+import MadBasic.VM.VirtualMemory;
 import ParserMadBasic.MadBasicBaseVisitor;
 import ParserMadBasic.MadBasicParser;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -28,10 +30,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
     BasicSemantic basicSemantic;
     QuadrupleSemantic quadrupleSemantic;
+    VirtualMemory virtualMemory;
 
     public Visitor() {
         basicSemantic = BasicSemantic.getInstance();
         quadrupleSemantic = QuadrupleSemantic.getInstance();
+        virtualMemory = VirtualMemory.getInstance();
     }
 
 
@@ -163,6 +167,104 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------------------------------------BEGIN VARIABLES
 
     /**
+     * @param var
+     */
+    int insertVDirectory(Variable var) {
+        // INT(0), FLOAT(1), STRING(2), BOOL(3), ARRAY(4), OBJECT(5), FALSE(-1);
+        int res = 0;
+        switch (var.getType().getTypeValue()) {
+            case 0:
+                virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getIntCount());
+                res = virtualMemory.getIntCount();
+                virtualMemory.getvMemory().putIfAbsent(res, 0);
+                virtualMemory.addIntCount();
+                break;
+            case 1:
+                virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getFloatCount());
+                res = virtualMemory.getFloatCount();
+                virtualMemory.getvMemory().putIfAbsent(res, 0.0);
+                virtualMemory.addFloatCount();
+                break;
+            case 2:
+                virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getStringCount());
+                res = virtualMemory.getStringCount();
+                virtualMemory.getvMemory().putIfAbsent(res, "");
+                virtualMemory.addStringCount();
+                break;
+            case 3:
+                virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getBoolCount());
+                res = virtualMemory.getBoolCount();
+                virtualMemory.getvMemory().putIfAbsent(res, false);
+                virtualMemory.addBoolCount();
+                break;
+            case 4:
+                switch (((TypeArray) var.getType()).getType().getTypeValue()) {
+                    case 0:
+                        virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getIntCount());
+                        res = virtualMemory.getIntCount();
+                        virtualMemory.getvMemory().putIfAbsent(res, 0);
+                        virtualMemory.setIntCount(
+                                virtualMemory.getIntCount() + ((TypeArray) var.getType()).getArray().getSize());
+                        break;
+                    case 1:
+                        virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getFloatCount());
+                        res = virtualMemory.getStringCount();
+                        virtualMemory.getvMemory().putIfAbsent(res, 0.0);
+                        virtualMemory.setFloatCount(
+                                virtualMemory.getFloatCount() + ((TypeArray) var.getType()).getArray().getSize());
+                        break;
+                    case 2:
+                        virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getStringCount());
+                        res = virtualMemory.getStringCount();
+                        virtualMemory.getvMemory().putIfAbsent(res, "");
+                        virtualMemory.setStringCount(
+                                virtualMemory.getStringCount() + ((TypeArray) var.getType()).getArray().getSize());
+                        break;
+                    case 3:
+                        virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getBoolCount());
+                        res = virtualMemory.getBoolCount();
+                        virtualMemory.getvMemory().putIfAbsent(res, false);
+                        virtualMemory.setBoolCount(
+                                virtualMemory.getBoolCount() + ((TypeArray) var.getType()).getArray().getSize());
+                        break;
+                }
+                break;
+            case 5:
+                Class clas = ((TypeObject) var.getType()).getClasse();
+                Instance instance = new Instance();
+                while (clas != null) {
+                    for (Variable variable : clas.getScope().getVariableHashMap().values()) {
+                        instance.getvDirectory().putIfAbsent(variable.getID(), insertVDirectory(
+                                new Variable("", variable.getType(), variable.getScope())
+                        ));
+                    }
+                    clas = clas.getParent();
+                }
+                virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getInstanceCount());
+                res = virtualMemory.getInstanceCount();
+                virtualMemory.getvMemory().putIfAbsent(res, instance);
+                virtualMemory.addInstanceCount();
+                break;
+            default:
+                res = -1;
+                break;
+        }
+        return res;
+    }
+
+    /**
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitReference(MadBasicParser.ReferenceContext ctx) {
+        String result = visitChildren(ctx);
+        basicSemantic.setFoundAReference(true);
+        return result;
+    }
+
+    /**
      * @param ctx
      * @return
      */
@@ -198,8 +300,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             if (id.trim().length() > 0) {
                 Variable var = new Variable(id, type, basicSemantic.getScopeStack().peek());
                 basicSemantic.getVariables().add(var);
-                //basicSemantic.getScopeStack().peek().getVariables().add(var);
+                // basicSemantic.getScopeStack().peek().getVariables().add(var);
                 basicSemantic.getScopeStack().peek().addVariable(var);
+                if (!basicSemantic.getClassHashMap().containsKey(var.getScope().getName())
+                        && !basicSemantic.isInMethod()) {
+                    insertVDirectory(var);
+                }
             }
         }
         return result;
@@ -724,6 +830,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Integer>(new Integer(text), new TypeInt()));
         quadrupleSemantic.getOperandSList().add(new Constant<Integer>(new Integer(text), new TypeInt()));
+        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstIntCount()) == null) {
+            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstIntCount(), new Integer(text));
+            virtualMemory.addConstIntCount();
+        }
         return super.visitValueInt(ctx);
     }
 
@@ -738,6 +848,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Float>(new Float(text), new TypeFloat()));
         quadrupleSemantic.getOperandSList().add(new Constant<Float>(new Float(text), new TypeFloat()));
+        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstFloatCount()) == null) {
+            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstFloatCount(), new Float(text));
+            virtualMemory.addConstFloatCount();
+        }
         return super.visitValueFloat(ctx);
     }
 
@@ -750,8 +864,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueString(MadBasicParser.ValueStringContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<String>(new String(text), new TypeString()));
-        quadrupleSemantic.getOperandSList().add(new Constant<String>(new String(text), new TypeString()));
+        quadrupleSemantic.getOperandStack().push(new Constant<String>(text, new TypeString()));
+        quadrupleSemantic.getOperandSList().add(new Constant<String>(text, new TypeString()));
+        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstStringCount()) == null) {
+            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstStringCount(), text);
+            virtualMemory.addConstStringCount();
+        }
         return super.visitValueString(ctx);
     }
 
@@ -766,6 +884,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         String text = ctx.getChild(0).getText();
         quadrupleSemantic.getOperandStack().push(new Constant<Boolean>(new Boolean(text), new TypeBool()));
         quadrupleSemantic.getOperandSList().add(new Constant<Boolean>(new Boolean(text), new TypeBool()));
+        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstBoolCount()) == null) {
+            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstBoolCount(), new Boolean(text));
+            virtualMemory.addConstBoolCount();
+        }
         return super.visitValueBool(ctx);
     }
 
@@ -780,7 +902,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitArgs(MadBasicParser.ArgsContext ctx) {
         String result = visitChildren(ctx);
-        quadrupleSemantic.getArgsStack().push(quadrupleSemantic.getOperandStack().pop());
+        if(basicSemantic.isFoundAReference()){
+            try{
+                Variable var = (Variable) quadrupleSemantic.getOperandStack().pop();
+                var.setByReference(true);
+                basicSemantic.setFoundAReference(false);
+                quadrupleSemantic.getArgsStack().push(var);
+            }catch(ClassCastException e){
+                System.out.println("You can't send constants by reference");
+            }
+        } else {
+            quadrupleSemantic.getArgsStack().push(quadrupleSemantic.getOperandStack().pop());
+        }
         return result;
     }
 
@@ -816,7 +949,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             String[] names = methodName.split("\\.");
 
             Scope scope = basicSemantic.getScopeStack().peek();
-            while (scope != null) {
+            while (scope != null) { // TODO check for deadlock
                 if (scope.getVariableHashMap().containsKey(names[0])) {
                     if (scope.getVariableHashMap().get(names[0]).getScope().getProcedureHashMap().containsKey(names[1])) {
                         method = scope.getVariableHashMap().get(names[0]).getScope().getProcedureHashMap().get(names[1]);
@@ -846,17 +979,17 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 for (int i = 0; i < method.getParams().size(); i++) {
                     Variable var = method.getParams().get(i);
                     Operand oper = quadrupleSemantic.getArgsStack().pop();
-                    if (oper.getType().equals(var.getType())) {
+                    if (oper.getType().equals(var.getType()) && ((Variable) oper).isByReference() == var.isByReference() ) {
                         quadrupleSemantic.getQuadrupleList().add(new Parameter(oper, i));
                     } else {
-                        // TODO: 4/11/16 error
+                        // TODO: 4/11/16 error, explain the actual error
                         System.out.println("Error on call " + ctx.getChild(0).getText());
                     }
                 }
 
                 int jumpback = quadrupleSemantic.getQuadrupleList().size();
                 quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, method));
-                if(method instanceof Function){
+                if (method instanceof Function) {
                     quadrupleSemantic.getOperandSList().add(
                             new Variable(method.getID(), ((Function) method).getType(), method.getScope()));
                     quadrupleSemantic.getOperandStack().push(
@@ -979,6 +1112,15 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      /**/
     //------------------------------------------------------------BEGIN METHODS
 
+
+    @Override
+    public String visitMethod(MadBasicParser.MethodContext ctx) {
+        basicSemantic.setInMethod(true);
+        String res = visitChildren(ctx);
+        basicSemantic.setInMethod(false);
+        return res;
+    }
+
     /**
      * @param ctx
      * @return
@@ -1008,7 +1150,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
 
         basicSemantic.setParamList(new LinkedList<>());
-        Variable variable = new Variable(ctx.getChild(2).getText(), type, basicSemantic.getScopeStack().peek());
+        Variable variable = new Variable(ctx.getChild(2).getText(), type, basicSemantic.getScopeStack().peek(), basicSemantic.isFoundAReference());
+        basicSemantic.setFoundAReference(false);
         basicSemantic.getParamList().add(variable);
 
 
@@ -1178,14 +1321,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     //------------------------------------------------------------END METHODS
-
+    /**/
     //------------------------------------------------------------START RETURN
 
+    /**
+     * @param ctx
+     * @return
+     */
     @Override
     public String visitRetorno(MadBasicParser.RetornoContext ctx) {
-        String result =  visitChildren(ctx);
-        
-        if(basicSemantic.getActualType().equals(quadrupleSemantic.getOperandStack().peek().getType())){
+        String result = visitChildren(ctx);
+
+        if (basicSemantic.getActualType().equals(quadrupleSemantic.getOperandStack().peek().getType())) {
 
             Scope actualScope = basicSemantic.getScopeStack().peek();
             System.out.println("TEST SCOPE NAME: " + actualScope.getName());
@@ -1204,10 +1351,20 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return result;
     }
 
-
     //------------------------------------------------------------END RETURN
+    /**/
+    //------------------------------------------------------------BEGIN MADBASIC
 
+    @Override
+    public String visitMadbasic(MadBasicParser.MadbasicContext ctx) {
+        String res = visitChildren(ctx);
 
+        virtualMemory.setQuadruples(quadrupleSemantic.getQuadrupleList());
+
+        return res;
+    }
+
+    //------------------------------------------------------------END MADBASIC
     /**/
     //------------------------------------------------------------------------------------------END QUADRUPLES
 

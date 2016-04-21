@@ -89,6 +89,14 @@ public class TypeArray extends Type {
             }
         }
 
+        public int getSize(){
+            int size = end - start + 1;
+            if(this.array != null){
+                size *= this.array.getSize();
+            }
+            return  size;
+        }
+
         @Override
         public String toString() {
             String sArray = "";

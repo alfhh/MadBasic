@@ -31,6 +31,12 @@ class Bbb parent Aaa {
 		bool isMultiple(int w, int z) {
 			return (w == ((w / z) * z));
 		}
+
+		void test(){
+            vars:
+                int a;
+                a = 0;
+		}
 }
 
 
@@ -67,6 +73,10 @@ methods:
 		return res;
     }
 
+    void testReference(int ~x, int y){
+        x = y * 2;
+    }
+
     void printline(string s) {
         print(s ^ "\n" ^ "test");
     }
@@ -79,7 +89,7 @@ vars:
 	string str;
 	Bbb bbb;
 	Aaa aaa;
-
+xi = 44;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
 b = true;
@@ -90,5 +100,7 @@ if(bo){
 xi = findx(yi, lint);
 str = read;
 printline(str);
-x = aaa.c;
+a = 7;
+d = 3;
+testReference(~a, d);
 end

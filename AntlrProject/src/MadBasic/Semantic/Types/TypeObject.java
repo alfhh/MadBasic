@@ -19,6 +19,14 @@ public class TypeObject extends Type{
         this.classe = classe;
     }
 
+    public Class getClasse() {
+        return classe;
+    }
+
+    public void setClasse(Class classe) {
+        this.classe = classe;
+    }
+
     @Override
     public String toString() {
         String classStr = "";

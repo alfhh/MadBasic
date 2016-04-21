@@ -9,6 +9,7 @@ import MadBasic.Semantic.Types.Type;
 public class Variable extends Operand {
     String ID;
     Scope scope;
+    boolean isByReference;
 
     public Variable(String ID, Type type, Scope scope) {
         this.ID = ID;
@@ -16,6 +17,12 @@ public class Variable extends Operand {
         this.scope = scope;
     }
 
+    public Variable(String ID, Type type, Scope scope, boolean reference) {
+        this.ID = ID;
+        this.type = type;
+        this.scope = scope;
+        this.isByReference = reference;
+    }
     public String getID() {
         return ID;
     }
@@ -30,6 +37,14 @@ public class Variable extends Operand {
 
     public void setScope(Scope scope) {
         this.scope = scope;
+    }
+
+    public boolean isByReference() {
+        return isByReference;
+    }
+
+    public void setByReference(boolean byReference) {
+        isByReference = byReference;
     }
 
     @Override
