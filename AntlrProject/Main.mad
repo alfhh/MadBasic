@@ -1,6 +1,5 @@
 program example;
 
-
 vars:
     int z;
 
