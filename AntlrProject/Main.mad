@@ -23,7 +23,6 @@ class Bbb parent Aaa {
 	vars:
 		int cc, d;
 		float dd;
-		int[0,10] bb;
 
 	init(int x){
 		cc = d;
@@ -92,7 +91,6 @@ vars:
 	string str;
 	Bbb bbb;
 	Aaa aaa;
-	Bbb[0,10] ccc;
 xi = 44;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
@@ -111,6 +109,5 @@ x = aaa.b;
 printline(str);
 x = lint[xi][0][aaa.c];
 x = bbb.d;
-x = ccc.bb[0];
 fl = fla[0];
 end

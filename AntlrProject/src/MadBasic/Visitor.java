@@ -934,7 +934,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitSsExp(MadBasicParser.SsExpContext ctx) {
         String result = "";
 
-        if(basicSemantic.isDot()) {
+        if (basicSemantic.isDot()) {
             basicSemantic.setArrayandDot(false);
         } else {
             basicSemantic.setArray(false);
@@ -961,7 +961,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             result = this.aggregateResult(result, childResult);
         }
 
-        if(basicSemantic.isDot()) {
+        if (basicSemantic.isDot()) {
             basicSemantic.setArrayandDot(true);
         } else {
             basicSemantic.setArray(true);
@@ -1016,13 +1016,15 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 if (scope.getVariableHashMap().containsKey(names[0])) {
                     names[1] = names[1].split("\\[")[0];
                     if (basicSemantic.isArray()) {
-                        if(((TypeObject)((TypeArray)arrObj.getType()).getType()).
-                                getClasse().getScope().getVariableHashMap().containsKey(names[1])){
+                        if (((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+                                getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
                             Variable var =
-                                    ((TypeObject)((TypeArray)arrObj.getType()).getType()).
+                                    ((TypeObject) ((TypeArray) arrObj.getType()).getType()).
                                             getClasse().getScope().getVariableHashMap().get(names[1]);
                             if (!basicSemantic.isArrayandDot()) {
-                                var.setID(Operand.getIdString(quadrupleSemantic.getOperandStack().pop()) + "." + var.getID());
+                                var = new Variable(
+                                        Operand.getIdString(quadrupleSemantic.getOperandStack().pop())
+                                                + "." + var.getID(), var.getType(), var.getScope());
                                 quadrupleSemantic.getOperandStack().push(var);
                                 quadrupleSemantic.getOperandSList().add(var);
                             } else {
@@ -1033,13 +1035,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                             found = true;
                         }
                         basicSemantic.setArray(false);
-                    } else if ( ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
+                    } else if (((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
                             .getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
                         Variable var =
                                 ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
                                         .getClasse().getScope().getVariableHashMap().get(names[1]);
                         if (!basicSemantic.isArrayandDot()) {
-                            var.setID(names[0] + "." + var.getID());
+                            var = new Variable(names[0] + "." + var.getID(), var.getType(), var.getScope());
                             quadrupleSemantic.getOperandStack().push(var);
                             quadrupleSemantic.getOperandSList().add(var);
                         } else {
