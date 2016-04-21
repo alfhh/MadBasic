@@ -6,6 +6,6 @@ vars:
 
 a = 5;
 b = 10;
-x = a + b;
+x = a * b;
 print(x);
 end

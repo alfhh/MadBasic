@@ -1,6 +1,7 @@
 package MadBasic.IDE;
 
 import MadBasic.Quadruples.QuadrupleSemantic;
+import MadBasic.VM.VirtualMemory;
 import MadBasic.Visitor;
 import MadBasic.Parser;
 import MadBasic.TestingGround;
@@ -170,7 +171,12 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
                 tester.testManager(selectedTests);
 
-                myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList());
+                myMachine = Machine.getInstance();
+
+                // Send actual values to the VMachine
+                myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList(),
+                        VirtualMemory.getInstance().getvDirectory(),
+                        VirtualMemory.getInstance().getvMemory());
 
             } else {
                 JOptionPane.showMessageDialog(null,
@@ -181,8 +187,11 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         }
 
         if(e.getSource() == miRun){
-            myMachine = Machine.getInstance();
-            myMachine.run();
+            if(myMachine.run()){
+                print("Program successfully finished");
+            } else{
+                printError("Program not compiled");
+            }
         }
 
     }
