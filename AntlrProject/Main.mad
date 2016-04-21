@@ -111,6 +111,6 @@ x = aaa.b;
 printline(str);
 x = lint[xi][0][aaa.c];
 x = bbb.d;
-x = ccc[0].cc;
+x = ccc.bb[0];
 fl = fla[0];
 end

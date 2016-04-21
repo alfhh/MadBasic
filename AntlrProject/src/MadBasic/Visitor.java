@@ -934,7 +934,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitSsExp(MadBasicParser.SsExpContext ctx) {
         String result = "";
 
-        basicSemantic.setArray(false);
+        if(basicSemantic.isDot()) {
+            basicSemantic.setArrayandDot(false);
+        } else {
+            basicSemantic.setArray(false);
+        }
 
         int cbracket = 3;
         for (int i = 0; i < cbracket && this.shouldVisitNextChild(ctx, null); ++i) {
@@ -957,7 +961,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             result = this.aggregateResult(result, childResult);
         }
 
-        basicSemantic.setArray(true);
+        if(basicSemantic.isDot()) {
+            basicSemantic.setArrayandDot(true);
+        } else {
+            basicSemantic.setArray(true);
+        }
 
         return result;
     }
@@ -990,12 +998,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             String text = ctx.getChild(0).getText();
             String[] names = text.split("\\.");
             Scope scope = basicSemantic.getScopeStack().peek();
+            Variable arrObj = new Variable(null, null, null);
             if (basicSemantic.isArray()) {
                 names[0] = names[0].split("\\[")[0];
                 while (scope != null && !found) {
                     if (scope.getVariableHashMap().containsKey(names[0])) {
-                        Variable var = scope.getVariableHashMap().get(names[0]);
-                        processArray(var);
+                        arrObj = scope.getVariableHashMap().get(names[0]);
+                        processArray(arrObj);
                     }
                     if (!found) {
                         scope = scope.getParent();
@@ -1007,11 +1016,24 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 if (scope.getVariableHashMap().containsKey(names[0])) {
                     names[1] = names[1].split("\\[")[0];
                     if (basicSemantic.isArray()) {
-                        if(virtualMemory.getvDirectory().get(names[0]) != null){
-
+                        if(((TypeObject)((TypeArray)arrObj.getType()).getType()).
+                                getClasse().getScope().getVariableHashMap().containsKey(names[1])){
+                            Variable var =
+                                    ((TypeObject)((TypeArray)arrObj.getType()).getType()).
+                                            getClasse().getScope().getVariableHashMap().get(names[1]);
+                            if (!basicSemantic.isArrayandDot()) {
+                                var.setID(Operand.getIdString(quadrupleSemantic.getOperandStack().pop()) + "." + var.getID());
+                                quadrupleSemantic.getOperandStack().push(var);
+                                quadrupleSemantic.getOperandSList().add(var);
+                            } else {
+                                System.out.println(var);
+                                processArray(var);
+                                basicSemantic.setArrayandDot(false);
+                            }
+                            found = true;
                         }
                         basicSemantic.setArray(false);
-                    } else if (((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
+                    } else if ( ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
                             .getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
                         Variable var =
                                 ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
