@@ -472,22 +472,129 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitAssignment(MadBasicParser.AssignmentContext ctx) {
         String res = null;
+
+        ParseTree c = ctx.getChild(0);
+        String childResult = c.accept(this);
+        res = this.aggregateResult(res, childResult);
+
         String text = ctx.getChild(0).getText();
         boolean found = false;
-        Scope scope = basicSemantic.getScopeStack().peek();
-        while (scope != null && !found) {
-            if (scope.getVariableHashMap().containsKey(text)) {
-                quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
-                res = visitChildren(ctx);
-                Operand oper = quadrupleSemantic.getOperandStack().pop();
-                quadrupleSemantic.getOperandStack().pop();
-                // TODO: 4/20/16 semanticCube
-                quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, scope.getVariableHashMap().get(text)));
-                found = true;
-                break;
+        if (basicSemantic.isDot()) {
+            basicSemantic.setDot(false);
+            String[] names = text.split("\\.");
+            Scope scope = basicSemantic.getScopeStack().peek();
+            Variable arrObj = new Variable(null, null, null);
+            if (basicSemantic.isArray()) {
+                names[0] = names[0].split("\\[")[0];
+                while (scope != null && !found) {
+                    if (scope.getVariableHashMap().containsKey(names[0])) {
+                        arrObj = scope.getVariableHashMap().get(names[0]);
+                        processArray(arrObj);
+                    }
+                    if (!found) {
+                        scope = scope.getParent();
+                    }
+                }
             }
-            if (!found) {
-                scope = scope.getParent();
+            scope = basicSemantic.getScopeStack().peek();
+            while (scope != null && !found) {
+                if (scope.getVariableHashMap().containsKey(names[0])) {
+                    names[1] = names[1].split("\\[")[0];
+                    if (basicSemantic.isArray()) {
+                        if (((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+                                getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
+                            Variable var =
+                                    ((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+                                            getClasse().getScope().getVariableHashMap().get(names[1]);
+                            if (!basicSemantic.isArrayandDot()) {
+                                var = new Variable(
+                                        Operand.getIdString(quadrupleSemantic.getOperandStack().pop())
+                                                + "." + var.getID(), var.getType(), var.getScope());
+                                quadrupleSemantic.getOperandStack().push(var);
+                                int n = ctx.getChildCount();
+                                for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                                    c = ctx.getChild(i);
+                                    childResult = c.accept(this);
+                                    res = this.aggregateResult(res, childResult);
+                                }
+                                Operand oper = quadrupleSemantic.getOperandStack().pop();
+                                quadrupleSemantic.getOperandStack().pop();
+                                // TODO: 4/20/16 semanticCube
+                                quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, var));
+                            } else {
+                                System.out.println(var);
+                                processArray(var);
+                                basicSemantic.setArrayandDot(false);
+                            }
+                            found = true;
+                        }
+                        basicSemantic.setArray(false);
+                    } else if (((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
+                            .getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
+                        Variable var =
+                                ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
+                                        .getClasse().getScope().getVariableHashMap().get(names[1]);
+                        if (!basicSemantic.isArrayandDot()) {
+                            var = new Variable(names[0] + "." + var.getID(), var.getType(), var.getScope());
+                            quadrupleSemantic.getOperandStack().push(var);
+                            int n = ctx.getChildCount();
+                            for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                                c = ctx.getChild(i);
+                                childResult = c.accept(this);
+                                res = this.aggregateResult(res, childResult);
+                            }
+                            Operand oper = quadrupleSemantic.getOperandStack().pop();
+                            quadrupleSemantic.getOperandStack().pop();
+                            // TODO: 4/20/16 semanticCube
+                            quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, var));
+                        } else {
+                            processArray(var);
+                            basicSemantic.setArrayandDot(false);
+                        }
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    scope = scope.getParent();
+                }
+            }
+        } else {
+            text = text.split("\\[")[0];
+            Scope scope = basicSemantic.getScopeStack().peek();
+            while (scope != null && !found) {
+                if (scope.getVariableHashMap().containsKey(text)) {
+                    if (!basicSemantic.isArray()) {
+                        quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
+                        int n = ctx.getChildCount();
+                        for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                            c = ctx.getChild(i);
+                            childResult = c.accept(this);
+                            res = this.aggregateResult(res, childResult);
+                        }
+                        Operand oper = quadrupleSemantic.getOperandStack().pop();
+                        quadrupleSemantic.getOperandStack().pop();
+                        // TODO: 4/20/16 semanticCube
+                        quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, scope.getVariableHashMap().get(text)));
+                        found = true;
+                    } else {
+                        processArray(scope.getVariableHashMap().get(text));
+                        basicSemantic.setArray(false);
+                        int n = ctx.getChildCount();
+                        for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                            c = ctx.getChild(i);
+                            childResult = c.accept(this);
+                            res = this.aggregateResult(res, childResult);
+                        }
+                        Operand oper = quadrupleSemantic.getOperandStack().pop();
+                        Operand equal = quadrupleSemantic.getOperandStack().pop();
+                        // TODO: 4/20/16 semanticCube
+                        quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, equal));
+                    }
+                    break;
+                }
+                if (!found) {
+                    scope = scope.getParent();
+                }
             }
         }
 
@@ -1380,7 +1487,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      /**/
     //------------------------------------------------------------BEGIN METHODS
 
-
+    /**
+     * @param ctx
+     * @return
+     */
     @Override
     public String visitMethod(MadBasicParser.MethodContext ctx) {
         basicSemantic.setInMethod(true);
