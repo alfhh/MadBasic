@@ -8,11 +8,10 @@ import MadBasic.Semantic.BasicSemantic;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.SemanticCube;
-import MadBasic.VM.Instance;
-import MadBasic.VM.VirtualMemory;
+import MadBasic.VMemory.Instance;
+import MadBasic.VMemory.VirtualMemory;
 
-import java.util.Arrays;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by ahinojosa on 7/04/16.
@@ -45,14 +44,26 @@ public class TestingGround {
         }
         System.out.println();
         System.out.println("Directorio de variables");
-        for (String key : virtualMemory.getvDirectory().keySet()) {
-            Integer value = virtualMemory.getvDirectory().get(key);
+        Collection<Integer> valuess = virtualMemory.getvDirectory().values();
+        Object[] values = valuess.toArray();
+        Arrays.sort(values);
+        for (Object value : values) {
+            Object keys[] = virtualMemory.getvDirectory().keySet().toArray();
+            Object key = "";
+            for (int i = 0; i < keys.length; i++) {
+                if(value == virtualMemory.getvDirectory().get(keys[i])){
+                    key = keys[i];
+                    break;
+                }
+            }
             System.out.println(key + ": " + value);
-            if (value < 1000) {
+            if ((Integer)value < 1000) {
+                System.out.println("Begin Obj---------------------------");
                 for (String k : ((Instance) virtualMemory.getvMemory().get(value)).getvDirectory().keySet()) {
                     Integer v = ((Instance) virtualMemory.getvMemory().get(value)).getvDirectory().get(k);
                     System.out.println(k + ": " + v);
                 }
+                System.out.println("End Obj--------------------------");
             }
         }
         System.out.println();

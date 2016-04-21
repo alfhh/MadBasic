@@ -7,10 +7,18 @@ import MadBasic.Semantic.Types.Type;
  */
 public class Temporal extends Operand {
     int ID;
+    boolean pointer;
 
     public Temporal(int ID, Type type) {
         this.ID = ID;
         this.type = type;
+        this.pointer = false;
+    }
+
+    public Temporal(int ID, Type type, boolean pointer) {
+        this.ID = ID;
+        this.type = type;
+        this.pointer = pointer;
     }
 
     public int getID() {
@@ -27,6 +35,14 @@ public class Temporal extends Operand {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public boolean isPointer() {
+        return pointer;
+    }
+
+    public void setPointer(boolean pointer) {
+        this.pointer = pointer;
     }
 
     @Override

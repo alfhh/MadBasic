@@ -628,13 +628,25 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSs(MadBasicParser.SsContext ctx) { }
+	@Override public void enterSsExp(MadBasicParser.SsExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSs(MadBasicParser.SsContext ctx) { }
+	@Override public void exitSsExp(MadBasicParser.SsExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSsEmpty(MadBasicParser.SsEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSsEmpty(MadBasicParser.SsEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

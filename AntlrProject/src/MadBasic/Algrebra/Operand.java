@@ -23,9 +23,13 @@ public class Operand {
         } else if(o instanceof Constant){
             res = ((Constant) o).getValue().toString();
         } else {
-            res = "t" + ((Temporal) o).getID();
+            if (((Temporal) o).isPointer()){
+                res = "(t" + ((Temporal) o).getID() + ")";
+            } else {
+                res = "t" + ((Temporal) o).getID();
+            }
         }
-        return res;
+        return res + " " + o.getType();
     }
 
     public String toString(){

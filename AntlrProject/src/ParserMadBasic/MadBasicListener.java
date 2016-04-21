@@ -552,15 +552,29 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitSEmpty(MadBasicParser.SEmptyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MadBasicParser#ss}.
+	 * Enter a parse tree produced by the {@code ssExp}
+	 * labeled alternative in {@link MadBasicParser#ss}.
 	 * @param ctx the parse tree
 	 */
-	void enterSs(MadBasicParser.SsContext ctx);
+	void enterSsExp(MadBasicParser.SsExpContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MadBasicParser#ss}.
+	 * Exit a parse tree produced by the {@code ssExp}
+	 * labeled alternative in {@link MadBasicParser#ss}.
 	 * @param ctx the parse tree
 	 */
-	void exitSs(MadBasicParser.SsContext ctx);
+	void exitSsExp(MadBasicParser.SsExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ssEmpty}
+	 * labeled alternative in {@link MadBasicParser#ss}.
+	 * @param ctx the parse tree
+	 */
+	void enterSsEmpty(MadBasicParser.SsEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ssEmpty}
+	 * labeled alternative in {@link MadBasicParser#ss}.
+	 * @param ctx the parse tree
+	 */
+	void exitSsEmpty(MadBasicParser.SsEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MadBasicParser#expression}.
 	 * @param ctx the parse tree
