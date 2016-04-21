@@ -22,6 +22,7 @@ class Bbb parent Aaa {
 	vars:
 		int cc, d;
 		float dd;
+		int[0,10] bb;
 
 	init(int x){
 		cc = d;
@@ -45,7 +46,7 @@ vars:
 	float f;
 	string s;
 	bool b;
-	int[0,5][-1,1][0,3] lint;
+	int[2,4][0,2][1,6] lint;
 
 methods:
 	int findx(int x, int[][][] lx) {
@@ -85,10 +86,12 @@ main:
 vars:
 	int xi, yi, a, c, d;
 	float fl, xd;
+	float[0,1] fla;
 	bool bo;
 	string str;
 	Bbb bbb;
 	Aaa aaa;
+	Bbb[0,10] ccc;
 xi = 44;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
@@ -103,4 +106,10 @@ printline(str);
 a = 7;
 d = 3;
 testReference(~a, d);
+x = aaa.b;
+printline(str);
+x = lint[xi][0][aaa.c];
+x = bbb.d;
+x = ccc[0].cc;
+fl = fla[0];
 end

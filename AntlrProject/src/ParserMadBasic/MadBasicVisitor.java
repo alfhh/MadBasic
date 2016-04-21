@@ -334,11 +334,19 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSEmpty(MadBasicParser.SEmptyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MadBasicParser#ss}.
+	 * Visit a parse tree produced by the {@code ssExp}
+	 * labeled alternative in {@link MadBasicParser#ss}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSs(MadBasicParser.SsContext ctx);
+	T visitSsExp(MadBasicParser.SsExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ssEmpty}
+	 * labeled alternative in {@link MadBasicParser#ss}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSsEmpty(MadBasicParser.SsEmptyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MadBasicParser#expression}.
 	 * @param ctx the parse tree

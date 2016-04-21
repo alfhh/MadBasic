@@ -1,4 +1,4 @@
-package MadBasic.VM;
+package MadBasic.VMemory;
 
 import MadBasic.Quadruples.Quadruple;
 

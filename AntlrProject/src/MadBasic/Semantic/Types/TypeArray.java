@@ -46,10 +46,14 @@ public class TypeArray extends Type {
         int start;
         int end;
         Array array;
+        int m;
+        int k;
 
         public Array(int start, int end) {
             this.start = start;
             this.end = end;
+            m = 1;
+            k = start;
         }
 
         public int getStart() {
@@ -72,12 +76,22 @@ public class TypeArray extends Type {
             return array;
         }
 
+        public Array getArray(int n) {
+            if(n <= 0) {
+                return this;
+            }else{
+                return array.getArray(n-1);
+            }
+        }
+
         public void setArray(Array array) {
             if (this.array == null) {
                 this.array = array;
             } else {
                 this.array.setArray(array);
             }
+            m = this.array.getSize();
+            k = this.start * this.m + this.array.getK();
         }
 
         public int getDepth(){
@@ -95,6 +109,26 @@ public class TypeArray extends Type {
                 size *= this.array.getSize();
             }
             return  size;
+        }
+
+        public int getDim(){
+            return end - start + 1;
+        }
+
+        public int getM() {
+            return m;
+        }
+
+        public void setM(int m) {
+            this.m = m;
+        }
+
+        public int getK() {
+            return k;
+        }
+
+        public void setK(int k) {
+            this.k = k;
         }
 
         @Override

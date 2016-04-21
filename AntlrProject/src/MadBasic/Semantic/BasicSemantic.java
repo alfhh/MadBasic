@@ -1,11 +1,13 @@
 package MadBasic.Semantic;
 
+import MadBasic.Algrebra.Operand;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Types.Type;
 import MadBasic.Semantic.Types.TypeFalse;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -15,8 +17,7 @@ import java.util.Stack;
 public class BasicSemantic {
 
     private static BasicSemantic instance;
-
-
+    
     LinkedList<Procedure> procedures;
     LinkedList<Variable> variables;
     LinkedList<Scope> scopes;
@@ -24,6 +25,7 @@ public class BasicSemantic {
     Stack<Type> typeStack;
     LinkedList<Variable> paramList;
     HashMap<String, Class> classHashMap;
+    LinkedList<Operand> arrayIndexList;
     boolean params;
     boolean hasParent;
     String parent;
@@ -31,6 +33,8 @@ public class BasicSemantic {
     Type quickTypeSearch;
     boolean inMethod;
     boolean foundAReference;
+    boolean isArray;
+    boolean isArrayandDot;
 
     private BasicSemantic() {
         procedures = new LinkedList<>();
@@ -45,6 +49,9 @@ public class BasicSemantic {
         dot = false;
         inMethod = false;
         foundAReference = false;
+        arrayIndexList = new LinkedList<>();
+        isArray = false;
+        isArrayandDot = false;
 
         // Add the global scope
         Scope global = new Scope("global");
@@ -176,5 +183,29 @@ public class BasicSemantic {
 
     public void setFoundAReference(boolean foundAReference) {
         this.foundAReference = foundAReference;
+    }
+
+    public LinkedList<Operand> getArrayIndexList() {
+        return arrayIndexList;
+    }
+
+    public void setArrayIndexList(LinkedList<Operand> arrayIndexList) {
+        this.arrayIndexList = arrayIndexList;
+    }
+
+    public boolean isArray() {
+        return isArray;
+    }
+
+    public void setArray(boolean array) {
+        isArray = array;
+    }
+
+    public boolean isArrayandDot() {
+        return isArrayandDot;
+    }
+
+    public void setArrayandDot(boolean arrayandDot) {
+        isArrayandDot = arrayandDot;
     }
 }
