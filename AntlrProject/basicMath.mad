@@ -1,0 +1,11 @@
+program basicMath;
+
+main:
+vars:
+	int a, b, c, x;
+
+a = 5;
+b = 10;
+x = a + b;
+print(x);
+end

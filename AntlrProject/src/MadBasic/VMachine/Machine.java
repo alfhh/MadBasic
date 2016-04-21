@@ -1,6 +1,9 @@
 package MadBasic.VMachine;
 
 import MadBasic.IDE.MainIDE;
+import MadBasic.Quadruples.Quadruple;
+
+import java.util.LinkedList;
 
 /**
  * Created by ahinojosa on 20/04/16.
@@ -22,6 +25,11 @@ public class Machine {
         return instance;
     }
 
+    public void getCompiledData(LinkedList<Quadruple> quadruples){
+
+    }
+
     public void run(){
+
     }
 }

@@ -1,5 +1,6 @@
 package MadBasic.IDE;
 
+import MadBasic.Quadruples.QuadrupleSemantic;
 import MadBasic.Visitor;
 import MadBasic.Parser;
 import MadBasic.TestingGround;
@@ -16,7 +17,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
- * Created by lsanchez on 3/9/16.
+ * Created by ahinojosa on 4/17/16.
  */
 public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
@@ -64,7 +65,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         // Components of Build menu
         miCompile = new JMenuItem("Compile");
         miRun = new JMenuItem("Run");
-        miRunCompile = new JMenuItem("Run and Compile");
+        miRunCompile = new JMenuItem("Compile and Run");
         build.add(miCompile);
         build.add(miRun);
         build.add(miRunCompile);
@@ -100,7 +101,6 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         editorArea = new RSyntaxTextArea(30, 90);
         editorArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         editorArea.setCodeFoldingEnabled(true);
-        editorArea.setEditable(false);
 
         // Scrolling enabled for editor
         RTextScrollPane sp = new RTextScrollPane(editorArea);
@@ -109,6 +109,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         // ---------------------------------------------- RSyntaxTextArea
 
         jConsole = new JTextArea(12, 69);
+        jConsole.setEditable(false);
         thePanel.add(jConsole);
 
         this.add(thePanel);
@@ -168,6 +169,8 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
                 };
 
                 tester.testManager(selectedTests);
+
+                myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList());
 
             } else {
                 JOptionPane.showMessageDialog(null,

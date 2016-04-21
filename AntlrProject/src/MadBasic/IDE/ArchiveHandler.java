@@ -8,8 +8,7 @@ import java.io.*;
  */
 public class ArchiveHandler {
 
-    File actualFile;
-
+    File actualFile; // This variable holds an instance of File that corresponds to the last saved document on the IDE
 
     public ArchiveHandler(){
         this.actualFile = null;
@@ -29,7 +28,6 @@ public class ArchiveHandler {
 
     /**
      * This procedure saves a file to disk with the actual text of the text editor
-     *
      * @param editorData
      */
     public void saveFile(String editorData){
