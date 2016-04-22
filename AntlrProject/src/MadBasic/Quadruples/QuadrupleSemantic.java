@@ -38,6 +38,10 @@ public class QuadrupleSemantic {
         return instance;
     }
 
+    public static void resetInstance(){
+        instance = new QuadrupleSemantic();
+    }
+
     public Stack<Operator> getOperatorStack() {
         return operatorStack;
     }

@@ -4,13 +4,25 @@ main:
 vars:
 	int a, b, c, d, x, y;
 
-a = 5;
-b = 10;
-c = 4;
-d = 2;
-y = c / d;
-x = a * b;
-print(x);
-print(y);
-print("Hello world!");
+print("--------------------- Basics");
+	a = 5;
+	b = 10;
+	c = 4;
+	d = 2;
+	y = c / d;
+	x = a * b;
+	a = 34 + 20 + 10 * 2 - 4;
+	print(x);
+	print(y);
+	print("Hello world Lowes!");
+	print(a);
+print("--------------------- Basics");
+
+print("------------- Advanced print");
+	print(5+3);
+	print(40*11);
+	print(3.5 + 1.5);
+	print("Mad" ^ "Basic");
+print("------------- Advanced print");
+
 end

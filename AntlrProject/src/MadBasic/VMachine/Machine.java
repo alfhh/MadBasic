@@ -118,7 +118,7 @@ public class Machine {
         }
     }
 
-    public boolean proccessQuadruple(Expression e){
+    public boolean arithmeticExpression(Expression e){
         int dirOp1 = vDirectory.get(Operand.getIdString(e.getOperand1())); // Operand 1
         int dirOp2 = vDirectory.get(Operand.getIdString(e.getOperand2())); //Operand 2
         int tempDir = vDirectory.get(Operand.getIdString(e.getResult())); // Result
@@ -162,6 +162,29 @@ public class Machine {
 
             // Math round to just get the integer part
             vMemory.put(tempDir, doArithmeticOperation(operatorCode, x, y));
+        }
+
+        return true;
+    }
+
+    public boolean stringConcatExpression(Expression e){
+        int dirOp1 = vDirectory.get(Operand.getIdString(e.getOperand1())); // Operand 1
+        int dirOp2 = vDirectory.get(Operand.getIdString(e.getOperand2())); //Operand 2
+        int tempDir = vDirectory.get(Operand.getIdString(e.getResult())); // Result
+
+        String x = String.valueOf(vMemory.get(dirOp1));
+        String y = String.valueOf(vMemory.get(dirOp2));
+
+        vMemory.put(tempDir, y + x);
+
+        return true;
+    }
+
+    public boolean proccessQuadruple(Expression e){
+        if(e.getOper().getValue() == 4){ // String concatenation
+            stringConcatExpression(e);
+        } else {
+            arithmeticExpression(e);
         }
 
         return true;

@@ -69,6 +69,10 @@ public class BasicSemantic {
         return instance;
     }
 
+    public static void resetInstance(){
+        instance = new BasicSemantic();
+    }
+
     public LinkedList<Procedure> getProcedures() {
         return procedures;
     }

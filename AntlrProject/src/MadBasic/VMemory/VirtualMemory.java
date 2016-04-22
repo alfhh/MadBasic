@@ -54,6 +54,10 @@ public class VirtualMemory {
         return instance;
     }
 
+    public static void resetInstance(){
+        instance = new VirtualMemory();
+    }
+
     public LinkedList<Quadruple> getQuadruples() {
         return quadruples;
     }

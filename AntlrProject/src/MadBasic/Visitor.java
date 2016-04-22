@@ -33,6 +33,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     VirtualMemory virtualMemory;
 
     public Visitor() {
+        // All instances are cleared
+        BasicSemantic.resetInstance();
+        QuadrupleSemantic.resetInstance();
+        VirtualMemory.resetInstance();
+
         basicSemantic = BasicSemantic.getInstance();
         quadrupleSemantic = QuadrupleSemantic.getInstance();
         virtualMemory = VirtualMemory.getInstance();

@@ -97,6 +97,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         miCompile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, Event.CTRL_MASK));
         miRun.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, Event.CTRL_MASK));
         miRunCompile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, Event.CTRL_MASK));
+        miCloseApp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK));
 
         // Add all the menu to the menu bar
         menuBarOptions.add(file);
@@ -120,7 +121,15 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
         jConsole = new JTextArea(12, 69);
         jConsole.setEditable(false);
+        jConsole.setLineWrap(true);
+        jConsole.setWrapStyleWord(true);
         thePanel.add(jConsole);
+
+        JScrollPane scrollbar1 = new JScrollPane(jConsole, JScrollPane.
+                VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+
+        thePanel.add(scrollbar1);
 
         this.add(thePanel);
         this.setVisible(true);
@@ -164,7 +173,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
                 ParseTree tree = null;
 
                 try {
-                    tree = Parser.parse(archiveHandler.getActualFile().getName(), "MadBasic", "madbasic");
+                    tree = Parser.parse(archiveHandler.getActualFile().getAbsolutePath(), "MadBasic", "madbasic");
                     new Visitor().visit(tree);
                 } catch (IOException error) {
                     error.printStackTrace();
@@ -197,10 +206,17 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         }
 
         if(e.getSource() == miRun){
-            if(myMachine.run()){
-                print("Program successfully finished");
-            } else{
-                printError("Program not compiled");
+            if(archiveHandler.getActualFile() != null){
+                jConsole.setText("");
+                if(myMachine.run()){
+                    print("Program successfully finished");
+                } else{
+                    printError("Program not compiled");
+                }
+            } else { // TODO: 22/04/16 Add compilationg succesful flag
+                JOptionPane.showMessageDialog(null,
+                        "\nCompile file first",
+                        "Error",JOptionPane.WARNING_MESSAGE);
             }
         }
 
