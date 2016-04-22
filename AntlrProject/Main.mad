@@ -116,4 +116,5 @@ fla[1] = fl;
 fla[0] = fla[1];
 i = j * i;
 lint[i+j][j][j+1] = i + j;
+print("Hello" ^ "World" ^ x);
 end

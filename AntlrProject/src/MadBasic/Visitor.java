@@ -526,7 +526,6 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                                 processArray(var);
                                 basicSemantic.setArrayandDot(false);
                             }
-                            found = true;
                         }
                         basicSemantic.setArray(false);
                     } else if (((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
@@ -551,8 +550,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                             processArray(var);
                             basicSemantic.setArrayandDot(false);
                         }
-                        found = true;
                     }
+                    found = true;
                 }
                 if (!found) {
                     scope = scope.getParent();
@@ -590,7 +589,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                         // TODO: 4/20/16 semanticCube
                         quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, equal));
                     }
-                    break;
+                    found = true;
                 }
                 if (!found) {
                     scope = scope.getParent();
@@ -599,7 +598,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
 
         if (!found) {
-            System.out.println("Error, Identifier: " + text + " not found!");
+            System.out.println("Error, Identifier: " + text + " not found3!");
         }
         return res;
     }
@@ -637,6 +636,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return res;
     }
 
+    boolean isPrimitive(Type type) {
+        return !((type instanceof TypeObject)
+                || (type instanceof TypeArray)
+                || (type instanceof TypeList));
+    }
+
     /**
      * @param ctx
      * @return
@@ -649,11 +654,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
 
         //Check the semantic cube
-        Type resT = SemanticCube.getCubeType(op1.getType().getTypeValue(), op2.getType().getTypeValue(), Operator.CARET.getValue());
+//        Type resT = SemanticCube.getCubeType(op1.getType().getTypeValue(), op2.getType().getTypeValue(), Operator.CARET.getValue());
 
         //agregar cuadruplo
-        if (!(resT instanceof TypeFalse)) {
-            Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), resT);
+        if (isPrimitive(op1.getType()) && isPrimitive(op1.getType())) {
+            Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeString());
             insertTempVDirectory(temp);
             quadrupleSemantic.getQuadrupleList().add(
                     new Expression(
@@ -1163,7 +1168,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 }
             }
             if (!found) {
-                System.out.println("Error, Identifier: " + text + " not found!");
+                System.out.println("Error, Identifier: " + text + " not found1!");
             }
             basicSemantic.setDot(false);
 
@@ -1187,7 +1192,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 }
             }
             if (!found) {
-                System.out.println("Error, Identifier: " + text + " not found!");
+                System.out.println("Error, Identifier: " + text + " not found2!");
             }
         }
         return result;
