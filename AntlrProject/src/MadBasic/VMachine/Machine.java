@@ -89,6 +89,7 @@ public class Machine {
      * @return
      */
     public boolean proccessQuadruple(Assignment a){
+        // TODO: 21/04/16 CHECK SPECIAL CASE OF BY REFERENCE
         int dirValue = vDirectory.get(Operand.getIdString(a.getValue()));
         Object value = vMemory.get(dirValue);
 
@@ -98,25 +99,69 @@ public class Machine {
         return true;
     }
 
-    public boolean proccessQuadruple(Expression e){
-        int operatorCode = e.getOper().ordinal();
-
-        // Operand 1
-        int dirOp1 = vDirectory.get(Operand.getIdString(e.getOperand1()));
-
-        //Operand 2
-        int dirOp2 = vDirectory.get(Operand.getIdString(e.getOperand2()));
-
-        // Result
-        int tempDir = vDirectory.get(Operand.getIdString(e.getResult()));
-
+    public float doArithmeticOperation(int operatorCode, float x, float y){
         switch (operatorCode){
+            case 8: // +
+                return x + y;
+
+            case 9: // -
+                return  y - x;
 
             case 10: // *
-                int x = (int) vMemory.get(dirOp1);
-                int y = (int) vMemory.get(dirOp2);
-                vMemory.put(tempDir, x * y);
-                break;
+                return x * y;
+
+            case 11: // /
+                return y / x;
+
+            default:
+                return 0;
+        }
+    }
+
+    public boolean proccessQuadruple(Expression e){
+        int dirOp1 = vDirectory.get(Operand.getIdString(e.getOperand1())); // Operand 1
+        int dirOp2 = vDirectory.get(Operand.getIdString(e.getOperand2())); //Operand 2
+        int tempDir = vDirectory.get(Operand.getIdString(e.getResult())); // Result
+
+        int operatorCode = e.getOper().ordinal();
+        int op1Type = e.getOperand1().getType().getTypeValue();
+        int op2Type = e.getOperand2().getType().getTypeValue();
+        int resultType = e.getResult().getType().getTypeValue();
+
+
+        if(op1Type == 0 && op2Type == 0){ // Both integers
+            int x = (int) vMemory.get(dirOp1);
+            int y = (int) vMemory.get(dirOp2);
+
+            // Math round to just get the integer part
+            vMemory.put(tempDir, Math.round(doArithmeticOperation(operatorCode, x, y)));
+
+        } else if(op1Type == 1 && op2Type == 0){ // Op1 float Op2 int
+            float x = (float) vMemory.get(dirOp1);
+            int y = (int) vMemory.get(dirOp2);
+
+            if(resultType == 1){
+                vMemory.put(tempDir, Math.round(doArithmeticOperation(operatorCode, x, y)));
+            } else {
+                vMemory.put(tempDir, doArithmeticOperation(operatorCode, x, y));
+            }
+
+        } else if(op1Type == 0 && op2Type == 1){ // Op1 int Op2 float
+            int x = (int) vMemory.get(dirOp1);
+            float y = (float) vMemory.get(dirOp2);
+
+            if(resultType == 1){
+                vMemory.put(tempDir, Math.round(doArithmeticOperation(operatorCode, x, y)));
+            } else {
+                vMemory.put(tempDir, doArithmeticOperation(operatorCode, x, y));
+            }
+
+        } else if(op1Type == 1 && op2Type == 1){ // Both floats
+            float x = (float) vMemory.get(dirOp1);
+            float y = (float) vMemory.get(dirOp2);
+
+            // Math round to just get the integer part
+            vMemory.put(tempDir, doArithmeticOperation(operatorCode, x, y));
         }
 
         return true;

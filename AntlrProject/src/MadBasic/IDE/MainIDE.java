@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 /**
@@ -63,6 +64,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         file.add(miSaveAsFile);
         file.add(miCloseApp);
 
+
         // Components of Build menu
         miCompile = new JMenuItem("Compile");
         miRun = new JMenuItem("Run");
@@ -88,6 +90,13 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         miRunCompile.addActionListener(this);
         miHelpOnline.addActionListener(this);
         miAbout.addActionListener(this);
+
+        // Accelerators "CTRL + ?"
+        miOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK));
+        miSaveFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK));
+        miCompile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, Event.CTRL_MASK));
+        miRun.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, Event.CTRL_MASK));
+        miRunCompile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, Event.CTRL_MASK));
 
         // Add all the menu to the menu bar
         menuBarOptions.add(file);
@@ -152,9 +161,10 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         if(e.getSource() == miCompile){
 
             if (archiveHandler.getActualFile() != null){
+                ParseTree tree = null;
 
                 try {
-                    ParseTree tree = Parser.parse(archiveHandler.getActualFile().getName(), "MadBasic", "madbasic");
+                    tree = Parser.parse(archiveHandler.getActualFile().getName(), "MadBasic", "madbasic");
                     new Visitor().visit(tree);
                 } catch (IOException error) {
                     error.printStackTrace();

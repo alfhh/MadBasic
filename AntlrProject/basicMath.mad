@@ -2,10 +2,15 @@ program basicMath;
 
 main:
 vars:
-	int a, b, c, x;
+	int a, b, c, d, x, y;
 
-a = 999;
-b = 999;
+a = 5;
+b = 10;
+c = 4;
+d = 2;
+y = c / d;
 x = a * b;
 print(x);
+print(y);
+print("Hello world!");
 end
