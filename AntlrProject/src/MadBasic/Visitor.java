@@ -477,27 +477,133 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitAssignment(MadBasicParser.AssignmentContext ctx) {
         String res = null;
+
+        ParseTree c = ctx.getChild(0);
+        String childResult = c.accept(this);
+        res = this.aggregateResult(res, childResult);
+
         String text = ctx.getChild(0).getText();
         boolean found = false;
-        Scope scope = basicSemantic.getScopeStack().peek();
-        while (scope != null && !found) {
-            if (scope.getVariableHashMap().containsKey(text)) {
-                quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
-                res = visitChildren(ctx);
-                Operand oper = quadrupleSemantic.getOperandStack().pop();
-                quadrupleSemantic.getOperandStack().pop();
-                // TODO: 4/20/16 semanticCube
-                quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, scope.getVariableHashMap().get(text)));
-                found = true;
-                break;
+        if (basicSemantic.isDot()) {
+            basicSemantic.setDot(false);
+            String[] names = text.split("\\.");
+            Scope scope = basicSemantic.getScopeStack().peek();
+            Variable arrObj = new Variable(null, null, null);
+            if (basicSemantic.isArray()) {
+                names[0] = names[0].split("\\[")[0];
+                while (scope != null && !found) {
+                    if (scope.getVariableHashMap().containsKey(names[0])) {
+                        arrObj = scope.getVariableHashMap().get(names[0]);
+                        processArray(arrObj);
+                    }
+                    if (!found) {
+                        scope = scope.getParent();
+                    }
+                }
             }
-            if (!found) {
-                scope = scope.getParent();
+            scope = basicSemantic.getScopeStack().peek();
+            while (scope != null && !found) {
+                if (scope.getVariableHashMap().containsKey(names[0])) {
+                    names[1] = names[1].split("\\[")[0];
+                    if (basicSemantic.isArray()) {
+                        if (((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+                                getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
+                            Variable var =
+                                    ((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+                                            getClasse().getScope().getVariableHashMap().get(names[1]);
+                            if (!basicSemantic.isArrayandDot()) {
+                                var = new Variable(
+                                        Operand.getIdString(quadrupleSemantic.getOperandStack().pop())
+                                                + "." + var.getID(), var.getType(), var.getScope());
+                                quadrupleSemantic.getOperandStack().push(var);
+                                int n = ctx.getChildCount();
+                                for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                                    c = ctx.getChild(i);
+                                    childResult = c.accept(this);
+                                    res = this.aggregateResult(res, childResult);
+                                }
+                                Operand oper = quadrupleSemantic.getOperandStack().pop();
+                                quadrupleSemantic.getOperandStack().pop();
+                                // TODO: 4/20/16 semanticCube
+                                quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, var));
+                            } else {
+                                System.out.println(var);
+                                processArray(var);
+                                basicSemantic.setArrayandDot(false);
+                            }
+                        }
+                        basicSemantic.setArray(false);
+                    } else if (((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
+                            .getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
+                        Variable var =
+                                ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
+                                        .getClasse().getScope().getVariableHashMap().get(names[1]);
+                        if (!basicSemantic.isArrayandDot()) {
+                            var = new Variable(names[0] + "." + var.getID(), var.getType(), var.getScope());
+                            quadrupleSemantic.getOperandStack().push(var);
+                            int n = ctx.getChildCount();
+                            for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                                c = ctx.getChild(i);
+                                childResult = c.accept(this);
+                                res = this.aggregateResult(res, childResult);
+                            }
+                            Operand oper = quadrupleSemantic.getOperandStack().pop();
+                            quadrupleSemantic.getOperandStack().pop();
+                            // TODO: 4/20/16 semanticCube
+                            quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, var));
+                        } else {
+                            processArray(var);
+                            basicSemantic.setArrayandDot(false);
+                        }
+                    }
+                    found = true;
+                }
+                if (!found) {
+                    scope = scope.getParent();
+                }
+            }
+        } else {
+            text = text.split("\\[")[0];
+            Scope scope = basicSemantic.getScopeStack().peek();
+            while (scope != null && !found) {
+                if (scope.getVariableHashMap().containsKey(text)) {
+                    if (!basicSemantic.isArray()) {
+                        quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
+                        int n = ctx.getChildCount();
+                        for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                            c = ctx.getChild(i);
+                            childResult = c.accept(this);
+                            res = this.aggregateResult(res, childResult);
+                        }
+                        Operand oper = quadrupleSemantic.getOperandStack().pop();
+                        quadrupleSemantic.getOperandStack().pop();
+                        // TODO: 4/20/16 semanticCube
+                        quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, scope.getVariableHashMap().get(text)));
+                        found = true;
+                    } else {
+                        processArray(scope.getVariableHashMap().get(text));
+                        basicSemantic.setArray(false);
+                        int n = ctx.getChildCount();
+                        for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+                            c = ctx.getChild(i);
+                            childResult = c.accept(this);
+                            res = this.aggregateResult(res, childResult);
+                        }
+                        Operand oper = quadrupleSemantic.getOperandStack().pop();
+                        Operand equal = quadrupleSemantic.getOperandStack().pop();
+                        // TODO: 4/20/16 semanticCube
+                        quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, equal));
+                    }
+                    found = true;
+                }
+                if (!found) {
+                    scope = scope.getParent();
+                }
             }
         }
 
         if (!found) {
-            System.out.println("Error, Identifier: " + text + " not found!");
+            System.out.println("Error, Identifier: " + text + " not found3!");
         }
         return res;
     }
@@ -535,6 +641,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return res;
     }
 
+    boolean isPrimitive(Type type) {
+        return !((type instanceof TypeObject)
+                || (type instanceof TypeArray)
+                || (type instanceof TypeList));
+    }
+
     /**
      * @param ctx
      * @return
@@ -547,11 +659,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
 
         //Check the semantic cube
-        Type resT = SemanticCube.getCubeType(op1.getType().getTypeValue(), op2.getType().getTypeValue(), Operator.CARET.getValue());
+//        Type resT = SemanticCube.getCubeType(op1.getType().getTypeValue(), op2.getType().getTypeValue(), Operator.CARET.getValue());
 
         //agregar cuadruplo
-        if (!(resT instanceof TypeFalse)) {
-            Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), resT);
+        if (isPrimitive(op1.getType()) && isPrimitive(op1.getType())) {
+            Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeString());
             insertTempVDirectory(temp);
             quadrupleSemantic.getQuadrupleList().add(
                     new Expression(
@@ -939,7 +1051,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     public String visitSsExp(MadBasicParser.SsExpContext ctx) {
         String result = "";
 
-        basicSemantic.setArray(false);
+        if (basicSemantic.isDot()) {
+            basicSemantic.setArrayandDot(false);
+        } else {
+            basicSemantic.setArray(false);
+        }
 
         int cbracket = 3;
         for (int i = 0; i < cbracket && this.shouldVisitNextChild(ctx, null); ++i) {
@@ -962,7 +1078,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             result = this.aggregateResult(result, childResult);
         }
 
-        basicSemantic.setArray(true);
+        if (basicSemantic.isDot()) {
+            basicSemantic.setArrayandDot(true);
+        } else {
+            basicSemantic.setArray(true);
+        }
 
         return result;
     }
@@ -995,12 +1115,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             String text = ctx.getChild(0).getText();
             String[] names = text.split("\\.");
             Scope scope = basicSemantic.getScopeStack().peek();
+            Variable arrObj = new Variable(null, null, null);
             if (basicSemantic.isArray()) {
                 names[0] = names[0].split("\\[")[0];
                 while (scope != null && !found) {
                     if (scope.getVariableHashMap().containsKey(names[0])) {
-                        Variable var = scope.getVariableHashMap().get(names[0]);
-                        processArray(var);
+                        arrObj = scope.getVariableHashMap().get(names[0]);
+                        processArray(arrObj);
                     }
                     if (!found) {
                         scope = scope.getParent();
@@ -1012,8 +1133,23 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 if (scope.getVariableHashMap().containsKey(names[0])) {
                     names[1] = names[1].split("\\[")[0];
                     if (basicSemantic.isArray()) {
-                        if(virtualMemory.getvDirectory().get(names[0]) != null){
-
+                        if (((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+                                getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
+                            Variable var =
+                                    ((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+                                            getClasse().getScope().getVariableHashMap().get(names[1]);
+                            if (!basicSemantic.isArrayandDot()) {
+                                var = new Variable(
+                                        Operand.getIdString(quadrupleSemantic.getOperandStack().pop())
+                                                + "." + var.getID(), var.getType(), var.getScope());
+                                quadrupleSemantic.getOperandStack().push(var);
+                                quadrupleSemantic.getOperandSList().add(var);
+                            } else {
+                                System.out.println(var);
+                                processArray(var);
+                                basicSemantic.setArrayandDot(false);
+                            }
+                            found = true;
                         }
                         basicSemantic.setArray(false);
                     } else if (((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
@@ -1022,7 +1158,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                                 ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
                                         .getClasse().getScope().getVariableHashMap().get(names[1]);
                         if (!basicSemantic.isArrayandDot()) {
-                            var.setID(names[0] + "." + var.getID());
+                            var = new Variable(names[0] + "." + var.getID(), var.getType(), var.getScope());
                             quadrupleSemantic.getOperandStack().push(var);
                             quadrupleSemantic.getOperandSList().add(var);
                         } else {
@@ -1037,7 +1173,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 }
             }
             if (!found) {
-                System.out.println("Error, Identifier: " + text + " not found!");
+                System.out.println("Error, Identifier: " + text + " not found1!");
             }
             basicSemantic.setDot(false);
 
@@ -1061,7 +1197,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 }
             }
             if (!found) {
-                System.out.println("Error, Identifier: " + text + " not found!");
+                System.out.println("Error, Identifier: " + text + " not found2!");
             }
         }
         return result;
@@ -1361,7 +1497,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      /**/
     //------------------------------------------------------------BEGIN METHODS
 
-
+    /**
+     * @param ctx
+     * @return
+     */
     @Override
     public String visitMethod(MadBasicParser.MethodContext ctx) {
         basicSemantic.setInMethod(true);

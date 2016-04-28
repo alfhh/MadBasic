@@ -5,6 +5,7 @@ import MadBasic.Algrebra.Variable;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Types.Type;
 import MadBasic.Semantic.Types.TypeFalse;
+import MadBasic.VMemory.Instance;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -35,6 +36,7 @@ public class BasicSemantic {
     boolean foundAReference;
     boolean isArray;
     boolean isArrayandDot;
+    Instance instanceForArray;
 
     private BasicSemantic() {
         procedures = new LinkedList<>();
@@ -52,6 +54,7 @@ public class BasicSemantic {
         arrayIndexList = new LinkedList<>();
         isArray = false;
         isArrayandDot = false;
+        instanceForArray = new Instance();
 
         // Add the global scope
         Scope global = new Scope("global");
@@ -211,5 +214,13 @@ public class BasicSemantic {
 
     public void setArrayandDot(boolean arrayandDot) {
         isArrayandDot = arrayandDot;
+    }
+
+    public Instance getInstanceForArray() {
+        return instanceForArray;
+    }
+
+    public void setInstanceForArray(Instance instanceForArray) {
+        this.instanceForArray = instanceForArray;
     }
 }

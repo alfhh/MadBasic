@@ -22,7 +22,6 @@ class Bbb parent Aaa {
 	vars:
 		int cc, d;
 		float dd;
-		int[0,10] bb;
 
 	init(int x){
 		cc = d;
@@ -84,14 +83,14 @@ methods:
 
 main:
 vars:
-	int xi, yi, a, c, d;
+	int xi, yi, a, c, d, i, j;
 	float fl, xd;
 	float[0,1] fla;
 	bool bo;
 	string str;
 	Bbb bbb;
 	Aaa aaa;
-	Bbb[0,10] ccc;
+
 xi = 44;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
@@ -110,6 +109,11 @@ x = aaa.b;
 printline(str);
 x = lint[xi][0][aaa.c];
 x = bbb.d;
-x = ccc[0].cc;
+bbb.d = x;
 fl = fla[0];
+fla[1] = fl;
+fla[0] = fla[1];
+i = j * i;
+lint[i+j][j][j+1] = i + j;
+print("Hello" ^ "World" ^ x);
 end
