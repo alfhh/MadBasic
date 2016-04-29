@@ -12,6 +12,7 @@ public class VirtualMemory {
     LinkedList<Quadruple> quadruples;
     HashMap<Integer, Object> vMemory;
     HashMap<String, Integer> vDirectory;
+    HashMap<String, Era> eraHashMap;
     Integer instanceCount;
     Integer intCount;
     Integer floatCount;
@@ -27,11 +28,12 @@ public class VirtualMemory {
     Integer constBoolCount;
 
     static VirtualMemory instance;
-    
+
     private VirtualMemory() {
         quadruples = new LinkedList<>();
         vMemory = new HashMap<>();
         vDirectory = new HashMap<>();
+        eraHashMap = new HashMap<>();
         instanceCount = 0;
         intCount = 1000;
         floatCount = 1500;
@@ -46,9 +48,9 @@ public class VirtualMemory {
         constStringCount = 5500;
         constBoolCount = 5750;
     }
-    
-    public static VirtualMemory getInstance(){
-        if(instance == null){
+
+    public static VirtualMemory getInstance() {
+        if (instance == null) {
             instance = new VirtualMemory();
         }
         return instance;
@@ -234,12 +236,21 @@ public class VirtualMemory {
         this.constBoolCount++;
     }
 
+    public HashMap<String, Era> getEraHashMap() {
+        return eraHashMap;
+    }
+
+    public void setEraHashMap(HashMap<String, Era> eraHashMap) {
+        this.eraHashMap = eraHashMap;
+    }
+
     @Override
     public String toString() {
         return "VirtualMemory{" +
                 "vDirectory=" + vDirectory +
                 ", vMemory=" + vMemory +
                 ", quadruples=" + quadruples +
-                '}';
+                ", eras=" + eraHashMap +
+                "}";
     }
 }

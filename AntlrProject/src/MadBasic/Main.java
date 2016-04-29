@@ -27,7 +27,8 @@ public class Main {
                 TestingGround.TestNum.OPERANDSTACK,
                 TestingGround.TestNum.QUADRUPLELIST,
 //                TestingGround.TestNum.OPERAND_LIST,
-//                TestingGround.TestNum.SEMANTIC_CUBE_PRINT
+//                TestingGround.TestNum.SEMANTIC_CUBE_PRINT,
+                TestingGround.TestNum.ERAS
         };
 
         tester.testManager(selectedTests);

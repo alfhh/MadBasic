@@ -35,6 +35,6 @@ public class Function extends Procedure {
         var += "}";
 
         return "FUNCTION{ID:" + ID + ",\ntype: " + type + ", Start:" + quadrupleStart + ",\nscope:" + scope.getName() +
-                ",\nparams:\n" + var + "}\n";
+                ",\nparams:\n" + var + ",\neraHash: " + eraHash + "}\n";
     }
 }

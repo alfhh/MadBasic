@@ -89,7 +89,7 @@ vars:
 	float[0,1] fla;
 	bool bo;
 	string str;
-	Bbb bbb;
+	Bbb[0, 2] bbb;
 	Aaa aaa;
 
 xi = 44;
@@ -109,12 +109,12 @@ testReference(~a, d);
 x = aaa.b;
 printline(str);
 x = lint[xi][0][aaa.c];
-x = bbb.d;
-bbb.d = x;
 fl = fla[0];
 fla[1] = fl;
 fla[0] = fla[1];
 i = j * i;
 lint[i+j][j][j+1] = i + j;
 print("Hello" ^ "World" ^ x);
+x = bbb[0].d;
+bbb[bbb[0].d].d = x;
 end

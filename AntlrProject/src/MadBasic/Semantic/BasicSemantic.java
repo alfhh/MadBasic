@@ -18,7 +18,7 @@ import java.util.Stack;
 public class BasicSemantic {
 
     private static BasicSemantic instance;
-    
+
     LinkedList<Procedure> procedures;
     LinkedList<Variable> variables;
     LinkedList<Scope> scopes;
@@ -37,6 +37,8 @@ public class BasicSemantic {
     boolean isArray;
     boolean isArrayandDot;
     Instance instanceForArray;
+    LinkedList<Variable> eraPrep;
+    HashMap<String, Integer> eraHash;
 
     private BasicSemantic() {
         procedures = new LinkedList<>();
@@ -55,6 +57,8 @@ public class BasicSemantic {
         isArray = false;
         isArrayandDot = false;
         instanceForArray = new Instance();
+        eraPrep = new LinkedList<>();
+        eraHash = new HashMap<>();
 
         // Add the global scope
         Scope global = new Scope("global");
@@ -65,8 +69,8 @@ public class BasicSemantic {
 
     }
 
-    static public BasicSemantic getInstance(){
-        if (instance == null){
+    static public BasicSemantic getInstance() {
+        if (instance == null) {
             instance = new BasicSemantic();
         }
         return instance;
@@ -160,15 +164,15 @@ public class BasicSemantic {
         this.dot = dot;
     }
 
-    public Type getActualType(){
+    public Type getActualType() {
         return this.quickTypeSearch;
     }
 
-    public void setActualType(Type t){
+    public void setActualType(Type t) {
         this.quickTypeSearch = t;
     }
 
-    public void resetActualType(){
+    public void resetActualType() {
         this.quickTypeSearch = new TypeFalse();
     }
 
@@ -218,5 +222,21 @@ public class BasicSemantic {
 
     public void setInstanceForArray(Instance instanceForArray) {
         this.instanceForArray = instanceForArray;
+    }
+
+    public LinkedList<Variable> getEraPrep() {
+        return eraPrep;
+    }
+
+    public void setEraPrep(LinkedList<Variable> eraPrep) {
+        this.eraPrep = eraPrep;
+    }
+
+    public HashMap<String, Integer> getEraHash() {
+        return eraHash;
+    }
+
+    public void setEraHash(HashMap<String, Integer> eraHash) {
+        this.eraHash = eraHash;
     }
 }

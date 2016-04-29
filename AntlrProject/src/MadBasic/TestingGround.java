@@ -8,6 +8,7 @@ import MadBasic.Semantic.BasicSemantic;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.SemanticCube;
+import MadBasic.VMemory.Era;
 import MadBasic.VMemory.Instance;
 import MadBasic.VMemory.VirtualMemory;
 
@@ -51,13 +52,13 @@ public class TestingGround {
             Object keys[] = virtualMemory.getvDirectory().keySet().toArray();
             Object key = "";
             for (int i = 0; i < keys.length; i++) {
-                if(value == virtualMemory.getvDirectory().get(keys[i])){
+                if (value == virtualMemory.getvDirectory().get(keys[i])) {
                     key = keys[i];
                     break;
                 }
             }
             System.out.println(key + ": " + value);
-            if ((Integer)value < 1000) {
+            if ((Integer) value < 1000) {
                 System.out.println("Begin Obj---------------------------");
                 for (String k : ((Instance) virtualMemory.getvMemory().get(value)).getvDirectory().keySet()) {
                     Integer v = ((Instance) virtualMemory.getvMemory().get(value)).getvDirectory().get(k);
@@ -71,7 +72,7 @@ public class TestingGround {
         Set<Integer> keys = virtualMemory.getvMemory().keySet();
         Object ks[] = keys.toArray();
         Arrays.sort(ks);
-        for (Object key: ks){
+        for (Object key : ks) {
             System.out.println(key + ": " + virtualMemory.getvMemory().get(key));
         }
         System.out.println("------------------------------------------------");
@@ -183,6 +184,22 @@ public class TestingGround {
     }
 
     /**
+     * ID: 9
+     */
+    public void printEras() {
+        System.out.println("------------------------------------------------");
+        System.out.println("Eras: ");
+        Set<String> keys = virtualMemory.getEraHashMap().keySet();
+        Object ks[] = keys.toArray();
+        Arrays.sort(ks);
+        for (Object key : ks) {
+            System.out.println(key + ": " + virtualMemory.getEraHashMap().get(key));
+        }
+        System.out.println("------------------------------------------------");
+    }
+
+
+    /**
      * This method run the specified tests, selected on the integer array.
      *
      * @param tests each test on this class has a id number, to run that test
@@ -201,6 +218,7 @@ public class TestingGround {
                     printOperandStack();
                     printOperandlist();
                     printTheSemanticCube();
+                    printEras();
                     break;
                 case 1:
                     printVariableTable();
@@ -226,13 +244,16 @@ public class TestingGround {
                 case 8:
                     printTheSemanticCube();
                     break;
+                case 9:
+                    printEras();
+                    break;
             }
         }
     }
 
     public enum TestNum {
         ALL(0), VARIABLE_TABLE(1), SCOPETABLE(2), PROC_TABLE(3), SEMANTIC_CUBE_TEST(4), OPERANDSTACK(5),
-        QUADRUPLELIST(6), OPERAND_LIST(7), SEMANTIC_CUBE_PRINT(8);
+        QUADRUPLELIST(6), OPERAND_LIST(7), SEMANTIC_CUBE_PRINT(8), ERAS(9);
         private int num;
 
         TestNum(int num) {

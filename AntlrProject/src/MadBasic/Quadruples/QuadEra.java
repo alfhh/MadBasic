@@ -5,10 +5,10 @@ import MadBasic.Semantic.Methods.Procedure;
 /**
  * Created by lsanchez on 4/11/16.
  */
-public class Era extends Quadruple {
+public class QuadEra extends Quadruple {
     Procedure procedure;
 
-    public Era(Procedure procedure) {
+    public QuadEra(Procedure procedure) {
         this.procedure = procedure;
     }
 
@@ -22,7 +22,7 @@ public class Era extends Quadruple {
 
     @Override
     public String toString() {
-        return "Era{" +
+        return "QuadEra{" +
                 "era" +
                 ",\t" + procedure.getID() +
                 ",\t" +
