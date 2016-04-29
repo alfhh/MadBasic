@@ -1,5 +1,10 @@
 program basicMath;
 
+methods:
+	void sumNums(int x, int y){
+		print(x + y);
+	}
+
 main:
 vars:
 	int a, b, c, d, x, y;
@@ -16,6 +21,7 @@ print("--------------------- Basics");
 	print(y);
 	print("Hello world Lowes!");
 	print(a);
+	sumNums(c, d);
 print("--------------------- Basics");
 
 print("------------- Advanced print");

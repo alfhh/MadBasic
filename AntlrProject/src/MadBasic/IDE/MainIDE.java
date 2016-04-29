@@ -194,6 +194,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
                 // Send actual values to the VMachine
                 myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList(),
+                        VirtualMemory.getInstance(),
                         VirtualMemory.getInstance().getvDirectory(),
                         VirtualMemory.getInstance().getvMemory());
 
@@ -211,7 +212,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
                 if(myMachine.run()){
                     print("Program successfully finished");
                 } else{
-                    printError("Program not compiled");
+                    printError("Execution time error");
                 }
             } else { // TODO: 22/04/16 Add compilationg succesful flag
                 JOptionPane.showMessageDialog(null,

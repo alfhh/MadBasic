@@ -4,6 +4,7 @@ import MadBasic.Quadruples.Quadruple;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * Created by lsanchez on 4/17/16.
@@ -26,6 +27,8 @@ public class VirtualMemory {
     Integer constFloatCount;
     Integer constStringCount;
     Integer constBoolCount;
+    Integer functionParameterCount;
+    Stack<Era> eraStack;
 
     static VirtualMemory instance;
 
@@ -34,6 +37,7 @@ public class VirtualMemory {
         vMemory = new HashMap<>();
         vDirectory = new HashMap<>();
         eraHashMap = new HashMap<>();
+        eraStack = new Stack<>();
         instanceCount = 0;
         intCount = 1000;
         floatCount = 1500;
@@ -47,6 +51,7 @@ public class VirtualMemory {
         constFloatCount = 5250;
         constStringCount = 5500;
         constBoolCount = 5750;
+        functionParameterCount = 6000;
     }
 
     public static VirtualMemory getInstance() {
@@ -136,6 +141,10 @@ public class VirtualMemory {
         return constBoolCount;
     }
 
+    public Integer getFunctionParameterCount() {
+        return functionParameterCount;
+    }
+
     public void setInstanceCount(Integer instanceCount) {
         this.instanceCount = instanceCount;
     }
@@ -186,6 +195,10 @@ public class VirtualMemory {
 
     public void setConstBoolCount(Integer constBoolCount) {
         this.constBoolCount = constBoolCount;
+    }
+
+    public void setFunctionParameterCount(Integer functionParameterCount) {
+        this.functionParameterCount = functionParameterCount;
     }
 
     public void addInstanceCount() {
@@ -240,9 +253,13 @@ public class VirtualMemory {
         this.constBoolCount++;
     }
 
+    public void addFunctionParameterCount() { this.functionParameterCount++; }
+
     public HashMap<String, Era> getEraHashMap() {
         return eraHashMap;
     }
+
+    public Stack<Era> getEraStack() { return eraStack; }
 
     public void setEraHashMap(HashMap<String, Era> eraHashMap) {
         this.eraHashMap = eraHashMap;

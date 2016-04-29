@@ -1,11 +1,13 @@
 package MadBasic.VMachine;
 
+import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.VMemory.Era;
 import MadBasic.Algrebra.Constant;
 import MadBasic.Algrebra.Operand;
 import MadBasic.IDE.MainIDE;
 import MadBasic.Quadruples.*;
 import MadBasic.Quadruples.Gotos.Goto;
+import MadBasic.VMemory.VirtualMemory;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -17,12 +19,14 @@ public class Machine {
 
     private static Machine instance;
     public MainIDE ideConnection;
+    public VirtualMemory virtualMemory;
 
     LinkedList<Quadruple> quadruples;
     HashMap<String, Integer> vDirectory;
     HashMap<Integer, Object> vMemory;
 
     private Machine(){
+        virtualMemory = null;
         quadruples = null;
         vDirectory = null;
         vMemory = null;
@@ -45,8 +49,9 @@ public class Machine {
      * @param vD
      * @param vM
      */
-    public void getCompiledData(LinkedList<Quadruple> q, HashMap<String, Integer> vD, HashMap<Integer, Object> vM){
+    public void getCompiledData(LinkedList<Quadruple> q, VirtualMemory vMem, HashMap<String, Integer> vD, HashMap<Integer, Object> vM){
         this.quadruples = q;
+        this.virtualMemory = vMem;
         this.vDirectory = vD;
         this.vMemory = vM;
     }
@@ -57,10 +62,42 @@ public class Machine {
     public boolean run(){
         if(quadruples != null && vDirectory != null && vMemory != null){
 
-            // Process all the quadruples
-            for(Quadruple quadruple : quadruples){
+            int index = 0;
+            Quadruple quadruple;
+
+            while(index < quadruples.size()){
+                quadruple = quadruples.get(index);
                 switch (quadruple.getClass().getName()){
 
+
+                    // Movements
+                    case "MadBasic.Quadruples.Gotos.Goto":
+                        index = processGoto((Goto) quadruple);
+                        break;
+
+                    case "MadBasic.Quadruples.Retorno":
+                        index = processReturn();
+                        break;
+
+                    case "MadBasic.Quadruples.Gotos.End":
+                        return true;
+
+                    case "MadBasic.Quadruples.Gotos.Gosub":
+                        index = processGotoSub((Gosub) quadruple);
+                        break;
+
+
+                    // Era
+                    case "MadBasic.Quadruples.QuadEra":
+                        processBuildEra((QuadEra) quadruple);
+                        break;
+
+                    case "MadBasic.Quadruples.Parameter":
+                        processParameter((Parameter) quadruple);
+                        break;
+
+
+                    // Operations
                     case "MadBasic.Quadruples.Assignment":
                         proccessQuadruple((Assignment) quadruple);
                         break;
@@ -72,11 +109,15 @@ public class Machine {
                     case "MadBasic.Quadruples.Write":
                         proccessQuadruple((Write) quadruple);
                         break;
-                    case "MadBasic.Quadruples.Retorno":
-                        System.out.println("On return!"); // TODO: 28/04/16 CLEAN
-                        break;
+
+
                     default:
                         return false;
+                }
+
+                // Avoid overwrite of the index when Goto
+                if(!quadruple.getClass().getName().equals("MadBasic.Quadruples.Gotos.Goto")){
+                    index++;
                 }
             }
             return true;
@@ -84,6 +125,56 @@ public class Machine {
             return false;
         }
 
+    }
+
+    /**
+     * Returns the jump according to a Goto
+     * @param g
+     * @return int equal to the next Quadruple that should be executed
+     */
+    public int processGoto(Goto g){
+        return g.getJump();
+    }
+
+    /**
+     * Function that returns the number of the first quadruple of a function, procedure.
+     * This function also sets the correcto number of quadruple to return when the procedure ends.
+     * @param g
+     * @return the number of the first quadruple of the function
+     */
+    public int processGotoSub(Gosub g){
+        int dir = g.getJump();
+        Era temp = virtualMemory.getEraHashMap().get(g.getProcedure().getID());
+        temp.setRetorno(dir);
+
+        return temp.getStart();
+    }
+
+    /**
+     * Function that pushes an Era to the stack when a function/procedure is called
+     * @param qE
+     */
+    public void processBuildEra(QuadEra qE){
+        Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID());
+        virtualMemory.getEraStack().push(e);
+    }
+
+    public void processParameter(Parameter p){
+        // Add the parameter to the Era
+        Operand tempOp = p.getArgument();
+        // CHANGE THE HASHMAP TO WORK WITH 2 INTEGERS?
+
+        // Add the parameters count
+        virtualMemory.addFunctionParameterCount();
+
+    }
+
+    /**
+     * Functions that pops an Era from the Stack and returns the "retorno" value of the Era
+     * @return the index of the next quadruple
+     */
+    public int processReturn(){
+        return virtualMemory.getEraStack().pop().getRetorno();
     }
 
     /**

@@ -15,6 +15,27 @@ public class Main  {
 
     public static void main(String [] args){
 
+//        ParseTree tree = null;
+//
+//        try {
+//            tree = Parser.parse("Ex2.mad", "MadBasic", "madbasic");
+//            new Visitor().visit(tree);
+//        } catch (IOException error) {
+//            error.printStackTrace();
+//        }
+//
+//        TestingGround tester = new TestingGround();
+//
+//        TestingGround.TestNum[] selectedTests = {
+//                TestingGround.TestNum.SCOPETABLE,
+//                TestingGround.TestNum.PROC_TABLE,
+//                TestingGround.TestNum.OPERANDSTACK,
+//                TestingGround.TestNum.QUADRUPLELIST,
+//        };
+
+//        tester.testManager(selectedTests);
+
+
         MainIDE ide = MainIDE.getInstance();
         Machine vmachine = Machine.getInstance();
     }
