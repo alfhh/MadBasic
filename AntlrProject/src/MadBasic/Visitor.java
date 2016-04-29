@@ -2,6 +2,7 @@ package MadBasic;
 
 import MadBasic.Algrebra.*;
 import MadBasic.Quadruples.*;
+import MadBasic.Quadruples.Gotos.End;
 import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.Goto;
 import MadBasic.Quadruples.Gotos.GotoFalse;
@@ -12,6 +13,7 @@ import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.SemanticCube;
 import MadBasic.Semantic.Types.*;
+import MadBasic.VMemory.Era;
 import MadBasic.VMemory.Instance;
 import MadBasic.VMemory.VirtualMemory;
 import ParserMadBasic.MadBasicBaseVisitor;
@@ -19,6 +21,7 @@ import ParserMadBasic.MadBasicParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -244,7 +247,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                         Class clas = ((TypeObject) (((TypeArray) var.getType()).getType())).getClasse();
                         virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getInstanceCount());
                         res = virtualMemory.getInstanceCount();
-                        for (int i = res; i < ((TypeArray) var.getType()).getArray().getSize() + res; i++) {
+                        for (int i = 0; i < ((TypeArray) var.getType()).getArray().getSize(); i++) {
                             Instance instance = new Instance();
                             Class c = clas;
                             while (c != null) {
@@ -253,9 +256,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                                             new Variable("", variable.getType(), variable.getScope())
                                     ));
                                 }
+                                for (Procedure proc : c.getScope().getProcedureHashMap().values()) {
+                                    Era era = new Era();
+                                    for (Variable v : proc.getScope().getVariableHashMap().values()) {
+                                        era.getvDirectory().put(v.getID(), null);
+                                    }
+                                    era.getvDirectory().putAll(proc.getEra());
+                                    era.setStart(proc.getQuadrupleStart());
+                                    virtualMemory.getEraHashMap().put(var.getID() + i + "-" + proc.getID(), era);
+                                }
                                 c = c.getParent();
                             }
-                            virtualMemory.getvMemory().putIfAbsent(i, instance);
+                            virtualMemory.getvMemory().putIfAbsent(i + res, instance);
                         }
                         virtualMemory.setInstanceCount(
                                 virtualMemory.getInstanceCount() + ((TypeArray) var.getType()).getArray().getSize());
@@ -273,6 +285,15 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                         instance.getvDirectory().putIfAbsent(variable.getID(), insertVDirectory(
                                 new Variable("", variable.getType(), variable.getScope())
                         ));
+                    }
+                    for (Procedure proc : clas.getScope().getProcedureHashMap().values()) {
+                        Era era = new Era();
+                        for (Variable v : proc.getScope().getVariableHashMap().values()) {
+                            era.getvDirectory().put(v.getID(), null);
+                        }
+                        era.getvDirectory().putAll(proc.getEra());
+                        era.setStart(proc.getQuadrupleStart());
+                        virtualMemory.getEraHashMap().put(var.getID() + "-" + proc.getID(), era);
                     }
                     clas = clas.getParent();
                 }
@@ -453,6 +474,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      */
     @Override
     public String visitMain(MadBasicParser.MainContext ctx) {
+//        System.out.println(basicSemantic.getScopeStack().peek());
+        ((Goto)quadrupleSemantic.getQuadrupleList().get(0)).setJump(quadrupleSemantic.getQuadrupleList().size());
+
+        for (Procedure proc : basicSemantic.getScopeStack().peek().getProcedureHashMap().values()) {
+            Era era = new Era();
+            for (Variable var : proc.getScope().getVariableHashMap().values()) {
+                era.getvDirectory().put(var.getID(), null);
+            }
+            era.getvDirectory().putAll(proc.getEra());
+            era.setStart(proc.getQuadrupleStart());
+            virtualMemory.getEraHashMap().put(proc.getID(), era);
+        }
         String name = "main";
         Scope scp = new Scope(name, basicSemantic.getScopeStack().peek());
         basicSemantic.getScopes().add(scp);
@@ -495,17 +528,22 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     if (scope.getVariableHashMap().containsKey(names[0])) {
                         arrObj = scope.getVariableHashMap().get(names[0]);
                         processArray(arrObj);
+//                        found = true;
+                        break;
                     }
                     if (!found) {
                         scope = scope.getParent();
                     }
                 }
+//                found = false;
+//                basicSemantic.setArray(false);
             }
             scope = basicSemantic.getScopeStack().peek();
             while (scope != null && !found) {
                 if (scope.getVariableHashMap().containsKey(names[0])) {
                     names[1] = names[1].split("\\[")[0];
                     if (basicSemantic.isArray()) {
+                        basicSemantic.setArray(false);
                         if (((TypeObject) ((TypeArray) arrObj.getType()).getType()).
                                 getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
                             Variable var =
@@ -641,6 +679,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return res;
     }
 
+    /**
+     * @param type
+     * @return
+     */
     boolean isPrimitive(Type type) {
         return !((type instanceof TypeObject)
                 || (type instanceof TypeArray)
@@ -913,6 +955,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitFactorValue(MadBasicParser.FactorValueContext ctx) {
         String res = visitChildren(ctx);
+        Operand var = quadrupleSemantic.getOperandStack().peek();
+        if (var instanceof Variable && ((Variable) var).getScope() != basicSemantic.getScopeStack().peek()
+                && basicSemantic.isInMethod()) {
+//            System.out.println(var);
+            Integer dir = virtualMemory.getvDirectory().get(((Variable) var).getID());
+            basicSemantic.getEraHash().put(((Variable) var).getID(), dir);
+        }
         if (!quadrupleSemantic.getOperatorStack().empty() &&
                 quadrupleSemantic.getOperatorStack().peek() == Operator.MINUSSOLO) {
             quadrupleSemantic.getOperatorStack().pop();
@@ -1351,7 +1400,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         if (method != null) {
 
-            quadrupleSemantic.getQuadrupleList().add(new Era(method));
+            quadrupleSemantic.getQuadrupleList().add(new QuadEra(method));
 
             int n = ctx.getChildCount();
             for (int i = 1; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
@@ -1372,13 +1421,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     }
                 }
 
-                int jumpback = quadrupleSemantic.getQuadrupleList().size();
+                int jumpback = quadrupleSemantic.getQuadrupleList().size() + 1;
                 quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, method));
                 if (method instanceof Function) {
                     quadrupleSemantic.getOperandSList().add(
-                            new Variable(method.getID(), ((Function) method).getType(), method.getScope()));
+                            new Variable(method.getID(), ((Function) method).getType(), method.getScope().getParent()));
                     quadrupleSemantic.getOperandStack().push(
-                            new Variable(method.getID(), ((Function) method).getType(), method.getScope()));
+                            new Variable(method.getID(), ((Function) method).getType(), method.getScope().getParent()));
                 }
             } else {
                 // TODO: 4/10/16 error
@@ -1639,7 +1688,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         basicSemantic.getProcedures().add(func);
         basicSemantic.getScopeStack().peek().getParent().getProcedureHashMap().put(id, func);
         basicSemantic.getScopeStack().peek().getParent().getVariableHashMap().put(id,
-                new Variable(func.getID(), func.getType(), func.getScope()));
+                new Variable(func.getID(), func.getType(), func.getScope().getParent()));
 
         int n = ctx.getChildCount();
         for (int i = cParentesisIndex; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
@@ -1650,6 +1699,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         quadrupleSemantic.getQuadrupleList().add(new Retorno());
         basicSemantic.resetActualType(); // Reset the actual type
+        func.setEra(basicSemantic.getEraHash());
+        System.out.println(basicSemantic.getEraHash());
+        basicSemantic.setEraHash(new HashMap<>());
         basicSemantic.getScopeStack().pop();
 
         return result;
@@ -1693,7 +1745,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         basicSemantic.getProcedures().add(proc);
         basicSemantic.getScopeStack().peek().getParent().getProcedureHashMap().put(id, proc);
         basicSemantic.getScopeStack().peek().getParent().getVariableHashMap().put(id,
-                new Variable(proc.getID(), new TypeFalse(), proc.getScope()));
+                new Variable(proc.getID(), new TypeFalse(), proc.getScope().getParent()));
 
         int n = ctx.getChildCount();
         for (int i = cParentesisIndex; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
@@ -1703,6 +1755,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
 
         quadrupleSemantic.getQuadrupleList().add(new Retorno());
+        proc.setEra(basicSemantic.getEraHash());
+        System.out.println(basicSemantic.getEraHash());
+        basicSemantic.setEraHash(new HashMap<>());
         basicSemantic.getScopeStack().pop();
 
         return result;
@@ -1723,7 +1778,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         if (basicSemantic.getActualType().equals(quadrupleSemantic.getOperandStack().peek().getType())) {
 
             Scope actualScope = basicSemantic.getScopeStack().peek();
-            System.out.println("TEST SCOPE NAME: " + actualScope.getName());
+//            System.out.println("TEST SCOPE NAME: " + actualScope.getName());
 
 //            System.out.println("Value: " + quadrupleSemantic.getOperandStack().peek() + " -> " +  actualScope.getParent().getVariableHashMap().get(actualScope.getName()));
             quadrupleSemantic.getQuadrupleList().add(
@@ -1745,7 +1800,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
     @Override
     public String visitMadbasic(MadBasicParser.MadbasicContext ctx) {
+        quadrupleSemantic.getQuadrupleList().add(new Goto());
+
         String res = visitChildren(ctx);
+
+        quadrupleSemantic.getQuadrupleList().add(new End());
 
         virtualMemory.setQuadruples(quadrupleSemantic.getQuadrupleList());
 

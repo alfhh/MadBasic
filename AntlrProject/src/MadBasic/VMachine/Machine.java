@@ -1,5 +1,6 @@
 package MadBasic.VMachine;
 
+import MadBasic.VMemory.Era;
 import MadBasic.Algrebra.Constant;
 import MadBasic.Algrebra.Operand;
 import MadBasic.IDE.MainIDE;

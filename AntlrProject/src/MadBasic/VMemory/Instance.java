@@ -6,6 +6,7 @@ import java.util.HashMap;
  * Created by lsanchez on 4/17/16.
  */
 public class Instance {
+
     HashMap<String, Integer> vDirectory;
 
     public Instance() {
