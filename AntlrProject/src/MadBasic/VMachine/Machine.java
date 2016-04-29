@@ -71,6 +71,9 @@ public class Machine {
                     case "MadBasic.Quadruples.Write":
                         proccessQuadruple((Write) quadruple);
                         break;
+                    case "MadBasic.Quadruples.Retorno":
+                        System.out.println("On return!"); // TODO: 28/04/16 CLEAN
+                        break;
                     default:
                         return false;
                 }
@@ -206,6 +209,7 @@ public class Machine {
         return true;
     }
 
+    // FIXME: 28/04/16 PRINTED IN WRONG ORDER
     public boolean proccessQuadruple(Write w){
         ideConnection = MainIDE.getInstance();
         int dir = vDirectory.get(Operand.getIdString(w.getOutput()));

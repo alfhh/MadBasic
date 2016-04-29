@@ -1,0 +1,30 @@
+program example;
+
+
+vars:
+	int x, y;
+	string s;
+
+methods:
+
+    void testReference(int ~x, int y){
+        x = y * 2;
+    }
+
+    void printline(string s) {
+        print(s ^ "\n" ^ "test");
+    }
+
+main:
+vars:
+	int xi, yi, a, c, d, i, j;
+
+
+
+a = 7;
+d = 3;
+print("Value of A: " ^ a);
+print(a);
+testReference(~a, d);
+print("Hello" ^ "World");
+end

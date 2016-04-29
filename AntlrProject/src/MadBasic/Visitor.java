@@ -1286,7 +1286,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitArgs(MadBasicParser.ArgsContext ctx) {
         String result = visitChildren(ctx);
-        if (basicSemantic.isFoundAReference()) {
+        if (basicSemantic.isFoundAReference()) { // Check if its a variable sent by reference
             try {
                 Variable var = (Variable) quadrupleSemantic.getOperandStack().pop();
                 var.setByReference(true);
