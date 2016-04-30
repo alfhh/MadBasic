@@ -27,7 +27,7 @@ public class VirtualMemory {
     Integer constFloatCount;
     Integer constStringCount;
     Integer constBoolCount;
-    Integer functionParameterCount;
+    Integer stackVariableCount;
     Stack<Era> eraStack;
 
     static VirtualMemory instance;
@@ -51,7 +51,7 @@ public class VirtualMemory {
         constFloatCount = 5250;
         constStringCount = 5500;
         constBoolCount = 5750;
-        functionParameterCount = 6000;
+        stackVariableCount = 6000;
     }
 
     public static VirtualMemory getInstance() {
@@ -141,8 +141,8 @@ public class VirtualMemory {
         return constBoolCount;
     }
 
-    public Integer getFunctionParameterCount() {
-        return functionParameterCount;
+    public Integer getStackVariableCount() {
+        return stackVariableCount;
     }
 
     public void setInstanceCount(Integer instanceCount) {
@@ -197,8 +197,8 @@ public class VirtualMemory {
         this.constBoolCount = constBoolCount;
     }
 
-    public void setFunctionParameterCount(Integer functionParameterCount) {
-        this.functionParameterCount = functionParameterCount;
+    public void setStackVariableCount(Integer stackVariableCount) {
+        this.stackVariableCount = stackVariableCount;
     }
 
     public void addInstanceCount() {
@@ -253,7 +253,7 @@ public class VirtualMemory {
         this.constBoolCount++;
     }
 
-    public void addFunctionParameterCount() { this.functionParameterCount++; }
+    public void addStackVariableCount() { this.stackVariableCount++; }
 
     public HashMap<String, Era> getEraHashMap() {
         return eraHashMap;

@@ -263,6 +263,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                                     }
                                     era.getvDirectory().putAll(proc.getEra());
                                     era.setStart(proc.getQuadrupleStart());
+                                    era.setParams(proc.getParams());
                                     virtualMemory.getEraHashMap().put(var.getID() + i + "-" + proc.getID(), era);
                                 }
                                 c = c.getParent();
@@ -293,6 +294,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                         }
                         era.getvDirectory().putAll(proc.getEra());
                         era.setStart(proc.getQuadrupleStart());
+                        era.setParams(proc.getParams());
                         virtualMemory.getEraHashMap().put(var.getID() + "-" + proc.getID(), era);
                     }
                     clas = clas.getParent();
@@ -484,6 +486,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             }
             era.getvDirectory().putAll(proc.getEra());
             era.setStart(proc.getQuadrupleStart());
+            era.setParams(proc.getParams());
             virtualMemory.getEraHashMap().put(proc.getID(), era);
         }
         String name = "main";

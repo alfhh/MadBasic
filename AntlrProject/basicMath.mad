@@ -16,12 +16,12 @@ print("--------------------- Basics");
 	d = 2;
 	y = c / d;
 	x = a * b;
+	sumNums(c, d);
 	a = 34 + 20 + 10 * 2 - 4;
 	print(x);
 	print(y);
 	print("Hello world Lowes!");
 	print(a);
-	sumNums(c, d);
 print("--------------------- Basics");
 
 print("------------- Advanced print");
