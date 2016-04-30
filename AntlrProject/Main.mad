@@ -14,7 +14,7 @@ class Aaa {
 	methods:
 		void save(int x, float y) {
 			c = a;
-			d = b;
+			d = 1.0 * b;
 		}
 }
 
