@@ -1,0 +1,31 @@
+program ex3;
+
+methods:
+    void func1(int x, int y){
+        print("X value: " ^ x);
+        print("Y value: " ^ y);
+
+        print(x + y);
+        print(x - y);
+        print(x * y);
+        print(x / y);
+        
+    }
+
+    int addValue(int ~x, int y){
+    	return x + y;
+    }
+
+main:
+vars:
+    int a, b, c,d, x;
+
+a = 1;
+b = 2;
+c = 4;
+d = 4;
+x = 10;
+func1(d, c);
+print("Value of X: " ^ x);
+addValue(~x, d);
+end
