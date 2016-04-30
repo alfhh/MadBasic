@@ -1100,57 +1100,6 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         quadrupleSemantic.getOperandStack().push(ttt);
     }
 
-//    /**
-//     * @param ctx
-//     * @return
-//     */
-//    @Override
-//    public String visitIdentifier(MadBasicParser.IdentifierContext ctx) {
-//        String result = "";
-//
-//        int ss = 2;
-//        for (int i = 0; i < ss && this.shouldVisitNextChild(ctx, null); ++i) {
-//            ParseTree c = ctx.getChild(i);
-//            String childResult = c.accept(this);
-//            result = this.aggregateResult(result, childResult);
-//        }
-//
-//        if (basicSemantic.isArray()) {
-//
-//            String text = ctx.getChild(0).getText();
-//            boolean found = false;
-//            Scope scope = basicSemantic.getScopeStack().peek();
-//            while (scope != null && !found) {
-//                if (scope.getVariableHashMap().containsKey(text)) {
-//                    Variable variable = scope.getVariableHashMap().get(text);
-//                    if (variable.getType() instanceof TypeArray) {
-//                        processArray(variable);
-//                        found = true;
-//                    } else {
-//                        System.out.println("Error, Identifier: " + text + " not array!");
-//                    }
-//                }
-//                if (!found) {
-//                    scope = scope.getParent();
-//                }
-//            }
-//            if (!found) {
-//                System.out.println("Error, Identifier: " + text + " not found!");
-//            }
-//
-//        }
-//
-//        int n = ctx.getChildCount();
-//        for (int i = ss; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
-//            ParseTree c = ctx.getChild(i);
-//            String childResult = c.accept(this);
-//            result = this.aggregateResult(result, childResult);
-//        }
-//
-//
-//        return result;
-//    }
-
     /**
      * @param ctx
      * @return
@@ -1707,6 +1656,15 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      * @return
      */
     @Override
+    public String visitInit(MadBasicParser.InitContext ctx) {
+        return super.visitInit(ctx);
+    }
+
+    /**
+     * @param ctx
+     * @return
+     */
+    @Override
     public String visitFunction(MadBasicParser.FunctionContext ctx) {
         String result = "";
         ParseTree c = ctx.getChild(0);
@@ -1748,8 +1706,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         func.setQuadrupleStart(quadrupleSemantic.getQuadrupleList().size());
         basicSemantic.getProcedures().add(func);
         basicSemantic.getScopeStack().peek().getParent().getProcedureHashMap().put(id, func);
-        basicSemantic.getScopeStack().peek().getParent().getVariableHashMap().put(id,
-                new Variable(func.getID(), func.getType(), func.getScope().getParent()));
+        Variable var = new Variable(func.getID(), func.getType(), func.getScope().getParent());
+        basicSemantic.getScopeStack().peek().getParent().getVariableHashMap().put(id, var);
+        insertVDirectory(var);
 
         int n = ctx.getChildCount();
         for (int i = cParentesisIndex; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
@@ -1806,8 +1765,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         proc.setQuadrupleStart(quadrupleSemantic.getQuadrupleList().size());
         basicSemantic.getProcedures().add(proc);
         basicSemantic.getScopeStack().peek().getParent().getProcedureHashMap().put(id, proc);
-        basicSemantic.getScopeStack().peek().getParent().getVariableHashMap().put(id,
-                new Variable(proc.getID(), new TypeFalse(), proc.getScope().getParent()));
+        Variable var = new Variable(proc.getID(), new TypeFalse(), proc.getScope().getParent());
+        basicSemantic.getScopeStack().peek().getParent().getVariableHashMap().put(id, var);
+        insertVDirectory(var);
 
         int n = ctx.getChildCount();
         for (int i = cParentesisIndex; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
