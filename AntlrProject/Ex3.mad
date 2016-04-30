@@ -27,5 +27,6 @@ d = 4;
 x = 10;
 func1(d, c);
 print("Value of X: " ^ x);
-addValue(x, d);
+a = addValue(x, d);
+print("New value of a: " ^ a);
 end
