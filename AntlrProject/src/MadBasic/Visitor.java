@@ -1433,10 +1433,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 int jumpback = quadrupleSemantic.getQuadrupleList().size() + 1;
                 quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, method));
                 if (method instanceof Function) {
-                    quadrupleSemantic.getOperandSList().add(
-                            new Variable(method.getID(), ((Function) method).getType(), method.getScope().getParent()));
-                    quadrupleSemantic.getOperandStack().push(
-                            new Variable(method.getID(), ((Function) method).getType(), method.getScope().getParent()));
+                    Variable var = method.getScope().getParent().getVariableHashMap().get(method.getID());
+                    Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), var.getType());
+                    insertTempVDirectory(temp);
+                    quadrupleSemantic.getQuadrupleList().add(new Assignment(var, temp));
+                    quadrupleSemantic.getOperandSList().add(temp);
+                    quadrupleSemantic.getOperandStack().push(temp);
                 }
             } else {
                 // TODO: 4/10/16 error
