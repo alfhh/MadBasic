@@ -15,7 +15,7 @@ public class Main  {
 
     public static void main(String [] args){
 
-//       /*
+     /*
         ParseTree tree = null;
 
         try {
@@ -38,7 +38,7 @@ public class Main  {
         tester.testManager(selectedTests);
        /* */
 
-        /*
+//        /*
         MainIDE ide = MainIDE.getInstance();
         Machine vmachine = Machine.getInstance();
         /**/
