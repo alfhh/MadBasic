@@ -15,11 +15,11 @@ public class Main  {
 
     public static void main(String [] args){
 
-       /*
+//       /*
         ParseTree tree = null;
 
         try {
-            tree = Parser.parse("Ex2.mad", "MadBasic", "madbasic");
+            tree = Parser.parse("Main.mad", "MadBasic", "madbasic");
             new Visitor().visit(tree);
         } catch (IOException error) {
             error.printStackTrace();
@@ -32,12 +32,13 @@ public class Main  {
                 TestingGround.TestNum.PROC_TABLE,
                 TestingGround.TestNum.OPERANDSTACK,
                 TestingGround.TestNum.QUADRUPLELIST,
+                TestingGround.TestNum.ERAS,
         };
 
         tester.testManager(selectedTests);
        /* */
 
-        ///*
+        /*
         MainIDE ide = MainIDE.getInstance();
         Machine vmachine = Machine.getInstance();
         /**/

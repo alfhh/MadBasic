@@ -47,6 +47,7 @@ public class BasicSemantic {
         scopeStack = new Stack<>();
         typeStack = new Stack<>();
         classHashMap = new HashMap<>();
+        paramList = new LinkedList<>();
         params = false;
         hasParent = false;
         parent = "";

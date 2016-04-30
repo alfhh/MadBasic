@@ -1,11 +1,11 @@
 package MadBasic.IDE;
 
-import MadBasic.Quadruples.QuadrupleSemantic;
-import MadBasic.VMemory.VirtualMemory;
-import MadBasic.Visitor;
 import MadBasic.Parser;
+import MadBasic.Quadruples.QuadrupleSemantic;
 import MadBasic.TestingGround;
 import MadBasic.VMachine.Machine;
+import MadBasic.VMemory.VirtualMemory;
+import MadBasic.Visitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
