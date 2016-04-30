@@ -28,6 +28,7 @@ public class Main  {
         TestingGround tester = new TestingGround();
 
         TestingGround.TestNum[] selectedTests = {
+                TestingGround.TestNum.VARIABLE_TABLE,
                 TestingGround.TestNum.SCOPETABLE,
                 TestingGround.TestNum.PROC_TABLE,
                 TestingGround.TestNum.OPERANDSTACK,
