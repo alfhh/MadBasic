@@ -88,9 +88,11 @@ vars:
 	float[0,1] fla;
 	bool bo;
 	string str;
-	Bbb[0, 2] bbb;
+	Bbb[0, 3][0,3] bbb;
 	Aaa aaa;
 
+aaa.init();
+bbb[0][0].init(0);
 xi = 44;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
@@ -114,6 +116,6 @@ fla[0] = fla[1];
 i = j * i;
 lint[i+j][j][j+1] = i + j;
 print("Hello" ^ "World" ^ x);
-x = bbb[0].d;
-bbb[bbb[0].d].d = x;
+x = bbb[0][0].d;
+bbb[bbb[0][0].d][0].d = x;
 end

@@ -198,6 +198,23 @@ public class TestingGround {
         System.out.println("------------------------------------------------");
     }
 
+    /**
+     * ID: 10
+     */
+    public void printClasses() {
+        System.out.println("------------------------------------------------");
+        System.out.println("Classes: ");
+        Set<String> keys = basicSemantic.getClassHashMap().keySet();
+        Object ks[] = keys.toArray();
+        Arrays.sort(ks);
+        for (Object key : ks) {
+            System.out.println(key + ": " + basicSemantic.getClassHashMap().get(key));
+        }
+        System.out.println("------------------------------------------------");
+    }
+
+
+
 
     /**
      * This method run the specified tests, selected on the integer array.
@@ -246,6 +263,8 @@ public class TestingGround {
                     break;
                 case 9:
                     printEras();
+                case 10:
+                    printClasses();
                     break;
             }
         }
@@ -253,7 +272,7 @@ public class TestingGround {
 
     public enum TestNum {
         ALL(0), VARIABLE_TABLE(1), SCOPETABLE(2), PROC_TABLE(3), SEMANTIC_CUBE_TEST(4), OPERANDSTACK(5),
-        QUADRUPLELIST(6), OPERAND_LIST(7), SEMANTIC_CUBE_PRINT(8), ERAS(9);
+        QUADRUPLELIST(6), OPERAND_LIST(7), SEMANTIC_CUBE_PRINT(8), ERAS(9), CLASSES(10);
         private int num;
 
         TestNum(int num) {

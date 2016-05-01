@@ -32,7 +32,6 @@ public class Procedure {
         this.ID = ID;
     }
 
-
     public Scope getScope() {
         return scope;
     }
@@ -63,6 +62,16 @@ public class Procedure {
 
     public void setEra(HashMap<String, Integer> eraHash) {
         this.eraHash = eraHash;
+    }
+
+    public Procedure clone(){
+        Procedure proc = new Procedure(ID, scope.getParent());
+        proc.setParams(new LinkedList<>());
+        proc.getParams().addAll(params);
+        proc.setQuadrupleStart(quadrupleStart);
+        proc.setEra(new HashMap<>());
+        proc.getEra().putAll(eraHash);
+        return proc;
     }
 
     @Override
