@@ -3,10 +3,35 @@ program example;
 vars:
     int z;
 
+class Ddd{
+    init(){
+    }
+}
+
+class Hhh{
+    vars:
+        Ddd ddd;
+
+    init(){
+    }
+}
+
+class Iii parent Ddd{
+    vars:
+        Hhh hhh;
+
+    init(){
+    }
+}
+
+
 class Aaa {
 	vars:
 		int c, a, b;
 		float d;
+		Ddd ddd;
+		Hhh hhh;
+		Iii iii;
 
 	init(){
 	}
@@ -22,6 +47,7 @@ class Bbb parent Aaa {
 	vars:
 		int cc, d;
 		float dd;
+		Aaa aaa;
 
 	init(int x){
 		cc = d;
@@ -37,6 +63,51 @@ class Bbb parent Aaa {
                 int a;
                 a = 0;
 		}
+}
+
+class Ccc {
+    vars:
+        Bbb bbb;
+
+    init(){
+    }
+}
+
+class Eee parent Ccc {
+    vars:
+        Bbb ccc;
+
+    init(){
+    }
+}
+
+class Fff parent Ccc {
+    vars:
+        Bbb ccc;
+
+    init(){
+    }
+}
+
+class Ggg parent Ccc {
+    vars:
+        Bbb ccc;
+
+    init(){
+    }
+}
+
+class Jjj{
+    init(){
+    }
+}
+
+class Kkk{
+    vars:
+        Jjj jjj;
+
+    init(){
+    }
 }
 
 
