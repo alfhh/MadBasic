@@ -1,29 +1,6 @@
 program ciclos;
 
 methods:
-    void func1(int x){
-        if(x >= 0){
-        	print(x ^ " is positive");
-        } 
-        if(x < 10){
-        	print(x ^ " is less than 10 test");
-        }
-        if(x > 5){
-        	print(x ^ " is bigger than 5 test");
-        }
-    }
-
-    int factorial(int n){
-    	vars:
-    		int acum;
-    	acum = n;
-    	while(n - 1 > 0){
-    		n = n - 1;
-    		acum = n * acum;
-    	}
-    	return acum;
-    }
-
     int rFactorial(int n){
 	vars:
 		int acum;
@@ -31,7 +8,7 @@ methods:
     		if(n - 1 <= 0){
     			acum =  1;
     		} else {
-    			acum = rFactorial(n - 1) * rFactorial(n - 2);
+    			acum = rFactorial(n - 1) * n;
     		}
     		
     		return acum;
@@ -41,11 +18,7 @@ main:
 vars:
     int a, b, c,d, x;
 
-x = 7;
-func1(x);
-b = 6;
-a = factorial(b);
-print(a);
+b = 5;
 a = rFactorial(b);
 print(a);
 end

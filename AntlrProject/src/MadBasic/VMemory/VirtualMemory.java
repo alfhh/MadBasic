@@ -142,7 +142,7 @@ public class VirtualMemory {
     }
 
     public Integer getStackVariableCount() {
-        return stackVariableCount;
+        return this.stackVariableCount;
     }
 
     public void setInstanceCount(Integer instanceCount) {

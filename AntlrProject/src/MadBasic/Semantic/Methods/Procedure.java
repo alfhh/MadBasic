@@ -22,6 +22,7 @@ public class Procedure {
         this.ID = ID;
         this.scope = new Scope(ID, parent);
         params = new LinkedList<>();
+        eraHash = new HashMap<>();
     }
 
     public String getID() {

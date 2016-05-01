@@ -33,6 +33,16 @@ public class Era {
         return start;
     }
 
+    public Era clone(){
+        Era e = new Era();
+        e.setParams(new LinkedList<>());
+        e.getParams().addAll(params);
+        e.setvDirectory(new HashMap<>());
+        e.getvDirectory().putAll(vDirectory);
+        e.setStart(start);
+        return e;
+    }
+
     public void setStart(int start) {
         this.start = start;
     }

@@ -174,10 +174,8 @@ public class Machine {
      */
     public int processGotoSub(Gosub g) {
         int dir = g.getJump();
-        Era temp = virtualMemory.getEraHashMap().get(g.getProcedure().getID());
-        temp.setRetorno(dir);
-
-        return temp.getStart();
+        virtualMemory.getEraStack().peek().setRetorno(dir);
+        return virtualMemory.getEraStack().peek().getStart();
     }
 
     /**
@@ -186,13 +184,15 @@ public class Machine {
      * @param qE
      */
     public void processBuildEra(QuadEra qE) {
-        Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID());
+        Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID()).clone();
+        //Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID());
         e.setvMemoryStart(virtualMemory.getStackVariableCount());
         Set<String> k = e.getvDirectory().keySet();
         Object[] keys = k.toArray();
         for (Object key : keys) {
             if(e.getvDirectory().get(key) == null){
                 e.getvDirectory().put((String)key, virtualMemory.getStackVariableCount());
+                vMemory.put(virtualMemory.getStackVariableCount(), null);
                 virtualMemory.addStackVariableCount();
             }
         }
