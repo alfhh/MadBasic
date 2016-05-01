@@ -1032,7 +1032,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 insertTempVDirectory(temp);
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
-                                Operator.MINUS, new Constant<Integer>(0, new TypeInt()), oper, temp));
+                                Operator.MINUS, oper, new Constant<Integer>(0, new TypeInt()), temp));
                 quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
                 quadrupleSemantic.getOperandSList().add(temp);

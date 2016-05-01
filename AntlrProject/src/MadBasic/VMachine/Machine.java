@@ -2,6 +2,7 @@ package MadBasic.VMachine;
 
 import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Gotos.Gosub;
+import MadBasic.Quadruples.Gotos.GotoFalse;
 import MadBasic.VMemory.Era;
 import MadBasic.Algrebra.Operand;
 import MadBasic.IDE.MainIDE;
@@ -9,6 +10,7 @@ import MadBasic.Quadruples.*;
 import MadBasic.Quadruples.Gotos.Goto;
 import MadBasic.VMemory.Instance;
 import MadBasic.VMemory.VirtualMemory;
+import javafx.beans.binding.ObjectExpression;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -86,6 +88,14 @@ public class Machine {
                     case "MadBasic.Quadruples.Gotos.End":
                         return true;
 
+                    case "MadBasic.Quadruples.Gotos.GotoFalse":
+                        if(processGotoFalse((GotoFalse) quadruple)){ // If is false, then jump
+                            index = ((GotoFalse) quadruple).getJump();
+                        } else {
+                            index++;
+                        }
+                        break;
+
                     case "MadBasic.Quadruples.Gotos.Gosub":
                         index = processGotoSub((Gosub) quadruple);
                         break;
@@ -120,7 +130,8 @@ public class Machine {
                 }
 
                 // Avoid overwrite of the index when Goto
-                if(!(quadruple instanceof  Goto) && !(quadruple instanceof  Gosub) ){
+                if(!(quadruple instanceof  Goto) && !(quadruple instanceof  Gosub) &&
+                        !(quadruple instanceof  GotoFalse)){
                     index++;
                 }
             }
@@ -139,6 +150,19 @@ public class Machine {
      */
     public int processGoto(Goto g) {
         return g.getJump();
+    }
+
+    /**
+     * This function returns a true if the operand is false
+     * @param g
+     * @return
+     */
+    public boolean processGotoFalse(GotoFalse g){
+
+        int dirOp = vDirectory.get(Operand.getIdString(g.getCondition()));
+        boolean val = (boolean) vMemory.get(dirOp);
+
+        return (val) ? false : true;
     }
 
     /**
@@ -201,10 +225,10 @@ public class Machine {
      */
     public boolean proccessQuadruple(Assignment a) {
         // TODO: 21/04/16 CHECK SPECIAL CASE OF BY REFERENCE
-        int dirValue = vDirectory.get(Operand.getIdString(a.getValue()));
+        int dirValue = getDirectionFromVM((Operand) a.getValue());
         Object value = vMemory.get(dirValue);
 
-        int dirResult = vDirectory.get(Operand.getIdString(a.getResult()));
+        int dirResult = getDirectionFromVM((Operand) a.getResult());
         vMemory.put(dirResult, value);
 
         return true;
@@ -229,28 +253,28 @@ public class Machine {
         }
     }
 
-    public boolean arithmeticExpression(Expression e) {
-        Integer dirOp1;
-        Integer dirOp2;
 
+    public int getDirectionFromVM(Operand o){
+        Integer dir;
 
         if(virtualMemory.getEraStack().isEmpty()){
-            dirOp1 =  vDirectory.get(Operand.getIdString(e.getOperand1())); // Operand 1
-            dirOp2 = vDirectory.get(Operand.getIdString(e.getOperand2())); //Operand 2
+            dir =  vDirectory.get(Operand.getIdString(o)); // Operand 1
 
         } else {
             // First check if the values are present in the Era param list
-            dirOp1 = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(e.getOperand1()));
-            dirOp2 = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(e.getOperand2()));
+            dir = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o));
 
-            if(dirOp1 == null){
-                dirOp1 =  vDirectory.get(Operand.getIdString(e.getOperand1())); // Operand 1
+            if(dir == null){
+                dir =  vDirectory.get(Operand.getIdString(o)); // Operand 1
             }
 
-            if(dirOp2 == null){
-                dirOp2 = vDirectory.get(Operand.getIdString(e.getOperand2())); //Operand 2
-            }
         }
+        return dir;
+    }
+
+    public boolean arithmeticExpression(Expression e) {
+        int dirOp1 = getDirectionFromVM(e.getOperand1());
+        int dirOp2 = getDirectionFromVM(e.getOperand2());
 
         int tempDir = vDirectory.get(Operand.getIdString(e.getResult())); // Result
 
@@ -332,9 +356,86 @@ public class Machine {
         return true;
     }
 
+
+    /**
+     * This function returns a boolean value after evaluating both operands
+     * THIS FUNCTION SWAPS THE POSITION OF THE OPERAND 1 AND 2 IN ORDER TO DO THE
+     * CORRECT OPERATION
+     * @param operatorCode
+     * @param op2
+     * @param op1
+     * @return boolean value after evaluation
+     */
+    public boolean evalCondition(int operatorCode, float op2, float op1){
+        switch (operatorCode){
+            case 2:
+                return op1 > op2;
+            case 3:
+                return op1 < op2;
+            case 4:
+                return op1 >= op2;
+            case 5:
+                return op1 <= op2;
+            default:
+                return false;
+        }
+    }
+
+
+    public void conditionExpression(Expression e){
+        int operatorCode = e.getOper().ordinal();
+
+        int op1Type = e.getOperand1().getType().getTypeValue();
+        int op2Type = e.getOperand2().getType().getTypeValue();
+
+        int dirOp1 = getDirectionFromVM(e.getOperand1());
+        int dirOp2 = getDirectionFromVM(e.getOperand2());
+        int tempDir = vDirectory.get(Operand.getIdString(e.getResult())); // Result
+
+
+        // TODO: 30/04/16 CHECK 3 == TRUE
+
+        if(operatorCode == 6 || operatorCode == 7){ // == OR !=
+
+        } else { // <, <=, >, >=
+
+            if (op1Type == 0 && op2Type == 0) { // Both integers
+                int x = (int) vMemory.get(dirOp1);
+                int y = (int) vMemory.get(dirOp2);
+
+                vMemory.put(tempDir, evalCondition(operatorCode, x, y));
+
+            } else if (op1Type == 1 && op2Type == 0) { // Op1 float Op2 int
+                float x = (float) vMemory.get(dirOp1);
+                int y = (int) vMemory.get(dirOp2);
+
+                vMemory.put(tempDir, evalCondition(operatorCode, x, y));
+
+
+            } else if (op1Type == 0 && op2Type == 1) { // Op1 int Op2 float
+                int x = (int) vMemory.get(dirOp1);
+                float y = (float) vMemory.get(dirOp2);
+
+                vMemory.put(tempDir, evalCondition(operatorCode, x, y));
+
+
+            } else if (op1Type == 1 && op2Type == 1) { // Both floats
+                float x = (float) vMemory.get(dirOp1);
+                float y = (float) vMemory.get(dirOp2);
+
+                vMemory.put(tempDir, evalCondition(operatorCode, x, y));
+
+            }
+
+        }
+
+    }
+
     public boolean proccessQuadruple(Expression e) {
         if (e.getOper().getValue() == 4) { // String concatenation
             stringConcatExpression(e);
+        } else if(e.getOper().getValue() == 1){ // >, <, ==, != operations
+            conditionExpression(e);
         } else {
             arithmeticExpression(e);
         }
