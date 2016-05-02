@@ -130,8 +130,11 @@ public class Machine {
 
                     // Arrays
                     case "MadBasic.Quadruples.ArrayVerify":
-                        if (!processArrayVerify((ArrayVerify) quadruple))
-                            return false; // TODO: 1/05/16 ADD ERROR CODE
+                        if (!processArrayVerify((ArrayVerify) quadruple)){
+                            ideConnection = MainIDE.getInstance();
+                            ideConnection.printError("Index out of bounds!");
+                            return false;
+                        }
                         break;
 
 
@@ -272,7 +275,6 @@ public class Machine {
      * @return
      */
     public boolean proccessQuadruple(Assignment a) {
-        // TODO: 21/04/16 CHECK SPECIAL CASE OF BY REFERENCE
         int dirValue = getDirectionFromVM((Operand) a.getValue());
         Object value = vMemory.get(dirValue);
 
@@ -516,10 +518,12 @@ public class Machine {
     }
 
     public boolean proccessQuadruple(Expression e) {
-        if (e.getOper().getValue() == 4) { // String concatenation
-            stringConcatExpression(e);
-        } else if (e.getOper().getValue() == 1) { // >, <, ==, != operations
+        if(e.getOper().getValue() == 0){
+            andOrCondition(e);
+        }else if (e.getOper().getValue() == 1) { // >, <, ==, != operations
             conditionExpression(e);
+        } else if (e.getOper().getValue() == 4) { // String concatenation
+            stringConcatExpression(e);
         } else {
             arithmeticExpression(e);
         }
@@ -527,20 +531,22 @@ public class Machine {
         return true;
     }
 
-    public boolean proccessQuadruple(Retorno r) {
-        return true;
-    }
+    public void andOrCondition(Expression e){
+        int dirOp1 = getDirectionFromVM(e.getOperand1());
+        int dirOp2 = getDirectionFromVM(e.getOperand2());
 
-    public boolean proccessQuadruple(Era e) {
-        return true;
-    }
+        int tempDir = getDirectionFromVM(e.getResult()); // Result
+        int operatorCode = e.getOper().ordinal();
 
-    public boolean proccessQuadruple(Parameter p) {
-        return true;
-    }
+        boolean op1 = (Boolean) vMemory.get(dirOp1);
+        boolean op2 = (Boolean) vMemory.get(dirOp2);
 
-    public boolean proccessQuadruple(Read r) {
-        return true;
+        if(operatorCode == 0){
+            vMemory.put(tempDir, op1 && op2);
+        } else {
+            vMemory.put(tempDir, op1 || op2);
+        }
+
     }
 
     public boolean proccessQuadruple(Write w) {

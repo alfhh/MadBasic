@@ -1,0 +1,44 @@
+program conditions;
+
+
+vars:
+	int x, y;
+	string s;
+
+methods:
+
+    void printline(string s) {
+        print(s  ^ " <--");
+    }
+
+    bool mod(int x, int m){
+    	return (x == (x / m) * m);
+    }
+
+    bool func1(int x){
+	vars:
+		bool ans;
+    	
+    	if(mod(x, 2) && mod(x, 3)){
+    		ans = true;
+    	} else {
+    		ans = false;
+    	}
+    	return ans;
+    }
+
+main:
+vars:
+	int a, b, c, d;
+	bool flag;
+
+
+
+a = 7;
+b = 3;
+c = 2;
+d = 14;
+flag = func1(d);
+print(flag);
+
+end
