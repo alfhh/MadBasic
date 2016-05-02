@@ -1,0 +1,78 @@
+program fibo;
+
+methods:
+
+	int fiboI(int n){
+		vars:
+			int fib, a1, a2, index;
+
+		if(n == 0){
+			fib = 0;
+		} else{
+			a1 = 0;
+			a2 = 1;
+			index = 2;			
+			fib = 1;
+			while(index < n){
+				a1 = a2;
+				a2 = fib;
+				fib = a1 + a2;
+				index = index + 1;
+				print("Index: "  ^ index ^ " fib: " ^ fib);
+			}
+		}
+		return fib;
+	}
+
+	int fibo(int n){
+		vars:
+			int acum2;
+			int temp1, temp2;
+
+		if(n == 0){
+			acum2 = 0;
+		} else {
+			if(n == 1){
+				acum2 = 1;
+			} else {
+				temp1 = fibo(n - 1);
+				temp2 = fibo(n - 2);
+				acum2 = temp1 + temp2;
+			}
+		}
+		return acum2;
+	}
+
+	int fibo2(int n){
+		vars:
+			int acum2;
+			int temp1, temp2;
+
+		if(n == 0){
+			acum2 = 0;
+		} else {
+			if(n == 1){
+				acum2 = 1;
+			} else {
+				acum2 = fibo2(n - 1) + fibo2(n - 2);
+			}
+		}
+		return acum2;
+	}
+
+
+main:
+	vars:
+	    int a, b, c,d, x;
+	
+	c = 8;
+	x = fiboI(c);
+	print(x);
+	print("---------------");
+	x = fibo(c);
+	print(x);
+	print("---------------");
+	b = fibo2(c);
+	print(b);
+
+end

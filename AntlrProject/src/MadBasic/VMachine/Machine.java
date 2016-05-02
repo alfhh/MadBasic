@@ -174,6 +174,7 @@ public class Machine {
      */
     public int processGotoSub(Gosub g) {
         int dir = g.getJump();
+        virtualMemory.getEraStack().push(virtualMemory.getSecondaryEraStack().pop());
         virtualMemory.getEraStack().peek().setRetorno(dir);
         return virtualMemory.getEraStack().peek().getStart();
     }
@@ -196,15 +197,16 @@ public class Machine {
                 virtualMemory.addStackVariableCount();
             }
         }
-        virtualMemory.getEraStack().push(e);
+        virtualMemory.getSecondaryEraStack().push(e);
     }
 
     public void processParameter(Parameter p) {
         // Add the parameter to the Era
         Operand tempOp = p.getArgument();
-        int dirArg = vDirectory.get(Operand.getIdString(tempOp));
-        Variable varParam = virtualMemory.getEraStack().peek().getParams().get(p.getParameterNum());
-        int dirParam = virtualMemory.getEraStack().peek().getvDirectory().get(varParam.getID());
+        //int dirArg = vDirectory.get(Operand.getIdString(tempOp));
+        int dirArg = getDirectionFromVM(tempOp);
+        Variable varParam = virtualMemory.getSecondaryEraStack().peek().getParams().get(p.getParameterNum());
+        int dirParam = virtualMemory.getSecondaryEraStack().peek().getvDirectory().get(varParam.getID());
         vMemory.put(dirParam, vMemory.get(dirArg));
     }
 
@@ -255,6 +257,7 @@ public class Machine {
 
 
     public int getDirectionFromVM(Operand o){
+        // TODO: 1/05/16 HANDLE IS POINTER, TEMPORAL PONITER
         Integer dir;
 
         if(virtualMemory.getEraStack().isEmpty()){
@@ -381,6 +384,17 @@ public class Machine {
         }
     }
 
+    public boolean evalAdvancedCondition(int operatorCode, int op1, int op2){
+        switch (operatorCode){
+            case 6:
+                return op1 == op2;
+            case 7:
+                return op1 != op2;
+            default:
+                return false;
+        }
+    }
+
 
     public void conditionExpression(Expression e){
         int operatorCode = e.getOper().ordinal();
@@ -396,6 +410,13 @@ public class Machine {
         // TODO: 30/04/16 CHECK 3 == TRUE
 
         if(operatorCode == 6 || operatorCode == 7){ // == OR !=
+            // TODO: 1/05/16 IMPLEMENT OTHER CASES WITH BOOL AND FLOAT
+
+            if (op1Type == 0 && op2Type == 0) { // Both integers
+                int x = (int) vMemory.get(dirOp1);
+                int y = (int) vMemory.get(dirOp2);
+                vMemory.put(tempDir, evalAdvancedCondition(operatorCode, x, y));
+            }
 
         } else { // <, <=, >, >=
 
@@ -462,7 +483,7 @@ public class Machine {
     // FIXME: 28/04/16 PRINTED IN WRONG ORDER
     public boolean proccessQuadruple(Write w) {
         ideConnection = MainIDE.getInstance();
-        int dir = vDirectory.get(Operand.getIdString(w.getOutput()));
+        int dir = getDirectionFromVM(w.getOutput());
         ideConnection.print(String.valueOf(vMemory.get(dir)));
         return true;
     }

@@ -14,11 +14,31 @@ methods:
     		return acum;
     }
 
+    int fibo(int n){
+        vars:
+            int acum2;
+
+        if(n == 0){
+            acum2 = 0;
+        }
+        if(n == 1){
+            acum2 = 1;
+        } else {
+            acum2 = fibo(n -1) + fibo(n - 2);
+        }
+
+        return acum2;
+    }
+
+
 main:
 vars:
     int a, b, c,d, x;
 
-b = 5;
+b = 6;
 a = rFactorial(b);
 print(a);
+c = 6;
+x = fibo(c);
+print(x);
 end
