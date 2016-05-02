@@ -8,15 +8,12 @@ methods:
 			int temp1, temp2;
 
 		if(n == 0){
-			print("at zero");
 			acum2 = 0;
 		} else {
 			if(n == 1){
 				acum2 = 1;
-				print("at one");
 			} else {
 				acum2 = fibo2(n - 1) + fibo2(n - 2);
-				print("acum -> " ^ acum2 ^ " n: " ^ n);
 			}
 		}
 		return acum2;

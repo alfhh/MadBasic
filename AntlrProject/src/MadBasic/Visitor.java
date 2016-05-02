@@ -1421,19 +1421,37 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      */
     @Override
     public String visitArgs(MadBasicParser.ArgsContext ctx) {
-        String result = visitChildren(ctx);
+        String result = this.defaultResult();
+
+        int n = ctx.getChildCount() - 1;
+        for (int i = 0; i < 2 && this.shouldVisitNextChild(ctx, null); ++i) {
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+
+
         if (basicSemantic.isFoundAReference()) { // Check if its a variable sent by reference
             try {
                 Variable var = (Variable) quadrupleSemantic.getOperandStack().pop();
                 var.setByReference(true);
                 basicSemantic.setFoundAReference(false);
+                ParseTree c = ctx.getChild(n);
+                String childResult = c.accept(this);
+                result = this.aggregateResult(result, childResult);
                 quadrupleSemantic.getArgsStack().push(var);
             } catch (ClassCastException e) {
                 System.out.println("You can't send constants by reference");
             }
         } else {
+            ParseTree c = ctx.getChild(n);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
             quadrupleSemantic.getArgsStack().push(quadrupleSemantic.getOperandStack().pop());
         }
+
+
         return result;
     }
 
@@ -1443,9 +1461,36 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      */
     @Override
     public String visitXArgs(MadBasicParser.XArgsContext ctx) {
-        String result = visitChildren(ctx);
-        quadrupleSemantic.getArgsStack().push(quadrupleSemantic.getOperandStack().pop());
-        return result;
+        String result = this.defaultResult();
+
+        int n = ctx.getChildCount() - 1;
+        for (int i = 0; i < 3 && this.shouldVisitNextChild(ctx, null); ++i) {
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+        }
+
+        if (basicSemantic.isFoundAReference()) { // Check if its a variable sent by reference
+            try {
+                Variable var = (Variable) quadrupleSemantic.getOperandStack().pop();
+                var.setByReference(true);
+                basicSemantic.setFoundAReference(false);
+                ParseTree c = ctx.getChild(n);
+                String childResult = c.accept(this);
+                result = this.aggregateResult(result, childResult);
+                quadrupleSemantic.getArgsStack().push(var);
+
+            } catch (ClassCastException e) {
+                System.out.println("You can't send constants by reference");
+            }
+        } else {
+            ParseTree c = ctx.getChild(n);
+            String childResult = c.accept(this);
+            result = this.aggregateResult(result, childResult);
+            quadrupleSemantic.getArgsStack().push(quadrupleSemantic.getOperandStack().pop());
+        }
+
+         return result;
     }
 
     /**
@@ -1745,7 +1790,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 result = this.aggregateResult(result, childResult);
             }
 
-            // TODO: 4/11/16 reference
+            // TODO: 4/11/16 reference pending
             Type type = basicSemantic.getTypeStack().pop();
             while (!basicSemantic.getTypeStack().empty()) {
                 if (type instanceof TypeList) {
@@ -1756,7 +1801,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 }
             }
 
-            Variable variable = new Variable(ctx.getChild(3).getText(), type, basicSemantic.getScopeStack().peek());
+
+            Variable variable = new Variable(ctx.getChild(3).getText(), type, basicSemantic.getScopeStack().peek(), basicSemantic.isFoundAReference());
+            basicSemantic.setFoundAReference(false);
             basicSemantic.getParamList().add(variable);
 
             for (int i = 4; i < n && this.shouldVisitNextChild(ctx, null); ++i) {

@@ -9,9 +9,8 @@ import MadBasic.Algrebra.Operand;
 import MadBasic.IDE.MainIDE;
 import MadBasic.Quadruples.*;
 import MadBasic.Quadruples.Gotos.Goto;
-import MadBasic.VMemory.Instance;
+import MadBasic.VMemory.ReferencePair;
 import MadBasic.VMemory.VirtualMemory;
-import javafx.beans.binding.ObjectExpression;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -236,6 +235,13 @@ public class Machine {
         Variable varParam = virtualMemory.getSecondaryEraStack().peek().getParams().get(p.getParameterNum());
         int dirParam = virtualMemory.getSecondaryEraStack().peek().getvDirectory().get(varParam.getID());
         vMemory.put(dirParam, vMemory.get(dirArg));
+
+        // Add if param by reference
+        if(varParam.isByReference()){
+            ReferencePair r = new ReferencePair(dirArg, dirParam);
+            virtualMemory.getSecondaryEraStack().peek().getReferencePairList().push(r);
+        }
+
     }
 
     /**
@@ -245,6 +251,13 @@ public class Machine {
      */
     public int processReturn() {
         virtualMemory.setStackVariableCount(virtualMemory.getEraStack().peek().getvMemoryStart());
+
+        // Check if there are values by ref, then asign the correct values
+        for (ReferencePair rp: virtualMemory.getEraStack().peek().getReferencePairList()){
+            Object val = vMemory.get(rp.getRefDir());
+            vMemory.put(rp.getOrgDir(), val);
+        }
+
         return virtualMemory.getEraStack().pop().getRetorno();
     }
 

@@ -15,8 +15,10 @@ public class Era {
     int retorno;
     LinkedList<Variable> params;
     int vMemoryStart;
+    LinkedList<ReferencePair> referencePairList;
 
     public Era() {
+        referencePairList = new LinkedList<>();
         vDirectory = new HashMap<>();
         params = new LinkedList<>();
     }
@@ -33,6 +35,14 @@ public class Era {
         return start;
     }
 
+    public LinkedList<ReferencePair> getReferencePairList() {
+        return referencePairList;
+    }
+
+    public void setReferencePairList(LinkedList<ReferencePair> referencePairList) {
+        this.referencePairList = referencePairList;
+    }
+
     public Era clone(){
         Era e = new Era();
         e.setParams(new LinkedList<>());
@@ -40,6 +50,7 @@ public class Era {
         e.setvDirectory(new HashMap<>());
         e.getvDirectory().putAll(vDirectory);
         e.setStart(start);
+        e.setReferencePairList(new LinkedList<>());
         return e;
     }
 
@@ -79,4 +90,5 @@ public class Era {
                 ", retorno=" + retorno +
                 '}';
     }
+
 }
