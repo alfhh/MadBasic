@@ -124,6 +124,10 @@ public class Machine {
                         proccessQuadruple((Write) quadruple);
                         break;
 
+                    case "MadBasic.Quadruples.Read":
+                        proccessRead((Read) quadruple);
+                        break;
+
                     // Arrays
                     case "MadBasic.Quadruples.ArrayVerify":
                         if (!processArrayVerify((ArrayVerify) quadruple))
@@ -539,12 +543,36 @@ public class Machine {
         return true;
     }
 
-    // FIXME: 28/04/16 PRINTED IN WRONG ORDER
     public boolean proccessQuadruple(Write w) {
         ideConnection = MainIDE.getInstance();
         int dir = getDirectionFromVM(w.getOutput());
         ideConnection.print(String.valueOf(vMemory.get(dir)));
         return true;
+    }
+
+    public void proccessRead(Read r){
+        ideConnection = MainIDE.getInstance();
+        String value = ideConnection.read("Input var");
+
+        int dirResult = getDirectionFromVM(r.getValue());
+
+        // Int = 0 Float = 1 Boolean = 2
+        int type = r.getValue().getType().getTypeValue();
+
+
+        switch (type){
+            case 0:
+                vMemory.put(dirResult, new Integer(value));
+                break;
+            case 1:
+                vMemory.put(dirResult, new Float(value));
+                break;
+            case 2:
+                vMemory.put(dirResult, new Boolean(value));
+                break;
+        }
+
+
     }
 
     public boolean proccessQuadruple(Goto g) {

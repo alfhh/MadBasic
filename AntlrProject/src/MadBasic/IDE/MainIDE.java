@@ -303,6 +303,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
     @Override
     public void print(String message) {
+        message = message.replace("\"" , "");
         jConsole.append(message + "\n");
     }
 

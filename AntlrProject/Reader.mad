@@ -1,0 +1,24 @@
+program arrays;
+
+
+vars:
+	int y;
+
+methods:
+
+    int doubleVal(int x){
+        return x * 2;
+    }
+
+main:
+vars:
+	int x, y;
+	float r;
+
+x = read;
+y = doubleVal(x);
+print("Val of y: " ^ y);
+
+r = read;
+print("Value of R: " ^ r);
+end
