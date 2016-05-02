@@ -1,5 +1,6 @@
 package MadBasic.VMachine;
 
+import MadBasic.Algrebra.Temporal;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.GotoFalse;
@@ -89,7 +90,7 @@ public class Machine {
                         return true;
 
                     case "MadBasic.Quadruples.Gotos.GotoFalse":
-                        if(processGotoFalse((GotoFalse) quadruple)){ // If is false, then jump
+                        if (processGotoFalse((GotoFalse) quadruple)) { // If is false, then jump
                             index = ((GotoFalse) quadruple).getJump();
                         } else {
                             index++;
@@ -124,14 +125,20 @@ public class Machine {
                         proccessQuadruple((Write) quadruple);
                         break;
 
+                    // Arrays
+                    case "MadBasic.Quadruples.ArrayVerify":
+                        if (!processArrayVerify((ArrayVerify) quadruple))
+                            return false; // TODO: 1/05/16 ADD ERROR CODE
+                        break;
+
 
                     default:
                         return false;
                 }
 
                 // Avoid overwrite of the index when Goto
-                if(!(quadruple instanceof  Goto) && !(quadruple instanceof  Gosub) &&
-                        !(quadruple instanceof  GotoFalse)){
+                if (!(quadruple instanceof Goto) && !(quadruple instanceof Gosub) &&
+                        !(quadruple instanceof GotoFalse)) {
                     index++;
                 }
             }
@@ -154,10 +161,11 @@ public class Machine {
 
     /**
      * This function returns a true if the operand is false
+     *
      * @param g
      * @return
      */
-    public boolean processGotoFalse(GotoFalse g){
+    public boolean processGotoFalse(GotoFalse g) {
 
         //int dirOp = vDirectory .get(Operand.getIdString(g.getCondition()));
         int dirOp = getDirectionFromVM(g.getCondition());
@@ -183,6 +191,23 @@ public class Machine {
     }
 
     /**
+     * This function checks if the value sent is inside the bounds of the array
+     *
+     * @param a
+     * @return
+     */
+    public boolean processArrayVerify(ArrayVerify a) {
+        Operand op = a.getOperand();
+        int value = (Integer) vMemory.get(getDirectionFromVM(op));
+
+        if (value >= a.getStart().getValue() && value <= a.getEnd().getValue())
+            return true;
+        else
+            return false;
+
+    }
+
+    /**
      * Function that pushes an Era to the stack when a function/procedure is called
      *
      * @param qE
@@ -194,8 +219,8 @@ public class Machine {
         Set<String> k = e.getvDirectory().keySet();
         Object[] keys = k.toArray();
         for (Object key : keys) {
-            if(e.getvDirectory().get(key) == null){
-                e.getvDirectory().put((String)key, virtualMemory.getStackVariableCount());
+            if (e.getvDirectory().get(key) == null) {
+                e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
                 vMemory.put(virtualMemory.getStackVariableCount(), null);
                 virtualMemory.addStackVariableCount();
             }
@@ -225,6 +250,7 @@ public class Machine {
 
     /**
      * This function sets the Object of the value to the result
+     *
      * @param a
      * @return
      */
@@ -259,21 +285,36 @@ public class Machine {
     }
 
 
-    public int getDirectionFromVM(Operand o){
+    public int getDirectionFromVM(Operand o) {
         // TODO: 1/05/16 HANDLE IS POINTER, TEMPORAL PONITER
         Integer dir;
+        if (((o instanceof Temporal) && ((Temporal) o).isPointer())) {
+            if (virtualMemory.getEraStack().isEmpty()) {
+                dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("(", "").replace(")", ""))); // Operand 1
 
-        if(virtualMemory.getEraStack().isEmpty()){
-            dir =  vDirectory.get(Operand.getIdString(o)); // Operand 1
+            } else {
+                // First check if the values are present in the Era param list
+                dir =  (Integer) vMemory.get(virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o)
+                        .replace("(", "").replace(")", "")));
 
-        } else {
-            // First check if the values are present in the Era param list
-            dir = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o));
+                if (dir == null) {
+                    dir =  (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("(", "").replace(")", ""))); // Operand 1
+                }
 
-            if(dir == null){
-                dir =  vDirectory.get(Operand.getIdString(o)); // Operand 1
             }
+        } else {
+            if (virtualMemory.getEraStack().isEmpty()) {
+                dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
 
+            } else {
+                // First check if the values are present in the Era param list
+                dir = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o));
+
+                if (dir == null) {
+                    dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
+                }
+
+            }
         }
         return dir;
     }
@@ -333,8 +374,8 @@ public class Machine {
         Integer dirOp2;
 
 
-        if(virtualMemory.getEraStack().isEmpty()){
-            dirOp1 =  getDirectionFromVM(e.getOperand1()); // Operand 1
+        if (virtualMemory.getEraStack().isEmpty()) {
+            dirOp1 = getDirectionFromVM(e.getOperand1()); // Operand 1
             dirOp2 = getDirectionFromVM(e.getOperand2()); //Operand 2
 
         } else {
@@ -342,11 +383,11 @@ public class Machine {
             dirOp1 = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(e.getOperand1()));
             dirOp2 = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(e.getOperand2()));
 
-            if(dirOp1 == null){
-                dirOp1 =  getDirectionFromVM(e.getOperand1()); // Operand 1
+            if (dirOp1 == null) {
+                dirOp1 = getDirectionFromVM(e.getOperand1()); // Operand 1
             }
 
-            if(dirOp2 == null){
+            if (dirOp2 == null) {
                 dirOp2 = getDirectionFromVM(e.getOperand2()); //Operand 2
             }
         }
@@ -367,13 +408,14 @@ public class Machine {
      * This function returns a boolean value after evaluating both operands
      * THIS FUNCTION SWAPS THE POSITION OF THE OPERAND 1 AND 2 IN ORDER TO DO THE
      * CORRECT OPERATION
+     *
      * @param operatorCode
      * @param op2
      * @param op1
      * @return boolean value after evaluation
      */
-    public boolean evalCondition(int operatorCode, float op2, float op1){
-        switch (operatorCode){
+    public boolean evalCondition(int operatorCode, float op2, float op1) {
+        switch (operatorCode) {
             case 2:
                 return op1 > op2;
             case 3:
@@ -387,8 +429,8 @@ public class Machine {
         }
     }
 
-    public boolean evalAdvancedCondition(int operatorCode, int op1, int op2){
-        switch (operatorCode){
+    public boolean evalAdvancedCondition(int operatorCode, int op1, int op2) {
+        switch (operatorCode) {
             case 6:
                 return op1 == op2;
             case 7:
@@ -399,7 +441,7 @@ public class Machine {
     }
 
 
-    public void conditionExpression(Expression e){
+    public void conditionExpression(Expression e) {
         int operatorCode = e.getOper().ordinal();
 
         int op1Type = e.getOperand1().getType().getTypeValue();
@@ -413,7 +455,7 @@ public class Machine {
 
         // TODO: 30/04/16 CHECK 3 == TRUE
 
-        if(operatorCode == 6 || operatorCode == 7){ // == OR !=
+        if (operatorCode == 6 || operatorCode == 7) { // == OR !=
             // TODO: 1/05/16 IMPLEMENT OTHER CASES WITH BOOL AND FLOAT
 
             if (op1Type == 0 && op2Type == 0) { // Both integers
@@ -459,7 +501,7 @@ public class Machine {
     public boolean proccessQuadruple(Expression e) {
         if (e.getOper().getValue() == 4) { // String concatenation
             stringConcatExpression(e);
-        } else if(e.getOper().getValue() == 1){ // >, <, ==, != operations
+        } else if (e.getOper().getValue() == 1) { // >, <, ==, != operations
             conditionExpression(e);
         } else {
             arithmeticExpression(e);

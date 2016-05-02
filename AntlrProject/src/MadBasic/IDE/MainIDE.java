@@ -235,6 +235,8 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         }
 
         if(e.getSource() == miRunCompile){
+            // TODO: 1/05/16 REFACTOR ALL MENUITEMS WITH FUNCTIONS 
+            
             // Also saves
 
             String data = editorArea.getText();
