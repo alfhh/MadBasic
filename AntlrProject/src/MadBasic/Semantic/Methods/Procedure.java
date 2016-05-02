@@ -3,7 +3,9 @@ package MadBasic.Semantic.Methods;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.Types.Type;
+import MadBasic.VMemory.Era;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -14,11 +16,13 @@ public class Procedure {
     Scope scope;
     LinkedList<Variable> params;
     int quadrupleStart;
+    HashMap<String, Integer> eraHash;
 
     public Procedure(String ID, Scope parent) {
         this.ID = ID;
         this.scope = new Scope(ID, parent);
         params = new LinkedList<>();
+        eraHash = new HashMap<>();
     }
 
     public String getID() {
@@ -28,7 +32,6 @@ public class Procedure {
     public void setID(String ID) {
         this.ID = ID;
     }
-
 
     public Scope getScope() {
         return scope;
@@ -54,6 +57,24 @@ public class Procedure {
         this.quadrupleStart = quadrupleStart;
     }
 
+    public HashMap<String, Integer> getEra() {
+        return eraHash;
+    }
+
+    public void setEra(HashMap<String, Integer> eraHash) {
+        this.eraHash = eraHash;
+    }
+
+    public Procedure clone(){
+        Procedure proc = new Procedure(ID, scope.getParent());
+        proc.setParams(new LinkedList<>());
+        proc.getParams().addAll(params);
+        proc.setQuadrupleStart(quadrupleStart);
+        proc.setEra(new HashMap<>());
+        proc.getEra().putAll(eraHash);
+        return proc;
+    }
+
     @Override
     public String toString() {
         String var = "{\t";
@@ -66,6 +87,6 @@ public class Procedure {
         var += "}";
 
         return "PROCEDURE{ID:" + ID + ", Start:" + quadrupleStart + ",\nscope:" + scope.getName() +
-                ",\nparams:\n" + var + "}\n";
+                ",\nparams:\n" + var + ",\n eraHash: " + eraHash + "}\n";
     }
 }

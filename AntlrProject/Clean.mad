@@ -1,0 +1,46 @@
+program clean;
+
+class B {
+    vars:
+        int e;
+
+    init(){
+    }
+
+    methods:
+        void c(int t){
+            e = t;
+        }
+}
+
+class A {
+    vars:
+        int x;
+        B b;
+
+    init(){
+    }
+
+    methods:
+        void z(int r, int[0, 1][0,1][0,1] i){
+            i[0][0][0] = 0;
+            x = r;
+            b.c(r);
+        }
+}
+
+vars:
+	A a;
+	A[0,1] aa;
+
+methods:
+    void x(){
+
+    }
+
+main:
+    vars:
+        int[0,1][0,1][0,1] ii;
+    ii[0][0][0] = 0;
+    a.z(0, ii);
+end

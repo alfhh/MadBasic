@@ -31,7 +31,7 @@ h 				:	method j;
 j 				:	method j
 					| // empty
 					;
-init 			: INIT OPARENTHESIS k CPARENTHESIS OBRACE l CBRACE;
+init 			:   INIT OPARENTHESIS k CPARENTHESIS OBRACE l CBRACE;
 k 				:	params
 					| // empty
 					;
@@ -57,7 +57,7 @@ params 			: 	type m ID n;
 m 				:	reference
 					| // empty
 					;
-n 				: COMMA type m ID n
+n 				:   COMMA type m ID n
 					| // empty
 					;
 statement 		:	assignment
@@ -93,29 +93,29 @@ s 				:	DOT ID ss #sDot
                     | DOT INIT #sDot
 					| #sEmpty// empty
 					;
-ss              :   OBRACKET exp CBRACKET
-                    | //empty
+ss              :   OBRACKET exp CBRACKET ss #ssExp
+                    | #ssEmpty //empty
                     ;
 expression 		: 	comparison t;
 t 				:	u comparison
 					| // empty
 					;
-u 				: AND #uAnd
-				  | OR #uOr
-				  ;
-read 			: READ;
-exp 			: term v;
+u 				:   AND #uAnd
+				    | OR #uOr
+				     ;
+read 			:   READ;
+exp 			:    term v;
 v 				:	w term v
 					| // empty
 					;
-w 				: PLUS #wPlus
-				  | MINUS #wMinus
-				  ;
-args 			: m exp x;
+w 				:   PLUS #wPlus
+				    | MINUS #wMinus
+				    ;
+args 			:   m exp x;
 x 				:	COMMA m exp x #xArgs
 					| #xEmpty// empty
 					;
-comparison		: exp y;
+comparison		:   exp y;
 y 				:	z exp
 					| // empty
 					;
@@ -124,7 +124,7 @@ z 				:	GREATER zz #zGreater
 					| EQUAL EQUAL #zEqualEqual
 					| DIFFERENT #zDifferent
 					;
-zz              : EQUAL #zzEqual
+zz              :   EQUAL #zzEqual
                     | #zzEmpty//empty
                     ;
 term 			: 	factor aa;
@@ -134,9 +134,9 @@ aa 				:	ab factor aa
 ab				: 	MULTIPLICATION #abMultiplication
 					| DIVISION #abDivision
 					;
-factor 			: OPARENTHESIS expression CPARENTHESIS #factorExpression
-				  | ac value #factorValue
-				  ;
+factor 			:   OPARENTHESIS expression CPARENTHESIS #factorExpression
+				    | ac value #factorValue
+				    ;
 ac 				:	PLUS #acPlus
 					| MINUS #acMinus
 					| #acEmpty// empty
@@ -145,15 +145,15 @@ ad 				:	MINUS
 					| // empty
 					;
 
-value 			: identifier # valueIdentifier
-				  | CTEI # valueInt
-				  | CTEF # valueFloat
-				  | CTESTRING # valueString
-				  | TRUE # valueBool
-				  | FALSE # valueBool
-				  | call # valueCall
-				  ;
-main 			: MAIN COLON block END;
+value 			:   identifier # valueIdentifier
+				    | CTEI # valueInt
+                    | CTEF # valueFloat
+                    | CTESTRING # valueString
+                    | TRUE # valueBool
+                    | FALSE # valueBool
+                    | call # valueCall
+                    ;
+main 			:   MAIN COLON block END;
 
 
 // Tokens

@@ -1,11 +1,14 @@
 package MadBasic.Semantic;
 
+import MadBasic.Algrebra.Operand;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Types.Type;
 import MadBasic.Semantic.Types.TypeFalse;
+import MadBasic.VMemory.Instance;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -16,7 +19,6 @@ public class BasicSemantic {
 
     private static BasicSemantic instance;
 
-
     LinkedList<Procedure> procedures;
     LinkedList<Variable> variables;
     LinkedList<Scope> scopes;
@@ -24,11 +26,19 @@ public class BasicSemantic {
     Stack<Type> typeStack;
     LinkedList<Variable> paramList;
     HashMap<String, Class> classHashMap;
+    LinkedList<Operand> arrayIndexList;
     boolean params;
     boolean hasParent;
     String parent;
-    boolean dot;
+    boolean dot; // Flag used to know if the reading is in the middle of a concatenation of an object
     Type quickTypeSearch;
+    boolean inMethod;
+    boolean foundAReference;
+    boolean isArray;
+    boolean isArrayandDot;
+    Instance instanceForArray;
+    LinkedList<Variable> eraPrep;
+    HashMap<String, Integer> eraHash;
 
     private BasicSemantic() {
         procedures = new LinkedList<>();
@@ -37,10 +47,19 @@ public class BasicSemantic {
         scopeStack = new Stack<>();
         typeStack = new Stack<>();
         classHashMap = new HashMap<>();
+        paramList = new LinkedList<>();
         params = false;
         hasParent = false;
         parent = "";
         dot = false;
+        inMethod = false;
+        foundAReference = false;
+        arrayIndexList = new LinkedList<>();
+        isArray = false;
+        isArrayandDot = false;
+        instanceForArray = new Instance();
+        eraPrep = new LinkedList<>();
+        eraHash = new HashMap<>();
 
         // Add the global scope
         Scope global = new Scope("global");
@@ -51,11 +70,15 @@ public class BasicSemantic {
 
     }
 
-    static public BasicSemantic getInstance(){
-        if (instance == null){
+    static public BasicSemantic getInstance() {
+        if (instance == null) {
             instance = new BasicSemantic();
         }
         return instance;
+    }
+
+    public static void resetInstance(){
+        instance = new BasicSemantic();
     }
 
     public LinkedList<Procedure> getProcedures() {
@@ -146,15 +169,79 @@ public class BasicSemantic {
         this.dot = dot;
     }
 
-    public Type getActualType(){
+    public Type getActualType() {
         return this.quickTypeSearch;
     }
 
-    public void setActualType(Type t){
+    public void setActualType(Type t) {
         this.quickTypeSearch = t;
     }
 
-    public void resetActualType(){
+    public void resetActualType() {
         this.quickTypeSearch = new TypeFalse();
+    }
+
+    public boolean isInMethod() {
+        return inMethod;
+    }
+
+    public void setInMethod(boolean inMethod) {
+        this.inMethod = inMethod;
+    }
+
+    public boolean isFoundAReference() {
+        return foundAReference;
+    }
+
+    public void setFoundAReference(boolean foundAReference) {
+        this.foundAReference = foundAReference;
+    }
+
+    public LinkedList<Operand> getArrayIndexList() {
+        return arrayIndexList;
+    }
+
+    public void setArrayIndexList(LinkedList<Operand> arrayIndexList) {
+        this.arrayIndexList = arrayIndexList;
+    }
+
+    public boolean isArray() {
+        return isArray;
+    }
+
+    public void setArray(boolean array) {
+        isArray = array;
+    }
+
+    public boolean isArrayandDot() {
+        return isArrayandDot;
+    }
+
+    public void setArrayandDot(boolean arrayandDot) {
+        isArrayandDot = arrayandDot;
+    }
+
+    public Instance getInstanceForArray() {
+        return instanceForArray;
+    }
+
+    public void setInstanceForArray(Instance instanceForArray) {
+        this.instanceForArray = instanceForArray;
+    }
+
+    public LinkedList<Variable> getEraPrep() {
+        return eraPrep;
+    }
+
+    public void setEraPrep(LinkedList<Variable> eraPrep) {
+        this.eraPrep = eraPrep;
+    }
+
+    public HashMap<String, Integer> getEraHash() {
+        return eraHash;
+    }
+
+    public void setEraHash(HashMap<String, Integer> eraHash) {
+        this.eraHash = eraHash;
     }
 }

@@ -1,0 +1,36 @@
+program arrays;
+
+
+vars:
+	int y;
+	int [0, 5]arr;
+
+methods:
+
+	void initArray(){
+		y = 0;
+		while(y < 5){
+			arr[y] = y;
+			y = y + 1;
+		}
+	}
+
+    int doubleVal(int x){
+        return x * 2;
+    }
+
+main:
+vars:
+	int xi, yi, a, c, d, i, j;
+
+a = 4;
+print(arr[a]);
+initArray();
+print(arr[2]);
+yi = 0;
+		while(yi < 5){
+			print(arr[yi]);
+			yi = yi + 1;
+		}
+print(5-3);
+end

@@ -1,8 +1,9 @@
 program example;
 
-
 vars:
     int z;
+
+
 
 class Aaa {
 	vars:
@@ -15,7 +16,7 @@ class Aaa {
 	methods:
 		void save(int x, float y) {
 			c = a;
-			d = b;
+			d = 1.0 * b;
 		}
 }
 
@@ -23,6 +24,7 @@ class Bbb parent Aaa {
 	vars:
 		int cc, d;
 		float dd;
+		Aaa aaa;
 
 	init(int x){
 		cc = d;
@@ -32,6 +34,20 @@ class Bbb parent Aaa {
 		bool isMultiple(int w, int z) {
 			return (w == ((w / z) * z));
 		}
+
+		void test(){
+            vars:
+                int a;
+                a = 0;
+		}
+}
+
+class Ccc {
+    vars:
+        Aaa aaa;
+
+    init(){
+    }
 }
 
 
@@ -40,13 +56,14 @@ vars:
 	float f;
 	string s;
 	bool b;
-	int[0,5][-1,1][0,3] lint;
+	int[2,4][0,2][1,6] lint;
 
 methods:
-	int findx(int x, int[][][] lx) {
+	int findx(int x) {
 		vars:
 			int res;
 			int index;
+
 		res = -1;
 		index = 0;
 		while(index < x && true) {
@@ -68,19 +85,28 @@ methods:
 		return res;
     }
 
+    void testReference(int ~x, int y){
+        x = y * 2;
+    }
+
     void printline(string s) {
         print(s ^ "\n" ^ "test");
     }
 
 main:
 vars:
-	int xi, yi, a, c, d;
+	int xi, yi, a, c, d, i, j;
 	float fl, xd;
+	float[0,1] fla;
 	bool bo;
 	string str;
-	Bbb bbb;
+	Bbb[0, 3][0,3] bbb;
 	Aaa aaa;
+	Ccc ccc;
 
+aaa.init();
+bbb[0][0].init(0);
+xi = aaa.a;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
 b = true;
@@ -88,8 +114,21 @@ b = false;
 if(bo){
     b = false;
 }
-xi = findx(yi, lint);
+xi = findx(yi);
 str = read;
 printline(str);
-x = aaa.c;
+a = 7;
+d = 3;
+testReference(~a, d);
+x = aaa.b;
+printline(str);
+x = lint[xi][0][aaa.c];
+fl = fla[0];
+fla[1] = fl;
+fla[0] = fla[1];
+i = j * i;
+lint[i+j][j][j+1] = i + j;
+print("Hello" ^ "World" ^ x);
+x = bbb[0][0].d;
+bbb[bbb[0][0].d][0].d = x;
 end

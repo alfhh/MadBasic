@@ -2,16 +2,16 @@ package MadBasic.Quadruples;
 
 import MadBasic.Algrebra.Operand;
 import MadBasic.Algrebra.Operator;
-import MadBasic.Algrebra.Variable;
+import MadBasic.Algrebra.Operand;
 
 /**
  * Created by lsanchez on 3/29/16.
  */
 public class Assignment extends Quadruple {
     Operand value;
-    Variable result;
+    Operand result;
 
-    public Assignment(Operand value, Variable result) {
+    public Assignment(Operand value, Operand result) {
         this.value = value;
         this.result = result;
     }
@@ -24,11 +24,11 @@ public class Assignment extends Quadruple {
         this.value = value;
     }
 
-    public Variable getResult() {
+    public Operand getResult() {
         return result;
     }
 
-    public void setResult(Variable result) {
+    public void setResult(Operand result) {
         this.result = result;
     }
 

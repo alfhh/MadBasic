@@ -1,0 +1,46 @@
+program reference;
+
+
+vars:
+	int x, y;
+	string s;
+
+methods:
+
+    void testReference(int ~x, int y){
+        x = y * 4;
+        print("X here: " ^ x);
+    }
+
+    void printline(string s) {
+        print(s  ^ " <--");
+    }
+
+    void test2(int ~x, int ~y, int z, int ~w){
+    		x = y + z + w;
+    		y = y * y;
+    		z = x + y;
+    		w = 44;
+    }
+
+main:
+vars:
+	int a, b, c, d;
+
+
+
+a = 7;
+b = 3;
+c = 2;
+d = 10;
+print("Value of A: " ^ a);
+print(a);
+print(a);
+
+print("-------------------------------");
+test2(~a, ~b, c, ~d);
+print("A: " ^ a);
+print("B: " ^ b);
+print("C: " ^ c);
+print("D: " ^ d);
+end

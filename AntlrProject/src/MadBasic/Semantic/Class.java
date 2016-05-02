@@ -1,6 +1,11 @@
 package MadBasic.Semantic;
 
+import MadBasic.Algrebra.Variable;
+import MadBasic.Semantic.Methods.Function;
+import MadBasic.Semantic.Methods.Procedure;
+
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * Created by lsanchez on 4/13/16.
@@ -48,7 +53,8 @@ public class Class {
     @Override
     public String toString() {
         return "Class{" +
-                "scope=" + scope +
+                "name='" + name + '\'' +
+                ", scope=" + scope +
                 ", parent=" + parent +
                 '}';
     }
