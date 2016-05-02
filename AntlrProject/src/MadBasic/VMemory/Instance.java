@@ -8,9 +8,11 @@ import java.util.HashMap;
 public class Instance {
 
     HashMap<String, Integer> vDirectory;
+    HashMap<String, Era> eraHashMap;
 
     public Instance() {
         vDirectory = new HashMap<>();
+        eraHashMap = new HashMap<>();
     }
 
     public HashMap<String, Integer> getvDirectory() {
@@ -21,10 +23,19 @@ public class Instance {
         this.vDirectory = vDirectory;
     }
 
+    public HashMap<String, Era> getEraHashMap() {
+        return eraHashMap;
+    }
+
+    public void setEraHashMap(HashMap<String, Era> eraHashMap) {
+        this.eraHashMap = eraHashMap;
+    }
+
     @Override
     public String toString() {
         return "Instance{" +
                 "vDirectory=" + vDirectory +
+                ", eraHashMap=" + eraHashMap +
                 '}';
     }
 }

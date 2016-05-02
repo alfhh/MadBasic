@@ -1,11 +1,6 @@
 package MadBasic;
 
 
-import MadBasic.IDE.MainIDE;
-import MadBasic.Semantic.BasicSemantic;
-import MadBasic.VMachine.Machine;
-import MadBasic.YUML.YUMLParser;
-import org.antlr.v4.runtime.atn.BasicState;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
@@ -22,7 +17,7 @@ public class Main {
         ParseTree tree = null;
 
         try {
-            tree = Parser.parse("Main.mad", "MadBasic", "madbasic");
+            tree = Parser.parse("ArrayTest.mad", "MadBasic", "madbasic");
             new Visitor().visit(tree);
         } catch (IOException error) {
             error.printStackTrace();
@@ -32,8 +27,8 @@ public class Main {
 
         TestingGround.TestNum[] selectedTests = {
                 TestingGround.TestNum.VARIABLE_TABLE,
-                TestingGround.TestNum.SCOPETABLE,
-                TestingGround.TestNum.PROC_TABLE,
+//                TestingGround.TestNum.SCOPETABLE,
+//                TestingGround.TestNum.PROC_TABLE,
                 TestingGround.TestNum.OPERANDSTACK,
                 TestingGround.TestNum.QUADRUPLELIST,
                 TestingGround.TestNum.ERAS,
@@ -42,10 +37,10 @@ public class Main {
 
         tester.testManager(selectedTests);
 
-        YUMLParser yuml = new YUMLParser();
-        yuml.makeDiagram(BasicSemantic.getInstance().getClassHashMap());
-        yuml.createDiagram();
-        yuml.runDiagram();
+//        YUMLParser yuml = new YUMLParser();
+//        yuml.makeDiagram(BasicSemantic.getInstance().getClassHashMap());
+//        yuml.createDiagram();
+//        yuml.runDiagram();
 
         /**/
 

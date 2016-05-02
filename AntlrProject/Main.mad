@@ -3,35 +3,12 @@ program example;
 vars:
     int z;
 
-class Ddd{
-    init(){
-    }
-}
-
-class Hhh{
-    vars:
-        Ddd ddd;
-
-    init(){
-    }
-}
-
-class Iii parent Ddd{
-    vars:
-        Hhh hhh;
-
-    init(){
-    }
-}
 
 
 class Aaa {
 	vars:
 		int c, a, b;
 		float d;
-		Ddd ddd;
-		Hhh hhh;
-		Iii iii;
 
 	init(){
 	}
@@ -67,44 +44,7 @@ class Bbb parent Aaa {
 
 class Ccc {
     vars:
-        Bbb bbb;
-
-    init(){
-    }
-}
-
-class Eee parent Ccc {
-    vars:
-        Bbb ccc;
-
-    init(){
-    }
-}
-
-class Fff parent Ccc {
-    vars:
-        Bbb ccc;
-
-    init(){
-    }
-}
-
-class Ggg parent Ccc {
-    vars:
-        Bbb ccc;
-
-    init(){
-    }
-}
-
-class Jjj{
-    init(){
-    }
-}
-
-class Kkk{
-    vars:
-        Jjj jjj;
+        Aaa aaa;
 
     init(){
     }
@@ -119,10 +59,11 @@ vars:
 	int[2,4][0,2][1,6] lint;
 
 methods:
-	int findx(int x, int[][][] lx) {
+	int findx(int x) {
 		vars:
 			int res;
 			int index;
+
 		res = -1;
 		index = 0;
 		while(index < x && true) {
@@ -161,10 +102,11 @@ vars:
 	string str;
 	Bbb[0, 3][0,3] bbb;
 	Aaa aaa;
+	Ccc ccc;
 
 aaa.init();
 bbb[0][0].init(0);
-xi = 44;
+xi = aaa.a;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
 b = true;
@@ -172,7 +114,7 @@ b = false;
 if(bo){
     b = false;
 }
-xi = findx(yi, lint);
+xi = findx(yi);
 str = read;
 printline(str);
 a = 7;
