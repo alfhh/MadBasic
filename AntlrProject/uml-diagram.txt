@@ -1,0 +1,5 @@
+[Aaa|a:int;b:int;c:int;d:float|init:void();save:void(x:int;y:float)],
+[Ccc||init:void()],
+[Bbb|dd:float;cc:int|init:void(x:int);test:void();isMultiple:bool(w:int;z:int)],
+[Ccc]->[Aaa],
+[Aaa]^-[Bbb]

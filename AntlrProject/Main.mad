@@ -3,6 +3,8 @@ program example;
 vars:
     int z;
 
+
+
 class Aaa {
 	vars:
 		int c, a, b;
@@ -22,6 +24,7 @@ class Bbb parent Aaa {
 	vars:
 		int cc, d;
 		float dd;
+		Aaa aaa;
 
 	init(int x){
 		cc = d;
@@ -39,6 +42,14 @@ class Bbb parent Aaa {
 		}
 }
 
+class Ccc {
+    vars:
+        Aaa aaa;
+
+    init(){
+    }
+}
+
 
 vars:
 	int x, y;
@@ -48,10 +59,11 @@ vars:
 	int[2,4][0,2][1,6] lint;
 
 methods:
-	int findx(int x, int[][][] lx) {
+	int findx(int x) {
 		vars:
 			int res;
 			int index;
+
 		res = -1;
 		index = 0;
 		while(index < x && true) {
@@ -90,10 +102,11 @@ vars:
 	string str;
 	Bbb[0, 3][0,3] bbb;
 	Aaa aaa;
+	Ccc ccc;
 
 aaa.init();
 bbb[0][0].init(0);
-xi = 44;
+xi = aaa.a;
 xd = a+xi*c-d>-a/yi;
 fl = 2.3;
 b = true;
@@ -101,7 +114,7 @@ b = false;
 if(bo){
     b = false;
 }
-xi = findx(yi, lint);
+xi = findx(yi);
 str = read;
 printline(str);
 a = 7;

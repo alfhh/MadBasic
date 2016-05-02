@@ -58,7 +58,7 @@ public class TestingGround {
                 }
             }
             System.out.println(key + ": " + value);
-            if ((Integer) value < 1000) {
+            if ((Integer) value < 1000 && (Integer) value >= 0) {
                 System.out.println("Begin Obj---------------------------");
                 for (String k : ((Instance) virtualMemory.getvMemory().get(value)).getvDirectory().keySet()) {
                     Integer v = ((Instance) virtualMemory.getvMemory().get(value)).getvDirectory().get(k);
@@ -213,9 +213,6 @@ public class TestingGround {
         System.out.println("------------------------------------------------");
     }
 
-
-
-
     /**
      * This method run the specified tests, selected on the integer array.
      *
@@ -263,6 +260,7 @@ public class TestingGround {
                     break;
                 case 9:
                     printEras();
+                    break;
                 case 10:
                     printClasses();
                     break;

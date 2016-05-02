@@ -1,6 +1,8 @@
 package MadBasic.Semantic;
 
 import MadBasic.Algrebra.Variable;
+import MadBasic.Semantic.Methods.Function;
+import MadBasic.Semantic.Methods.Procedure;
 
 import java.util.LinkedList;
 import java.util.Set;
@@ -50,20 +52,9 @@ public class Class {
 
     @Override
     public String toString() {
-        String vars = "";
-        Set<String> vks = scope.getVariableHashMap().keySet();
-        Object[] varsk = vks.toArray();
-        for (Object vark : varsk) {
-            if(!parent.getScope().getVariableHashMap().containsKey(vark) &&
-                    !scope.getProcedureHashMap().containsKey(vark)){
-                Variable v = scope.getVariableHashMap().get(vark);
-                vars += v.getID() + " : " + v.getType() + "\n";
-            }
-        }
-
-
         return "Class{" +
-                "scope=" + scope +
+                "name='" + name + '\'' +
+                ", scope=" + scope +
                 ", parent=" + parent +
                 '}';
     }

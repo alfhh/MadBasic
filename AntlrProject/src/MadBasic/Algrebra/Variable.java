@@ -10,6 +10,7 @@ public class Variable extends Operand {
     String ID;
     Scope scope;
     boolean isByReference;
+    boolean isAddress;
 
     public Variable(String ID, Type type, Scope scope) {
         this.ID = ID;
@@ -23,6 +24,7 @@ public class Variable extends Operand {
         this.scope = scope;
         this.isByReference = reference;
     }
+
     public String getID() {
         return ID;
     }
@@ -45,6 +47,14 @@ public class Variable extends Operand {
 
     public void setByReference(boolean byReference) {
         isByReference = byReference;
+    }
+
+    public boolean isAddress() {
+        return isAddress;
+    }
+
+    public void setAddress(boolean address) {
+        isAddress = address;
     }
 
     @Override

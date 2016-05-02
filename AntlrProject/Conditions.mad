@@ -37,7 +37,7 @@ vars:
 a = 7;
 b = 3;
 c = 2;
-d = 14;
+d = 12;
 flag = func1(d);
 print(flag);
 

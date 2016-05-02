@@ -19,7 +19,13 @@ public class Operand {
     static public String getIdString(Operand o){
         String res;
         if(o instanceof Variable){
-            res = ((Variable) o).getID();
+            if(((Variable) o).isByReference()){
+                res = ((Variable) o).getID();
+            } else if(((Variable) o).isAddress()){
+                res = "@" + ((Variable) o).getID();
+            } else {
+                res = ((Variable) o).getID();
+            }
         } else if(o instanceof Constant){
             res = ((Constant) o).getValue().toString();
         } else {
