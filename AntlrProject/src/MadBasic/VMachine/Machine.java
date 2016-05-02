@@ -159,7 +159,10 @@ public class Machine {
      */
     public boolean processGotoFalse(GotoFalse g){
 
-        int dirOp = vDirectory.get(Operand.getIdString(g.getCondition()));
+        //int dirOp = vDirectory .get(Operand.getIdString(g.getCondition()));
+        int dirOp = getDirectionFromVM(g.getCondition());
+
+
         boolean val = (boolean) vMemory.get(dirOp);
 
         return (val) ? false : true;
@@ -203,7 +206,7 @@ public class Machine {
     public void processParameter(Parameter p) {
         // Add the parameter to the Era
         Operand tempOp = p.getArgument();
-        //int dirArg = vDirectory.get(Operand.getIdString(tempOp));
+        //int dirArg = vDirectory .get(Operand.getIdString(tempOp));
         int dirArg = getDirectionFromVM(tempOp);
         Variable varParam = virtualMemory.getSecondaryEraStack().peek().getParams().get(p.getParameterNum());
         int dirParam = virtualMemory.getSecondaryEraStack().peek().getvDirectory().get(varParam.getID());
@@ -279,7 +282,7 @@ public class Machine {
         int dirOp1 = getDirectionFromVM(e.getOperand1());
         int dirOp2 = getDirectionFromVM(e.getOperand2());
 
-        int tempDir = vDirectory.get(Operand.getIdString(e.getResult())); // Result
+        int tempDir = getDirectionFromVM(e.getResult()); // Result
 
         int operatorCode = e.getOper().ordinal();
         int op1Type = e.getOperand1().getType().getTypeValue();
@@ -331,8 +334,8 @@ public class Machine {
 
 
         if(virtualMemory.getEraStack().isEmpty()){
-            dirOp1 =  vDirectory.get(Operand.getIdString(e.getOperand1())); // Operand 1
-            dirOp2 = vDirectory.get(Operand.getIdString(e.getOperand2())); //Operand 2
+            dirOp1 =  getDirectionFromVM(e.getOperand1()); // Operand 1
+            dirOp2 = getDirectionFromVM(e.getOperand2()); //Operand 2
 
         } else {
             // First check if the values are present in the Era param list
@@ -340,16 +343,16 @@ public class Machine {
             dirOp2 = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(e.getOperand2()));
 
             if(dirOp1 == null){
-                dirOp1 =  vDirectory.get(Operand.getIdString(e.getOperand1())); // Operand 1
+                dirOp1 =  getDirectionFromVM(e.getOperand1()); // Operand 1
             }
 
             if(dirOp2 == null){
-                dirOp2 = vDirectory.get(Operand.getIdString(e.getOperand2())); //Operand 2
+                dirOp2 = getDirectionFromVM(e.getOperand2()); //Operand 2
             }
         }
 
 
-        int tempDir = vDirectory.get(Operand.getIdString(e.getResult())); // Result
+        int tempDir = getDirectionFromVM(e.getResult()); // Result
 
         String x = String.valueOf(vMemory.get(dirOp1));
         String y = String.valueOf(vMemory.get(dirOp2));
@@ -404,7 +407,8 @@ public class Machine {
 
         int dirOp1 = getDirectionFromVM(e.getOperand1());
         int dirOp2 = getDirectionFromVM(e.getOperand2());
-        int tempDir = vDirectory.get(Operand.getIdString(e.getResult())); // Result
+        //int tempDir = vDirectory .get(Operand.getIdString(e.getResult())); // Result
+        int tempDir = getDirectionFromVM(e.getResult());
 
 
         // TODO: 30/04/16 CHECK 3 == TRUE
