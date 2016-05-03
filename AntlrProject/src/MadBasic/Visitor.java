@@ -533,12 +533,14 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     /**/
     //------------------------------------------------------------------------------------------BEGIN QUADRUPLES
     /**/
-    //------------------------------------------------------------BEGIN ASSIGNMENT, READ AND WRITE
+    //------------------------------------------------------------BEGIN ID PROCESSES
 
     /**
-     * @param id
-     * @param scope
-     * @return
+     * Processes a simple id, meaning that it doesn't have the dot notation and it is not an array
+     *
+     * @param id    string of the id to be processes
+     * @param scope current scope
+     * @return true is the variable was successfully processed
      */
     boolean idSimple(String id, Scope scope) {
         boolean found = false;
@@ -547,7 +549,6 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             if (scope.getVariableHashMap().containsKey(id)) {
 
                 Variable var = scope.getVariableHashMap().get(id);
-                quadrupleSemantic.getOperandStack().push(var);
 
                 if (var.getScope() != basicSemantic.getScopeStack().peek()
                         && basicSemantic.isInMethod()) {
@@ -567,8 +568,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param id
-     * @param scope
+     * Processes an id that is an array, but doesn't have the dot notation
+     *
+     * @param id    string of the id to be processes
+     * @param scope current scope
+     * @return true is the variable was successfully processed
      */
     boolean idSimpleArray(String id, Scope scope) {
         boolean found = false;
@@ -595,6 +599,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return found;
     }
 
+    /**
+     * Processes an id that has the dot notation, but it is not an array in any of the sides of the dot
+     *
+     * @param text  string of the id to be processes
+     * @param scope current scope
+     * @return true is the variable was successfully processed
+     */
     boolean idSimpleDot(String text, Scope scope) {
         boolean found = false;
         String[] ids = text.split("\\.");
@@ -623,6 +634,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return found;
     }
 
+    /**
+     * Processes an id that has the dot notation and is an array after the dot
+     *
+     * @param text  string of the id to be processes
+     * @param scope current scope
+     * @return true is the variable was successfully processed
+     */
     boolean idDotArray(String text, Scope scope) {
         boolean found = false;
         String[] ids = text.split("\\.");
@@ -650,6 +668,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return found;
     }
 
+    /**
+     * Processes an id that has the dot notation and is an array before the dot
+     *
+     * @param text  string of the id to be processes
+     * @param scope current scope
+     * @return true is the variable was successfully processed
+     */
     boolean idArrayDot(String text, Scope scope) {
         boolean found = false;
         String[] names = text.split("\\.");
@@ -693,6 +718,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return found;
     }
 
+    /**
+     * Processes an id that has the dot notation and is an array in both sides of the dot
+     *
+     * @param text  string of the id to be processes
+     * @param scope current scope
+     * @return true is the variable was successfully processed
+     */
     boolean idArrayDotArray(String text, Scope scope) {
         boolean found = false;
         String[] names = text.split("\\.");
@@ -740,39 +772,72 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @param from
-     * @return
+     * Inserts the quadruple operations in the QuadrupleIndex needed to access the index of the array
+     *
+     * @param variable to be processed
      */
-    String advanceToContextEndAssignment(MadBasicParser.AssignmentContext ctx, int from) {
-        String res = "";
-        int n = ctx.getChildCount();
-        for (int i = from; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
-            ParseTree c = ctx.getChild(i);
-            String childResult = c.accept(this);
-            res = this.aggregateResult(res, childResult);
+    void processArray(Variable variable) {
+        TypeArray.Array array = ((TypeArray) variable.getType()).getArray();
+
+        for (int i = 0; i < array.getDepth(); i++) {
+            TypeArray.Array arraytemp = array.getArray(i);
+            Operand index = basicSemantic.getArrayIndexList().removeFirst();
+            Constant<Integer> start = new Constant<>(arraytemp.getStart(), new TypeInt());
+            Constant<Integer> end = new Constant<>(arraytemp.getEnd(), new TypeInt());
+            virtualMemory.getvDirectory().put(start.getValue().toString(), virtualMemory.getConstIntCount());
+            virtualMemory.addConstIntCount();
+            virtualMemory.getvDirectory().put(end.getValue().toString(), virtualMemory.getConstIntCount());
+            virtualMemory.addConstIntCount();
+            quadrupleSemantic.getQuadrupleList().add(new ArrayVerify(index, start, end));
+            Temporal t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
+            insertTempVDirectory(t);
+            quadrupleSemantic.getQuadrupleList().add(new Expression(
+                    Operator.MULTIPLICATION, index, new Constant<>(arraytemp.getM(), new TypeInt()), t));
+            quadrupleSemantic.getOperandSList().add(t);
+            quadrupleSemantic.getOperandStack().push(t);
+
+            if (i > 0) {
+                Operand operand1 = quadrupleSemantic.getOperandStack().pop();
+                Operand operand2 = quadrupleSemantic.getOperandStack().pop();
+                t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
+                insertTempVDirectory(t);
+                quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, operand1, operand2, t));
+                quadrupleSemantic.getOperandSList().add(t);
+                quadrupleSemantic.getOperandStack().push(t);
+            }
+
         }
-        return res;
+        Temporal t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
+        insertTempVDirectory(t);
+        quadrupleSemantic.getQuadrupleList().add(new Expression(
+                Operator.MINUS, quadrupleSemantic.getOperandStack().pop(),
+                new Constant<>(array.getK(), new TypeInt()), t));
+        Temporal tt = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
+        insertTempVDirectory(tt);
+        if (basicSemantic.isArray() && basicSemantic.isArrayandDot() || basicSemantic.isInMethod()) {
+            variable = new Variable(variable.getID(), variable.getType(), variable.getScope());
+            variable.setAddress(true);
+            quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, variable, tt));
+        } else {
+            Constant<Integer> memoryIndex =
+                    new Constant<>(virtualMemory.getvDirectory().get(variable.getID()), new TypeInt());
+            quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, memoryIndex, tt));
+        }
+        Temporal ttt = new Temporal(tt.getID(), ((TypeArray) variable.getType()).getType(), true);
+        insertTempVDirectory(ttt);
+        quadrupleSemantic.getOperandSList().add(ttt);
+        quadrupleSemantic.getOperandStack().push(ttt);
     }
 
     /**
-     * @param ctx
-     * @return
+     * Processes an Id depending con which booleans have been turned on
+     *
+     * @param text  the text of the id
+     * @param scope the actualscope
+     * @return if the id was processed
      */
-    @Override
-    public String visitAssignment(MadBasicParser.AssignmentContext ctx) {
-        String res = null;
-
-        ParseTree c = ctx.getChild(0);
-        String childResult = c.accept(this);
-        res = this.aggregateResult(res, childResult);
-
-        String text = ctx.getChild(0).getText();
-        Scope scope = basicSemantic.getScopeStack().peek();
-        boolean found = false;
-        Operand equal;
-        Operand oper;
-
+    boolean processId(String text, Scope scope) {
+        boolean found;
         if (basicSemantic.isDot()) {
             if (!basicSemantic.isArray()) {
                 if (!basicSemantic.isArrayandDot()) {
@@ -799,9 +864,78 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 basicSemantic.setArray(false);
             }
         }
+        return found;
+    }
+
+
+    //------------------------------------------------------------END ID PROCESSES
+    /**/
+    //------------------------------------------------------------BEGIN ASSIGNMENT, READ AND WRITE
+
+    /**
+     * Visits the nodes of the AssignmentContext begininf from "from" to the end
+     *
+     * @param ctx  Context from which the children will be visited
+     * @param from child from which the visits will start
+     * @return the product of the visits
+     */
+    String advanceToContextEndAssignment(MadBasicParser.AssignmentContext ctx, int from) {
+        String res = "";
+        int n = ctx.getChildCount();
+        for (int i = from; i < n && this.shouldVisitNextChild(ctx, null); ++i) {
+            ParseTree c = ctx.getChild(i);
+            String childResult = c.accept(this);
+            res = this.aggregateResult(res, childResult);
+        }
+        return res;
+    }
+
+    /**
+     * This functions produces an assignment Quadruple
+     *
+     * @param ctx AssignmentContext needed to visit the children of this rule
+     * @return the product of the visit of this rule
+     */
+    @Override
+    public String visitAssignment(MadBasicParser.AssignmentContext ctx) {
+        String res = null;
+
+        ParseTree c = ctx.getChild(0);
+        String childResult = c.accept(this);
+        res = this.aggregateResult(res, childResult);
+
+        String text = ctx.getChild(0).getText();
+        Scope scope = basicSemantic.getScopeStack().peek();
+        boolean found = processId(text, scope);
+//        if (basicSemantic.isDot()) {
+//            if (!basicSemantic.isArray()) {
+//                if (!basicSemantic.isArrayandDot()) {
+//                    found = idSimpleDot(text, scope);
+//                } else {
+//                    found = idDotArray(text, scope);
+//                    basicSemantic.setArrayandDot(false);
+//                }
+//            } else {
+//                if (!basicSemantic.isArrayandDot()) {
+//                    found = idArrayDot(text, scope);
+//                } else {
+//                    found = idArrayDotArray(text, scope);
+//                    basicSemantic.setArrayandDot(false);
+//                }
+//                basicSemantic.setArray(false);
+//            }
+//            basicSemantic.setDot(false);
+//        } else {
+//            if (!basicSemantic.isArray()) {
+//                found = idSimple(text, scope);
+//            } else {
+//                found = idSimpleArray(text, scope);
+//                basicSemantic.setArray(false);
+//            }
+//        }
         advanceToContextEndAssignment(ctx, 1);
-        oper = quadrupleSemantic.getOperandStack().pop();
-        equal = quadrupleSemantic.getOperandStack().pop();
+        Operand oper = quadrupleSemantic.getOperandStack().pop();
+        Operand equal = quadrupleSemantic.getOperandStack().pop();
         quadrupleSemantic.getQuadrupleList().add(new Assignment(oper, equal));
 //        if (basicSemantic.isDot()) {
 //            basicSemantic.setDot(false);
@@ -965,8 +1099,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This functions produces a read Quadruple
+     *
+     * @param ctx ReadContext needed to visit the children of this rule
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitRead(MadBasicParser.ReadContext ctx) {
@@ -982,8 +1118,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      * This function creates a quadruple (write) with the value of the top of the
      * operandStack
      *
-     * @param ctx
-     * @return
+     * @param ctx WriteContext needed to visit the children of this rule
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitWrite(MadBasicParser.WriteContext ctx) {
@@ -998,8 +1134,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param type
-     * @return
+     * Analyzes if the Type is a primitive type
+     *
+     * @param type the type to be analyzed
+     * @return true if the type is an instance of TypeInt, TypeFloat, TypeString or TypeBool
      */
     boolean isPrimitive(Type type) {
         return !((type instanceof TypeObject)
@@ -1008,8 +1146,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This function creates a quadruple (write) with the value of the top of the
+     * operandStack
+     *
+     * @param ctx QWriteContext needed to visit the children of this rule
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitQWrite(MadBasicParser.QWriteContext ctx) {
@@ -1042,15 +1183,14 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------------------------------------BEGIN EXPRESSION
 
     /**
+     * Generates a quadruple taking two operands from the operand stack and an operatro from the operator stack
+     *
      * @param rule
      */
     void generateQuadruple(String rule) {
-        Operand operand1 = quadrupleSemantic.getOperandStack().peek();
-        quadrupleSemantic.getOperandStack().pop();
-        Operand operand2 = quadrupleSemantic.getOperandStack().peek();
-        quadrupleSemantic.getOperandStack().pop();
-        Operator oper = quadrupleSemantic.getOperatorStack().peek();
-        quadrupleSemantic.getOperatorStack().pop();
+        Operand operand1 = quadrupleSemantic.getOperandStack().pop();
+        Operand operand2 = quadrupleSemantic.getOperandStack().pop();
+        Operator oper = quadrupleSemantic.getOperatorStack().pop();
         //cubo semantico
         Type resT = SemanticCube.getCubeType(
                 operand1.getType().getTypeValue(), operand2.getType().getTypeValue(), oper.getValue());
@@ -1073,8 +1213,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------BEGIN LOGIC OPERATORS
 
     /**
-     * @param ctx
-     * @return
+     * Pushes an AND operator to the operator stack
+     *
+     * @param ctx UAndContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitUAnd(MadBasicParser.UAndContext ctx) {
@@ -1083,8 +1225,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Pushes an OR operator to the operator stack
+     *
+     * @param ctx UOrContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitUOr(MadBasicParser.UOrContext ctx) {
@@ -1093,8 +1237,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Visits the children of the rule T to then call the function generateQuadruple
+     *
+     * @param ctx TContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitT(MadBasicParser.TContext ctx) {
@@ -1110,8 +1256,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------BEGIN COMPARISON OPERATORS
 
     /**
-     * @param ctx
-     * @return
+     * Pushes an GREATER operator to the operator stack
+     *
+     * @param ctx ZGreaterContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitZGreater(MadBasicParser.ZGreaterContext ctx) {
@@ -1120,8 +1268,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Pushes an LESSER operator to the operator stack
+     *
+     * @param ctx ZLesserContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitZLesser(MadBasicParser.ZLesserContext ctx) {
@@ -1130,8 +1280,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Pushes an EQUALEQUAL operator to the operator stack
+     *
+     * @param ctx ZEqualEqualContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitZEqualEqual(MadBasicParser.ZEqualEqualContext ctx) {
@@ -1140,8 +1292,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Pushes an NOTEQUAL operator to the operator stack
+     *
+     * @param ctx ZDifferentContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitZDifferent(MadBasicParser.ZDifferentContext ctx) {
@@ -1150,24 +1304,26 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Pops the Operator pushes a (GREATER|LESSER)EQUAL operator to the operator stack
+     *
+     * @param ctx ZzEqualContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitZzEqual(MadBasicParser.ZzEqualContext ctx) {
-        if (quadrupleSemantic.getOperatorStack().peek() == Operator.GREATER) {
-            quadrupleSemantic.getOperatorStack().pop();
+        if (quadrupleSemantic.getOperatorStack().pop() == Operator.GREATER) {
             quadrupleSemantic.getOperatorStack().push(Operator.GREATEREQUAL);
         } else {
-            quadrupleSemantic.getOperatorStack().pop();
             quadrupleSemantic.getOperatorStack().push(Operator.LESSEREQUAL);
         }
         return super.visitZzEqual(ctx);
     }
 
     /**
-     * @param ctx
-     * @return
+     * Visits the children of the rule Y to then call the function generateQuadruple
+     *
+     * @param ctx YContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitY(MadBasicParser.YContext ctx) {
@@ -1183,8 +1339,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------BEGIN SIMPLE OPERATORS
 
     /**
-     * @param ctx
-     * @return
+     * Pushes a PLUS operator to the operator stack
+     *
+     * @param ctx WPlusContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitWPlus(MadBasicParser.WPlusContext ctx) {
@@ -1193,8 +1351,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Pushes a MINUS operator to the operator stack
+     *
+     * @param ctx WMinusContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitWMinus(MadBasicParser.WMinusContext ctx) {
@@ -1203,8 +1363,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Visits the children of the rule V to then call the function generateQuadruple
+     *
+     * @param ctx VContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitV(MadBasicParser.VContext ctx) {
@@ -1220,8 +1382,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------BEGIN COMPLEX OPERATORS
 
     /**
-     * @param ctx
-     * @return
+     * Pushes a DIVISION operator to the operator stack
+     *
+     * @param ctx AbDivisionContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitAbDivision(MadBasicParser.AbDivisionContext ctx) {
@@ -1230,8 +1394,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Pushes a MULTIPLICATION operator to the operator stack
+     *
+     * @param ctx AbMultiplicationContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitAbMultiplication(MadBasicParser.AbMultiplicationContext ctx) {
@@ -1240,8 +1406,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Visits the children of the rule Aa to then call the function generateQuadruple
+     *
+     * @param ctx AaContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitAa(MadBasicParser.AaContext ctx) {
@@ -1257,8 +1425,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------BEGIN UNARY OPERATORS
 
     /**
-     * @param ctx
-     * @return
+     * Pushes a MINUSSOLO operator to the operator stack
+     *
+     * @param ctx AcMinusContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitAcMinus(MadBasicParser.AcMinusContext ctx) {
@@ -1267,8 +1437,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Processes the Factor rule, if there was a minus sign before the factor a quadruple is inserted the operation
+     *
+     * @param ctx FactorValueContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitFactorValue(MadBasicParser.FactorValueContext ctx) {
@@ -1276,30 +1448,28 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         Operand var = quadrupleSemantic.getOperandStack().peek();
         if (var instanceof Variable && ((Variable) var).getScope() != basicSemantic.getScopeStack().peek()
                 && basicSemantic.isInMethod()) {
-//            System.out.println(var);
             Integer dir = virtualMemory.getvDirectory().get(((Variable) var).getID());
             basicSemantic.getEraHash().put(((Variable) var).getID(), dir);
         }
         if (!quadrupleSemantic.getOperatorStack().empty() &&
                 quadrupleSemantic.getOperatorStack().peek() == Operator.MINUSSOLO) {
             quadrupleSemantic.getOperatorStack().pop();
-            Operand oper = quadrupleSemantic.getOperandStack().peek();
             Type resT = SemanticCube.getCubeType(
-                    oper.getType().getTypeValue(), oper.getType().getTypeValue(), Operator.MINUS.getValue());
+                    var.getType().getTypeValue(), var.getType().getTypeValue(), Operator.MINUS.getValue());
             if (!(resT instanceof TypeFalse)) {
                 Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), resT);
                 insertTempVDirectory(temp);
                 quadrupleSemantic.getQuadrupleList().add(
                         new Expression(
-                                Operator.MINUS, new Constant<Integer>(0, new TypeInt()), oper, temp));
+                                Operator.MINUS, new Constant<Integer>(0, new TypeInt()), var, temp));
                 quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
                 quadrupleSemantic.getOperandSList().add(temp);
             } else {
                 System.out.println("visitFactorValue " + resT.getTypeValue());
                 String operator = ctx.getChild(0).getText();
-                System.out.println(oper.toString() + operator + " " + Operator.MINUSSOLO.getOperator()
-                        + oper.toString());
+                System.out.println(var.toString() + operator + " " + Operator.MINUSSOLO.getOperator()
+                        + var.toString());
             }
         }
         return res;
@@ -1310,70 +1480,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------BEGIN VALUE
 
     /**
-     * @param variable
-     */
-    void processArray(Variable variable) {
-        TypeArray.Array array = ((TypeArray) variable.getType()).getArray();
-
-        for (int i = 0; i < array.getDepth(); i++) {
-            TypeArray.Array arraytemp = array.getArray(i);
-            Operand index = basicSemantic.getArrayIndexList().removeFirst();
-            Constant<Integer> start = new Constant<>(arraytemp.getStart(), new TypeInt());
-            Constant<Integer> end = new Constant<>(arraytemp.getEnd(), new TypeInt());
-            virtualMemory.getvDirectory().put(start.getValue().toString(), virtualMemory.getConstIntCount());
-            virtualMemory.addConstIntCount();
-            virtualMemory.getvDirectory().put(end.getValue().toString(), virtualMemory.getConstIntCount());
-            virtualMemory.addConstIntCount();
-            quadrupleSemantic.getQuadrupleList().add(new ArrayVerify(index, start, end));
-            Temporal t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
-            insertTempVDirectory(t);
-            quadrupleSemantic.getQuadrupleList().add(new Expression(
-                    Operator.MULTIPLICATION, index, new Constant<>(arraytemp.getM(), new TypeInt()), t));
-            quadrupleSemantic.getOperandSList().add(t);
-            quadrupleSemantic.getOperandStack().push(t);
-
-            if (i > 0) {
-                Operand operand1 = quadrupleSemantic.getOperandStack().pop();
-                Operand operand2 = quadrupleSemantic.getOperandStack().pop();
-                t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
-                insertTempVDirectory(t);
-                quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, operand1, operand2, t));
-                quadrupleSemantic.getOperandSList().add(t);
-                quadrupleSemantic.getOperandStack().push(t);
-            }
-
-        }
-        Temporal t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
-        insertTempVDirectory(t);
-        quadrupleSemantic.getQuadrupleList().add(new Expression(
-                Operator.MINUS, quadrupleSemantic.getOperandStack().pop(),
-                new Constant<>(array.getK(), new TypeInt()), t));
-        Temporal tt = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
-        insertTempVDirectory(tt);
-        if(basicSemantic.isArray() && basicSemantic.isArrayandDot()){
-            variable = new Variable(variable.getID(), variable.getType(), variable.getScope());
-            variable.setAddress(true);
-            quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, variable, tt));
-        } else {
-            Constant<Integer> memoryIndex =
-                    new Constant<>(virtualMemory.getvDirectory().get(variable.getID()), new TypeInt());
-            quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, memoryIndex, tt));
-        }
-        Temporal ttt = new Temporal(tt.getID(), ((TypeArray) variable.getType()).getType(), true);
-        insertTempVDirectory(ttt);
-        quadrupleSemantic.getOperandSList().add(ttt);
-        quadrupleSemantic.getOperandStack().push(ttt);
-    }
-
-    /**
-     * @param ctx
-     * @return
+     * Processes a single array expression ([exp]) and sets the appropriate booleans to true depending on the case
+     *
+     * @param ctx SsExpContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitSsExp(MadBasicParser.SsExpContext ctx) {
         String result = "";
+        boolean dot = basicSemantic.isDot();
 
-        if (basicSemantic.isDot()) {
+        if (dot) {
+            basicSemantic.setDot(false);
             basicSemantic.setArrayandDot(false);
         } else {
             basicSemantic.setArray(false);
@@ -1400,7 +1518,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             result = this.aggregateResult(result, childResult);
         }
 
-        if (basicSemantic.isDot()) {
+        if (dot) {
+            basicSemantic.setDot(true);
             basicSemantic.setArrayandDot(true);
         } else {
             basicSemantic.setArray(true);
@@ -1410,8 +1529,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Sets the isDot variable of the BasicSemantic object to true to use it in later rules
+     *
+     * @param ctx SDotContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitSDot(MadBasicParser.SDotContext ctx) {
@@ -1424,118 +1545,148 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      * found in any scope and error will be displayed at console.
      * This functions searches the variable in a bottom-top search
      *
-     * @param ctx
-     * @return
+     * @param ctx ValueIdentifierContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitValueIdentifier(MadBasicParser.ValueIdentifierContext ctx) {
         String result = visitChildren(ctx);
-        boolean found = false;
+        String text = ctx.getChild(0).getText();
+        Scope scope = basicSemantic.getScopeStack().peek();
         // TODO: 4/20/16 x = ccc[ccc[xi].cc].bb[ccc[bbb.d].cc]; en la linea 113
-
-        if (basicSemantic.isDot()) {
-            String text = ctx.getChild(0).getText();
-            String[] names = text.split("\\.");
-            Scope scope = basicSemantic.getScopeStack().peek();
-            Variable arrObj = new Variable(null, null, null);
-            if (basicSemantic.isArray()) {
-                names[0] = names[0].split("\\[")[0];
-                while (scope != null && !found) {
-                    if (scope.getVariableHashMap().containsKey(names[0])) {
-                        arrObj = scope.getVariableHashMap().get(names[0]);
-                        processArray(arrObj);
-                    }
-                    if (!found) {
-                        scope = scope.getParent();
-                    }
-                }
-            }
-            scope = basicSemantic.getScopeStack().peek();
-            while (scope != null && !found) {
-                if (scope.getVariableHashMap().containsKey(names[0])) {
-                    names[1] = names[1].split("\\[")[0];
-                    if (basicSemantic.isArray()) {
-                        if (((TypeObject) ((TypeArray) arrObj.getType()).getType()).
-                                getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
-                            Variable var =
-                                    ((TypeObject) ((TypeArray) arrObj.getType()).getType()).
-                                            getClasse().getScope().getVariableHashMap().get(names[1]);
-                            if (!basicSemantic.isArrayandDot()) {
-                                var = new Variable(
-                                        Operand.getIdString(quadrupleSemantic.getOperandStack().pop())
-                                                + "." + var.getID(), var.getType(), var.getScope());
-                                quadrupleSemantic.getOperandStack().push(var);
-                                quadrupleSemantic.getOperandSList().add(var);
-                            } else {
-                                System.out.println(var);
-                                processArray(var);
-                                basicSemantic.setArrayandDot(false);
-                            }
-                            found = true;
-                        }
-                        basicSemantic.setArray(false);
-                    } else if (((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
-                            .getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
-                        Variable var =
-                                ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
-                                        .getClasse().getScope().getVariableHashMap().get(names[1]);
-                        if (!basicSemantic.isArrayandDot()) {
-                            var = new Variable(names[0] + "." + var.getID(), var.getType(), var.getScope());
-                            quadrupleSemantic.getOperandStack().push(var);
-                            quadrupleSemantic.getOperandSList().add(var);
-                        } else {
-                            processArray(var);
-                            basicSemantic.setArrayandDot(false);
-                        }
-                        found = true;
-                    }
-                }
-                if (!found) {
-                    scope = scope.getParent();
-                }
-            }
-            if (!found) {
-                System.out.println("Error, Identifier: " + text + " not found1!");
-            }
-            basicSemantic.setDot(false);
-
-        } else {
-            String text = ctx.getChild(0).getText();
-            text = text.split("\\[")[0];
-            Scope scope = basicSemantic.getScopeStack().peek();
-            while (scope != null && !found) {
-                if (scope.getVariableHashMap().containsKey(text)) {
-                    if (!basicSemantic.isArray()) {
-                        quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
-                        quadrupleSemantic.getOperandSList().add(scope.getVariableHashMap().get(text));
-                    } else {
-                        processArray(scope.getVariableHashMap().get(text));
-                        basicSemantic.setArray(false);
-                    }
-                    found = true;
-                }
-                if (!found) {
-                    scope = scope.getParent();
-                }
-            }
-            if (!found) {
-                System.out.println("Error, Identifier: " + text + " not found2!");
-            }
+        boolean found = processId(text, scope);
+//        if (basicSemantic.isDot()) {
+//            if (!basicSemantic.isArray()) {
+//                if (!basicSemantic.isArrayandDot()) {
+//                    found = idSimpleDot(text, scope);
+//                } else {
+//                    found = idDotArray(text, scope);
+//                    basicSemantic.setArrayandDot(false);
+//                }
+//            } else {
+//                if (!basicSemantic.isArrayandDot()) {
+//                    found = idArrayDot(text, scope);
+//                } else {
+//                    found = idArrayDotArray(text, scope);
+//                    basicSemantic.setArrayandDot(false);
+//                }
+//                basicSemantic.setArray(false);
+//            }
+//            basicSemantic.setDot(false);
+//        } else {
+//            if (!basicSemantic.isArray()) {
+//                found = idSimple(text, scope);
+//            } else {
+//                found = idSimpleArray(text, scope);
+//                basicSemantic.setArray(false);
+//            }
+//        }
+        if (!found) {
+            System.out.println("Error, Identifier: " + text + " not found3!");
         }
+//        if (basicSemantic.isDot()) {
+//            String text = ctx.getChild(0).getText();
+//            String[] names = text.split("\\.");
+//            Scope scope = basicSemantic.getScopeStack().peek();
+//            Variable arrObj = new Variable(null, null, null);
+//            if (basicSemantic.isArray()) {
+//                names[0] = names[0].split("\\[")[0];
+//                while (scope != null && !found) {
+//                    if (scope.getVariableHashMap().containsKey(names[0])) {
+//                        arrObj = scope.getVariableHashMap().get(names[0]);
+//                        processArray(arrObj);
+//                    }
+//                    if (!found) {
+//                        scope = scope.getParent();
+//                    }
+//                }
+//            }
+//            scope = basicSemantic.getScopeStack().peek();
+//            while (scope != null && !found) {
+//                if (scope.getVariableHashMap().containsKey(names[0])) {
+//                    names[1] = names[1].split("\\[")[0];
+//                    if (basicSemantic.isArray()) {
+//                        if (((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+//                                getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
+//                            Variable var =
+//                                    ((TypeObject) ((TypeArray) arrObj.getType()).getType()).
+//                                            getClasse().getScope().getVariableHashMap().get(names[1]);
+//                            if (!basicSemantic.isArrayandDot()) {
+//                                var = new Variable(
+//                                        Operand.getIdString(quadrupleSemantic.getOperandStack().pop())
+//                                                + "." + var.getID(), var.getType(), var.getScope());
+//                                quadrupleSemantic.getOperandStack().push(var);
+//                                quadrupleSemantic.getOperandSList().add(var);
+//                            } else {
+//                                System.out.println(var);
+//                                processArray(var);
+//                                basicSemantic.setArrayandDot(false);
+//                            }
+//                            found = true;
+//                        }
+//                        basicSemantic.setArray(false);
+//                    } else if (((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
+//                            .getClasse().getScope().getVariableHashMap().containsKey(names[1])) {
+//                        Variable var =
+//                                ((TypeObject) scope.getVariableHashMap().get(names[0]).getType())
+//                                        .getClasse().getScope().getVariableHashMap().get(names[1]);
+//                        if (!basicSemantic.isArrayandDot()) {
+//                            var = new Variable(names[0] + "." + var.getID(), var.getType(), var.getScope());
+//                            quadrupleSemantic.getOperandStack().push(var);
+//                            quadrupleSemantic.getOperandSList().add(var);
+//                        } else {
+//                            processArray(var);
+//                            basicSemantic.setArrayandDot(false);
+//                        }
+//                        found = true;
+//                    }
+//                }
+//                if (!found) {
+//                    scope = scope.getParent();
+//                }
+//            }
+//            if (!found) {
+//                System.out.println("Error, Identifier: " + text + " not found1!");
+//            }
+//            basicSemantic.setDot(false);
+//
+//        } else {
+//            String text = ctx.getChild(0).getText();
+//            text = text.split("\\[")[0];
+//            Scope scope = basicSemantic.getScopeStack().peek();
+//            while (scope != null && !found) {
+//                if (scope.getVariableHashMap().containsKey(text)) {
+//                    if (!basicSemantic.isArray()) {
+//                        quadrupleSemantic.getOperandStack().push(scope.getVariableHashMap().get(text));
+//                        quadrupleSemantic.getOperandSList().add(scope.getVariableHashMap().get(text));
+//                    } else {
+//                        processArray(scope.getVariableHashMap().get(text));
+//                        basicSemantic.setArray(false);
+//                    }
+//                    found = true;
+//                }
+//                if (!found) {
+//                    scope = scope.getParent();
+//                }
+//            }
+//            if (!found) {
+//                System.out.println("Error, Identifier: " + text + " not found2!");
+//            }
+//        }
         return result;
     }
 
     /**
      * Function that adds a constant integer value to the getOperandStack()
      *
-     * @param ctx
-     * @return
+     * @param ctx ValueIntContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitValueInt(MadBasicParser.ValueIntContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<Integer>(new Integer(text), new TypeInt()));
-        quadrupleSemantic.getOperandSList().add(new Constant<Integer>(new Integer(text), new TypeInt()));
+        quadrupleSemantic.getOperandStack().push(new Constant<>(new Integer(text), new TypeInt()));
+        quadrupleSemantic.getOperandSList().add(new Constant<>(new Integer(text), new TypeInt()));
         if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstIntCount()) == null) {
             virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstIntCount(), new Integer(text));
             virtualMemory.addConstIntCount();
@@ -1546,14 +1697,14 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     /**
      * Function that adds a constant float value to the getOperandStack()
      *
-     * @param ctx
-     * @return
+     * @param ctx ValueFloatContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitValueFloat(MadBasicParser.ValueFloatContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<Float>(new Float(text), new TypeFloat()));
-        quadrupleSemantic.getOperandSList().add(new Constant<Float>(new Float(text), new TypeFloat()));
+        quadrupleSemantic.getOperandStack().push(new Constant<>(new Float(text), new TypeFloat()));
+        quadrupleSemantic.getOperandSList().add(new Constant<>(new Float(text), new TypeFloat()));
         if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstFloatCount()) == null) {
             virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstFloatCount(), new Float(text));
             virtualMemory.addConstFloatCount();
@@ -1564,14 +1715,14 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     /**
      * Function that adds a string to the getOperandStack()
      *
-     * @param ctx
-     * @return
+     * @param ctx ValueStringContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitValueString(MadBasicParser.ValueStringContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<String>(text, new TypeString()));
-        quadrupleSemantic.getOperandSList().add(new Constant<String>(text, new TypeString()));
+        quadrupleSemantic.getOperandStack().push(new Constant<>(text, new TypeString()));
+        quadrupleSemantic.getOperandSList().add(new Constant<>(text, new TypeString()));
         if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstStringCount()) == null) {
             virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstStringCount(), text);
             virtualMemory.addConstStringCount();
@@ -1582,14 +1733,14 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     /**
      * Function that adds a boolean value to the getOperandStack()
      *
-     * @param ctx
-     * @return
+     * @param ctx ValueBoolContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitValueBool(MadBasicParser.ValueBoolContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<Boolean>(new Boolean(text), new TypeBool()));
-        quadrupleSemantic.getOperandSList().add(new Constant<Boolean>(new Boolean(text), new TypeBool()));
+        quadrupleSemantic.getOperandStack().push(new Constant<>(new Boolean(text), new TypeBool()));
+        quadrupleSemantic.getOperandSList().add(new Constant<>(new Boolean(text), new TypeBool()));
         if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstBoolCount()) == null) {
             virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstBoolCount(), new Boolean(text));
             virtualMemory.addConstBoolCount();
@@ -1602,8 +1753,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------BEGIN CALL
 
     /**
-     * @param ctx
-     * @return
+     * Processes the first argument of a function
+     *
+     * @param ctx ArgsContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitArgs(MadBasicParser.ArgsContext ctx) {
@@ -1624,8 +1777,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Processes the remaining argument of a funtion after the args rule
+     *
+     * @param ctx XArgsContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitXArgs(MadBasicParser.XArgsContext ctx) {
@@ -1635,72 +1790,173 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * Finds the method to a call which is not inside an instance
+     *
+     * @param id    id of the call
+     * @param scope current scope
+     * @return the method to be processed
+     */
+    Procedure callSimple(String id, Scope scope) {
+        Procedure method = null;
+        while (scope != null) {
+            if (scope.getProcedureHashMap().containsKey(id)) {
+                method = scope.getProcedureHashMap().get(id);
+                break;
+            }
+            scope = scope.getParent();
+        }
+        return method;
+    }
+
+    /**
+     * Finds the method to a call that is inside an instance
+     *
+     * @param text  text containing the id of the call and the instance it belongs to
+     * @param scope current scope
+     * @return the method to be processed
+     */
+    Procedure callSimpleDot(String text, Scope scope) {
+        Procedure method = null;
+        String[] ids = text.split("\\.");
+        while (scope != null) {
+            if (scope.getVariableHashMap().containsKey(ids[0])) {
+                Class classe = ((TypeObject) scope.getVariableHashMap().get(ids[0]).getType()).getClasse();
+                if (classe.getScope().getProcedureHashMap().containsKey(ids[1])) {
+                    method = classe.getScope().getProcedureHashMap().get(ids[1]);
+                    break;
+                }
+            }
+            scope = scope.getParent();
+        }
+        return method;
+    }
+
+    /**
+     * Finds the method to a call that is inside an instance that is inside an array
+     *
+     * @param text  text containing the id of the call and the instance it belongs to
+     * @param scope current scope
+     * @return the method to be processed
+     */
+    Procedure callArrayDot(String text, Scope scope) {
+        Procedure method = null;
+        String[] ids = text.split("\\.");
+        ids[0] = ids[0].split("\\[")[0];
+
+        while (scope != null) {
+            if (scope.getVariableHashMap().containsKey(ids[0])) {
+                processArray(scope.getVariableHashMap().get(ids[0]));
+                Operand obj = quadrupleSemantic.getOperandStack().peek();
+                Class classe = ((TypeObject) obj.getType()).getClasse();
+                if (classe.getScope().getProcedureHashMap().containsKey(ids[1])) {
+                    method = classe.getScope().getProcedureHashMap().get(ids[1]);
+                    break;
+                }
+            }
+            scope = scope.getParent();
+        }
+
+        return method;
+    }
+
+    /**
+     * Finds the method to a call and prepares it to be processed
+     *
+     * @param text  text containing the id of the call and the instance it belongs to
+     * @param scope current scope
+     * @return the method to be processed
+     */
+    Procedure getMethod(String text, Scope scope) {
+        Procedure method;
+
+        if (basicSemantic.isDot()) {
+            Procedure temp;
+            String id;
+            if (basicSemantic.isArray()) {
+                temp = callArrayDot(text, scope);
+                Operand obj = quadrupleSemantic.getOperandStack().pop();
+                id = Operand.getIdString(obj);
+                basicSemantic.setArray(false);
+            } else {
+                temp = callSimpleDot(text, scope);
+                id = text.split("\\.")[0];
+            }
+            method = temp.clone();
+            method.setID(id + "-" + method.getID());
+            basicSemantic.setDot(false);
+        } else {
+            method = callSimple(text, scope);
+        }
+
+        return method;
+    }
+
+    /**
+     * This function processes a call, visiting their children and
+     *
+     * @param ctx CallContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitCall(MadBasicParser.CallContext ctx) {
         String result = "";
         quadrupleSemantic.setArgsStack(new Stack<>());
-        // TODO: 4/10/16 modificar si hashtable y para funciones dentro de clases
 
         ParseTree c = ctx.getChild(0);
         String childResult = c.accept(this);
         result = this.aggregateResult(result, childResult);
 
-        Procedure method = null;
-        String methodName = ctx.getChild(0).getText();
-        String objname = "";
+        Procedure method;
+        String text = ctx.getChild(0).getText();
+        Scope scope = basicSemantic.getScopeStack().peek();
 
-        if (basicSemantic.isDot()) {
-            String[] names = methodName.split("\\.");
-            objname = names[0].split("\\[")[0];
-            Scope scope = basicSemantic.getScopeStack().peek();
-            if (basicSemantic.isArray()) {
-                basicSemantic.setArray(false);
-                for (Scope s : basicSemantic.getScopeStack()) {
-                    if (s.getVariableHashMap().containsKey(objname)) {
-                        processArray(scope.getVariableHashMap().get(objname));
-                        names[0] = objname;
-                        Operand obj = quadrupleSemantic.getOperandStack().pop();
-                        if (((TypeObject) obj.getType())
-                                .getClasse().getScope().getProcedureHashMap().containsKey(names[1])) {
-                            method = ((TypeObject) obj.getType())
-                                    .getClasse().getScope().getProcedureHashMap().get(names[1]);
-                            objname = Operand.getIdString(obj).concat("-");
-                            break;
-                        }
-
-                    }
-                }
-            } else {
-                while (scope != null) {
-                    if (scope.getVariableHashMap().containsKey(names[0])) {
-                        if (((TypeObject) scope.getVariableHashMap().get(names[0])
-                                .getType()).getClasse().getScope().getProcedureHashMap().containsKey(names[1])) {
-                            method = ((TypeObject) scope.getVariableHashMap().get(names[0])
-                                    .getType()).getClasse().getScope().getProcedureHashMap().get(names[1]);
-                            objname = objname.concat("-");
-                            break;
-                        }
-                    }
-                    scope = scope.getParent();
-                }
-            }
-            basicSemantic.setDot(false);
-        } else {
-            for (Scope scope : basicSemantic.getScopeStack()) {
-                if (scope.getProcedureHashMap().containsKey(methodName)) {
-                    method = scope.getProcedureHashMap().get(methodName);
-                    break;
-                }
-            }
-        }
-
+        method = getMethod(text, scope);
+//        if (basicSemantic.isDot()) {
+//            String[] names = methodName.split("\\.");
+//            objname = names[0].split("\\[")[0];
+//            Scope scope = basicSemantic.getScopeStack().peek();
+//            if (basicSemantic.isArray()) {
+//                for (Scope s : basicSemantic.getScopeStack()) {
+//                    if (s.getVariableHashMap().containsKey(objname)) {
+//                        processArray(scope.getVariableHashMap().get(objname));
+//                        names[0] = objname;
+//                        Operand obj = quadrupleSemantic.getOperandStack().pop();
+//                        if (((TypeObject) obj.getType())
+//                                .getClasse().getScope().getProcedureHashMap().containsKey(names[1])) {
+//                            method = ((TypeObject) obj.getType())
+//                                    .getClasse().getScope().getProcedureHashMap().get(names[1]);
+//                            objname = Operand.getIdString(obj).concat("-");
+//                            break;
+//                        }
+//
+//                    }
+//                }
+//                basicSemantic.setArray(false);
+//            } else {
+//                while (scope != null) {
+//                    if (scope.getVariableHashMap().containsKey(names[0])) {
+//                        if (((TypeObject) scope.getVariableHashMap().get(names[0])
+//                                .getType()).getClasse().getScope().getProcedureHashMap().containsKey(names[1])) {
+//                            method = ((TypeObject) scope.getVariableHashMap().get(names[0])
+//                                    .getType()).getClasse().getScope().getProcedureHashMap().get(names[1]);
+//                            objname = objname.concat("-");
+//                            break;
+//                        }
+//                    }
+//                    scope = scope.getParent();
+//                }
+//            }
+//            basicSemantic.setDot(false);
+//        } else {
+//            for (Scope scope : basicSemantic.getScopeStack()) {
+//                if (scope.getProcedureHashMap().containsKey(methodName)) {
+//                    method = scope.getProcedureHashMap().get(methodName);
+//                    break;
+//                }
+//            }
+//        }
         if (method != null) {
-            Procedure methodQuad = method.clone();
-            methodQuad.setID(objname + method.getID());
-            QuadEra era = new QuadEra(methodQuad);
+            QuadEra era = new QuadEra(method);
             quadrupleSemantic.getQuadrupleList().add(era);
 
             int n = ctx.getChildCount();
@@ -1719,12 +1975,14 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                         quadrupleSemantic.getQuadrupleList().add(new Parameter(oper, i));
                     } else {
                         // TODO: 4/11/16 error, explain the actual error
-                        System.out.println("Error on call " + ctx.getChild(0).getText());
+                        System.out.println(
+                                "Error on call: arg mismatch " + ctx.getChild(0).getText() + oper + " " + var);
                     }
                 }
 
                 int jumpback = quadrupleSemantic.getQuadrupleList().size() + 1;
-                quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, methodQuad));
+                quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, method));
+
                 if (method instanceof Function) {
                     Variable var = method.getScope().getParent().getVariableHashMap().get(method.getID());
                     Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), var.getType());
@@ -1733,13 +1991,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     quadrupleSemantic.getOperandSList().add(temp);
                     quadrupleSemantic.getOperandStack().push(temp);
                 }
+
             } else {
                 // TODO: 4/10/16 error
                 System.out.println("Error on call " + ctx.getChild(0).getText() + " paramsize");
             }
-        } else
-
-        {
+        } else {
             // TODO: 4/10/16 error
             System.out.println("Error on call \"" + ctx.getChild(0).getText() + "\" non existent");
         }
@@ -1754,8 +2011,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------------------------------------BEGIN CONDITION
 
     /**
-     * @param ctx
-     * @return
+     * This function processes a condition, and visits the children of the rule condition.
+     *
+     * @param ctx ConditionContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitCondition(MadBasicParser.ConditionContext ctx) {
@@ -1768,8 +2027,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             result = this.aggregateResult(result, childResult);
         }
 
-        Operand condition = quadrupleSemantic.getOperandStack().peek();
-        quadrupleSemantic.getOperandStack().pop();
+        Operand condition = quadrupleSemantic.getOperandStack().pop();
+
         if (condition.getType() instanceof TypeBool) {
             GotoFalse gotoFalse = new GotoFalse(condition);
             quadrupleSemantic.getJumpStack().add(quadrupleSemantic.getQuadrupleList().size());
@@ -1791,8 +2050,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This function processes the else part of a condition, and visits the children of the rule pElse.
+     *
+     * @param ctx PElseContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitPElse(MadBasicParser.PElseContext ctx) {
@@ -1801,7 +2062,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         quadrupleSemantic.getJumpStack().add(quadrupleSemantic.getQuadrupleList().size());
         quadrupleSemantic.getQuadrupleList().add(go);
         ((Goto) quadrupleSemantic.getQuadrupleList().get(falso)).setJump(quadrupleSemantic.getQuadrupleList().size());
-        return super.visitPElse(ctx);
+        return visitChildren(ctx);
     }
 
     //------------------------------------------------------------END CONDITION
@@ -1809,8 +2070,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------------------------------------BEGIN LOOP
 
     /**
-     * @param ctx
-     * @return
+     * This function processes a loop, and visits the children of the rule loop.
+     *
+     * @param ctx LoopContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitLoop(MadBasicParser.LoopContext ctx) {
@@ -1853,8 +2116,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------------------------------------BEGIN METHODS
 
     /**
-     * @param ctx
-     * @return
+     * This function sets the boolean isInMethod of the BasicSemantic instance to true,
+     * and visits the children of the rule method.
+     *
+     * @param ctx MethodContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitMethod(MadBasicParser.MethodContext ctx) {
@@ -1866,8 +2132,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This function processes the first parameter of a function.
+     *
+     * @param ctx ParamsContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitParams(MadBasicParser.ParamsContext ctx) {
@@ -1912,8 +2180,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This function processes the rest of the parameters of a function.
+     *
+     * @param ctx NContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitN(MadBasicParser.NContext ctx) {
@@ -1952,8 +2222,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This function processes an init, and visits the children of the rule init.
+     *
+     * @param ctx InitContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitInit(MadBasicParser.InitContext ctx) {
@@ -2009,8 +2281,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This function processes a function, which returns a value, and visits the children of the rule function.
+     *
+     * @param ctx FunctionContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitFunction(MadBasicParser.FunctionContext ctx) {
@@ -2075,8 +2349,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     }
 
     /**
-     * @param ctx
-     * @return
+     * This function processes a procedure, which is void, and visits the children of the rule loop.
+     *
+     * @param ctx ProcedureContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitProcedure(MadBasicParser.ProcedureContext ctx) {
@@ -2135,8 +2411,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     //------------------------------------------------------------START RETURN
 
     /**
-     * @param ctx
-     * @return
+     * This function processes a return, which is the last line of a function.
+     *
+     * @param ctx RetornoContext
+     * @return the product of the visit of this rule
      */
     @Override
     public String visitRetorno(MadBasicParser.RetornoContext ctx) {
@@ -2165,6 +2443,13 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     /**/
     //------------------------------------------------------------BEGIN MADBASIC
 
+    /**
+     * This function belongs to the first rule of the languaje. It inserts a Goto as the first quadruple to be
+     * linked wih the start of the main
+     *
+     * @param ctx MadbasicContext
+     * @return the product of the visit of this rule
+     */
     @Override
     public String visitMadbasic(MadBasicParser.MadbasicContext ctx) {
         quadrupleSemantic.getQuadrupleList().add(new Goto());

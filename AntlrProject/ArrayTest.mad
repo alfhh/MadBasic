@@ -43,8 +43,12 @@ main:
     vars:
         int[0,1][0,1][0,1] ii;
     aa[0].x = 0;
-    aa[0].k[0] = 0;
+    aa[1].k[0] = 0;
     a.k[0] = 0;
     ii[0][0][0] = 0;
     a.z(0, ii);
+    print(0);
+    x();
+    a.init();
+    aa[1].z(0, ii);
 end
