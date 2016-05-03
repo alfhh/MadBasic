@@ -205,6 +205,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
                 myMachine = Machine.getInstance();
 
+
                 // Send actual values to the VMachine
                 myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList(),
                         VirtualMemory.getInstance(),

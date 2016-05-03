@@ -473,6 +473,7 @@ public class Machine {
 
 
         // TODO: 30/04/16 CHECK 3 == TRUE
+        // TODO: 2/05/16 CHECK VALUES DIFFERENT THAN ZERO SHOULD BE TRUE 
 
         if (operatorCode == 6 || operatorCode == 7) { // == OR !=
             // TODO: 1/05/16 IMPLEMENT OTHER CASES WITH BOOL AND FLOAT

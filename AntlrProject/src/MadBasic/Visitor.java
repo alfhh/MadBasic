@@ -188,7 +188,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             case 1:
                 virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getFloatCount());
                 res = virtualMemory.getFloatCount();
-                virtualMemory.getvMemory().putIfAbsent(res, 0.0);
+                virtualMemory.getvMemory().putIfAbsent(res, new Float(0.0));
                 virtualMemory.addFloatCount();
                 break;
             case 2:
@@ -217,7 +217,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                         virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getFloatCount());
                         res = virtualMemory.getFloatCount();
                         for (int i = res; i < ((TypeArray) var.getType()).getArray().getSize() + res; i++) {
-                            virtualMemory.getvMemory().putIfAbsent(i, 0.0);
+                            virtualMemory.getvMemory().putIfAbsent(i, new Float(0.0));
                         }
                         virtualMemory.setFloatCount(res + ((TypeArray) var.getType()).getArray().getSize());
                         break;
@@ -346,7 +346,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             case 1:
                 virtualMemory.getvDirectory().putIfAbsent(Operand.getIdString(temp), virtualMemory.getTempFloatCount());
                 res = virtualMemory.getTempFloatCount();
-                virtualMemory.getvMemory().putIfAbsent(res, 0.0);
+                virtualMemory.getvMemory().putIfAbsent(res, new Float(0.0));
                 virtualMemory.addTempFloatCount();
                 break;
             case 2:
