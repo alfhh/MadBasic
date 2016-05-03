@@ -25,5 +25,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="antlr-4.5.2-complete1" level="project" />
+    <orderEntry type="library" name="rsyntaxtextarea-2.5.71" level="project" />
   </component>
 </module>
