@@ -1,9 +1,11 @@
 package MadBasic.VMachine;
 
+import MadBasic.Algrebra.Constant;
 import MadBasic.Algrebra.Temporal;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.GotoFalse;
+import MadBasic.Semantic.Types.TypeInt;
 import MadBasic.VMemory.Era;
 import MadBasic.Algrebra.Operand;
 import MadBasic.IDE.MainIDE;
@@ -319,7 +321,27 @@ public class Machine {
                 if (dir == null) {
                     dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("(", "").replace(")", ""))); // Operand 1
                 }
+            }
+        } else if((o instanceof Variable) && (((Variable) o).isAddress())){
+            if (virtualMemory.getEraStack().isEmpty()) {
+                dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("@", ""))); // Operand 1
 
+            } else {
+                // First check if the values are present in the Era param list
+                dir = (Integer) vMemory.get(virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o)
+                        .replace("@", "")));
+
+                if (dir == null) {
+                    dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("@", ""))); // Operand 1
+                }
+            }
+            Constant<Integer> cDir = new Constant<>(dir, new TypeInt());
+            if(vDirectory.containsKey(Operand.getIdString(cDir))){
+                dir = vDirectory.get(Operand.getIdString(cDir));
+            } else {
+                vMemory.put(virtualMemory.getConstBoolCount(), cDir.getValue());
+                dir = virtualMemory.getConstBoolCount();
+                virtualMemory.addConstIntCount();
             }
         } else {
             if (virtualMemory.getEraStack().isEmpty()) {
@@ -332,7 +354,6 @@ public class Machine {
                 if (dir == null) {
                     dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
                 }
-
             }
         }
         return dir;

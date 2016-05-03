@@ -783,16 +783,16 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             TypeArray.Array arraytemp = array.getArray(i);
             Operand index = basicSemantic.getArrayIndexList().removeFirst();
             Constant<Integer> start = new Constant<>(arraytemp.getStart(), new TypeInt());
+            insertConstVDirectory(start);
             Constant<Integer> end = new Constant<>(arraytemp.getEnd(), new TypeInt());
-            virtualMemory.getvDirectory().put(start.getValue().toString(), virtualMemory.getConstIntCount());
-            virtualMemory.addConstIntCount();
-            virtualMemory.getvDirectory().put(end.getValue().toString(), virtualMemory.getConstIntCount());
-            virtualMemory.addConstIntCount();
+            insertConstVDirectory(end);
             quadrupleSemantic.getQuadrupleList().add(new ArrayVerify(index, start, end));
             Temporal t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
             insertTempVDirectory(t);
+            Constant<Integer> m = new Constant<>(arraytemp.getM(), new TypeInt());
+            insertConstVDirectory(m);
             quadrupleSemantic.getQuadrupleList().add(new Expression(
-                    Operator.MULTIPLICATION, index, new Constant<>(arraytemp.getM(), new TypeInt()), t));
+                    Operator.MULTIPLICATION, index, m, t));
             quadrupleSemantic.getOperandSList().add(t);
             quadrupleSemantic.getOperandStack().push(t);
 
@@ -809,18 +809,23 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         Temporal t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
         insertTempVDirectory(t);
+        Constant<Integer> k =new Constant<>(array.getK(), new TypeInt());
+        insertConstVDirectory(k);
         quadrupleSemantic.getQuadrupleList().add(new Expression(
                 Operator.MINUS, quadrupleSemantic.getOperandStack().pop(),
-                new Constant<>(array.getK(), new TypeInt()), t));
+                k, t));
         Temporal tt = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
         insertTempVDirectory(tt);
-        if (basicSemantic.isArray() && basicSemantic.isArrayandDot() || basicSemantic.isInMethod()) {
+        if (basicSemantic.isArray() && basicSemantic.isArrayandDot() ||
+                basicSemantic.isInMethod() && (variable.getScope() == basicSemantic.getScopeStack().peek() ||
+                basicSemantic.getClassHashMap().containsKey(variable.getScope().getName()))) {
             variable = new Variable(variable.getID(), variable.getType(), variable.getScope());
             variable.setAddress(true);
             quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, variable, tt));
         } else {
             Constant<Integer> memoryIndex =
                     new Constant<>(virtualMemory.getvDirectory().get(variable.getID()), new TypeInt());
+            insertConstVDirectory(memoryIndex);
             quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, memoryIndex, tt));
         }
         Temporal ttt = new Temporal(tt.getID(), ((TypeArray) variable.getType()).getType(), true);
@@ -1483,9 +1488,9 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     insertTempVDirectory(temp);
                 }
 
-                Constant c = new Constant<Integer>(0, new TypeInt());
-                quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.MINUS, var, c, temp));
+                Constant c = new Constant<>(0, new TypeInt());
                 insertConstVDirectory(c);
+                quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.MINUS, var, c, temp));
 
                 quadrupleSemantic.getOperandStack().pop();
                 quadrupleSemantic.getOperandStack().push(temp);
@@ -1504,7 +1509,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     /**/
     //------------------------------BEGIN VALUE
 
-
+    /**
+     * Inserts a constant to the vDirectory and vMemory
+     * @param c constant to insert
+     */
     void insertConstVDirectory(Constant c) {
         // INT(0), FLOAT(1), STRING(2), BOOL(3), ARRAY(4), OBJECT(5), FALSE(-1);
         switch (c.getType().getTypeValue()) {
@@ -1737,12 +1745,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueInt(MadBasicParser.ValueIntContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<>(new Integer(text), new TypeInt()));
-        quadrupleSemantic.getOperandSList().add(new Constant<>(new Integer(text), new TypeInt()));
-        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstIntCount()) == null) {
-            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstIntCount(), new Integer(text));
-            virtualMemory.addConstIntCount();
-        }
+        Constant<Integer> c = new Constant<>(new Integer(text), new TypeInt());
+        quadrupleSemantic.getOperandStack().push(c);
+        quadrupleSemantic.getOperandSList().add(c);
+        insertConstVDirectory(c);
         return super.visitValueInt(ctx);
     }
 
@@ -1755,12 +1761,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueFloat(MadBasicParser.ValueFloatContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<>(new Float(text), new TypeFloat()));
-        quadrupleSemantic.getOperandSList().add(new Constant<>(new Float(text), new TypeFloat()));
-        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstFloatCount()) == null) {
-            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstFloatCount(), new Float(text));
-            virtualMemory.addConstFloatCount();
-        }
+        Constant<Float> c = new Constant<>(new Float(text), new TypeFloat());
+        quadrupleSemantic.getOperandStack().push(c);
+        quadrupleSemantic.getOperandSList().add(c);
+        insertConstVDirectory(c);
         return super.visitValueFloat(ctx);
     }
 
@@ -1773,12 +1777,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueString(MadBasicParser.ValueStringContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<>(text, new TypeString()));
-        quadrupleSemantic.getOperandSList().add(new Constant<>(text, new TypeString()));
-        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstStringCount()) == null) {
-            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstStringCount(), text);
-            virtualMemory.addConstStringCount();
-        }
+        Constant<String> c = new Constant<>(text, new TypeString());
+        quadrupleSemantic.getOperandStack().push(c);
+        quadrupleSemantic.getOperandSList().add(c);
+        insertConstVDirectory(c);
         return super.visitValueString(ctx);
     }
 
@@ -1791,12 +1793,10 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     @Override
     public String visitValueBool(MadBasicParser.ValueBoolContext ctx) {
         String text = ctx.getChild(0).getText();
-        quadrupleSemantic.getOperandStack().push(new Constant<>(new Boolean(text), new TypeBool()));
-        quadrupleSemantic.getOperandSList().add(new Constant<>(new Boolean(text), new TypeBool()));
-        if (virtualMemory.getvDirectory().putIfAbsent(text, virtualMemory.getConstBoolCount()) == null) {
-            virtualMemory.getvMemory().putIfAbsent(virtualMemory.getConstBoolCount(), new Boolean(text));
-            virtualMemory.addConstBoolCount();
-        }
+        Constant<Boolean> c = new Constant<>(Boolean.valueOf(text), new TypeBool());
+        quadrupleSemantic.getOperandStack().push(c);
+        quadrupleSemantic.getOperandSList().add(c);
+        insertConstVDirectory(c);
         return super.visitValueBool(ctx);
     }
 
