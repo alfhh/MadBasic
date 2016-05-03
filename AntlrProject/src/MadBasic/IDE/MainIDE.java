@@ -275,6 +275,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         }
 
         if(e.getSource() == miRunCompile){
+            save();
             compile();
             run();
         }

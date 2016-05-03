@@ -5,6 +5,7 @@ import MadBasic.Algrebra.Temporal;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.GotoFalse;
+import MadBasic.Semantic.Types.TypeArray;
 import MadBasic.Semantic.Types.TypeInt;
 import MadBasic.VMemory.Era;
 import MadBasic.Algrebra.Operand;
@@ -228,9 +229,21 @@ public class Machine {
         Object[] keys = k.toArray();
         for (Object key : keys) {
             if (e.getvDirectory().get(key) == null) {
-                e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
-                vMemory.put(virtualMemory.getStackVariableCount(), null);
-                virtualMemory.addStackVariableCount();
+                if((e.getVarHashMap().get(key) != null) && (e.getVarHashMap().get(key).getType() instanceof TypeArray)){
+                    Operand arr = e.getVarHashMap().get(key);
+
+                    e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
+
+                    for(int i = 0; i < ((TypeArray) arr.getType()).getArray().getSize(); i++){
+                        vMemory.put(virtualMemory.getStackVariableCount(), null);
+                        virtualMemory.addStackVariableCount();
+                    }
+
+                } else {
+                    e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
+                    vMemory.put(virtualMemory.getStackVariableCount(), null);
+                    virtualMemory.addStackVariableCount();
+                }
             }
         }
         virtualMemory.getSecondaryEraStack().push(e);
@@ -239,11 +252,25 @@ public class Machine {
     public void processParameter(Parameter p) {
         // Add the parameter to the Era
         Operand tempOp = p.getArgument();
-        //int dirArg = vDirectory .get(Operand.getIdString(tempOp));
         int dirArg = getDirectionFromVM(tempOp);
         Variable varParam = virtualMemory.getSecondaryEraStack().peek().getParams().get(p.getParameterNum());
         int dirParam = virtualMemory.getSecondaryEraStack().peek().getvDirectory().get(varParam.getID());
         vMemory.put(dirParam, vMemory.get(dirArg));
+
+        if(tempOp.getType() instanceof TypeArray){
+
+            int startArray = virtualMemory.getSecondaryEraStack().peek().getvDirectory().get(varParam);
+            int startOrgArray = dirArg;
+            int k = ((TypeArray) tempOp.getType()).getArray().getK();
+
+
+            for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++){
+
+
+                vMemory.put(startArray, vMemory.get(startArray));
+                startArray = (i * ((TypeArray) tempOp.getType()).getArray().getSize() - k) + dirArg;
+            }
+        }
 
         // Add if param by reference
         if (varParam.isByReference()) {
@@ -345,7 +372,7 @@ public class Machine {
             }
         } else {
             if (virtualMemory.getEraStack().isEmpty()) {
-                dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
+                    dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
 
             } else {
                 // First check if the values are present in the Era param list
@@ -501,7 +528,6 @@ public class Machine {
                 return false;
         }
     }
-
 
     public void conditionExpression(Expression e) {
         int operatorCode = e.getOper().ordinal();
