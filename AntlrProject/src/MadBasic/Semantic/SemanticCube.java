@@ -16,7 +16,7 @@ public class SemanticCube {
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
-                    }, // Index: 0 -> Integer [ty][ty][oper]
+                    }, // Index: 0 -> Integer
                     {
                             { new TypeBool(), new TypeBool(), new TypeFloat(), new TypeFloat(), new TypeFalse(), new TypeFalse() },
                             { new TypeBool(), new TypeBool(), new TypeFloat(), new TypeFloat(), new TypeFalse(), new TypeFalse() },
