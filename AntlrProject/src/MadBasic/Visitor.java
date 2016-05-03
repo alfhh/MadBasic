@@ -240,7 +240,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                     case 5:
                         //Gets the class of the Array
                         Class clas = ((TypeObject) (((TypeArray) var.getType()).getType())).getClasse();
-                        virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getInstanceCount());
+                        LinkedList<Instance> instances = new LinkedList<>();
                         res = virtualMemory.getInstanceCount();
                         for (int i = 0; i < ((TypeArray) var.getType()).getArray().getSize(); i++) {
                             Instance instance = new Instance();
@@ -249,8 +249,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                             while (c != null) {
                                 for (Variable variable : c.getScope().getVariableHashMap().values()) {
                                     instance.getvDirectory().putIfAbsent(variable.getID(), insertVDirectory(
-                                            new Variable((res + i) + "." + variable.getID(),
-                                                    variable.getType(), variable.getScope())));
+                                            new Variable((res + i) + "." + variable.getID(), variable.getType(), variable.getScope())));
                                 }
                                 //Creates the Era for each method of the class
                                 for (Procedure proc : c.getScope().getProcedureHashMap().values()) {
@@ -273,6 +272,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                                 }
                                 c = c.getParent();
                             }
+                            instances.add(instance);
+                        }
+                        res = virtualMemory.getInstanceCount();
+                        virtualMemory.getvDirectory().putIfAbsent(var.getID(), virtualMemory.getInstanceCount());
+                        for (Instance instance : instances) {
                             virtualMemory.getvMemory().putIfAbsent(virtualMemory.getInstanceCount(), instance);
                             virtualMemory.addInstanceCount();
                         }
@@ -809,16 +813,15 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         }
         Temporal t = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
         insertTempVDirectory(t);
-        Constant<Integer> k =new Constant<>(array.getK(), new TypeInt());
+        Constant<Integer> k = new Constant<>(array.getK(), new TypeInt());
         insertConstVDirectory(k);
         quadrupleSemantic.getQuadrupleList().add(new Expression(
-                Operator.MINUS, quadrupleSemantic.getOperandStack().pop(),
-                k, t));
+                Operator.MINUS, k, quadrupleSemantic.getOperandStack().pop(), t));
         Temporal tt = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), new TypeInt());
         insertTempVDirectory(tt);
         if (basicSemantic.isArray() && basicSemantic.isArrayandDot() ||
                 basicSemantic.isInMethod() && (variable.getScope() == basicSemantic.getScopeStack().peek() ||
-                basicSemantic.getClassHashMap().containsKey(variable.getScope().getName()))) {
+                        basicSemantic.getClassHashMap().containsKey(variable.getScope().getName()))) {
             variable = new Variable(variable.getID(), variable.getType(), variable.getScope());
             variable.setAddress(true);
             quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, variable, tt));
@@ -829,7 +832,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, memoryIndex, tt));
         }
         Temporal ttt = new Temporal(tt.getID(), ((TypeArray) variable.getType()).getType(), true);
-        insertTempVDirectory(ttt);
+//        insertTempVDirectory(ttt);
         quadrupleSemantic.getOperandSList().add(ttt);
         quadrupleSemantic.getOperandStack().push(ttt);
     }
@@ -1511,6 +1514,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
     /**
      * Inserts a constant to the vDirectory and vMemory
+     *
      * @param c constant to insert
      */
     void insertConstVDirectory(Constant c) {

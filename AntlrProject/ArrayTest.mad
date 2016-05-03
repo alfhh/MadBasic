@@ -42,13 +42,17 @@ methods:
 main:
     vars:
         int[0,1][0,1][0,1] ii;
-    aa[0].x = 0;
-    aa[1].k[0] = 0;
-    a.k[0] = 0;
-    ii[0][0][0] = 0;
-    a.z(0, ii);
+    aa[0].x = 123;
+    aa[1].x = aa[0].x;
+    print(aa[1].x);
+    aa[1].k[0] = 222;
+    aa[0].k[1] = aa[1].k[0];
+    print(aa[0].k[1]);
+    a.k[0] = 333;
+    a.k[1] = a.k[0];
+    print(a.k[1]);
+    ii[0][0][0] = 444;
+    ii[1][1][1] = ii[0][0][0];
+    print(ii[1][1][1]);
     print(0);
-    x();
-    a.init();
-    aa[1].z(0, ii);
 end

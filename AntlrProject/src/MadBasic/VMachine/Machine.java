@@ -5,12 +5,16 @@ import MadBasic.Algrebra.Temporal;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.GotoFalse;
+import MadBasic.Semantic.Types.Type;
+import MadBasic.Semantic.Types.TypeFalse;
 import MadBasic.Semantic.Types.TypeInt;
+import MadBasic.Semantic.Types.TypeObject;
 import MadBasic.VMemory.Era;
 import MadBasic.Algrebra.Operand;
 import MadBasic.IDE.MainIDE;
 import MadBasic.Quadruples.*;
 import MadBasic.Quadruples.Gotos.Goto;
+import MadBasic.VMemory.Instance;
 import MadBasic.VMemory.ReferencePair;
 import MadBasic.VMemory.VirtualMemory;
 
@@ -305,11 +309,32 @@ public class Machine {
         }
     }
 
+    Integer getTempIndex(String temp) {
+        return new Integer(temp.replace("(", "").replace(")", "").replace("t", "").replace("#", ""));
+    }
 
     public int getDirectionFromVM(Operand o) {
-        // TODO: 1/05/16 HANDLE IS POINTER, TEMPORAL PONITER
         Integer dir;
-        if (((o instanceof Temporal) && ((Temporal) o).isPointer())) {
+        if (Operand.getIdString(o).contains(".")) {
+            String[] ids = Operand.getIdString(o).split("\\.");
+            if (!ids[0].contains("@")) {
+                Temporal temporal = new Temporal(getTempIndex(ids[0]), new TypeFalse(), true);
+                Instance instance = (Instance) vMemory.get(getDirectionFromVM(temporal));
+                dir = instance.getvDirectory().get(ids[1]);
+            } else {
+                Temporal temporal = new Temporal(getTempIndex(ids[0].replace("@", "")), new TypeFalse(), true);
+                Instance instance = (Instance) vMemory.get(getDirectionFromVM(temporal));
+                dir = instance.getvDirectory().get(ids[1]);
+                Constant<Integer> cDir = new Constant<>(dir, new TypeInt());
+                if (vDirectory.containsKey(Operand.getIdString(cDir))) {
+                    dir = vDirectory.get(Operand.getIdString(cDir));
+                } else {
+                    vMemory.put(virtualMemory.getConstBoolCount(), cDir.getValue());
+                    dir = virtualMemory.getConstBoolCount();
+                    virtualMemory.addConstIntCount();
+                }
+            }
+        } else if (((o instanceof Temporal) && ((Temporal) o).isPointer())) {
             if (virtualMemory.getEraStack().isEmpty()) {
                 dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("(", "").replace(")", ""))); // Operand 1
 
@@ -322,7 +347,7 @@ public class Machine {
                     dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("(", "").replace(")", ""))); // Operand 1
                 }
             }
-        } else if((o instanceof Variable) && (((Variable) o).isAddress())){
+        } else if ((o instanceof Variable) && (((Variable) o).isAddress())) {
             if (virtualMemory.getEraStack().isEmpty()) {
                 dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("@", ""))); // Operand 1
 
@@ -336,7 +361,7 @@ public class Machine {
                 }
             }
             Constant<Integer> cDir = new Constant<>(dir, new TypeInt());
-            if(vDirectory.containsKey(Operand.getIdString(cDir))){
+            if (vDirectory.containsKey(Operand.getIdString(cDir))) {
                 dir = vDirectory.get(Operand.getIdString(cDir));
             } else {
                 vMemory.put(virtualMemory.getConstBoolCount(), cDir.getValue());
