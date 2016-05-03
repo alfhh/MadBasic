@@ -1,4 +1,4 @@
-program example;
+program reference;
 
 
 vars:
@@ -8,23 +8,39 @@ vars:
 methods:
 
     void testReference(int ~x, int y){
-        x = y * 2;
+        x = y * 4;
+        print("X here: " ^ x);
     }
 
     void printline(string s) {
-        print(s ^ "\n" ^ "test");
+        print(s  ^ " <--");
+    }
+
+    void test2(int ~x, int ~y, int z, int ~w){
+    		x = y + z + w;
+    		y = y * y;
+    		z = x + y;
+    		w = 44;
     }
 
 main:
 vars:
-	int xi, yi, a, c, d, i, j;
+	int a, b, c, d;
 
 
 
 a = 7;
-d = 3;
+b = 3;
+c = 2;
+d = 10;
 print("Value of A: " ^ a);
 print(a);
-testReference(~a, d);
-print("Hello" ^ "World");
+print(a);
+
+print("-------------------------------");
+test2(~a, ~b, c, ~d);
+print("A: " ^ a);
+print("B: " ^ b);
+print("C: " ^ c);
+print("D: " ^ d);
 end

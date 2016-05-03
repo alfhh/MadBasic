@@ -20,7 +20,7 @@ public class Operand {
         String res;
         if(o instanceof Variable){
             if(((Variable) o).isByReference()){
-                res = "~" + ((Variable) o).getID();
+                res = ((Variable) o).getID();
             } else if(((Variable) o).isAddress()){
                 res = "@" + ((Variable) o).getID();
             } else {
@@ -30,9 +30,9 @@ public class Operand {
             res = ((Constant) o).getValue().toString();
         } else {
             if (((Temporal) o).isPointer()){
-                res = "(t" + ((Temporal) o).getID() + ")";
+                res = "(t#" + ((Temporal) o).getID() + ")";
             } else {
-                res = "t" + ((Temporal) o).getID();
+                res = "t#" + ((Temporal) o).getID();
             }
         }
         return res;

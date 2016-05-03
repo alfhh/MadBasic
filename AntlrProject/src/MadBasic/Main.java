@@ -1,8 +1,11 @@
 package MadBasic;
 
 
+import MadBasic.IDE.MainIDE;
+import MadBasic.Semantic.BasicSemantic;
+import MadBasic.VMachine.Machine;
+import MadBasic.YUML.YUMLParser;
 import org.antlr.v4.runtime.tree.ParseTree;
-
 import java.io.IOException;
 
 /**
@@ -13,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-//       /*
+//     /*
         ParseTree tree = null;
 
         try {
@@ -37,10 +40,14 @@ public class Main {
 
         tester.testManager(selectedTests);
 
-//        YUMLParser yuml = new YUMLParser();
-//        yuml.makeDiagram(BasicSemantic.getInstance().getClassHashMap());
-//        yuml.createDiagram();
-//        yuml.runDiagram();
+        /**/
+
+//        /*
+
+        YUMLParser yuml = new YUMLParser();
+        yuml.makeDiagram(BasicSemantic.getInstance().getClassHashMap());
+        yuml.createDiagram();
+        yuml.runDiagram();
 
         /**/
 

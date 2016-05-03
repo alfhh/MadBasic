@@ -29,6 +29,7 @@ public class VirtualMemory {
     Integer constBoolCount;
     Integer stackVariableCount;
     Stack<Era> eraStack;
+    Stack<Era> secondaryEraStack;
 
     static VirtualMemory instance;
 
@@ -38,6 +39,7 @@ public class VirtualMemory {
         vDirectory = new HashMap<>();
         eraHashMap = new HashMap<>();
         eraStack = new Stack<>();
+        secondaryEraStack = new Stack<>();
         instanceCount = 0;
         intCount = 1000;
         floatCount = 1500;
@@ -142,7 +144,7 @@ public class VirtualMemory {
     }
 
     public Integer getStackVariableCount() {
-        return stackVariableCount;
+        return this.stackVariableCount;
     }
 
     public void setInstanceCount(Integer instanceCount) {
@@ -260,6 +262,14 @@ public class VirtualMemory {
     }
 
     public Stack<Era> getEraStack() { return eraStack; }
+
+    public Stack<Era> getSecondaryEraStack() {
+        return secondaryEraStack;
+    }
+
+    public void setSecondaryEraStack(Stack<Era> secondaryEraStack) {
+        this.secondaryEraStack = secondaryEraStack;
+    }
 
     public void setEraHashMap(HashMap<String, Era> eraHashMap) {
         this.eraHashMap = eraHashMap;

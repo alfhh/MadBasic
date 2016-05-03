@@ -169,6 +169,88 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
         if(e.getSource() == miCompile){
 
+            // Also saves
+
+            String data = editorArea.getText();
+
+            if(archiveHandler.getActualFile() != null){
+                archiveHandler.saveFile(data);
+            } else {
+                archiveHandler.saveFileAs(data, this);
+            }
+
+            // ---------------------
+
+
+            if (archiveHandler.getActualFile() != null){
+                ParseTree tree = null;
+
+                try {
+                    tree = Parser.parse(archiveHandler.getActualFile().getAbsolutePath(), "MadBasic", "madbasic");
+                    new Visitor().visit(tree);
+                } catch (IOException error) {
+                    error.printStackTrace();
+                }
+
+                TestingGround tester = new TestingGround();
+
+                TestingGround.TestNum[] selectedTests = {
+                        TestingGround.TestNum.SCOPETABLE,
+                        TestingGround.TestNum.PROC_TABLE,
+                        TestingGround.TestNum.OPERANDSTACK,
+                        TestingGround.TestNum.QUADRUPLELIST,
+                };
+
+                tester.testManager(selectedTests);
+
+                myMachine = Machine.getInstance();
+
+
+                // Send actual values to the VMachine
+                myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList(),
+                        VirtualMemory.getInstance(),
+                        VirtualMemory.getInstance().getvDirectory(),
+                        VirtualMemory.getInstance().getvMemory());
+
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "\nPlease save file first",
+                        "Error",JOptionPane.WARNING_MESSAGE);
+            }
+
+        }
+
+        if(e.getSource() == miRun){
+            if(archiveHandler.getActualFile() != null){
+                jConsole.setText("");
+                if(myMachine.run()){
+                    print("Program successfully finished");
+                } else{
+                    printError("Execution time error");
+                }
+            } else { // TODO: 22/04/16 Add compilationg succesful flag
+                JOptionPane.showMessageDialog(null,
+                        "\nCompile file first",
+                        "Error",JOptionPane.WARNING_MESSAGE);
+            }
+        }
+
+        if(e.getSource() == miRunCompile){
+            // TODO: 1/05/16 REFACTOR ALL MENUITEMS WITH FUNCTIONS 
+            
+            // Also saves
+
+            String data = editorArea.getText();
+
+            if(archiveHandler.getActualFile() != null){
+                archiveHandler.saveFile(data);
+            } else {
+                archiveHandler.saveFileAs(data, this);
+            }
+
+            // ---------------------
+
+
             if (archiveHandler.getActualFile() != null){
                 ParseTree tree = null;
 
@@ -204,9 +286,6 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
                         "Error",JOptionPane.WARNING_MESSAGE);
             }
 
-        }
-
-        if(e.getSource() == miRun){
             if(archiveHandler.getActualFile() != null){
                 jConsole.setText("");
                 if(myMachine.run()){
@@ -225,6 +304,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
     @Override
     public void print(String message) {
+        message = message.replace("\"" , "");
         jConsole.append(message + "\n");
     }
 

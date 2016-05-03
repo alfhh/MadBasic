@@ -12,43 +12,35 @@ public class SemanticCube {
                     {
                             { new TypeBool(), new TypeBool(), new TypeInt(), new TypeInt(), new TypeFalse(), new TypeFalse() },
                             { new TypeBool(), new TypeBool(), new TypeFloat(), new TypeFloat(), new TypeFalse(), new TypeFalse() },
-                            { new TypeInt(), new TypeFloat(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeInt(), new TypeFloat(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
-                    }, // Index: 0
+                    }, // Index: 0 -> Integer [ty][ty][oper]
                     {
-                            { new TypeFalse(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeBool(), new TypeBool(), new TypeFloat(), new TypeFloat(), new TypeFalse(), new TypeFalse() },
-                            { new TypeFalse(), new TypeFloat(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeBool(), new TypeFloat(), new TypeFloat(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFloat(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
-                    }, // Index: 1
+                    }, // Index: 1 -> Float
                     {
-                            { new TypeFalse(), new TypeFalse(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeFalse(), new TypeFalse(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeBool(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeString(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeFalse(), new TypeFalse(), new TypeString(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
-                    }, // Index: 2
+                    }, // Index: 2 -> String
                     {
-                            { new TypeBool(), new TypeBool(), new TypeBool(), new TypeBool(), new TypeFalse(), new TypeFalse() },
-                            { new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeBool(), new TypeBool(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
-                    }, // Index: 3
-                    {
-                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
-                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
-                    }, // Index: 4
+                    }, // Index: 3 -> Bool
                     {
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
@@ -56,7 +48,15 @@ public class SemanticCube {
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
                             { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
-                    } // Index: 5
+                    }, // Index: 4 -> List
+                    {
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() },
+                            { new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse(), new TypeFalse() }
+                    } // Index: 5 -> Object
             };
 
     static public Type getCubeType(int i, int j, int k) {
