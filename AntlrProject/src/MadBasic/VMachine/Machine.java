@@ -197,8 +197,13 @@ public class Machine {
      */
     public int processGotoSub(Gosub g) {
         int dir = g.getJump();
-        virtualMemory.getEraStack().push(virtualMemory.getSecondaryEraStack().pop());
-        virtualMemory.getEraStack().peek().setRetorno(dir);
+        Era e = virtualMemory.getSecondaryEraStack().pop();
+        e.setRetorno(dir);
+        if (e.getInstance() == null && virtualMemory.getEraStack().peek().getInstance() != null){
+            e.getvDirectory().putAll(virtualMemory.getEraStack().peek().getInstance().getvDirectory());
+            e.setInstance(virtualMemory.getEraStack().peek().getInstance());
+        }
+        virtualMemory.getEraStack().push(e);
         return virtualMemory.getEraStack().peek().getStart();
     }
 
@@ -225,7 +230,18 @@ public class Machine {
      * @param qE
      */
     public void processBuildEra(QuadEra qE) {
-        Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID()).clone();
+        String call = qE.getProcedure().getID();
+        Era e;
+        if (!call.contains("-")) {
+            e = virtualMemory.getEraHashMap().get(call).clone();
+        } else {
+            String[] ids = call.split("-");
+            Variable v = new Variable(ids[0], new TypeFalse(), null);
+            Instance instance = ((Instance) vMemory.get(getDirectionFromVM(v)));
+            e = instance.getEraHashMap().get(ids[1]).clone();
+            e.getvDirectory().putAll(instance.getvDirectory());
+            e.setInstance(instance);
+        }
         //Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID());
         e.setvMemoryStart(virtualMemory.getStackVariableCount());
         Set<String> k = e.getvDirectory().keySet();
@@ -318,8 +334,13 @@ public class Machine {
         if (Operand.getIdString(o).contains(".")) {
             String[] ids = Operand.getIdString(o).split("\\.");
             if (!ids[0].contains("@")) {
-                Temporal temporal = new Temporal(getTempIndex(ids[0]), new TypeFalse(), true);
-                Instance instance = (Instance) vMemory.get(getDirectionFromVM(temporal));
+                Operand inst;
+                if(ids[0].contains("#")) {
+                    inst = new Temporal(getTempIndex(ids[0]), new TypeFalse(), true);
+                } else {
+                    inst = new Variable(ids[0], new TypeFalse(), null);
+                }
+                Instance instance = (Instance) vMemory.get(getDirectionFromVM(inst));
                 dir = instance.getvDirectory().get(ids[1]);
             } else {
                 Temporal temporal = new Temporal(getTempIndex(ids[0].replace("@", "")), new TypeFalse(), true);
@@ -329,8 +350,8 @@ public class Machine {
                 if (vDirectory.containsKey(Operand.getIdString(cDir))) {
                     dir = vDirectory.get(Operand.getIdString(cDir));
                 } else {
-                    vMemory.put(virtualMemory.getConstBoolCount(), cDir.getValue());
-                    dir = virtualMemory.getConstBoolCount();
+                    vMemory.put(virtualMemory.getConstIntCount(), cDir.getValue());
+                    dir = virtualMemory.getConstIntCount();
                     virtualMemory.addConstIntCount();
                 }
             }
@@ -349,23 +370,23 @@ public class Machine {
             }
         } else if ((o instanceof Variable) && (((Variable) o).isAddress())) {
             if (virtualMemory.getEraStack().isEmpty()) {
-                dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("@", ""))); // Operand 1
+                dir = vDirectory.get(Operand.getIdString(o).replace("@", "")); // Operand 1
 
             } else {
                 // First check if the values are present in the Era param list
-                dir = (Integer) vMemory.get(virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o)
-                        .replace("@", "")));
+                dir = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o)
+                        .replace("@", ""));
 
                 if (dir == null) {
-                    dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("@", ""))); // Operand 1
+                    dir = vDirectory.get(Operand.getIdString(o).replace("@", "")); // Operand 1
                 }
             }
             Constant<Integer> cDir = new Constant<>(dir, new TypeInt());
             if (vDirectory.containsKey(Operand.getIdString(cDir))) {
                 dir = vDirectory.get(Operand.getIdString(cDir));
             } else {
-                vMemory.put(virtualMemory.getConstBoolCount(), cDir.getValue());
-                dir = virtualMemory.getConstBoolCount();
+                vMemory.put(virtualMemory.getConstIntCount(), cDir.getValue());
+                dir = virtualMemory.getConstIntCount();
                 virtualMemory.addConstIntCount();
             }
         } else {

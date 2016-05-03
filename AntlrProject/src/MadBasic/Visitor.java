@@ -822,7 +822,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         if (basicSemantic.isArray() && basicSemantic.isArrayandDot() ||
                 basicSemantic.isInMethod() && (variable.getScope() == basicSemantic.getScopeStack().peek() ||
                         basicSemantic.getClassHashMap().containsKey(variable.getScope().getName()))) {
-            variable = new Variable(variable.getID(), variable.getType(), variable.getScope());
+            variable = new Variable(variable.getID(), ((TypeArray) variable.getType()).getType(), variable.getScope());
             variable.setAddress(true);
             quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, variable, tt));
         } else {
@@ -831,7 +831,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             insertConstVDirectory(memoryIndex);
             quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, memoryIndex, tt));
         }
-        Temporal ttt = new Temporal(tt.getID(), ((TypeArray) variable.getType()).getType(), true);
+        Temporal ttt = new Temporal(tt.getID(), variable.getType(), true);
 //        insertTempVDirectory(ttt);
         quadrupleSemantic.getOperandSList().add(ttt);
         quadrupleSemantic.getOperandStack().push(ttt);
@@ -1947,7 +1947,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             if (scope.getVariableHashMap().containsKey(ids[0])) {
                 processArray(scope.getVariableHashMap().get(ids[0]));
                 Operand obj = quadrupleSemantic.getOperandStack().peek();
-                Class classe = ((TypeObject) obj.getType()).getClasse();
+                Class classe = ((TypeObject) ((TypeArray) obj.getType()).getType()).getClasse();
                 if (classe.getScope().getProcedureHashMap().containsKey(ids[1])) {
                     method = classe.getScope().getProcedureHashMap().get(ids[1]);
                     break;
@@ -2084,13 +2084,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, method));
 
                 if (method instanceof Function) {
-                    Variable var = method.getScope().getParent().getVariableHashMap().get(method.getID());
+                    String obj = method.getID().split("-")[0];
+                    Variable var = method.getScope().getParent().getVariableHashMap().get(method.getScope().getName());
                     Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), var.getType());
 
                     if (basicSemantic.isInMethod()) {
                         basicSemantic.getEraHash().put(Operand.getIdString(temp), null);
                     } else {
                         insertTempVDirectory(temp);
+                    }
+
+                    if (obj.length() > 0) {
+                        var = new Variable(obj + "." + var.getID(), var.getType(), var.getScope());
                     }
 
                     quadrupleSemantic.getQuadrupleList().add(new Assignment(var, temp));

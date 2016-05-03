@@ -16,6 +16,7 @@ public class Era {
     LinkedList<Variable> params;
     int vMemoryStart;
     LinkedList<ReferencePair> referencePairList;
+    Instance instance;
 
     public Era() {
         referencePairList = new LinkedList<>();
@@ -80,6 +81,14 @@ public class Era {
 
     public void setvMemoryStart(int vMemoryStart) {
         this.vMemoryStart = vMemoryStart;
+    }
+
+    public Instance getInstance() {
+        return instance;
+    }
+
+    public void setInstance(Instance instance) {
+        this.instance = instance;
     }
 
     @Override
