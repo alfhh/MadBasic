@@ -42,7 +42,7 @@ public class Main {
 
         /**/
 
-//        /*
+        /*
 
         YUMLParser yuml = new YUMLParser();
         yuml.makeDiagram(BasicSemantic.getInstance().getClassHashMap());
@@ -51,7 +51,7 @@ public class Main {
 
         /**/
 
-        /*
+        //*
         MainIDE ide = MainIDE.getInstance();
         Machine vmachine = Machine.getInstance();
         /**/

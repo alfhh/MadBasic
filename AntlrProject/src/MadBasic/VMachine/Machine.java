@@ -497,7 +497,6 @@ public class Machine {
         // TODO: 2/05/16 CHECK VALUES DIFFERENT THAN ZERO SHOULD BE TRUE
 
         if (operatorCode == 6 || operatorCode == 7) { // == OR !=
-            // TODO: 1/05/16 IMPLEMENT OTHER CASES WITH BOOL AND FLOAT
 
             if (op1Type == 0 && op2Type == 0) { // Both integers
                 int x = (int) vMemory.get(dirOp1);
