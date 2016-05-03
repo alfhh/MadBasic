@@ -1,0 +1,15 @@
+program bublesort;
+
+methods:
+	
+		void printArray(){
+			print("Start of array: ");
+		}
+
+main:
+	vars:
+		int [0, 10]nums;
+
+	printArray();
+	nums[0] = 7;
+	end
