@@ -1,0 +1,10 @@
+program hello;
+
+
+main:
+	vars:
+		string name;
+
+	name = read;
+	print("Hello " ^ name);
+end

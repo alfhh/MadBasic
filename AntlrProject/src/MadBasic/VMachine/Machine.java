@@ -427,6 +427,7 @@ public class Machine {
             } else {
                 vMemory.put(virtualMemory.getConstIntCount(), cDir.getValue());
                 dir = virtualMemory.getConstIntCount();
+                vDirectory.put(Operand.getIdString(cDir), dir);
                 virtualMemory.addConstIntCount();
             }
         } else {
@@ -729,7 +730,10 @@ public class Machine {
                 vMemory.put(dirResult, new Float(value));
                 break;
             case 2:
-                vMemory.put(dirResult, new Boolean(value));
+                vMemory.put(dirResult, value);
+                break;
+            case 3:
+                vMemory.put(dirResult, Boolean.valueOf(value));
                 break;
         }
 

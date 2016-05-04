@@ -4,7 +4,7 @@ grammar MadBasic;
 
 // Rules
 madbasic        :	PROGRAM ID SEMICOLON program;
-program 		:	b c a b c main;
+program 		:	a b c main;
 a 				:	classe a
 					| // empty
 					;
@@ -42,11 +42,10 @@ type 			:	INT array #typeInt
 					| FLOAT array #typeFloat
 					| STRING array #typeString
 					| BOOL array #typeBool
-					| LIST LESSER type GREATER #typeList
+//					| LIST LESSER type GREATER #typeList
 					| OBJECT array #typeObject
 					;
 array           :   OBRACKET ad CTEI COMMA ad CTEI CBRACKET array #arrayDeclare
-                    | OBRACKET CBRACKET array #arrayVoid
                     | #arrayEmpty
                     ;
 

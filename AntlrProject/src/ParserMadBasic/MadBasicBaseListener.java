@@ -280,18 +280,6 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTypeList(MadBasicParser.TypeListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypeList(MadBasicParser.TypeListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterTypeObject(MadBasicParser.TypeObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -311,18 +299,6 @@ public class MadBasicBaseListener implements MadBasicListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitArrayDeclare(MadBasicParser.ArrayDeclareContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArrayVoid(MadBasicParser.ArrayVoidContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrayVoid(MadBasicParser.ArrayVoidContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

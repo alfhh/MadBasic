@@ -19,6 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 
 /**
  * Created by ahinojosa on 4/17/16.
@@ -181,10 +185,11 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
     public void compile() {
         if (archiveHandler.getActualFile() != null) {
             ParseTree tree = null;
-
+            String res = "";
+            Visitor.getInstance().reset();
             try {
                 tree = Parser.parse(archiveHandler.getActualFile().getAbsolutePath(), "MadBasic", "madbasic");
-                new Visitor().visit(tree);
+                res = Visitor.getInstance().visit(tree);
             } catch (IOException error) {
                 error.printStackTrace();
             }
@@ -192,10 +197,10 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
             TestingGround tester = new TestingGround();
 
             TestingGround.TestNum[] selectedTests = {
-                    TestingGround.TestNum.VARIABLE_TABLE,
-                    TestingGround.TestNum.SCOPETABLE,
-                    TestingGround.TestNum.PROC_TABLE,
-                    TestingGround.TestNum.OPERANDSTACK,
+//                    TestingGround.TestNum.VARIABLE_TABLE,
+//                    TestingGround.TestNum.SCOPETABLE,
+//                    TestingGround.TestNum.PROC_TABLE,
+//                    TestingGround.TestNum.OPERANDSTACK,
                     TestingGround.TestNum.QUADRUPLELIST,
             };
 
@@ -221,7 +226,10 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
         if (archiveHandler.getActualFile() != null) {
             jConsole.setText("");
-            if (myMachine.run()) {
+
+            if (Visitor.getInstance().getErrorStrategy().isError()) {
+                printError(Visitor.getInstance().getErrorStrategy().getErrorMesage());
+            } else if (myMachine.run()) {
                 print("Program successfully finished");
             } else {
                 printError("Execution time error");
@@ -287,12 +295,23 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
             createDiagram();
         }
 
+        if(e.getSource() == miHelpOnline){
+            if(Desktop.isDesktopSupported())
+            {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/alfhh/MadBasic/wiki"));
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+
     }
 
     @Override
     public void print(String message) {
         message = message.replace("\"", "");
-        jConsole.append(message + "\n");
+        this.jConsole.append(message + "\n");
     }
 
     /**

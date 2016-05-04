@@ -32,6 +32,22 @@ methods:
 				}
 			}
 		}
+
+		int find(int x, int[0, 10] n){
+			vars:
+				int index, temp, pos;
+				
+			index = 0;
+			pos = -1;
+			while(index < 11){
+				if(x == n[index]){
+					pos = index;
+					index = 10;
+				}
+				index = index + 1;
+			}
+			return pos;
+		}
 		
 main:
 vars:
@@ -50,8 +66,13 @@ vars:
 	nums[8] = 40;
 	nums[9] = 41;
 	nums[10] = 23;
+
 	printArray(size, ~nums);
 	bubbleSort(size, ~nums);
 	print("------------------------");
 	printArray(size, ~nums);
+	print("------------------------");
+	print("1 is in pos " ^ find(1, nums));
+	print("2 is in pos " ^ find(2, nums));
+	print("11 is in pos " ^ find(11, nums));
 	end

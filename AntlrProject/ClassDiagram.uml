@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>MadBasic.Visitor</OriginalElement>
+  <nodes>
+    <node x="1431.3650736696663" y="239.0">MadBasic.Algrebra.Operand</node>
+    <node x="5578.747026925064" y="5546.0">MadBasic.TestingGround.TestNum</node>
+    <node x="4914.034586221977" y="1346.5">MadBasic.Semantic.Class</node>
+    <node x="2654.8826329856693" y="2206.0">MadBasic.Quadruples.QuadrupleSemantic</node>
+    <node x="3671.934586221978" y="2349.5">MadBasic.Semantic.Types.TypeObject</node>
+    <node x="5756.348407002999" y="0.0">MadBasic.Semantic.Types.Type</node>
+    <node x="1028.9714537666914" y="1372.5">MadBasic.Quadruples.Write</node>
+    <node x="6304.534586221977" y="1386.0">MadBasic.Semantic.Types.TypeInt</node>
+    <node x="4018.848407002999" y="225.5">MadBasic.Semantic.Types.TypeList</node>
+    <node x="1866.2214537666914" y="2310.5">MadBasic.Quadruples.Expression</node>
+    <node x="808.9714537666914" y="1359.5">MadBasic.Quadruples.Parameter</node>
+    <node x="6187.841666666665" y="2336.5">MadBasic.Semantic.SemanticCube</node>
+    <node x="3871.934586221978" y="1868.0">MadBasic.VMemory.VirtualMemory</node>
+    <node x="957.3650736696663" y="2349.5">MadBasic.Quadruples.Gotos.GotoTrue</node>
+    <node x="6412.36791955531" y="543.5">MadBasic.VMemory.ReferencePair</node>
+    <node x="5034.534586221977" y="2063.0">MadBasic.Semantic.BasicSemantic</node>
+    <node x="5372.997026925064" y="3998.0">MadBasic.TestingGround</node>
+    <node x="1959.322026925064" y="4141.0">MadBasic.YUML.YUMLParser</node>
+    <node x="2290.322026925064" y="3218.0">MadBasic.Visitor</node>
+    <node x="6124.534586221977" y="1386.0">MadBasic.Semantic.Types.TypeFloat</node>
+    <node x="1444.3220269250642" y="4128.0">MadBasic.IDE.ArchiveHandler</node>
+    <node x="0.0" y="2323.5">MadBasic.Quadruples.ArrayVerify</node>
+    <node x="1666.2214537666914" y="2349.5">MadBasic.Quadruples.Read</node>
+    <node x="1446.8409663190032" y="1372.5">MadBasic.Quadruples.Gotos.Goto</node>
+    <node x="2364.7214537666914" y="2349.5">MadBasic.Quadruples.QuadEra</node>
+    <node x="6876.83710059473" y="4049.5">MadBasic.Semantic.Types.TypeArray.Array</node>
+    <node x="6521.11791955531" y="1386.0">MadBasic.Semantic.Types.TypeFalse</node>
+    <node x="3451.934586221978" y="2336.5">MadBasic.Semantic.Methods.Function</node>
+    <node x="4123.122026925064" y="1307.5">MadBasic.Semantic.Methods.Procedure</node>
+    <node x="1735.0909663190032" y="1386.0">MadBasic.Quadruples.Gotos.End</node>
+    <node x="3889.709526925064" y="1359.5">MadBasic.VMemory.Instance</node>
+    <node x="1450.2214537666914" y="2363.0">MadBasic.Quadruples.Retorno</node>
+    <node x="4034.147026925064" y="3777.0">MadBasic.VMachine.Machine</node>
+    <node x="2126.2214537666914" y="2349.5">MadBasic.Quadruples.Gotos.Gosub</node>
+    <node x="3830.9496005947303" y="504.0">MadBasic.Algrebra.Variable</node>
+    <node x="2231.322026925064" y="5273.0">MadBasic.IDE.MainIDE</node>
+    <node x="5944.534586221977" y="1386.0">MadBasic.Semantic.Types.TypeBool</node>
+    <node x="2003.4242996523365" y="889.5">MadBasic.Quadruples.Quadruple</node>
+    <node x="1244.2214537666914" y="2349.5">MadBasic.Quadruples.Gotos.GotoFalse</node>
+    <node x="3820.322026925064" y="759.0">MadBasic.VMemory.Era</node>
+    <node x="130.5" y="1372.5">MadBasic.Algrebra.Constant</node>
+    <node x="6849.33710059473" y="2310.5">MadBasic.Semantic.Types.TypeArray</node>
+    <node x="2574.138120433358" y="1164.0">MadBasic.Algrebra.Operator</node>
+    <node x="3341.780360258397" y="6216.0">MadBasic.Main</node>
+    <node x="588.9714537666914" y="1359.5">MadBasic.Quadruples.Assignment</node>
+    <node x="1736.3220269250642" y="4154.5">MadBasic.IDE.SystemIO</node>
+    <node x="5764.534586221977" y="1386.0">MadBasic.Semantic.Types.TypeString</node>
+    <node x="2179.2214537666914" y="1346.5">MadBasic.Algrebra.Temporal</node>
+    <node x="4945.906060606059" y="187.0">MadBasic.Semantic.Scope</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="MadBasic.VMemory.Era" target="MadBasic.VMemory.ReferencePair">
+      <point x="101.0" y="-147.5" />
+      <point x="4072.822026925064" y="739.0" />
+      <point x="6445.11791955531" y="739.0" />
+      <point x="-32.75" y="43.0" />
+    </edge>
+    <edge source="MadBasic.TestingGround" target="MadBasic.Semantic.SemanticCube">
+      <point x="185.19999999999982" y="-212.5" />
+      <point x="5789.697026925064" y="3158.0" />
+      <point x="6331.091666666665" y="3158.0" />
+      <point x="47.75" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.QuadrupleSemantic">
+      <point x="-55.580645161290704" y="-992.5" />
+      <point x="3096.2413817637735" y="3058.0" />
+      <point x="2774.6326329856693" y="3058.0" />
+      <point x="-119.75" y="187.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Retorno" target="MadBasic.Quadruples.Gotos.Goto">
+      <point x="0.0" y="-30.0" />
+      <point x="1530.2214537666914" y="1848.0" />
+      <point x="1572.8409663190032" y="1848.0" />
+      <point x="36.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Write" target="MadBasic.Algrebra.Operand">
+      <point x="-45.0" y="-43.5" />
+      <point x="1073.9714537666914" y="474.0" />
+      <point x="1539.4007879553806" y="474.0" />
+      <point x="-29.46428571428578" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeArray" target="MadBasic.Semantic.Types.Type">
+      <point x="67.75" y="-82.5" />
+      <point x="7052.58710059473" y="1848.0" />
+      <point x="6928.08710059473" y="1848.0" />
+      <point x="6928.08710059473" y="107.0" />
+      <point x="5961.741264145856" y="107.0" />
+      <point x="98.89285714285688" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Gotos.GotoFalse" target="MadBasic.Algrebra.Operand">
+      <point x="-45.0" y="-43.5" />
+      <point x="1289.2214537666914" y="1808.0" />
+      <point x="1219.4714537666914" y="1808.0" />
+      <point x="1219.4714537666914" y="484.0" />
+      <point x="1559.043645098238" y="484.0" />
+      <point x="-9.821428571428442" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeArray.Array" target="MadBasic.Semantic.Types.TypeArray">
+      <point x="-108.0" y="-161.0" />
+      <point x="6930.83710059473" y="3198.0" />
+      <point x="6950.96210059473" y="3198.0" />
+      <point x="-33.875" y="82.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.ArrayVerify" target="MadBasic.Algrebra.Operand">
+      <point x="-73.33333333333348" y="-69.5" />
+      <point x="36.666666666666515" y="1848.0" />
+      <point x="99.0" y="1848.0" />
+      <point x="99.0" y="424.0" />
+      <point x="1441.1865022410948" y="424.0" />
+      <point x="-127.67857142857156" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Types.TypeObject">
+      <point x="222.322580645161" y="-992.5" />
+      <point x="3374.144607570225" y="3028.0" />
+      <point x="3761.934586221978" y="3028.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.Algrebra.Temporal">
+      <point x="-261.66666666666697" y="-433.5" />
+      <point x="4164.980360258397" y="2978.0" />
+      <point x="2340.9714537666914" y="2978.0" />
+      <point x="2340.9714537666914" y="1798.0" />
+      <point x="2371.7214537666914" y="1798.0" />
+      <point x="82.5" y="69.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.Semantic.Types.TypeFalse">
+      <point x="348.8888888888887" y="-433.5" />
+      <point x="4775.535915813953" y="3188.0" />
+      <point x="6838.83710059473" y="3188.0" />
+      <point x="6838.83710059473" y="1838.0" />
+      <point x="6661.11791955531" y="1838.0" />
+      <point x="60.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.VMemory.VirtualMemory">
+      <point x="277.9032258064517" y="-992.5" />
+      <point x="3429.725252731516" y="3038.0" />
+      <point x="4033.101252888644" y="3038.0" />
+      <point x="-322.3333333333335" y="525.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.Methods.Procedure" target="MadBasic.Semantic.Scope">
+      <point x="108.375" y="-108.5" />
+      <point x="4375.997026925064" y="1124.0" />
+      <point x="5129.348407002999" y="1124.0" />
+      <point x="5129.348407002999" y="464.0" />
+      <point x="5094.81515151515" y="464.0" />
+      <point x="-33.09090909090901" y="108.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Methods.Function" target="MadBasic.Semantic.Methods.Procedure">
+      <point x="49.75" y="-56.5" />
+      <point x="3601.184586221978" y="1838.0" />
+      <point x="4267.622026925064" y="1838.0" />
+      <point x="0.0" y="108.5" />
+    </edge>
+    <edge source="MadBasic.VMemory.Era" target="MadBasic.Algrebra.Operand">
+      <point x="-101.0" y="-147.5" />
+      <point x="3870.822026925064" y="689.0" />
+      <point x="3416.114373322003" y="689.0" />
+      <point x="3416.114373322003" y="434.0" />
+      <point x="1676.9007879553806" y="434.0" />
+      <point x="108.03571428571422" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Gotos.Gosub" target="MadBasic.Semantic.Methods.Procedure">
+      <point x="45.0" y="-43.5" />
+      <point x="2261.2214537666914" y="1818.0" />
+      <point x="4152.022026925064" y="1818.0" />
+      <point x="-115.60000000000036" y="108.5" />
+    </edge>
+    <edge source="MadBasic.TestingGround" target="MadBasic.VMemory.VirtualMemory">
+      <point x="-92.60000000000036" y="-212.5" />
+      <point x="5511.897026925064" y="2938.0" />
+      <point x="4677.767919555311" y="2938.0" />
+      <point x="322.33333333333303" y="525.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.SemanticCube" target="MadBasic.Semantic.Types.TypeString">
+      <point x="-79.58333333333303" y="-56.5" />
+      <point x="6203.758333333332" y="1768.0" />
+      <point x="5884.534586221977" y="1768.0" />
+      <point x="40.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.QuadrupleSemantic" target="MadBasic.Quadruples.Quadruple">
+      <point x="-191.5999999999999" y="-187.0" />
+      <point x="2702.78263298567" y="1798.0" />
+      <point x="2563.638120433358" y="1798.0" />
+      <point x="2563.638120433358" y="1114.0" />
+      <point x="2091.7992996523362" y="1114.0" />
+      <point x="37.875" y="17.0" />
+    </edge>
+    <edge source="MadBasic.VMemory.VirtualMemory" target="MadBasic.VMemory.Era">
+      <point x="362.625" y="-525.0" />
+      <point x="4718.059586221978" y="1748.0" />
+      <point x="4112.622026925064" y="1748.0" />
+      <point x="4112.622026925064" y="1144.0" />
+      <point x="4093.022026925064" y="1144.0" />
+      <point x="121.19999999999982" y="147.5" />
+    </edge>
+    <edge source="MadBasic.IDE.MainIDE" target="MadBasic.IDE.ArchiveHandler">
+      <point x="-251.25" y="-446.5" />
+      <point x="2382.072026925064" y="5243.0" />
+      <point x="1648.3220269250642" y="5243.0" />
+      <point x="68.0" y="82.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.BasicSemantic" target="MadBasic.Semantic.Methods.Procedure">
+      <point x="-120.90909090909099" y="-330.0" />
+      <point x="5246.125495312886" y="1698.0" />
+      <point x="4383.222026925065" y="1698.0" />
+      <point x="115.60000000000036" y="108.5" />
+    </edge>
+    <edge source="MadBasic.Algrebra.Operand" target="MadBasic.Semantic.Types.Type">
+      <point x="0.0" y="-56.5" />
+      <point x="1568.8650736696663" y="107.0" />
+      <point x="5763.955549860142" y="107.0" />
+      <point x="-98.89285714285688" y="43.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.Algrebra.Variable">
+      <point x="-87.22222222222263" y="-433.5" />
+      <point x="4339.424804702841" y="2958.0" />
+      <point x="3342.822026925064" y="2958.0" />
+      <point x="3342.822026925064" y="739.0" />
+      <point x="3902.9496005947303" y="739.0" />
+      <point x="-48.0" y="82.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Gotos.Goto">
+      <point x="-500.2258064516127" y="-992.5" />
+      <point x="2651.5962204734515" y="3138.0" />
+      <point x="1434.7214537666914" y="3138.0" />
+      <point x="1434.7214537666914" y="1838.0" />
+      <point x="1536.8409663190032" y="1838.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.Quadruples.Quadruple">
+      <point x="-174.44444444444434" y="-433.5" />
+      <point x="4252.20258248062" y="2968.0" />
+      <point x="2555.2214537666914" y="2968.0" />
+      <point x="2555.2214537666914" y="1124.0" />
+      <point x="2083.38263298567" y="1124.0" />
+      <point x="29.458333333333485" y="17.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeInt" target="MadBasic.Semantic.Types.Type">
+      <point x="0.0" y="-30.0" />
+      <point x="6384.534586221977" y="147.0" />
+      <point x="5900.884121288714" y="147.0" />
+      <point x="38.035714285714675" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.QuadEra" target="MadBasic.Semantic.Methods.Procedure">
+      <point x="45.0" y="-43.5" />
+      <point x="2499.7214537666914" y="1828.0" />
+      <point x="4209.822026925063" y="1828.0" />
+      <point x="-57.80000000000018" y="108.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Methods.Function">
+      <point x="111.1612903225805" y="-992.5" />
+      <point x="3262.9833172476447" y="3008.0" />
+      <point x="3551.434586221978" y="3008.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Expression" target="MadBasic.Algrebra.Temporal">
+      <point x="30.0" y="-82.5" />
+      <point x="2016.2214537666914" y="1798.0" />
+      <point x="2261.7214537666914" y="1798.0" />
+      <point x="-27.5" y="69.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Read" target="MadBasic.Algrebra.Temporal">
+      <point x="45.0" y="-43.5" />
+      <point x="1801.2214537666914" y="1788.0" />
+      <point x="2206.7214537666914" y="1788.0" />
+      <point x="-82.5" y="69.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.VMemory.Instance">
+      <point x="166.74193548387075" y="-992.5" />
+      <point x="3318.5639624089345" y="3018.0" />
+      <point x="3661.434586221978" y="3018.0" />
+      <point x="3661.434586221978" y="1808.0" />
+      <point x="3914.709526925064" y="1808.0" />
+      <point x="-75.0" y="56.5" />
+    </edge>
+    <edge source="MadBasic.IDE.MainIDE" target="MadBasic.VMachine.Machine">
+      <point x="150.75" y="-446.5" />
+      <point x="2784.072026925064" y="5233.0" />
+      <point x="4164.980360258397" y="5233.0" />
+      <point x="-261.66666666666697" y="433.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.ArrayVerify" target="MadBasic.Algrebra.Constant">
+      <point x="73.33333333333331" y="-69.5" />
+      <point x="183.33333333333348" y="1848.0" />
+      <point x="160.5" y="1848.0" />
+      <point x="-60.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Class" target="MadBasic.Semantic.Scope">
+      <point x="0.0" y="-69.5" />
+      <point x="5024.034586221977" y="1144.0" />
+      <point x="5395.46210059473" y="1144.0" />
+      <point x="5395.46210059473" y="484.0" />
+      <point x="5160.996969696968" y="484.0" />
+      <point x="33.09090909090901" y="108.5" />
+    </edge>
+    <edge source="MadBasic.VMemory.VirtualMemory" target="MadBasic.Quadruples.Quadruple">
+      <point x="-362.625" y="-525.0" />
+      <point x="3992.809586221978" y="1778.0" />
+      <point x="3053.2992996523362" y="1778.0" />
+      <point x="3053.2992996523362" y="1104.0" />
+      <point x="2100.215966319003" y="1104.0" />
+      <point x="46.291666666666515" y="17.0" />
+    </edge>
+    <edge source="MadBasic.IDE.MainIDE" target="MadBasic.Visitor">
+      <point x="50.25" y="-446.5" />
+      <point x="2683.572026925064" y="5223.0" />
+      <point x="3151.822026925064" y="5223.0" />
+      <point x="0.0" y="992.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Algrebra.Variable">
+      <point x="0.0" y="-992.5" />
+      <point x="3151.822026925064" y="729.0" />
+      <point x="3854.9496005947303" y="729.0" />
+      <point x="-96.0" y="82.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Gotos.Gosub">
+      <point x="-222.32258064516145" y="-992.5" />
+      <point x="2929.4994462799023" y="3088.0" />
+      <point x="2216.2214537666914" y="3088.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Types.TypeBool">
+      <point x="611.3870967741937" y="-992.5" />
+      <point x="3763.2091236992574" y="3098.0" />
+      <point x="5721.034586221977" y="3098.0" />
+      <point x="5721.034586221977" y="1778.0" />
+      <point x="5984.534586221977" y="1778.0" />
+      <point x="-40.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.ArrayVerify" target="MadBasic.Quadruples.Quadruple">
+      <point x="0.0" y="-69.5" />
+      <point x="110.0" y="1074.0" />
+      <point x="2007.6326329856697" y="1074.0" />
+      <point x="-46.29166666666674" y="17.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.QuadrupleSemantic" target="MadBasic.Algrebra.Operator">
+      <point x="0.0" y="-187.0" />
+      <point x="2894.3826329856693" y="1808.0" />
+      <point x="2915.8047871000244" y="1808.0" />
+      <point x="136.66666666666652" y="252.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Gotos.GotoFalse">
+      <point x="-555.806451612903" y="-992.5" />
+      <point x="2596.0155753121608" y="3148.0" />
+      <point x="1334.2214537666914" y="3148.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Gotos.Goto" target="MadBasic.Quadruples.Quadruple">
+      <point x="0.0" y="-43.5" />
+      <point x="1536.8409663190032" y="1114.0" />
+      <point x="2041.2992996523365" y="1114.0" />
+      <point x="-12.625" y="17.0" />
+    </edge>
+    <edge source="MadBasic.IDE.MainIDE" target="MadBasic.YUML.YUMLParser">
+      <point x="-50.25" y="-446.5" />
+      <point x="2583.072026925064" y="5223.0" />
+      <point x="2114.822026925064" y="5223.0" />
+      <point x="0.0" y="69.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeList" target="MadBasic.Semantic.Types.Type">
+      <point x="45.0" y="-70.0" />
+      <point x="4153.848407002999" y="147.0" />
+      <point x="5824.812692717284" y="147.0" />
+      <point x="-38.035714285714675" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.SemanticCube" target="MadBasic.Semantic.Types.TypeBool">
+      <point x="-47.75" y="-56.5" />
+      <point x="6235.591666666665" y="1758.0" />
+      <point x="6064.534586221977" y="1758.0" />
+      <point x="40.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.SemanticCube" target="MadBasic.Semantic.Types.TypeFloat">
+      <point x="-15.91666666666697" y="-56.5" />
+      <point x="6267.424999999998" y="1788.0" />
+      <point x="6244.534586221977" y="1788.0" />
+      <point x="40.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Gotos.GotoTrue" target="MadBasic.Algrebra.Operand">
+      <point x="-45.0" y="-43.5" />
+      <point x="1002.3650736696663" y="1838.0" />
+      <point x="578.4714537666914" y="1838.0" />
+      <point x="578.4714537666914" y="444.0" />
+      <point x="1480.4722165268095" y="444.0" />
+      <point x="-88.39285714285688" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Algrebra.Constant">
+      <point x="-778.129032258064" y="-992.5" />
+      <point x="2373.6929946669998" y="3188.0" />
+      <point x="245.0" y="3188.0" />
+      <point x="245.0" y="1848.0" />
+      <point x="220.5" y="1848.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Scope" target="MadBasic.Algrebra.Variable">
+      <point x="-132.36363636363603" y="108.5" />
+      <point x="4995.542424242423" y="484.0" />
+      <point x="4030.9496005947303" y="484.0" />
+      <point x="80.0" y="-82.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Parameter">
+      <point x="-666.9677419354834" y="-992.5" />
+      <point x="2484.8542849895803" y="3168.0" />
+      <point x="908.9714537666914" y="3168.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Write" target="MadBasic.Quadruples.Quadruple">
+      <point x="45.0" y="-43.5" />
+      <point x="1163.9714537666914" y="1104.0" />
+      <point x="2032.8826329856697" y="1104.0" />
+      <point x="-21.041666666666742" y="17.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Expression" target="MadBasic.Algrebra.Operand">
+      <point x="-90.0" y="-82.5" />
+      <point x="1896.2214537666914" y="1758.0" />
+      <point x="1637.3409663190032" y="1758.0" />
+      <point x="1637.3409663190032" y="484.0" />
+      <point x="1578.6865022410948" y="484.0" />
+      <point x="9.821428571428442" y="56.5" />
+    </edge>
+    <edge source="MadBasic.TestingGround" target="MadBasic.Quadruples.QuadrupleSemantic">
+      <point x="-185.19999999999982" y="-212.5" />
+      <point x="5419.2970269250645" y="2948.0" />
+      <point x="3014.1326329856693" y="2948.0" />
+      <point x="119.75" y="187.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Assignment">
+      <point x="-722.5483870967737" y="-992.5" />
+      <point x="2429.2736398282905" y="3178.0" />
+      <point x="688.9714537666914" y="3178.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Algrebra.Temporal" target="MadBasic.Algrebra.Operand">
+      <point x="0.0" y="-69.5" />
+      <point x="2289.2214537666914" y="1144.0" />
+      <point x="2614.2060399886695" y="1144.0" />
+      <point x="2614.2060399886695" y="474.0" />
+      <point x="1598.3293593839521" y="474.0" />
+      <point x="29.46428571428578" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Gotos.End" target="MadBasic.Quadruples.Quadruple">
+      <point x="0.0" y="-30.0" />
+      <point x="1815.0909663190032" y="1124.0" />
+      <point x="2049.715966319003" y="1124.0" />
+      <point x="-4.208333333333485" y="17.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeFalse" target="MadBasic.Semantic.Types.Type">
+      <point x="0.0" y="-30.0" />
+      <point x="6601.11791955531" y="137.0" />
+      <point x="5916.098407002999" y="137.0" />
+      <point x="53.25" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Types.TypeString">
+      <point x="555.8064516129034" y="-992.5" />
+      <point x="3707.6284785379676" y="3088.0" />
+      <point x="5710.034586221977" y="3088.0" />
+      <point x="5710.034586221977" y="1768.0" />
+      <point x="5804.534586221977" y="1768.0" />
+      <point x="-40.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.BasicSemantic" target="MadBasic.Semantic.Types.TypeFalse">
+      <point x="302.272727272727" y="-330.0" />
+      <point x="5669.307313494704" y="1828.0" />
+      <point x="6541.11791955531" y="1828.0" />
+      <point x="-60.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.QuadEra">
+      <point x="-111.16129032258095" y="-992.5" />
+      <point x="3040.6607366024828" y="3068.0" />
+      <point x="2454.7214537666914" y="3068.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Class">
+      <point x="444.64516129032245" y="-992.5" />
+      <point x="3596.467188215386" y="3068.0" />
+      <point x="5024.034586221977" y="3068.0" />
+      <point x="0.0" y="69.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.IDE.MainIDE">
+      <point x="0.0" y="433.5" />
+      <point x="4426.647026925064" y="5243.0" />
+      <point x="2884.572026925064" y="5243.0" />
+      <point x="251.25" y="-446.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Types.TypeInt">
+      <point x="722.5483870967741" y="-992.5" />
+      <point x="3874.370414021838" y="3118.0" />
+      <point x="5743.034586221977" y="3118.0" />
+      <point x="5743.034586221977" y="1798.0" />
+      <point x="6331.201252888644" y="1798.0" />
+      <point x="-53.33333333333303" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Write">
+      <point x="-611.3870967741932" y="-992.5" />
+      <point x="2540.434930150871" y="3158.0" />
+      <point x="1211.2214537666914" y="3158.0" />
+      <point x="1211.2214537666914" y="1808.0" />
+      <point x="1118.9714537666914" y="1808.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Main" target="MadBasic.IDE.MainIDE">
+      <point x="-42.25" y="-56.5" />
+      <point x="3384.030360258397" y="6191.0" />
+      <point x="2633.322026925064" y="6191.0" />
+      <point x="0.0" y="446.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.Algrebra.Constant">
+      <point x="-348.8888888888887" y="-433.5" />
+      <point x="4077.7581380361753" y="2988.0" />
+      <point x="583.4714537666914" y="2988.0" />
+      <point x="583.4714537666914" y="1848.0" />
+      <point x="280.5" y="1848.0" />
+      <point x="60.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.BasicSemantic" target="MadBasic.Algrebra.Variable">
+      <point x="0.0" y="-330.0" />
+      <point x="5367.034586221977" y="1848.0" />
+      <point x="5394.25749791209" y="1848.0" />
+      <point x="5394.25749791209" y="1094.0" />
+      <point x="4995.133333333332" y="1094.0" />
+      <point x="4995.133333333332" y="719.0" />
+      <point x="4046.9496005947303" y="719.0" />
+      <point x="96.0" y="82.5" />
+    </edge>
+    <edge source="MadBasic.Algrebra.Variable" target="MadBasic.Algrebra.Operand">
+      <point x="-80.0" y="-82.5" />
+      <point x="3870.9496005947303" y="424.0" />
+      <point x="1696.543645098238" y="424.0" />
+      <point x="127.67857142857133" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Scope" target="MadBasic.Semantic.Methods.Procedure">
+      <point x="-99.27272727272702" y="108.5" />
+      <point x="5028.633333333332" y="484.0" />
+      <point x="5107.348407002999" y="484.0" />
+      <point x="5107.348407002999" y="1104.0" />
+      <point x="4231.497026925064" y="1104.0" />
+      <point x="-36.125" y="-108.5" />
+    </edge>
+    <edge source="MadBasic.Algrebra.Variable" target="MadBasic.Semantic.Scope">
+      <point x="0.0" y="-82.5" />
+      <point x="3950.9496005947303" y="474.0" />
+      <point x="4962.451515151514" y="474.0" />
+      <point x="-165.45454545454504" y="108.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Parameter" target="MadBasic.Algrebra.Operand">
+      <point x="-50.0" y="-56.5" />
+      <point x="858.9714537666914" y="464.0" />
+      <point x="1519.7579308125232" y="464.0" />
+      <point x="-49.10714285714312" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeObject" target="MadBasic.Semantic.Types.Type">
+      <point x="-45.0" y="-43.5" />
+      <point x="3716.934586221978" y="1788.0" />
+      <point x="3080.7992996523362" y="1788.0" />
+      <point x="3080.7992996523362" y="719.0" />
+      <point x="3438.114373322003" y="719.0" />
+      <point x="3438.114373322003" y="127.0" />
+      <point x="5794.384121288714" y="127.0" />
+      <point x="-68.46428571428532" y="43.5" />
+    </edge>
+    <edge source="MadBasic.TestingGround" target="MadBasic.Semantic.BasicSemantic">
+      <point x="0.0" y="-212.5" />
+      <point x="5604.497026925064" y="3078.0" />
+      <point x="5533.284586221977" y="3078.0" />
+      <point x="166.25" y="330.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Expression">
+      <point x="-277.9032258064517" y="-992.5" />
+      <point x="2873.9188011186125" y="3098.0" />
+      <point x="1986.2214537666914" y="3098.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.BasicSemantic">
+      <point x="500.2258064516127" y="-992.5" />
+      <point x="3652.047833376677" y="3078.0" />
+      <point x="5200.784586221977" y="3078.0" />
+      <point x="-166.25" y="330.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.SemanticCube" target="MadBasic.Semantic.Types.TypeFalse">
+      <point x="47.75" y="-56.5" />
+      <point x="6331.091666666665" y="1838.0" />
+      <point x="6581.11791955531" y="1838.0" />
+      <point x="-20.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.QuadrupleSemantic" target="MadBasic.Algrebra.Operand">
+      <point x="95.80000000000018" y="-187.0" />
+      <point x="2990.1826329856694" y="1808.0" />
+      <point x="3031.2992996523362" y="1808.0" />
+      <point x="3031.2992996523362" y="464.0" />
+      <point x="1617.9722165268095" y="464.0" />
+      <point x="49.10714285714312" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Gotos.GotoFalse" target="MadBasic.Quadruples.Gotos.Goto">
+      <point x="45.0" y="-43.5" />
+      <point x="1379.2214537666914" y="1828.0" />
+      <point x="1500.8409663190032" y="1828.0" />
+      <point x="-36.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.SemanticCube" target="MadBasic.Semantic.Types.Type">
+      <point x="79.58333333333303" y="-56.5" />
+      <point x="6362.924999999998" y="1848.0" />
+      <point x="6898.33710059473" y="1848.0" />
+      <point x="6898.33710059473" y="127.0" />
+      <point x="5931.312692717284" y="127.0" />
+      <point x="68.46428571428532" y="43.5" />
+    </edge>
+    <edge source="MadBasic.IDE.MainIDE" target="MadBasic.TestingGround">
+      <point x="351.75" y="-446.5" />
+      <point x="2985.072026925064" y="5253.0" />
+      <point x="5488.747026925064" y="5253.0" />
+      <point x="-115.75" y="212.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Types.TypeFloat">
+      <point x="666.9677419354839" y="-992.5" />
+      <point x="3818.789768860548" y="3108.0" />
+      <point x="5732.034586221977" y="3108.0" />
+      <point x="5732.034586221977" y="1788.0" />
+      <point x="6164.534586221977" y="1788.0" />
+      <point x="-40.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.ArrayVerify">
+      <point x="-833.7096774193542" y="-992.5" />
+      <point x="2318.11234950571" y="3198.0" />
+      <point x="110.0" y="3198.0" />
+      <point x="0.0" y="69.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Methods.Function" target="MadBasic.Semantic.Types.Type">
+      <point x="-49.75" y="-56.5" />
+      <point x="3501.684586221978" y="1798.0" />
+      <point x="3064.2992996523362" y="1798.0" />
+      <point x="3064.2992996523362" y="709.0" />
+      <point x="3427.114373322003" y="709.0" />
+      <point x="3427.114373322003" y="117.0" />
+      <point x="5779.169835574427" y="117.0" />
+      <point x="-83.67857142857156" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Main" target="MadBasic.VMachine.Machine">
+      <point x="42.25" y="-56.5" />
+      <point x="3468.530360258397" y="6191.0" />
+      <point x="4688.313693591731" y="6191.0" />
+      <point x="261.66666666666697" y="433.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.BasicSemantic" target="MadBasic.VMemory.Instance">
+      <point x="-181.36363636363603" y="-330.0" />
+      <point x="5185.670949858341" y="1708.0" />
+      <point x="4064.709526925064" y="1708.0" />
+      <point x="75.0" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Gotos.GotoTrue" target="MadBasic.Quadruples.Gotos.Goto">
+      <point x="45.0" y="-43.5" />
+      <point x="1092.3650736696663" y="1818.0" />
+      <point x="1464.8409663190032" y="1818.0" />
+      <point x="-72.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Assignment" target="MadBasic.Quadruples.Quadruple">
+      <point x="50.0" y="-56.5" />
+      <point x="738.9714537666914" y="1084.0" />
+      <point x="2016.0492996523365" y="1084.0" />
+      <point x="-37.875" y="17.0" />
+    </edge>
+    <edge source="MadBasic.Algrebra.Constant" target="MadBasic.Algrebra.Operand">
+      <point x="0.0" y="-43.5" />
+      <point x="220.5" y="434.0" />
+      <point x="1460.8293593839521" y="434.0" />
+      <point x="-108.03571428571422" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Read">
+      <point x="-333.48387096774195" y="-992.5" />
+      <point x="2818.3381559573218" y="3108.0" />
+      <point x="1756.2214537666914" y="3108.0" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.VMemory.VirtualMemory">
+      <point x="0.0" y="-433.5" />
+      <point x="4426.647026925064" y="3038.0" />
+      <point x="4355.434586221978" y="3038.0" />
+      <point x="0.0" y="525.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Assignment" target="MadBasic.Algrebra.Operand">
+      <point x="-50.0" y="-56.5" />
+      <point x="638.9714537666914" y="454.0" />
+      <point x="1500.1150736696663" y="454.0" />
+      <point x="-68.75" y="56.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.VMemory.ReferencePair">
+      <point x="261.66666666666697" y="-433.5" />
+      <point x="4688.313693591731" y="3168.0" />
+      <point x="6510.61791955531" y="3168.0" />
+      <point x="32.75" y="43.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeArray" target="MadBasic.Semantic.Types.TypeArray.Array">
+      <point x="33.875" y="82.5" />
+      <point x="7018.71210059473" y="3198.0" />
+      <point x="7038.83710059473" y="3198.0" />
+      <point x="0.0" y="-161.0" />
+    </edge>
+    <edge source="MadBasic.VMemory.Instance" target="MadBasic.VMemory.Era">
+      <point x="-50.0" y="-56.5" />
+      <point x="3939.709526925064" y="1144.0" />
+      <point x="3971.822026925064" y="1144.0" />
+      <point x="0.0" y="147.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.BasicSemantic" target="MadBasic.Algrebra.Operand">
+      <point x="-302.272727272727" y="-330.0" />
+      <point x="5064.76185894925" y="1728.0" />
+      <point x="3509.1371005947303" y="1728.0" />
+      <point x="3509.1371005947303" y="699.0" />
+      <point x="3405.114373322003" y="699.0" />
+      <point x="3405.114373322003" y="444.0" />
+      <point x="1657.2579308125232" y="444.0" />
+      <point x="88.39285714285688" y="56.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.BasicSemantic" target="MadBasic.Semantic.Scope">
+      <point x="60.45454545454504" y="-330.0" />
+      <point x="5427.489131676522" y="1828.0" />
+      <point x="5571.534586221977" y="1828.0" />
+      <point x="5571.534586221977" y="474.0" />
+      <point x="5194.087878787877" y="474.0" />
+      <point x="66.18181818181802" y="108.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Algrebra.Temporal">
+      <point x="-166.7419354838712" y="-992.5" />
+      <point x="2985.080091441193" y="3078.0" />
+      <point x="2316.7214537666914" y="3078.0" />
+      <point x="27.5" y="69.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.QuadEra" target="MadBasic.Quadruples.Quadruple">
+      <point x="-45.0" y="-43.5" />
+      <point x="2409.7214537666914" y="1134.0" />
+      <point x="2074.965966319003" y="1134.0" />
+      <point x="21.041666666666515" y="17.0" />
+    </edge>
+    <edge source="MadBasic.TestingGround.TestNum" target="MadBasic.TestingGround">
+      <point x="0.0" y="-173.5" />
+      <point x="115.75" y="212.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Parameter" target="MadBasic.Quadruples.Quadruple">
+      <point x="50.0" y="-56.5" />
+      <point x="958.9714537666914" y="1094.0" />
+      <point x="2024.4659663190032" y="1094.0" />
+      <point x="-29.458333333333258" y="17.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.BasicSemantic" target="MadBasic.Semantic.Class">
+      <point x="-60.45454545454504" y="-330.0" />
+      <point x="5306.580040767432" y="1688.0" />
+      <point x="5097.36791955531" y="1688.0" />
+      <point x="73.33333333333303" y="69.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Gotos.End">
+      <point x="-389.0645161290322" y="-992.5" />
+      <point x="2762.757510796032" y="3118.0" />
+      <point x="1620.7214537666914" y="3118.0" />
+      <point x="1620.7214537666914" y="1768.0" />
+      <point x="1815.0909663190032" y="1768.0" />
+      <point x="0.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Gotos.Gosub" target="MadBasic.Quadruples.Gotos.Goto">
+      <point x="-45.0" y="-43.5" />
+      <point x="2171.2214537666914" y="1748.0" />
+      <point x="1608.8409663190032" y="1748.0" />
+      <point x="72.0" y="43.5" />
+    </edge>
+    <edge source="MadBasic.VMemory.Era" target="MadBasic.Algrebra.Variable">
+      <point x="0.0" y="-147.5" />
+      <point x="3971.822026925064" y="739.0" />
+      <point x="3950.9496005947303" y="739.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="MadBasic.VMemory.VirtualMemory" target="MadBasic.VMemory.Instance">
+      <point x="120.875" y="-525.0" />
+      <point x="4476.309586221978" y="1758.0" />
+      <point x="3964.709526925064" y="1758.0" />
+      <point x="-25.0" y="56.5" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.Semantic.Types.TypeInt">
+      <point x="174.44444444444434" y="-433.5" />
+      <point x="4601.091471369508" y="3138.0" />
+      <point x="6177.341666666665" y="3138.0" />
+      <point x="6177.341666666665" y="1808.0" />
+      <point x="6384.534586221977" y="1808.0" />
+      <point x="0.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Quadruples.Retorno">
+      <point x="-444.64516129032245" y="-992.5" />
+      <point x="2707.1768656347413" y="3128.0" />
+      <point x="1530.2214537666914" y="3128.0" />
+      <point x="0.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.BasicSemantic" target="MadBasic.Semantic.Types.Type">
+      <point x="241.81818181818198" y="-330.0" />
+      <point x="5608.852768040159" y="1848.0" />
+      <point x="5604.534586221977" y="1848.0" />
+      <point x="5604.534586221977" y="1144.0" />
+      <point x="5799.284586221977" y="1144.0" />
+      <point x="5799.284586221977" y="157.0" />
+      <point x="5840.026978431571" y="157.0" />
+      <point x="-22.82142857142844" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Expression" target="MadBasic.Algrebra.Operator">
+      <point x="90.0" y="-82.5" />
+      <point x="2076.2214537666914" y="1808.0" />
+      <point x="2642.4714537666914" y="1808.0" />
+      <point x="-136.66666666666652" y="252.0" />
+    </edge>
+    <edge source="MadBasic.VMachine.Machine" target="MadBasic.Semantic.Scope">
+      <point x="87.22222222222263" y="-433.5" />
+      <point x="4513.869249147287" y="3128.0" />
+      <point x="5754.034586221977" y="3128.0" />
+      <point x="5754.034586221977" y="444.0" />
+      <point x="5293.360606060605" y="444.0" />
+      <point x="165.45454545454595" y="108.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeFloat" target="MadBasic.Semantic.Types.Type">
+      <point x="0.0" y="-30.0" />
+      <point x="6204.534586221977" y="157.0" />
+      <point x="5885.669835574427" y="157.0" />
+      <point x="22.82142857142844" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Read" target="MadBasic.Quadruples.Quadruple">
+      <point x="-45.0" y="-43.5" />
+      <point x="1711.2214537666914" y="1778.0" />
+      <point x="1905.5909663190037" y="1778.0" />
+      <point x="1905.5909663190037" y="1134.0" />
+      <point x="2058.13263298567" y="1134.0" />
+      <point x="4.208333333333485" y="17.0" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeBool" target="MadBasic.Semantic.Types.Type">
+      <point x="0.0" y="-30.0" />
+      <point x="6024.534586221977" y="167.0" />
+      <point x="5870.455549860142" y="167.0" />
+      <point x="7.607142857143117" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Quadruples.Expression" target="MadBasic.Quadruples.Quadruple">
+      <point x="-30.0" y="-82.5" />
+      <point x="1956.2214537666914" y="1778.0" />
+      <point x="2032.2992996523367" y="1778.0" />
+      <point x="2032.2992996523367" y="1144.0" />
+      <point x="2066.5492996523362" y="1144.0" />
+      <point x="12.625" y="17.0" />
+    </edge>
+    <edge source="MadBasic.VMemory.Era" target="MadBasic.VMemory.Instance">
+      <point x="60.59999999999991" y="147.5" />
+      <point x="4032.4220269250636" y="1144.0" />
+      <point x="4039.709526925064" y="1144.0" />
+      <point x="50.0" y="-56.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeObject" target="MadBasic.Semantic.Class">
+      <point x="45.0" y="-43.5" />
+      <point x="3806.934586221978" y="1848.0" />
+      <point x="4950.701252888644" y="1848.0" />
+      <point x="-73.33333333333303" y="69.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Methods.Procedure" target="MadBasic.Algrebra.Variable">
+      <point x="-108.375" y="-108.5" />
+      <point x="4159.247026925064" y="1144.0" />
+      <point x="4190.51210059473" y="1144.0" />
+      <point x="4190.51210059473" y="729.0" />
+      <point x="3998.9496005947303" y="729.0" />
+      <point x="48.0" y="82.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Methods.Procedure">
+      <point x="333.48387096774195" y="-992.5" />
+      <point x="3485.3058978928057" y="3048.0" />
+      <point x="4849.434586221978" y="3048.0" />
+      <point x="4849.434586221978" y="1738.0" />
+      <point x="4325.422026925064" y="1738.0" />
+      <point x="57.80000000000018" y="108.5" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Types.TypeArray">
+      <point x="833.7096774193546" y="-992.5" />
+      <point x="3985.5317043444184" y="3198.0" />
+      <point x="6883.21210059473" y="3198.0" />
+      <point x="-101.625" y="82.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.Types.TypeString" target="MadBasic.Semantic.Types.Type">
+      <point x="0.0" y="-30.0" />
+      <point x="5844.534586221977" y="167.0" />
+      <point x="5855.241264145856" y="167.0" />
+      <point x="-7.607142857143117" y="43.5" />
+    </edge>
+    <edge source="MadBasic.Semantic.SemanticCube" target="MadBasic.Semantic.Types.TypeInt">
+      <point x="15.91666666666697" y="-56.5" />
+      <point x="6299.258333333332" y="1818.0" />
+      <point x="6437.86791955531" y="1818.0" />
+      <point x="53.33333333333303" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Scope">
+      <point x="389.0645161290322" y="-992.5" />
+      <point x="3540.8865430540964" y="3058.0" />
+      <point x="4903.534586221977" y="3058.0" />
+      <point x="4903.534586221977" y="1134.0" />
+      <point x="5140.348407002999" y="1134.0" />
+      <point x="5140.348407002999" y="454.0" />
+      <point x="5127.906060606059" y="454.0" />
+      <point x="0.0" y="108.5" />
+    </edge>
+    <edge source="MadBasic.IDE.MainIDE" target="MadBasic.IDE.SystemIO">
+      <point x="-150.75" y="-446.5" />
+      <point x="2482.572026925064" y="5233.0" />
+      <point x="1837.8220269250642" y="5233.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.Semantic.Types.TypeFalse">
+      <point x="778.1290322580644" y="-992.5" />
+      <point x="3929.9510591831286" y="3178.0" />
+      <point x="6635.61791955531" y="3178.0" />
+      <point x="6635.61791955531" y="1838.0" />
+      <point x="6621.11791955531" y="1838.0" />
+      <point x="20.0" y="30.0" />
+    </edge>
+    <edge source="MadBasic.Visitor" target="MadBasic.VMemory.Era">
+      <point x="55.58064516129025" y="-992.5" />
+      <point x="3207.402672086354" y="2998.0" />
+      <point x="3331.822026925064" y="2998.0" />
+      <point x="3331.822026925064" y="1808.0" />
+      <point x="3498.1371005947303" y="1808.0" />
+      <point x="3498.1371005947303" y="1144.0" />
+      <point x="3850.6220269250643" y="1144.0" />
+      <point x="-121.19999999999982" y="147.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.13844699952748465" x="3600.5" y="3164.4999999999995" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -13,7 +13,8 @@ import java.io.IOException;
  * Created by lsanchez on 3/9/16.
  */
 public class Main {
-
+    static MainIDE ide;
+    static Machine vmachine;
 
     public static void main(String[] args) {
 
@@ -53,8 +54,8 @@ public class Main {
         /**/
 
         //*
-        MainIDE ide = MainIDE.getInstance();
-        Machine vmachine = Machine.getInstance();
+        ide = MainIDE.getInstance();
+        vmachine = Machine.getInstance();
         /**/
     }
 }

@@ -1,6 +1,7 @@
 package MadBasic;
 
 import MadBasic.Algrebra.*;
+import MadBasic.IDE.MainIDE;
 import MadBasic.Quadruples.*;
 import MadBasic.Quadruples.Gotos.End;
 import MadBasic.Quadruples.Gotos.Gosub;
@@ -18,6 +19,7 @@ import MadBasic.VMemory.Instance;
 import MadBasic.VMemory.VirtualMemory;
 import ParserMadBasic.MadBasicBaseVisitor;
 import ParserMadBasic.MadBasicParser;
+import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.*;
@@ -32,9 +34,36 @@ public class Visitor extends MadBasicBaseVisitor<String> {
     BasicSemantic basicSemantic;
     QuadrupleSemantic quadrupleSemantic;
     VirtualMemory virtualMemory;
+    MadBasicErrorStrategy errorStrategy;
 
+    public MadBasicErrorStrategy getErrorStrategy() {
+        return errorStrategy;
+    }
 
-    public Visitor() {
+    public void setErrorStrategy(MadBasicErrorStrategy errorStrategy) {
+        this.errorStrategy = errorStrategy;
+    }
+
+    static private Visitor instance;
+
+    static public Visitor getInstance() {
+        if (instance == null) {
+            instance = new Visitor();
+        }
+        return instance;
+    }
+
+    public void reset() {
+        BasicSemantic.resetInstance();
+        QuadrupleSemantic.resetInstance();
+        VirtualMemory.resetInstance();
+
+        basicSemantic = BasicSemantic.getInstance();
+        quadrupleSemantic = QuadrupleSemantic.getInstance();
+        virtualMemory = VirtualMemory.getInstance();
+    }
+
+    private Visitor() {
         // All instances are cleared
         BasicSemantic.resetInstance();
         QuadrupleSemantic.resetInstance();
@@ -105,19 +134,19 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return res;
     }
 
-    /**
-     * This function is a child of the rule Type,
-     * Recognizes the type List and pushes it to the Type stack to be later used.
-     *
-     * @param ctx Context of the rule
-     * @return result
-     */
-    @Override
-    public String visitTypeList(MadBasicParser.TypeListContext ctx) {
-        String res = visitChildren(ctx);
-        basicSemantic.getTypeStack().push(new TypeList());
-        return res;
-    }
+//    /**
+//     * This function is a child of the rule Type,
+//     * Recognizes the type List and pushes it to the Type stack to be later used.
+//     *
+//     * @param ctx Context of the rule
+//     * @return result
+//     */
+//    @Override
+//    public String visitTypeList(MadBasicParser.TypeListContext ctx) {
+//        String res = visitChildren(ctx);
+//        basicSemantic.getTypeStack().push(new TypeList());
+//        return res;
+//    }
 
     /**
      * This function is a child of the rule Type,
@@ -1833,7 +1862,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         if (basicSemantic.isFoundAReference()) { // Check if its a variable sent by reference
             try {
                 Variable var = (Variable) quadrupleSemantic.getOperandStack().pop();
-                var.setByReference(true);
+                var = new Variable(var.getID(), var.getType(), var.getScope(), true);
                 basicSemantic.setFoundAReference(false);
                 ParseTree c = ctx.getChild(n);
                 String childResult = c.accept(this);
@@ -1873,7 +1902,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         if (basicSemantic.isFoundAReference()) { // Check if its a variable sent by reference
             try {
                 Variable var = (Variable) quadrupleSemantic.getOperandStack().pop();
-                var.setByReference(true);
+                var = new Variable(var.getID(), var.getType(), var.getScope(), true);
                 basicSemantic.setFoundAReference(false);
                 ParseTree c = ctx.getChild(n);
                 String childResult = c.accept(this);
@@ -2020,50 +2049,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         Scope scope = basicSemantic.getScopeStack().peek();
 
         method = getMethod(text, scope);
-//        if (basicSemantic.isDot()) {
-//            String[] names = methodName.split("\\.");
-//            objname = names[0].split("\\[")[0];
-//            Scope scope = basicSemantic.getScopeStack().peek();
-//            if (basicSemantic.isArray()) {
-//                for (Scope s : basicSemantic.getScopeStack()) {
-//                    if (s.getVariableHashMap().containsKey(objname)) {
-//                        processArray(scope.getVariableHashMap().get(objname));
-//                        names[0] = objname;
-//                        Operand obj = quadrupleSemantic.getOperandStack().pop();
-//                        if (((TypeObject) obj.getType())
-//                                .getClasse().getScope().getProcedureHashMap().containsKey(names[1])) {
-//                            method = ((TypeObject) obj.getType())
-//                                    .getClasse().getScope().getProcedureHashMap().get(names[1]);
-//                            objname = Operand.getIdString(obj).concat("-");
-//                            break;
-//                        }
-//
-//                    }
-//                }
-//                basicSemantic.setArray(false);
-//            } else {
-//                while (scope != null) {
-//                    if (scope.getVariableHashMap().containsKey(names[0])) {
-//                        if (((TypeObject) scope.getVariableHashMap().get(names[0])
-//                                .getType()).getClasse().getScope().getProcedureHashMap().containsKey(names[1])) {
-//                            method = ((TypeObject) scope.getVariableHashMap().get(names[0])
-//                                    .getType()).getClasse().getScope().getProcedureHashMap().get(names[1]);
-//                            objname = objname.concat("-");
-//                            break;
-//                        }
-//                    }
-//                    scope = scope.getParent();
-//                }
-//            }
-//            basicSemantic.setDot(false);
-//        } else {
-//            for (Scope scope : basicSemantic.getScopeStack()) {
-//                if (scope.getProcedureHashMap().containsKey(methodName)) {
-//                    method = scope.getProcedureHashMap().get(methodName);
-//                    break;
-//                }
-//            }
-//        }
+
         if (method != null) {
             QuadEra era = new QuadEra(method);
             quadrupleSemantic.getQuadrupleList().add(era);
@@ -2093,7 +2079,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                 quadrupleSemantic.getQuadrupleList().add(new Gosub(jumpback, method));
 
                 if (method instanceof Function) {
-                    String obj = method.getID().split("-")[0];
+                    String[] obj = method.getID().split("-");
                     Variable var = method.getScope().getParent().getVariableHashMap().get(method.getScope().getName());
                     Temporal temp = new Temporal(quadrupleSemantic.getTemporalCountAndStep(), var.getType());
 
@@ -2103,8 +2089,8 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                         insertTempVDirectory(temp);
                     }
 
-                    if (obj.length() > 0) {
-                        var = new Variable(obj + "." + var.getID(), var.getType(), var.getScope());
+                    if (obj.length > 1) {
+                        var = new Variable(obj[0] + "." + var.getID(), var.getType(), var.getScope());
                     }
 
                     quadrupleSemantic.getQuadrupleList().add(new Assignment(var, temp));
@@ -2588,13 +2574,23 @@ public class Visitor extends MadBasicBaseVisitor<String> {
      */
     @Override
     public String visitMadbasic(MadBasicParser.MadbasicContext ctx) {
-        quadrupleSemantic.getQuadrupleList().add(new Goto());
+        String res = "";
 
-        String res = visitChildren(ctx);
+        try {
+            quadrupleSemantic.getQuadrupleList().add(new Goto());
 
-        quadrupleSemantic.getQuadrupleList().add(new End());
+            res = visitChildren(ctx);
 
-        virtualMemory.setQuadruples(quadrupleSemantic.getQuadrupleList());
+            quadrupleSemantic.getQuadrupleList().add(new End());
+
+            virtualMemory.setQuadruples(quadrupleSemantic.getQuadrupleList());
+        } catch (NullPointerException | ClassCastException e) {
+
+        }
+
+        if (errorStrategy.isError()) {
+            MainIDE.getInstance().print(errorStrategy.getErrorMesage());
+        }
 
         return res;
     }

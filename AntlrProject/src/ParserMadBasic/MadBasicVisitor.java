@@ -149,13 +149,6 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTypeBool(MadBasicParser.TypeBoolContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code typeList}
-	 * labeled alternative in {@link MadBasicParser#type}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTypeList(MadBasicParser.TypeListContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code typeObject}
 	 * labeled alternative in {@link MadBasicParser#type}.
 	 * @param ctx the parse tree
@@ -169,13 +162,6 @@ public interface MadBasicVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArrayDeclare(MadBasicParser.ArrayDeclareContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code arrayVoid}
-	 * labeled alternative in {@link MadBasicParser#array}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayVoid(MadBasicParser.ArrayVoidContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code arrayEmpty}
 	 * labeled alternative in {@link MadBasicParser#array}.

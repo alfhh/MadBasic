@@ -23,6 +23,8 @@ public class Parser {
         MadBasicLexer lexer = new MadBasicLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         MadBasicParser parser = new MadBasicParser(tokens);
+        parser.setErrorHandler(new MadBasicErrorStrategy());
+//        parser.reset();
         ParseTree tree = parser.madbasic();
         return tree;
     }

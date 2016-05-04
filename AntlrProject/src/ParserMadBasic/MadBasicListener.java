@@ -240,18 +240,6 @@ public interface MadBasicListener extends ParseTreeListener {
 	 */
 	void exitTypeBool(MadBasicParser.TypeBoolContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code typeList}
-	 * labeled alternative in {@link MadBasicParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void enterTypeList(MadBasicParser.TypeListContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code typeList}
-	 * labeled alternative in {@link MadBasicParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void exitTypeList(MadBasicParser.TypeListContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code typeObject}
 	 * labeled alternative in {@link MadBasicParser#type}.
 	 * @param ctx the parse tree
@@ -275,18 +263,6 @@ public interface MadBasicListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArrayDeclare(MadBasicParser.ArrayDeclareContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code arrayVoid}
-	 * labeled alternative in {@link MadBasicParser#array}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayVoid(MadBasicParser.ArrayVoidContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code arrayVoid}
-	 * labeled alternative in {@link MadBasicParser#array}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayVoid(MadBasicParser.ArrayVoidContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code arrayEmpty}
 	 * labeled alternative in {@link MadBasicParser#array}.
