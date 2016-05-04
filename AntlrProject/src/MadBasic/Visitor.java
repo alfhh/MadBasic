@@ -835,7 +835,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, memoryIndex, tt));
         }
 
-        Temporal ttt = new Temporal(tt.getID(), variable.getType(), true);
+        Temporal ttt = new Temporal(tt.getID(), ((TypeArray) variable.getType()).getType(), true);
 
         quadrupleSemantic.getOperandSList().add(ttt);
         quadrupleSemantic.getOperandStack().push(ttt);
