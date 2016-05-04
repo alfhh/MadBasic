@@ -1947,7 +1947,12 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             if (scope.getVariableHashMap().containsKey(ids[0])) {
                 processArray(scope.getVariableHashMap().get(ids[0]));
                 Operand obj = quadrupleSemantic.getOperandStack().peek();
-                Class classe = ((TypeObject) ((TypeArray) obj.getType()).getType()).getClasse();
+                Class classe;
+                if (obj.getType() instanceof TypeArray) {
+                    classe = ((TypeObject) ((TypeArray) obj.getType()).getType()).getClasse();
+                } else {
+                    classe = ((TypeObject) obj.getType()).getClasse();
+                }
                 if (classe.getScope().getProcedureHashMap().containsKey(ids[1])) {
                     method = classe.getScope().getProcedureHashMap().get(ids[1]);
                     break;

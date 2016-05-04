@@ -5,6 +5,7 @@ import MadBasic.Algrebra.Temporal;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.GotoFalse;
+import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.Types.Type;
 import MadBasic.Semantic.Types.TypeFalse;
 import MadBasic.Semantic.Types.TypeInt;
@@ -199,7 +200,7 @@ public class Machine {
         int dir = g.getJump();
         Era e = virtualMemory.getSecondaryEraStack().pop();
         e.setRetorno(dir);
-        if (e.getInstance() == null && virtualMemory.getEraStack().peek().getInstance() != null){
+        if (e.getInstance() == null && virtualMemory.getEraStack().peek().getInstance() != null) {
             e.getvDirectory().putAll(virtualMemory.getEraStack().peek().getInstance().getvDirectory());
             e.setInstance(virtualMemory.getEraStack().peek().getInstance());
         }
@@ -236,8 +237,17 @@ public class Machine {
             e = virtualMemory.getEraHashMap().get(call).clone();
         } else {
             String[] ids = call.split("-");
-            Variable v = new Variable(ids[0], new TypeFalse(), null);
-            Instance instance = ((Instance) vMemory.get(getDirectionFromVM(v)));
+            Operand o;
+            if (ids[0].contains("#")) {
+                if (ids[0].contains("(")) {
+                    o = new Temporal(getTempIndex(ids[0]), new TypeFalse(), true);
+                } else {
+                    o = new Temporal(getTempIndex(ids[0]), new TypeFalse());
+                }
+            } else {
+                o = new Variable(ids[0], new TypeFalse(), new Scope("eraBuild"));
+            }
+            Instance instance = ((Instance) vMemory.get(getDirectionFromVM(o)));
             e = instance.getEraHashMap().get(ids[1]).clone();
             e.getvDirectory().putAll(instance.getvDirectory());
             e.setInstance(instance);
@@ -335,7 +345,7 @@ public class Machine {
             String[] ids = Operand.getIdString(o).split("\\.");
             if (!ids[0].contains("@")) {
                 Operand inst;
-                if(ids[0].contains("#")) {
+                if (ids[0].contains("#")) {
                     inst = new Temporal(getTempIndex(ids[0]), new TypeFalse(), true);
                 } else {
                     inst = new Variable(ids[0], new TypeFalse(), null);
