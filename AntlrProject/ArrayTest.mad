@@ -60,8 +60,9 @@ methods:
     }
 
 main:
-    vars:
-        int[0,1][0,1][0,1] ii;
+    a.k[0] = 10;
+    aa[0].k[1] = a.k[0];
+    print(aa[0].k[1]);
     a.setX(4);
     aa[0].setX(5);
     aa[1].setX(6);

@@ -256,6 +256,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                                     Era era = new Era();
                                     for (Variable v : proc.getScope().getVariableHashMap().values()) {
                                         era.getvDirectory().put(v.getID(), null);
+                                        era.getVarHashMap().put(var.getID(), var);
                                     }
                                     Set<String> k = proc.getEra().keySet();
                                     Object[] keys = k.toArray();
@@ -300,6 +301,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
                         Era era = new Era();
                         for (Variable v : proc.getScope().getVariableHashMap().values()) {
                             era.getvDirectory().put(v.getID(), null);
+                            era.getVarHashMap().put(var.getID(), var);
                         }
                         Set<String> k = proc.getEra().keySet();
                         Object[] keys = k.toArray();
@@ -516,6 +518,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
             Era era = new Era();
             for (Variable var : proc.getScope().getVariableHashMap().values()) {
                 era.getvDirectory().put(var.getID(), null);
+                era.getVarHashMap().put(var.getID(), var);
             }
             era.getvDirectory().putAll(proc.getEra());
             era.setStart(proc.getQuadrupleStart());
@@ -822,17 +825,18 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         if (basicSemantic.isArray() && basicSemantic.isArrayandDot() ||
                 basicSemantic.isInMethod() && (variable.getScope() == basicSemantic.getScopeStack().peek() ||
                         basicSemantic.getClassHashMap().containsKey(variable.getScope().getName()))) {
-            variable = new Variable(variable.getID(), ((TypeArray) variable.getType()).getType(), variable.getScope());
-            variable.setAddress(true);
-            quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, variable, tt));
+            Variable var = new Variable(variable.getID(), new TypeInt(), variable.getScope());
+            var.setAddress(true);
+            quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, var, tt));
         } else {
             Constant<Integer> memoryIndex =
                     new Constant<>(virtualMemory.getvDirectory().get(variable.getID()), new TypeInt());
             insertConstVDirectory(memoryIndex);
             quadrupleSemantic.getQuadrupleList().add(new Expression(Operator.PLUS, t, memoryIndex, tt));
         }
+
         Temporal ttt = new Temporal(tt.getID(), variable.getType(), true);
-//        insertTempVDirectory(ttt);
+
         quadrupleSemantic.getOperandSList().add(ttt);
         quadrupleSemantic.getOperandStack().push(ttt);
     }
@@ -2398,6 +2402,17 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         return result;
     }
 
+
+    /**
+     * This function removes unnecessary entries in the vDir added while creation a procedure or a function
+     * @param p
+     */
+    public void removeDuplicatedDirs(Procedure p){
+        for(Variable var : p.getParams()){
+            virtualMemory.getvDirectory().remove(var.getID());
+        }
+    }
+
     /**
      * This function processes a function, which returns a value, and visits the children of the rule function.
      *
@@ -2460,6 +2475,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
         quadrupleSemantic.getQuadrupleList().add(new Retorno());
         basicSemantic.resetActualType(); // Reset the actual type
         func.setEra(basicSemantic.getEraHash());
+        removeDuplicatedDirs(func);
         basicSemantic.setEraHash(new HashMap<>());
         basicSemantic.getScopeStack().pop();
 
@@ -2518,6 +2534,7 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
         quadrupleSemantic.getQuadrupleList().add(new Retorno());
         proc.setEra(basicSemantic.getEraHash());
+        removeDuplicatedDirs(proc);
         basicSemantic.setEraHash(new HashMap<>());
         basicSemantic.getScopeStack().pop();
 

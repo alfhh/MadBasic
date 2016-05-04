@@ -1,5 +1,6 @@
 package MadBasic.VMemory;
 
+import MadBasic.Algrebra.Operand;
 import MadBasic.Algrebra.Variable;
 
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.LinkedList;
 public class Era {
 
     HashMap<String, Integer> vDirectory;
+    HashMap<String, Operand> varHashMap;
     int start;
     int retorno;
     LinkedList<Variable> params;
@@ -22,6 +24,7 @@ public class Era {
         referencePairList = new LinkedList<>();
         vDirectory = new HashMap<>();
         params = new LinkedList<>();
+        varHashMap = new HashMap<>();
     }
 
     public HashMap<String, Integer> getvDirectory() {
@@ -52,6 +55,8 @@ public class Era {
         e.getvDirectory().putAll(vDirectory);
         e.setStart(start);
         e.setReferencePairList(new LinkedList<>());
+        e.setVarHashMap(new HashMap<>());
+        e.getVarHashMap().putAll(varHashMap);
         return e;
     }
 
@@ -83,6 +88,13 @@ public class Era {
         this.vMemoryStart = vMemoryStart;
     }
 
+    public HashMap<String, Operand> getVarHashMap() {
+        return varHashMap;
+    }
+
+    public void setVarHashMap(HashMap<String, Operand> varHashMap) {
+        this.varHashMap = varHashMap;
+    }
     public Instance getInstance() {
         return instance;
     }

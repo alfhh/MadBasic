@@ -6,6 +6,7 @@ import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.GotoFalse;
 import MadBasic.Semantic.Scope;
+import MadBasic.Semantic.Types.TypeArray;
 import MadBasic.Semantic.Types.Type;
 import MadBasic.Semantic.Types.TypeFalse;
 import MadBasic.Semantic.Types.TypeInt;
@@ -200,7 +201,8 @@ public class Machine {
         int dir = g.getJump();
         Era e = virtualMemory.getSecondaryEraStack().pop();
         e.setRetorno(dir);
-        if (e.getInstance() == null && virtualMemory.getEraStack().peek().getInstance() != null) {
+        if (e.getInstance() == null &&
+                (!virtualMemory.getEraStack().isEmpty() && virtualMemory.getEraStack().peek().getInstance() != null)){
             e.getvDirectory().putAll(virtualMemory.getEraStack().peek().getInstance().getvDirectory());
             e.setInstance(virtualMemory.getEraStack().peek().getInstance());
         }
@@ -258,9 +260,21 @@ public class Machine {
         Object[] keys = k.toArray();
         for (Object key : keys) {
             if (e.getvDirectory().get(key) == null) {
-                e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
-                vMemory.put(virtualMemory.getStackVariableCount(), null);
-                virtualMemory.addStackVariableCount();
+                if((e.getVarHashMap().get(key) != null) && (e.getVarHashMap().get(key).getType() instanceof TypeArray)){
+                    Operand arr = e.getVarHashMap().get(key);
+
+                    e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
+
+                    for(int i = 0; i < ((TypeArray) arr.getType()).getArray().getSize(); i++){
+                        vMemory.put(virtualMemory.getStackVariableCount(), null);
+                        virtualMemory.addStackVariableCount();
+                    }
+
+                } else {
+                    e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
+                    vMemory.put(virtualMemory.getStackVariableCount(), null);
+                    virtualMemory.addStackVariableCount();
+                }
             }
         }
         virtualMemory.getSecondaryEraStack().push(e);
@@ -269,11 +283,17 @@ public class Machine {
     public void processParameter(Parameter p) {
         // Add the parameter to the Era
         Operand tempOp = p.getArgument();
-        //int dirArg = vDirectory .get(Operand.getIdString(tempOp));
         int dirArg = getDirectionFromVM(tempOp);
         Variable varParam = virtualMemory.getSecondaryEraStack().peek().getParams().get(p.getParameterNum());
         int dirParam = virtualMemory.getSecondaryEraStack().peek().getvDirectory().get(varParam.getID());
         vMemory.put(dirParam, vMemory.get(dirArg));
+
+        if(tempOp.getType() instanceof TypeArray){
+
+            for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++){
+                vMemory.put(dirParam + i, vMemory.get(dirArg + i));
+            }
+        }
 
         // Add if param by reference
         if (varParam.isByReference()) {
@@ -401,7 +421,7 @@ public class Machine {
             }
         } else {
             if (virtualMemory.getEraStack().isEmpty()) {
-                dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
+                    dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
 
             } else {
                 // First check if the values are present in the Era param list
@@ -558,7 +578,6 @@ public class Machine {
         }
     }
 
-
     public void conditionExpression(Expression e) {
         int operatorCode = e.getOper().ordinal();
 
@@ -574,7 +593,6 @@ public class Machine {
         // TODO: 2/05/16 CHECK VALUES DIFFERENT THAN ZERO SHOULD BE TRUE
 
         if (operatorCode == 6 || operatorCode == 7) { // == OR !=
-            // TODO: 1/05/16 IMPLEMENT OTHER CASES WITH BOOL AND FLOAT
 
             if (op1Type == 0 && op2Type == 0) { // Both integers
                 int x = (int) vMemory.get(dirOp1);

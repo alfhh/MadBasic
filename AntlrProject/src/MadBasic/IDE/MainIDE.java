@@ -2,10 +2,12 @@ package MadBasic.IDE;
 
 import MadBasic.Parser;
 import MadBasic.Quadruples.QuadrupleSemantic;
+import MadBasic.Semantic.BasicSemantic;
 import MadBasic.TestingGround;
 import MadBasic.VMachine.Machine;
 import MadBasic.VMemory.VirtualMemory;
 import MadBasic.Visitor;
+import MadBasic.YUML.YUMLParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
@@ -28,7 +30,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
     private JMenuBar menuBarOptions;
     private JMenu file, build, help;
     private JMenuItem miNewFile, miSaveFile, miSaveAsFile, miOpen, miCloseApp;
-    private JMenuItem miCompile, miRun, miRunCompile;
+    private JMenuItem miCompile, miRun, miRunCompile, miCreateDiagram;
     private JMenuItem miHelpOnline, miAbout;
     private JPanel thePanel;
     private JTextArea jConsole;
@@ -69,9 +71,11 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         miCompile = new JMenuItem("Compile");
         miRun = new JMenuItem("Run");
         miRunCompile = new JMenuItem("Compile and Run");
+        miCreateDiagram = new JMenuItem("Show class diagram");
         build.add(miCompile);
         build.add(miRun);
         build.add(miRunCompile);
+        build.add(miCreateDiagram);
 
         // Components of Help menu
         miHelpOnline = new JMenuItem("Online help");
@@ -90,6 +94,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         miRunCompile.addActionListener(this);
         miHelpOnline.addActionListener(this);
         miAbout.addActionListener(this);
+        miCreateDiagram.addActionListener(this);
 
         // Accelerators "CTRL + ?"
         miOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK));
@@ -98,6 +103,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         miRun.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, Event.CTRL_MASK));
         miRunCompile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, Event.CTRL_MASK));
         miCloseApp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK));
+        miCreateDiagram.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, Event.CTRL_MASK));
 
         // Add all the menu to the menu bar
         menuBarOptions.add(file);
@@ -135,6 +141,108 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         this.setVisible(true);
     }
 
+    // Singleton..
+    static public MainIDE getInstance(){
+        if (instance == null){
+            instance = new MainIDE();
+        }
+        return instance;
+    }
+
+    /* ---- IDE FUNCTIONS ---- */
+
+    public void save(){
+        String data = editorArea.getText();
+
+        if(archiveHandler.getActualFile() != null){
+            archiveHandler.saveFile(data);
+        } else {
+            archiveHandler.saveFileAs(data, this);
+        }
+    }
+
+    public void saveAs(){
+        String data = editorArea.getText();
+        archiveHandler.saveFileAs(data, this);
+    }
+
+    public void open(){
+        String fileData = archiveHandler.openFile(this);
+        editorArea.setText(fileData);
+    }
+
+
+    public void newFile(){
+        // TODO CHECK IF THE FILE IS NOT SAVED
+        editorArea.setText("");
+        archiveHandler.resetActualFile();
+    }
+
+    public void compile(){
+        if (archiveHandler.getActualFile() != null){
+            ParseTree tree = null;
+
+            try {
+                tree = Parser.parse(archiveHandler.getActualFile().getAbsolutePath(), "MadBasic", "madbasic");
+                new Visitor().visit(tree);
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
+
+            TestingGround tester = new TestingGround();
+
+                TestingGround.TestNum[] selectedTests = {
+                        TestingGround.TestNum.VARIABLE_TABLE,
+                        TestingGround.TestNum.SCOPETABLE,
+                        TestingGround.TestNum.PROC_TABLE,
+                        TestingGround.TestNum.OPERANDSTACK,
+                        TestingGround.TestNum.QUADRUPLELIST,
+            };
+
+            tester.testManager(selectedTests);
+
+            myMachine = Machine.getInstance();
+
+
+            // Send actual values to the VMachine
+            myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList(),
+                    VirtualMemory.getInstance(),
+                    VirtualMemory.getInstance().getvDirectory(),
+                    VirtualMemory.getInstance().getvMemory());
+
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "\nPlease save file first",
+                    "Error",JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void run(){
+
+        if(archiveHandler.getActualFile() != null){
+            jConsole.setText("");
+            if(myMachine.run()){
+                print("Program successfully finished");
+            } else{
+                printError("Execution time error");
+            }
+        } else { // TODO: 22/04/16 Add compilationg succesful flag
+            JOptionPane.showMessageDialog(null,
+                    "\nCompile file first",
+                    "Error",JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void createDiagram(){
+        compile();
+        YUMLParser yuml = new YUMLParser();
+        yuml.makeDiagram(BasicSemantic.getInstance().getClassHashMap());
+        yuml.createDiagram();
+        yuml.runDiagram();
+    }
+
+    /* ---- IDE FUNCTIONS ---- */
+
     public void actionPerformed(ActionEvent e){
 
         if(e.getSource() == miCloseApp){
@@ -142,164 +250,39 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         }
 
         if(e.getSource() == miNewFile){
-            // TODO CHECK IF THE FILE IS NOT SAVED
-            editorArea.setText("");
-            archiveHandler.resetActualFile();
+            newFile();
         }
 
         if(e.getSource() == miSaveFile){
-            String data = editorArea.getText();
-
-            if(archiveHandler.getActualFile() != null){
-                archiveHandler.saveFile(data);
-            } else {
-                archiveHandler.saveFileAs(data, this);
-            }
+            save();
         }
 
         if(e.getSource() == miSaveAsFile){
-            String data = editorArea.getText();
-            archiveHandler.saveFileAs(data, this);
+            saveAs();
         }
 
         if(e.getSource() == miOpen){
-            String fileData = archiveHandler.openFile(this);
-            editorArea.setText(fileData);
+            open();
         }
 
         if(e.getSource() == miCompile){
-
-            // Also saves
-
-            String data = editorArea.getText();
-
-            if(archiveHandler.getActualFile() != null){
-                archiveHandler.saveFile(data);
-            } else {
-                archiveHandler.saveFileAs(data, this);
-            }
-
-            // ---------------------
-
-
-            if (archiveHandler.getActualFile() != null){
-                ParseTree tree = null;
-
-                try {
-                    tree = Parser.parse(archiveHandler.getActualFile().getAbsolutePath(), "MadBasic", "madbasic");
-                    new Visitor().visit(tree);
-                } catch (IOException error) {
-                    error.printStackTrace();
-                }
-
-                TestingGround tester = new TestingGround();
-
-                TestingGround.TestNum[] selectedTests = {
-                        TestingGround.TestNum.VARIABLE_TABLE,
-                        TestingGround.TestNum.SCOPETABLE,
-                        TestingGround.TestNum.PROC_TABLE,
-                        TestingGround.TestNum.OPERANDSTACK,
-                        TestingGround.TestNum.QUADRUPLELIST,
-                };
-
-                tester.testManager(selectedTests);
-
-                myMachine = Machine.getInstance();
-
-
-                // Send actual values to the VMachine
-                myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList(),
-                        VirtualMemory.getInstance(),
-                        VirtualMemory.getInstance().getvDirectory(),
-                        VirtualMemory.getInstance().getvMemory());
-
-            } else {
-                JOptionPane.showMessageDialog(null,
-                        "\nPlease save file first",
-                        "Error",JOptionPane.WARNING_MESSAGE);
-            }
+            save();
+            compile();
 
         }
 
         if(e.getSource() == miRun){
-            if(archiveHandler.getActualFile() != null){
-                jConsole.setText("");
-                if(myMachine.run()){
-                    print("Program successfully finished");
-                } else{
-                    printError("Execution time error");
-                }
-            } else { // TODO: 22/04/16 Add compilationg succesful flag
-                JOptionPane.showMessageDialog(null,
-                        "\nCompile file first",
-                        "Error",JOptionPane.WARNING_MESSAGE);
-            }
+            run();
         }
 
         if(e.getSource() == miRunCompile){
-            // TODO: 1/05/16 REFACTOR ALL MENUITEMS WITH FUNCTIONS 
-            
-            // Also saves
+            save();
+            compile();
+            run();
+        }
 
-            String data = editorArea.getText();
-
-            if(archiveHandler.getActualFile() != null){
-                archiveHandler.saveFile(data);
-            } else {
-                archiveHandler.saveFileAs(data, this);
-            }
-
-            // ---------------------
-
-
-            if (archiveHandler.getActualFile() != null){
-                ParseTree tree = null;
-
-                try {
-                    tree = Parser.parse(archiveHandler.getActualFile().getAbsolutePath(), "MadBasic", "madbasic");
-                    new Visitor().visit(tree);
-                } catch (IOException error) {
-                    error.printStackTrace();
-                }
-
-                TestingGround tester = new TestingGround();
-
-                TestingGround.TestNum[] selectedTests = {
-                        TestingGround.TestNum.VARIABLE_TABLE,
-                        TestingGround.TestNum.SCOPETABLE,
-                        TestingGround.TestNum.PROC_TABLE,
-                        TestingGround.TestNum.OPERANDSTACK,
-                        TestingGround.TestNum.QUADRUPLELIST,
-                };
-
-                tester.testManager(selectedTests);
-
-                myMachine = Machine.getInstance();
-
-                // Send actual values to the VMachine
-                myMachine.getCompiledData(QuadrupleSemantic.getInstance().getQuadrupleList(),
-                        VirtualMemory.getInstance(),
-                        VirtualMemory.getInstance().getvDirectory(),
-                        VirtualMemory.getInstance().getvMemory());
-
-            } else {
-                JOptionPane.showMessageDialog(null,
-                        "\nPlease save file first",
-                        "Error",JOptionPane.WARNING_MESSAGE);
-            }
-
-            if(archiveHandler.getActualFile() != null){
-                jConsole.setText("");
-                if(myMachine.run()){
-                    print("Program successfully finished");
-                } else{
-                    printError("Execution time error");
-                }
-            } else { // TODO: 22/04/16 Add compilationg succesful flag
-                JOptionPane.showMessageDialog(null,
-                        "\nCompile file first",
-                        "Error",JOptionPane.WARNING_MESSAGE);
-            }
+        if(e.getSource() == miCreateDiagram){
+            createDiagram();
         }
 
     }
@@ -327,11 +310,4 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         return res;
     }
 
-    // Singleton..
-    static public MainIDE getInstance(){
-        if (instance == null){
-            instance = new MainIDE();
-        }
-        return instance;
-    }
 }

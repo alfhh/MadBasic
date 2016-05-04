@@ -1,3 +1,6 @@
-[A|x:int;k:int(0-1)|init:void();z:void(r:int : i:int(0-1)(0-1)(0-1))],
-[B|e:int|init:void();c:void(t:int)],
-[A]->*[B]
+[Aaa|a:int;b:int;c:int;d:float|init:void();save:void(x:int : y:float)],
+[Ccc||init:void()],
+[Bbb|dd:float;cc:int|init:void(x:int);test:void();isMultiple:bool(w:int : z:int)],
+[Ccc]->[Aaa],
+[Aaa]^-[Bbb],
+[Bbb]->[Aaa]
