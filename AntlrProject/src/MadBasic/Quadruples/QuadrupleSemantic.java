@@ -31,14 +31,14 @@ public class QuadrupleSemantic {
         temporalCount = 0;
     }
 
-    static public QuadrupleSemantic getInstance(){
-        if (instance == null){
+    static public QuadrupleSemantic getInstance() {
+        if (instance == null) {
             instance = new QuadrupleSemantic();
         }
         return instance;
     }
 
-    public static void resetInstance(){
+    public static void resetInstance() {
         instance = new QuadrupleSemantic();
     }
 

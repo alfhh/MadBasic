@@ -8,7 +8,7 @@ import MadBasic.Algrebra.Operator;
  */
 public class Write extends Quadruple {
     Operand output;
-    
+
 
     public Write(Operand output) {
         this.output = output;
@@ -22,7 +22,7 @@ public class Write extends Quadruple {
         this.output = output;
     }
 
-    public String toString(){
+    public String toString() {
         return "Print{" +
                 "print" +
                 ",\t" + Operand.getIdString(output) +

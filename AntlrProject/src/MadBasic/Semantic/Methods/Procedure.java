@@ -65,7 +65,7 @@ public class Procedure {
         this.eraHash = eraHash;
     }
 
-    public Procedure clone(){
+    public Procedure clone() {
         Procedure proc = new Procedure(ID, scope.getParent());
         proc.setParams(new LinkedList<>());
         proc.getParams().addAll(params);

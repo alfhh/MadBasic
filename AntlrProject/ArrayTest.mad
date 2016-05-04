@@ -11,12 +11,16 @@ class B {
         void c(int t){
             e = t;
         }
+
+        int gete(){
+        	  return e;
+        }
 }
 
 class A {
     vars:
         int x;
-        B b;
+        B[0,1] b;
         int[0,1] k;
 
     init(){
@@ -26,7 +30,15 @@ class A {
         void z(int r, int[0, 1][0,1][0,1] i){
             i[0][0][0] = 0;
             x = r;
-            b.c(r);
+            b[0].c(r);
+        }
+
+        void setX(int xx){
+        	  b[0].c(xx);
+        }
+
+        int getX(){
+        	  return b[0].gete();
         }
 }
 
@@ -36,15 +48,25 @@ vars:
 
 methods:
     void x(){
-
+		vars:
+			int[0,5] arr;
+			int n;
+		n = 0;
+		while(n<6){
+			arr[n] = n;
+			print(arr[n]);
+			n = n + 1;
+		}
     }
 
 main:
-    vars:
-        int[0,1][0,1][0,1] ii;
-    aa[0].x = 0;
-    aa[0].k[0] = 0;
-    a.k[0] = 0;
-    ii[0][0][0] = 0;
-    a.z(0, ii);
+    a.k[0] = 10;
+    aa[0].k[1] = a.k[0];
+    print(aa[0].k[1]);
+    a.setX(4);
+    aa[0].setX(5);
+    aa[1].setX(6);
+    print(aa[0].getX());
+    print(aa[1].getX());
+    print(a.getX());
 end

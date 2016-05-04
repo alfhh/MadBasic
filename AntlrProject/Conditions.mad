@@ -27,10 +27,24 @@ methods:
     	return ans;
     }
 
+	bool func2(string x, string y){
+		vars:
+			bool ans;
+
+		if(x != y){
+			ans = true;
+		} else {
+			ans = false;
+		}
+		return ans;
+	}
+
+
 main:
 vars:
 	int a, b, c, d;
-	bool flag;
+	bool flag, check;
+	string c1, c2;
 
 
 
@@ -40,5 +54,8 @@ c = 2;
 d = 12;
 flag = func1(d);
 print(flag);
-
+c1 = "hello";
+c2 = "hello";
+check = func2(c1, c2);
+print(check);
 end

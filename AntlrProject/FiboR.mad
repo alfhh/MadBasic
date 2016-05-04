@@ -24,7 +24,7 @@ main:
 	vars:
 	    int a, b, c,d, x;
 	
-	c = 15;
+	c = 20;
 	b = fibo2(c);
 	print(b);
 	print("-----");

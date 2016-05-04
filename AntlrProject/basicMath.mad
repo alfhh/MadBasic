@@ -8,6 +8,7 @@ methods:
 main:
 vars:
 	int a, b, c, d, x, y;
+	float f1, f2, f3, f4;
 
 print("--------------------- Basics");
 	a = 5;
@@ -30,5 +31,17 @@ print("------------- Advanced print");
 	print(3.5 + 1.5);
 	print("Mad" ^ "Basic");
 print("------------- Advanced print");
+
+print("------------- Type consistency");
+	a = 2;
+	b = 3;
+	c = 3;
+	f1 = 0.3;
+	f2 = 0.5;
+	f3 = 0.2;
+	f4 = f3 + f2 + f1;
+	print(f4);
+	
+print("------------- Type consistency");
 
 end

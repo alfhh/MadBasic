@@ -1,14 +1,22 @@
 package MadBasic.VMachine;
 
+import MadBasic.Algrebra.Constant;
 import MadBasic.Algrebra.Temporal;
 import MadBasic.Algrebra.Variable;
 import MadBasic.Quadruples.Gotos.Gosub;
 import MadBasic.Quadruples.Gotos.GotoFalse;
+import MadBasic.Semantic.Scope;
+import MadBasic.Semantic.Types.TypeArray;
+import MadBasic.Semantic.Types.Type;
+import MadBasic.Semantic.Types.TypeFalse;
+import MadBasic.Semantic.Types.TypeInt;
+import MadBasic.Semantic.Types.TypeObject;
 import MadBasic.VMemory.Era;
 import MadBasic.Algrebra.Operand;
 import MadBasic.IDE.MainIDE;
 import MadBasic.Quadruples.*;
 import MadBasic.Quadruples.Gotos.Goto;
+import MadBasic.VMemory.Instance;
 import MadBasic.VMemory.ReferencePair;
 import MadBasic.VMemory.VirtualMemory;
 
@@ -130,7 +138,7 @@ public class Machine {
 
                     // Arrays
                     case "MadBasic.Quadruples.ArrayVerify":
-                        if (!processArrayVerify((ArrayVerify) quadruple)){
+                        if (!processArrayVerify((ArrayVerify) quadruple)) {
                             ideConnection = MainIDE.getInstance();
                             ideConnection.printError("Index out of bounds!");
                             return false;
@@ -191,8 +199,14 @@ public class Machine {
      */
     public int processGotoSub(Gosub g) {
         int dir = g.getJump();
-        virtualMemory.getEraStack().push(virtualMemory.getSecondaryEraStack().pop());
-        virtualMemory.getEraStack().peek().setRetorno(dir);
+        Era e = virtualMemory.getSecondaryEraStack().pop();
+        e.setRetorno(dir);
+        if (e.getInstance() == null &&
+                (!virtualMemory.getEraStack().isEmpty() && virtualMemory.getEraStack().peek().getInstance() != null)) {
+            e.getvDirectory().putAll(virtualMemory.getEraStack().peek().getInstance().getvDirectory());
+            e.setInstance(virtualMemory.getEraStack().peek().getInstance());
+        }
+        virtualMemory.getEraStack().push(e);
         return virtualMemory.getEraStack().peek().getStart();
     }
 
@@ -219,16 +233,48 @@ public class Machine {
      * @param qE
      */
     public void processBuildEra(QuadEra qE) {
-        Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID()).clone();
-        //Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID());
+        String call = qE.getProcedure().getID();
+        Era e;
+        if (!call.contains("-")) {
+            e = virtualMemory.getEraHashMap().get(call).clone();
+        } else {
+            String[] ids = call.split("-");
+            Operand o;
+            if (ids[0].contains("#")) {
+                if (ids[0].contains("(")) {
+                    o = new Temporal(getTempIndex(ids[0]), new TypeFalse(), true);
+                } else {
+                    o = new Temporal(getTempIndex(ids[0]), new TypeFalse());
+                }
+            } else {
+                o = new Variable(ids[0], new TypeFalse(), new Scope("eraBuild"));
+            }
+            Instance instance = ((Instance) vMemory.get(getDirectionFromVM(o)));
+            e = instance.getEraHashMap().get(ids[1]).clone();
+            e.getvDirectory().putAll(instance.getvDirectory());
+            e.setInstance(instance);
+        }
+
         e.setvMemoryStart(virtualMemory.getStackVariableCount());
         Set<String> k = e.getvDirectory().keySet();
         Object[] keys = k.toArray();
         for (Object key : keys) {
             if (e.getvDirectory().get(key) == null) {
-                e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
-                vMemory.put(virtualMemory.getStackVariableCount(), null);
-                virtualMemory.addStackVariableCount();
+                if ((e.getVarHashMap().get(key) != null) && (e.getVarHashMap().get(key).getType() instanceof TypeArray)) {
+                    Operand arr = e.getVarHashMap().get(key);
+
+                    e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
+
+                    for (int i = 0; i < ((TypeArray) arr.getType()).getArray().getSize(); i++) {
+                        vMemory.put(virtualMemory.getStackVariableCount(), null);
+                        virtualMemory.addStackVariableCount();
+                    }
+
+                } else {
+                    e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
+                    vMemory.put(virtualMemory.getStackVariableCount(), null);
+                    virtualMemory.addStackVariableCount();
+                }
             }
         }
         virtualMemory.getSecondaryEraStack().push(e);
@@ -237,16 +283,32 @@ public class Machine {
     public void processParameter(Parameter p) {
         // Add the parameter to the Era
         Operand tempOp = p.getArgument();
-        //int dirArg = vDirectory .get(Operand.getIdString(tempOp));
         int dirArg = getDirectionFromVM(tempOp);
         Variable varParam = virtualMemory.getSecondaryEraStack().peek().getParams().get(p.getParameterNum());
         int dirParam = virtualMemory.getSecondaryEraStack().peek().getvDirectory().get(varParam.getID());
         vMemory.put(dirParam, vMemory.get(dirArg));
 
+        if (tempOp.getType() instanceof TypeArray) {
+
+            for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++) {
+                vMemory.put(dirParam + i, vMemory.get(dirArg + i));
+            }
+        }
+
         // Add if param by reference
-        if(varParam.isByReference()){
-            ReferencePair r = new ReferencePair(dirArg, dirParam);
-            virtualMemory.getSecondaryEraStack().peek().getReferencePairList().push(r);
+        if (varParam.isByReference()) {
+            if (varParam.getType() instanceof TypeArray) {
+
+                ReferencePair r;
+                for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++) {
+                    r = new ReferencePair(dirArg + i, dirParam + i);
+                    virtualMemory.getSecondaryEraStack().peek().getReferencePairList().push(r);
+                }
+
+            } else {
+                ReferencePair r = new ReferencePair(dirArg, dirParam);
+                virtualMemory.getSecondaryEraStack().peek().getReferencePairList().push(r);
+            }
         }
 
     }
@@ -260,7 +322,7 @@ public class Machine {
         virtualMemory.setStackVariableCount(virtualMemory.getEraStack().peek().getvMemoryStart());
 
         // Check if there are values by ref, then asign the correct values
-        for (ReferencePair rp: virtualMemory.getEraStack().peek().getReferencePairList()){
+        for (ReferencePair rp : virtualMemory.getEraStack().peek().getReferencePairList()) {
             Object val = vMemory.get(rp.getRefDir());
             vMemory.put(rp.getOrgDir(), val);
         }
@@ -303,23 +365,69 @@ public class Machine {
         }
     }
 
+    Integer getTempIndex(String temp) {
+        return new Integer(temp.replace("(", "").replace(")", "").replace("t", "").replace("#", ""));
+    }
 
     public int getDirectionFromVM(Operand o) {
-        // TODO: 1/05/16 HANDLE IS POINTER, TEMPORAL PONITER
         Integer dir;
-        if (((o instanceof Temporal) && ((Temporal) o).isPointer())) {
+        if (Operand.getIdString(o).contains(".")) {
+            String[] ids = Operand.getIdString(o).split("\\.");
+            if (!ids[0].contains("@")) {
+                Operand inst;
+                if (ids[0].contains("#")) {
+                    inst = new Temporal(getTempIndex(ids[0]), new TypeFalse(), true);
+                } else {
+                    inst = new Variable(ids[0], new TypeFalse(), null);
+                }
+                Instance instance = (Instance) vMemory.get(getDirectionFromVM(inst));
+                dir = instance.getvDirectory().get(ids[1]);
+            } else {
+                Temporal temporal = new Temporal(getTempIndex(ids[0].replace("@", "")), new TypeFalse(), true);
+                Instance instance = (Instance) vMemory.get(getDirectionFromVM(temporal));
+                dir = instance.getvDirectory().get(ids[1]);
+                Constant<Integer> cDir = new Constant<>(dir, new TypeInt());
+                if (vDirectory.containsKey(Operand.getIdString(cDir))) {
+                    dir = vDirectory.get(Operand.getIdString(cDir));
+                } else {
+                    vMemory.put(virtualMemory.getConstIntCount(), cDir.getValue());
+                    dir = virtualMemory.getConstIntCount();
+                    virtualMemory.addConstIntCount();
+                }
+            }
+        } else if (((o instanceof Temporal) && ((Temporal) o).isPointer())) {
             if (virtualMemory.getEraStack().isEmpty()) {
                 dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("(", "").replace(")", ""))); // Operand 1
 
             } else {
                 // First check if the values are present in the Era param list
-                dir =  (Integer) vMemory.get(virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o)
+                dir = (Integer) vMemory.get(virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o)
                         .replace("(", "").replace(")", "")));
 
                 if (dir == null) {
-                    dir =  (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("(", "").replace(")", ""))); // Operand 1
+                    dir = (Integer) vMemory.get(vDirectory.get(Operand.getIdString(o).replace("(", "").replace(")", ""))); // Operand 1
                 }
+            }
+        } else if ((o instanceof Variable) && (((Variable) o).isAddress())) {
+            if (virtualMemory.getEraStack().isEmpty()) {
+                dir = vDirectory.get(Operand.getIdString(o).replace("@", "")); // Operand 1
 
+            } else {
+                // First check if the values are present in the Era param list
+                dir = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o)
+                        .replace("@", ""));
+
+                if (dir == null) {
+                    dir = vDirectory.get(Operand.getIdString(o).replace("@", "")); // Operand 1
+                }
+            }
+            Constant<Integer> cDir = new Constant<>(dir, new TypeInt());
+            if (vDirectory.containsKey(Operand.getIdString(cDir))) {
+                dir = vDirectory.get(Operand.getIdString(cDir));
+            } else {
+                vMemory.put(virtualMemory.getConstIntCount(), cDir.getValue());
+                dir = virtualMemory.getConstIntCount();
+                virtualMemory.addConstIntCount();
             }
         } else {
             if (virtualMemory.getEraStack().isEmpty()) {
@@ -332,7 +440,6 @@ public class Machine {
                 if (dir == null) {
                     dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
                 }
-
             }
         }
         return dir;
@@ -448,7 +555,7 @@ public class Machine {
         }
     }
 
-    public boolean evalAdvancedCondition(int operatorCode, int op1, int op2) {
+    public boolean evalAdvancedCondition(int operatorCode, float op1, float op2) {
         switch (operatorCode) {
             case 6:
                 return op1 == op2;
@@ -459,6 +566,27 @@ public class Machine {
         }
     }
 
+    public boolean evalAdvancedCondition(int operatorCode, boolean op1, boolean op2) {
+        switch (operatorCode) {
+            case 6:
+                return op1 == op2;
+            case 7:
+                return op1 != op2;
+            default:
+                return false;
+        }
+    }
+
+    public boolean evalAdvancedCondition(int operatorCode, String op1, String op2) {
+        switch (operatorCode) {
+            case 6:
+                return op1.equals(op2);
+            case 7:
+                return !(op1.equals(op2));
+            default:
+                return false;
+        }
+    }
 
     public void conditionExpression(Expression e) {
         int operatorCode = e.getOper().ordinal();
@@ -468,18 +596,45 @@ public class Machine {
 
         int dirOp1 = getDirectionFromVM(e.getOperand1());
         int dirOp2 = getDirectionFromVM(e.getOperand2());
-        //int tempDir = vDirectory .get(Operand.getIdString(e.getResult())); // Result
         int tempDir = getDirectionFromVM(e.getResult());
 
-
-        // TODO: 30/04/16 CHECK 3 == TRUE
-
         if (operatorCode == 6 || operatorCode == 7) { // == OR !=
-            // TODO: 1/05/16 IMPLEMENT OTHER CASES WITH BOOL AND FLOAT
 
             if (op1Type == 0 && op2Type == 0) { // Both integers
                 int x = (int) vMemory.get(dirOp1);
                 int y = (int) vMemory.get(dirOp2);
+                vMemory.put(tempDir, evalAdvancedCondition(operatorCode, x, y));
+
+            } else if (op1Type == 1 && op2Type == 0) { // Op1 float Op2 int
+                float x = (float) vMemory.get(dirOp1);
+                int y = (int) vMemory.get(dirOp2);
+
+                vMemory.put(tempDir, evalAdvancedCondition(operatorCode, x, y));
+
+
+            } else if (op1Type == 0 && op2Type == 1) { // Op1 int Op2 float
+                int x = (int) vMemory.get(dirOp1);
+                float y = (float) vMemory.get(dirOp2);
+
+                vMemory.put(tempDir, evalAdvancedCondition(operatorCode, x, y));
+
+
+            } else if (op1Type == 1 && op2Type == 1) { // Both floats
+                float x = (float) vMemory.get(dirOp1);
+                float y = (float) vMemory.get(dirOp2);
+
+                vMemory.put(tempDir, evalAdvancedCondition(operatorCode, x, y));
+
+            } else if (op1Type == 2 && op2Type == 2) { // Both Strings
+                String x = (String) vMemory.get(dirOp1);
+                String y = (String) vMemory.get(dirOp2);
+
+                vMemory.put(tempDir, evalAdvancedCondition(operatorCode, x, y));
+
+            } else if (op1Type == 3 && op2Type == 3) { // Both booleans
+                boolean x = (boolean) vMemory.get(dirOp1);
+                boolean y = (boolean) vMemory.get(dirOp2);
+
                 vMemory.put(tempDir, evalAdvancedCondition(operatorCode, x, y));
             }
 
@@ -518,9 +673,9 @@ public class Machine {
     }
 
     public boolean proccessQuadruple(Expression e) {
-        if(e.getOper().getValue() == 0){
+        if (e.getOper().getValue() == 0) {
             andOrCondition(e);
-        }else if (e.getOper().getValue() == 1) { // >, <, ==, != operations
+        } else if (e.getOper().getValue() == 1) { // >, <, ==, != operations
             conditionExpression(e);
         } else if (e.getOper().getValue() == 4) { // String concatenation
             stringConcatExpression(e);
@@ -531,7 +686,7 @@ public class Machine {
         return true;
     }
 
-    public void andOrCondition(Expression e){
+    public void andOrCondition(Expression e) {
         int dirOp1 = getDirectionFromVM(e.getOperand1());
         int dirOp2 = getDirectionFromVM(e.getOperand2());
 
@@ -541,7 +696,7 @@ public class Machine {
         boolean op1 = (Boolean) vMemory.get(dirOp1);
         boolean op2 = (Boolean) vMemory.get(dirOp2);
 
-        if(operatorCode == 0){
+        if (operatorCode == 0) {
             vMemory.put(tempDir, op1 && op2);
         } else {
             vMemory.put(tempDir, op1 || op2);
@@ -556,7 +711,7 @@ public class Machine {
         return true;
     }
 
-    public void proccessRead(Read r){
+    public void proccessRead(Read r) {
         ideConnection = MainIDE.getInstance();
         String value = ideConnection.read("Input var");
 
@@ -566,7 +721,7 @@ public class Machine {
         int type = r.getValue().getType().getTypeValue();
 
 
-        switch (type){
+        switch (type) {
             case 0:
                 vMemory.put(dirResult, new Integer(value));
                 break;

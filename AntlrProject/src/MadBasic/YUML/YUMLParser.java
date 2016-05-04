@@ -5,6 +5,7 @@ import MadBasic.Semantic.Methods.Function;
 import MadBasic.Semantic.Methods.Procedure;
 import MadBasic.Semantic.Class;
 import MadBasic.Semantic.Types.Type;
+import MadBasic.Semantic.Types.TypeArray;
 import MadBasic.Semantic.Types.TypeObject;
 
 import java.io.*;
@@ -31,20 +32,26 @@ public class YUMLParser {
         String diagram = "";
         String conns = "";
         for (Class c : classHashMap.values()) {
-            if (c.getParent() != null){
+            if (c.getParent() != null) {
                 conns += "[" + c.getParent().getName() + "]^-[" + c.getName() + "],\n";
             }
             String vars = "";
             Set<String> vks = c.getScope().getVariableHashMap().keySet();
             Object[] varsk = vks.toArray();
             for (Object vark : varsk) {
-                if (!c.getScope().getProcedureHashMap().containsKey(vark)
-                        && (c.getParent() == null || (!c.getParent().getScope().getVariableHashMap().containsKey(vark)))) {
+                if (!c.getScope().getProcedureHashMap().containsKey(vark) && (c.getParent() == null ||
+                        (!c.getParent().getScope().getVariableHashMap().containsKey(vark)))) {
                     Variable v = c.getScope().getVariableHashMap().get(vark);
                     if (v.getType() instanceof TypeObject) {
                         conns += "[" + c.getName() + "]->[" + ((TypeObject) v.getType()).getClasse().getName() + "],\n";
+                    } else if (v.getType() instanceof TypeArray &&
+                            ((TypeArray) v.getType()).getType() instanceof TypeObject) {
+                        conns += "[" + c.getName() + "]->*[" +
+                                ((TypeObject) ((TypeArray) v.getType()).getType()).getClasse().getName() + "],\n";
                     } else {
-                        vars += v.getID() + ":" + v.getType().toString().toLowerCase() + ";";
+                        vars += v.getID() + ":" +
+                                v.getType().toString().toLowerCase().replace(",", "-").
+                                        replace("[", "(").replace("]", ")") + ";";
                     }
                 }
             }
@@ -63,11 +70,13 @@ public class YUMLParser {
                         if (param.getType() instanceof TypeObject) {
                             params += param.getID() + ":" + ((TypeObject) param.getType()).getClasse().getName() + ";";
                         } else {
-                            params += param.getID() + ":" + param.getType().toString().toLowerCase() + ";";
+                            params += param.getID() + ":" +
+                                    param.getType().toString().toLowerCase().replace(",", "-").
+                                            replace("[", "(").replace("]", ")") + " : ";
                         }
                     }
-                    if (params.length() > 0) {
-                        params = params.substring(0, params.length() - 1);
+                    if (params.length() > 2) {
+                        params = params.substring(0, params.length() - 3);
                     }
                     if (proc instanceof Function && ((Function) proc).getType() instanceof TypeObject) {
                         procs += proc.getID() + ":" + ((TypeObject) ((Function) proc).getType()).getClasse().getName() + ";";

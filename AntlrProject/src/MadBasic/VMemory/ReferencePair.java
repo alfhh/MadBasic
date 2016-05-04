@@ -3,7 +3,7 @@ package MadBasic.VMemory;
 /**
  * Created by ahinojosa on 1/05/16.
  */
-public class ReferencePair{
+public class ReferencePair {
 
     int orgDir;
     int refDir;

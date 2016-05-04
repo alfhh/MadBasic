@@ -16,10 +16,9 @@ import java.io.IOException;
 public class Parser {
 
     public static ParseTree parse(String fileName,
-                                          String combinedGrammarFileName,
-                                          String startRule)
-            throws IOException
-    {
+                                  String combinedGrammarFileName,
+                                  String startRule)
+            throws IOException {
         ANTLRInputStream input = new ANTLRFileStream(fileName);
         MadBasicLexer lexer = new MadBasicLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
