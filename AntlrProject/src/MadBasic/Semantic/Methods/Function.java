@@ -4,6 +4,9 @@ import MadBasic.Algrebra.Variable;
 import MadBasic.Semantic.Scope;
 import MadBasic.Semantic.Types.Type;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 /**
  * Created by lsanchez on 4/10/16.
  */
@@ -21,6 +24,17 @@ public class Function extends Procedure {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    @Override
+    public Function clone() {
+        Function func = new Function(ID, type, scope.getParent());
+        func.setParams(new LinkedList<>());
+        func.getParams().addAll(params);
+        func.setQuadrupleStart(quadrupleStart);
+        func.setEra(new HashMap<>());
+        func.getEra().putAll(eraHash);
+        return func;
     }
 
     @Override
