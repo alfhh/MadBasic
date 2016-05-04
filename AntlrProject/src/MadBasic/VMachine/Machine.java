@@ -435,7 +435,7 @@ public class Machine {
                 dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
 
             } else {
-                // First check if the values are present in the Era param list
+                // First check if the values are present in the ErTesta param list
                 dir = virtualMemory.getEraStack().peek().getvDirectory().get(Operand.getIdString(o));
 
                 if (dir == null) {
