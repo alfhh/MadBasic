@@ -588,10 +588,6 @@ public class Machine {
         int dirOp2 = getDirectionFromVM(e.getOperand2());
         int tempDir = getDirectionFromVM(e.getResult());
 
-
-        // TODO: 30/04/16 CHECK 3 == TRUE
-        // TODO: 2/05/16 CHECK VALUES DIFFERENT THAN ZERO SHOULD BE TRUE
-
         if (operatorCode == 6 || operatorCode == 7) { // == OR !=
 
             if (op1Type == 0 && op2Type == 0) { // Both integers
