@@ -6,7 +6,7 @@ import MadBasic.Algrebra.Operator;
 /**
  * Created by lsanchez on 4/11/16.
  */
-public class Parameter extends Quadruple{
+public class Parameter extends Quadruple {
     Operand argument;
     int parameterNum;
 

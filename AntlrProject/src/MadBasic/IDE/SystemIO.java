@@ -7,7 +7,9 @@ package MadBasic.IDE;
 public interface SystemIO {
 
     void print(String message);
+
     void printError(String message);
+
     String read(String requestMessage);
 
 

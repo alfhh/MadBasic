@@ -16,20 +16,20 @@ public class Operand {
         this.type = type;
     }
 
-    static public String getIdString(Operand o){
+    static public String getIdString(Operand o) {
         String res;
-        if(o instanceof Variable){
-            if(((Variable) o).isByReference()){
+        if (o instanceof Variable) {
+            if (((Variable) o).isByReference()) {
                 res = ((Variable) o).getID();
-            } else if(((Variable) o).isAddress()){
+            } else if (((Variable) o).isAddress()) {
                 res = "@" + ((Variable) o).getID();
             } else {
                 res = ((Variable) o).getID();
             }
-        } else if(o instanceof Constant){
+        } else if (o instanceof Constant) {
             res = ((Constant) o).getValue().toString();
         } else {
-            if (((Temporal) o).isPointer()){
+            if (((Temporal) o).isPointer()) {
                 res = "(t#" + ((Temporal) o).getID() + ")";
             } else {
                 res = "t#" + ((Temporal) o).getID();
@@ -38,7 +38,7 @@ public class Operand {
         return res;
     }
 
-    public String toString(){
-        return  "Type: " + this.type.getTypeValue();
+    public String toString() {
+        return "Type: " + this.type.getTypeValue();
     }
 }

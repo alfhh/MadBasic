@@ -65,7 +65,7 @@ public class Scope {
         this.variableHashMap = variableHashMap;
     }
 
-    public Variable addVariable(Variable variable){
+    public Variable addVariable(Variable variable) {
         return this.variableHashMap.putIfAbsent(variable.getID(), variable);
     }
 

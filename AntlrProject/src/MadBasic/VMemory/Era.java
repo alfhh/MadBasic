@@ -47,7 +47,7 @@ public class Era {
         this.referencePairList = referencePairList;
     }
 
-    public Era clone(){
+    public Era clone() {
         Era e = new Era();
         e.setParams(new LinkedList<>());
         e.getParams().addAll(params);
@@ -95,6 +95,7 @@ public class Era {
     public void setVarHashMap(HashMap<String, Operand> varHashMap) {
         this.varHashMap = varHashMap;
     }
+
     public Instance getInstance() {
         return instance;
     }

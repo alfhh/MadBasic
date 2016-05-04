@@ -202,7 +202,7 @@ public class Machine {
         Era e = virtualMemory.getSecondaryEraStack().pop();
         e.setRetorno(dir);
         if (e.getInstance() == null &&
-                (!virtualMemory.getEraStack().isEmpty() && virtualMemory.getEraStack().peek().getInstance() != null)){
+                (!virtualMemory.getEraStack().isEmpty() && virtualMemory.getEraStack().peek().getInstance() != null)) {
             e.getvDirectory().putAll(virtualMemory.getEraStack().peek().getInstance().getvDirectory());
             e.setInstance(virtualMemory.getEraStack().peek().getInstance());
         }
@@ -260,12 +260,12 @@ public class Machine {
         Object[] keys = k.toArray();
         for (Object key : keys) {
             if (e.getvDirectory().get(key) == null) {
-                if((e.getVarHashMap().get(key) != null) && (e.getVarHashMap().get(key).getType() instanceof TypeArray)){
+                if ((e.getVarHashMap().get(key) != null) && (e.getVarHashMap().get(key).getType() instanceof TypeArray)) {
                     Operand arr = e.getVarHashMap().get(key);
 
                     e.getvDirectory().put((String) key, virtualMemory.getStackVariableCount());
 
-                    for(int i = 0; i < ((TypeArray) arr.getType()).getArray().getSize(); i++){
+                    for (int i = 0; i < ((TypeArray) arr.getType()).getArray().getSize(); i++) {
                         vMemory.put(virtualMemory.getStackVariableCount(), null);
                         virtualMemory.addStackVariableCount();
                     }
@@ -288,19 +288,19 @@ public class Machine {
         int dirParam = virtualMemory.getSecondaryEraStack().peek().getvDirectory().get(varParam.getID());
         vMemory.put(dirParam, vMemory.get(dirArg));
 
-        if(tempOp.getType() instanceof TypeArray){
+        if (tempOp.getType() instanceof TypeArray) {
 
-            for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++){
+            for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++) {
                 vMemory.put(dirParam + i, vMemory.get(dirArg + i));
             }
         }
 
         // Add if param by reference
         if (varParam.isByReference()) {
-            if(varParam.getType() instanceof TypeArray){
+            if (varParam.getType() instanceof TypeArray) {
 
                 ReferencePair r;
-                for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++){
+                for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++) {
                     r = new ReferencePair(dirArg + i, dirParam + i);
                     virtualMemory.getSecondaryEraStack().peek().getReferencePairList().push(r);
                 }
@@ -431,7 +431,7 @@ public class Machine {
             }
         } else {
             if (virtualMemory.getEraStack().isEmpty()) {
-                    dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
+                dir = vDirectory.get(Operand.getIdString(o)); // Operand 1
 
             } else {
                 // First check if the values are present in the Era param list

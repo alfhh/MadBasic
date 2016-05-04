@@ -77,7 +77,7 @@ public class BasicSemantic {
         return instance;
     }
 
-    public static void resetInstance(){
+    public static void resetInstance() {
         instance = new BasicSemantic();
     }
 

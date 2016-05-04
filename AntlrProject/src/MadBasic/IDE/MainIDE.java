@@ -142,8 +142,8 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
     }
 
     // Singleton..
-    static public MainIDE getInstance(){
-        if (instance == null){
+    static public MainIDE getInstance() {
+        if (instance == null) {
             instance = new MainIDE();
         }
         return instance;
@@ -151,35 +151,35 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
     /* ---- IDE FUNCTIONS ---- */
 
-    public void save(){
+    public void save() {
         String data = editorArea.getText();
 
-        if(archiveHandler.getActualFile() != null){
+        if (archiveHandler.getActualFile() != null) {
             archiveHandler.saveFile(data);
         } else {
             archiveHandler.saveFileAs(data, this);
         }
     }
 
-    public void saveAs(){
+    public void saveAs() {
         String data = editorArea.getText();
         archiveHandler.saveFileAs(data, this);
     }
 
-    public void open(){
+    public void open() {
         String fileData = archiveHandler.openFile(this);
         editorArea.setText(fileData);
     }
 
 
-    public void newFile(){
+    public void newFile() {
         // TODO CHECK IF THE FILE IS NOT SAVED
         editorArea.setText("");
         archiveHandler.resetActualFile();
     }
 
-    public void compile(){
-        if (archiveHandler.getActualFile() != null){
+    public void compile() {
+        if (archiveHandler.getActualFile() != null) {
             ParseTree tree = null;
 
             try {
@@ -191,12 +191,12 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
             TestingGround tester = new TestingGround();
 
-                TestingGround.TestNum[] selectedTests = {
-                        TestingGround.TestNum.VARIABLE_TABLE,
-                        TestingGround.TestNum.SCOPETABLE,
-                        TestingGround.TestNum.PROC_TABLE,
-                        TestingGround.TestNum.OPERANDSTACK,
-                        TestingGround.TestNum.QUADRUPLELIST,
+            TestingGround.TestNum[] selectedTests = {
+                    TestingGround.TestNum.VARIABLE_TABLE,
+                    TestingGround.TestNum.SCOPETABLE,
+                    TestingGround.TestNum.PROC_TABLE,
+                    TestingGround.TestNum.OPERANDSTACK,
+                    TestingGround.TestNum.QUADRUPLELIST,
             };
 
             tester.testManager(selectedTests);
@@ -213,28 +213,30 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
         } else {
             JOptionPane.showMessageDialog(null,
                     "\nPlease save file first",
-                    "Error",JOptionPane.WARNING_MESSAGE);
+                    "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    public void run(){
+    public void run() {
 
-        if(archiveHandler.getActualFile() != null){
+        if (archiveHandler.getActualFile() != null) {
             jConsole.setText("");
-            if(myMachine.run()){
+            if (myMachine.run()) {
                 print("Program successfully finished");
-            } else{
+            } else {
                 printError("Execution time error");
             }
         } else { // TODO: 22/04/16 Add compilationg succesful flag
             JOptionPane.showMessageDialog(null,
                     "\nCompile file first",
-                    "Error",JOptionPane.WARNING_MESSAGE);
+                    "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    public void createDiagram(){
-        compile();
+    public void createDiagram() {
+        if (!(BasicSemantic.getInstance() != null && !BasicSemantic.getInstance().getClassHashMap().isEmpty())) {
+            compile();
+        }
         YUMLParser yuml = new YUMLParser();
         yuml.makeDiagram(BasicSemantic.getInstance().getClassHashMap());
         yuml.createDiagram();
@@ -243,45 +245,45 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
     /* ---- IDE FUNCTIONS ---- */
 
-    public void actionPerformed(ActionEvent e){
+    public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == miCloseApp){
+        if (e.getSource() == miCloseApp) {
             System.exit(0);
         }
 
-        if(e.getSource() == miNewFile){
+        if (e.getSource() == miNewFile) {
             newFile();
         }
 
-        if(e.getSource() == miSaveFile){
+        if (e.getSource() == miSaveFile) {
             save();
         }
 
-        if(e.getSource() == miSaveAsFile){
+        if (e.getSource() == miSaveAsFile) {
             saveAs();
         }
 
-        if(e.getSource() == miOpen){
+        if (e.getSource() == miOpen) {
             open();
         }
 
-        if(e.getSource() == miCompile){
+        if (e.getSource() == miCompile) {
             save();
             compile();
 
         }
 
-        if(e.getSource() == miRun){
+        if (e.getSource() == miRun) {
             run();
         }
 
-        if(e.getSource() == miRunCompile){
+        if (e.getSource() == miRunCompile) {
             save();
             compile();
             run();
         }
 
-        if(e.getSource() == miCreateDiagram){
+        if (e.getSource() == miCreateDiagram) {
             createDiagram();
         }
 
@@ -289,7 +291,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
 
     @Override
     public void print(String message) {
-        message = message.replace("\"" , "");
+        message = message.replace("\"", "");
         jConsole.append(message + "\n");
     }
 
@@ -297,6 +299,7 @@ public class MainIDE extends JFrame implements ActionListener, SystemIO {
      * Function that logs an error to the IDE console
      * The message displayed will have a prefix string equal to
      * "Error: "
+     *
      * @param message the message that is displayed
      */
     @Override

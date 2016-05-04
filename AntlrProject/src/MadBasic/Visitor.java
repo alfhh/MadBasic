@@ -2405,10 +2405,11 @@ public class Visitor extends MadBasicBaseVisitor<String> {
 
     /**
      * This function removes unnecessary entries in the vDir added while creation a procedure or a function
+     *
      * @param p
      */
-    public void removeDuplicatedDirs(Procedure p){
-        for(Variable var : p.getParams()){
+    public void removeDuplicatedDirs(Procedure p) {
+        for (Variable var : p.getParams()) {
             virtualMemory.getvDirectory().remove(var.getID());
         }
     }
