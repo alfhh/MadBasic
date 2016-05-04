@@ -254,7 +254,7 @@ public class Machine {
             e.getvDirectory().putAll(instance.getvDirectory());
             e.setInstance(instance);
         }
-        //Era e = virtualMemory.getEraHashMap().get(qE.getProcedure().getID());
+
         e.setvMemoryStart(virtualMemory.getStackVariableCount());
         Set<String> k = e.getvDirectory().keySet();
         Object[] keys = k.toArray();
@@ -297,8 +297,18 @@ public class Machine {
 
         // Add if param by reference
         if (varParam.isByReference()) {
-            ReferencePair r = new ReferencePair(dirArg, dirParam);
-            virtualMemory.getSecondaryEraStack().peek().getReferencePairList().push(r);
+            if(varParam.getType() instanceof TypeArray){
+
+                ReferencePair r;
+                for (int i = 0; i < ((TypeArray) tempOp.getType()).getArray().getSize(); i++){
+                    r = new ReferencePair(dirArg + i, dirParam + i);
+                    virtualMemory.getSecondaryEraStack().peek().getReferencePairList().push(r);
+                }
+
+            } else {
+                ReferencePair r = new ReferencePair(dirArg, dirParam);
+                virtualMemory.getSecondaryEraStack().peek().getReferencePairList().push(r);
+            }
         }
 
     }

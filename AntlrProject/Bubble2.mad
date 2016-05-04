@@ -1,0 +1,57 @@
+program bublesort;
+
+methods:
+	
+		void printArray(int size, int[0, 10] ~n){
+			vars:
+				int index;
+			index = 0;
+			while(index <= size){
+				print("[" ^ index ^ "] = " ^ n[index]);
+				index = index + 1;
+			}
+		}
+
+		void bubbleSort(int size, int[0, 10] ~n){
+			vars:
+				int index, temp;
+				bool flag;
+				
+			flag = true;
+			while(flag){
+				flag = false;
+				index = 0;
+				while(index < size){
+					if(n[index] < n[index+1]){
+						temp = n[index];
+						n[index] = n[index + 1];
+						n[index+1] = temp;
+						flag = true;
+					}
+					index = index + 1;
+				}
+			}
+		}
+		
+main:
+vars:
+	int [0, 10]nums;
+	int size;
+
+	size = 10;
+	nums[0] = 7;
+	nums[1] = 11;
+	nums[2] = 4;
+	nums[3] = 98;
+	nums[4] = 1;
+	nums[5] = 6;
+	nums[6] = 8;
+	nums[7] = 2;
+	nums[8] = 40;
+	nums[9] = 41;
+	nums[10] = 23;
+	printArray(size, ~nums);
+	bubbleSort(size, ~nums);
+	print("------------------------");
+	printArray(size, ~nums);
+	end
